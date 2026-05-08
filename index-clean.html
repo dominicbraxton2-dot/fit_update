@@ -207,6 +207,8 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .cfg-label{font-size:14px;font-weight:500;}
 .cfg-controls{display:flex;align-items:center;gap:10px;}
 .cfg-val{font-family:'Bebas Neue',sans-serif;font-size:28px;min-width:48px;text-align:center;line-height:1;}
+input.cfg-val{background:transparent;border:none;outline:none;color:var(--text);width:64px;-moz-appearance:textfield;caret-color:var(--yellow);}
+input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}
 .cfg-btn{width:36px;height:36px;border-radius:10px;border:1px solid var(--border-bright);background:var(--surface2);color:var(--text);font-size:20px;font-weight:300;display:flex;align-items:center;justify-content:center;}
 .start-btn{margin:0 16px;padding:18px;border-radius:18px;border:none;font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:2px;width:calc(100% - 32px);background:linear-gradient(135deg,var(--yellow),#b8ff00);color:#000;box-shadow:0 8px 32px #e8ff0030;}
 [data-theme="light"] .start-btn{background:linear-gradient(135deg,#c8a800,#a08000);color:#fff;}
@@ -396,7 +398,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
         <div class="cfg-label">Work time</div>
         <div class="cfg-controls">
           <button class="cfg-btn" onclick="adjCfg('tabWorkSec',-5)">−</button>
-          <div class="cfg-val" id="tabWorkSecDisp">20s</div>
+          <input class="cfg-val" type="number" inputmode="numeric" id="tabWorkSecDisp" min="1" value="20" oninput="setCfg('tabWorkSec',this.value)"/>
           <button class="cfg-btn" onclick="adjCfg('tabWorkSec',5)">+</button>
         </div>
       </div>
@@ -404,7 +406,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
         <div class="cfg-label">Rest time</div>
         <div class="cfg-controls">
           <button class="cfg-btn" onclick="adjCfg('tabRestSec',-5)">−</button>
-          <div class="cfg-val" id="tabRestSecDisp">10s</div>
+          <input class="cfg-val" type="number" inputmode="numeric" id="tabRestSecDisp" min="1" value="10" oninput="setCfg('tabRestSec',this.value)"/>
           <button class="cfg-btn" onclick="adjCfg('tabRestSec',5)">+</button>
         </div>
       </div>
@@ -412,7 +414,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
         <div class="cfg-label">Rounds</div>
         <div class="cfg-controls">
           <button class="cfg-btn" onclick="adjCfg('tabRounds',-1)">−</button>
-          <div class="cfg-val" id="tabRoundsDisp">8</div>
+          <input class="cfg-val" type="number" inputmode="numeric" id="tabRoundsDisp" min="1" value="8" oninput="setCfg('tabRounds',this.value)"/>
           <button class="cfg-btn" onclick="adjCfg('tabRounds',1)">+</button>
         </div>
       </div>
@@ -425,7 +427,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
         <div class="cfg-label">Work time</div>
         <div class="cfg-controls">
           <button class="cfg-btn" onclick="adjCfg('custWorkSec',-5)">−</button>
-          <div class="cfg-val" id="custWorkSecDisp">30s</div>
+          <input class="cfg-val" type="number" inputmode="numeric" id="custWorkSecDisp" min="1" value="30" oninput="setCfg('custWorkSec',this.value)"/>
           <button class="cfg-btn" onclick="adjCfg('custWorkSec',5)">+</button>
         </div>
       </div>
@@ -433,7 +435,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
         <div class="cfg-label">Rest time</div>
         <div class="cfg-controls">
           <button class="cfg-btn" onclick="adjCfg('custRestSec',-5)">−</button>
-          <div class="cfg-val" id="custRestSecDisp">90s</div>
+          <input class="cfg-val" type="number" inputmode="numeric" id="custRestSecDisp" min="1" value="90" oninput="setCfg('custRestSec',this.value)"/>
           <button class="cfg-btn" onclick="adjCfg('custRestSec',5)">+</button>
         </div>
       </div>
@@ -441,7 +443,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
         <div class="cfg-label">Rounds</div>
         <div class="cfg-controls">
           <button class="cfg-btn" onclick="adjCfg('custRounds',-1)">−</button>
-          <div class="cfg-val" id="custRoundsDisp">6</div>
+          <input class="cfg-val" type="number" inputmode="numeric" id="custRoundsDisp" min="1" value="6" oninput="setCfg('custRounds',this.value)"/>
           <button class="cfg-btn" onclick="adjCfg('custRounds',1)">+</button>
         </div>
       </div>
@@ -454,7 +456,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
         <div class="cfg-label">Rest duration</div>
         <div class="cfg-controls">
           <button class="cfg-btn" onclick="adjCfg('restSec',-15)">−</button>
-          <div class="cfg-val" id="restSecDisp">60s</div>
+          <input class="cfg-val" type="number" inputmode="numeric" id="restSecDisp" min="1" value="60" oninput="setCfg('restSec',this.value)"/>
           <button class="cfg-btn" onclick="adjCfg('restSec',15)">+</button>
         </div>
       </div>
@@ -1328,13 +1330,17 @@ function adjCfg(key,delta){
   updateCfgDisplay();
 }
 function updateCfgDisplay(){
-  document.getElementById('tabWorkSecDisp').textContent=cfg.tabWorkSec+'s';
-  document.getElementById('tabRestSecDisp').textContent=cfg.tabRestSec+'s';
-  document.getElementById('tabRoundsDisp').textContent=cfg.tabRounds;
-  document.getElementById('custWorkSecDisp').textContent=cfg.custWorkSec+'s';
-  document.getElementById('custRestSecDisp').textContent=cfg.custRestSec+'s';
-  document.getElementById('custRoundsDisp').textContent=cfg.custRounds;
-  document.getElementById('restSecDisp').textContent=cfg.restSec+'s';
+  document.getElementById('tabWorkSecDisp').value=cfg.tabWorkSec;
+  document.getElementById('tabRestSecDisp').value=cfg.tabRestSec;
+  document.getElementById('tabRoundsDisp').value=cfg.tabRounds;
+  document.getElementById('custWorkSecDisp').value=cfg.custWorkSec;
+  document.getElementById('custRestSecDisp').value=cfg.custRestSec;
+  document.getElementById('custRoundsDisp').value=cfg.custRounds;
+  document.getElementById('restSecDisp').value=cfg.restSec;
+}
+function setCfg(key,val){
+  const n=parseInt(val,10);
+  if(!isNaN(n)&&n>=1) cfg[key]=n;
 }
 function openTimerFrom(exName){
   const n=exName.toLowerCase();
