@@ -46,8 +46,8 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 }
 [data-theme="dark"] .nav-bar{background:rgba(5,5,8,0.92);}
 [data-theme="light"] .nav-bar{background:rgba(242,242,247,0.92);}
-.nav-btn{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;background:none;border:none;padding:4px 0;color:var(--muted);font-size:8px;letter-spacing:1px;text-transform:uppercase;font-weight:600;}
-.nav-btn .nav-icon{font-size:18px;line-height:1;}
+.nav-btn{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;background:none;border:none;padding:4px 2px;color:var(--muted);font-size:7px;letter-spacing:0.5px;text-transform:uppercase;font-weight:600;white-space:nowrap;overflow:hidden;}
+.nav-btn .nav-icon{font-size:17px;line-height:1;}
 .nav-btn.active{color:var(--yellow);}
 [data-theme="light"] .nav-btn.active{color:#c8a800;}
 
@@ -207,6 +207,8 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .cfg-label{font-size:14px;font-weight:500;}
 .cfg-controls{display:flex;align-items:center;gap:10px;}
 .cfg-val{font-family:'Bebas Neue',sans-serif;font-size:28px;min-width:48px;text-align:center;line-height:1;}
+input.cfg-val{background:transparent;border:none;outline:none;color:var(--text);width:64px;-moz-appearance:textfield;caret-color:var(--yellow);}
+input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}
 .cfg-btn{width:36px;height:36px;border-radius:10px;border:1px solid var(--border-bright);background:var(--surface2);color:var(--text);font-size:20px;font-weight:300;display:flex;align-items:center;justify-content:center;}
 .start-btn{margin:0 16px;padding:18px;border-radius:18px;border:none;font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:2px;width:calc(100% - 32px);background:linear-gradient(135deg,var(--yellow),#b8ff00);color:#000;box-shadow:0 8px 32px #e8ff0030;}
 [data-theme="light"] .start-btn{background:linear-gradient(135deg,#c8a800,#a08000);color:#fff;}
@@ -396,7 +398,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
         <div class="cfg-label">Work time</div>
         <div class="cfg-controls">
           <button class="cfg-btn" onclick="adjCfg('tabWorkSec',-5)">−</button>
-          <div class="cfg-val" id="tabWorkSecDisp">20s</div>
+          <input class="cfg-val" type="number" inputmode="numeric" id="tabWorkSecDisp" min="1" value="20" oninput="setCfg('tabWorkSec',this.value)"/>
           <button class="cfg-btn" onclick="adjCfg('tabWorkSec',5)">+</button>
         </div>
       </div>
@@ -404,7 +406,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
         <div class="cfg-label">Rest time</div>
         <div class="cfg-controls">
           <button class="cfg-btn" onclick="adjCfg('tabRestSec',-5)">−</button>
-          <div class="cfg-val" id="tabRestSecDisp">10s</div>
+          <input class="cfg-val" type="number" inputmode="numeric" id="tabRestSecDisp" min="1" value="10" oninput="setCfg('tabRestSec',this.value)"/>
           <button class="cfg-btn" onclick="adjCfg('tabRestSec',5)">+</button>
         </div>
       </div>
@@ -412,7 +414,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
         <div class="cfg-label">Rounds</div>
         <div class="cfg-controls">
           <button class="cfg-btn" onclick="adjCfg('tabRounds',-1)">−</button>
-          <div class="cfg-val" id="tabRoundsDisp">8</div>
+          <input class="cfg-val" type="number" inputmode="numeric" id="tabRoundsDisp" min="1" value="8" oninput="setCfg('tabRounds',this.value)"/>
           <button class="cfg-btn" onclick="adjCfg('tabRounds',1)">+</button>
         </div>
       </div>
@@ -425,7 +427,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
         <div class="cfg-label">Work time</div>
         <div class="cfg-controls">
           <button class="cfg-btn" onclick="adjCfg('custWorkSec',-5)">−</button>
-          <div class="cfg-val" id="custWorkSecDisp">30s</div>
+          <input class="cfg-val" type="number" inputmode="numeric" id="custWorkSecDisp" min="1" value="30" oninput="setCfg('custWorkSec',this.value)"/>
           <button class="cfg-btn" onclick="adjCfg('custWorkSec',5)">+</button>
         </div>
       </div>
@@ -433,7 +435,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
         <div class="cfg-label">Rest time</div>
         <div class="cfg-controls">
           <button class="cfg-btn" onclick="adjCfg('custRestSec',-5)">−</button>
-          <div class="cfg-val" id="custRestSecDisp">90s</div>
+          <input class="cfg-val" type="number" inputmode="numeric" id="custRestSecDisp" min="1" value="90" oninput="setCfg('custRestSec',this.value)"/>
           <button class="cfg-btn" onclick="adjCfg('custRestSec',5)">+</button>
         </div>
       </div>
@@ -441,7 +443,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
         <div class="cfg-label">Rounds</div>
         <div class="cfg-controls">
           <button class="cfg-btn" onclick="adjCfg('custRounds',-1)">−</button>
-          <div class="cfg-val" id="custRoundsDisp">6</div>
+          <input class="cfg-val" type="number" inputmode="numeric" id="custRoundsDisp" min="1" value="6" oninput="setCfg('custRounds',this.value)"/>
           <button class="cfg-btn" onclick="adjCfg('custRounds',1)">+</button>
         </div>
       </div>
@@ -454,7 +456,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
         <div class="cfg-label">Rest duration</div>
         <div class="cfg-controls">
           <button class="cfg-btn" onclick="adjCfg('restSec',-15)">−</button>
-          <div class="cfg-val" id="restSecDisp">60s</div>
+          <input class="cfg-val" type="number" inputmode="numeric" id="restSecDisp" min="1" value="60" oninput="setCfg('restSec',this.value)"/>
           <button class="cfg-btn" onclick="adjCfg('restSec',15)">+</button>
         </div>
       </div>
@@ -1259,9 +1261,12 @@ function renderCalendar(){
 }
 
 function calcStreak(completedDates,todayStr){
-  let streak=0,check=new Date(todayStr);
+  let streak=0;
+  const start=new Date(todayStr+'T12:00:00');
+  if(!completedDates[todayStr]) start.setDate(start.getDate()-1);
+  const check=new Date(start);
   while(true){
-    const s=check.toISOString().split('T')[0];
+    const s=`${check.getFullYear()}-${String(check.getMonth()+1).padStart(2,'0')}-${String(check.getDate()).padStart(2,'0')}`;
     if(completedDates[s]){streak++;check.setDate(check.getDate()-1);}
     else break;
   }
@@ -1304,7 +1309,7 @@ function renderPRs(filter=''){
 function filterPRs(val){renderPRs(val);}
 function confirmClearPRs(){
   if(confirm('Clear all personal records?')){
-    getAllExercises().forEach(ex=>localStorage.removeItem(prKey(ex.name)));
+    getAllExercises().forEach(ex=>dbDel(prKey(ex.name)));
     renderPRs();
   }
 }
@@ -1328,13 +1333,17 @@ function adjCfg(key,delta){
   updateCfgDisplay();
 }
 function updateCfgDisplay(){
-  document.getElementById('tabWorkSecDisp').textContent=cfg.tabWorkSec+'s';
-  document.getElementById('tabRestSecDisp').textContent=cfg.tabRestSec+'s';
-  document.getElementById('tabRoundsDisp').textContent=cfg.tabRounds;
-  document.getElementById('custWorkSecDisp').textContent=cfg.custWorkSec+'s';
-  document.getElementById('custRestSecDisp').textContent=cfg.custRestSec+'s';
-  document.getElementById('custRoundsDisp').textContent=cfg.custRounds;
-  document.getElementById('restSecDisp').textContent=cfg.restSec+'s';
+  document.getElementById('tabWorkSecDisp').value=cfg.tabWorkSec;
+  document.getElementById('tabRestSecDisp').value=cfg.tabRestSec;
+  document.getElementById('tabRoundsDisp').value=cfg.tabRounds;
+  document.getElementById('custWorkSecDisp').value=cfg.custWorkSec;
+  document.getElementById('custRestSecDisp').value=cfg.custRestSec;
+  document.getElementById('custRoundsDisp').value=cfg.custRounds;
+  document.getElementById('restSecDisp').value=cfg.restSec;
+}
+function setCfg(key,val){
+  const n=parseInt(val,10);
+  if(!isNaN(n)&&n>=1) cfg[key]=n;
 }
 function openTimerFrom(exName){
   const n=exName.toLowerCase();
@@ -1372,7 +1381,7 @@ function updateTimerUI(){
   document.getElementById('ringFg').style.stroke=color;
   document.getElementById('timerBig').textContent=tSec;
   document.getElementById('timerBig').style.color=color;
-  const pt=tIsRest?(timerMode==='rest'?'REST':'REST'):'WORK';
+  const pt=tIsRest?'REST':'WORK';
   document.getElementById('timerMini').textContent=pt;
   document.getElementById('timerMini').style.color=color;
   document.getElementById('phaseLabel').textContent=pt;
@@ -1510,8 +1519,6 @@ const MUSCLE_GROUP_MAP={
   "Lats":["bm-lats"],"Traps":["bm-traps"],"Lower Back":["bm-lowerback"],
   "Glutes":["bm-glutes"],"Hamstrings":["bm-lham","bm-rham"],"Rear Delts":["bm-lshoulder","bm-rshoulder"],
 };
-
-let muscleMapMode='today';
 
 // ── HISTORY ──
 function renderHistory(){
@@ -1690,11 +1697,14 @@ function getMusclesForDay(wi,di){
 
 function getMusclesForRange(mode){
   const muscles=new Set();
+  const todayStr=new Date().toISOString().split('T')[0];
   if(mode==='today'){
-    getMusclesForDay(aW,aD).forEach(m=>muscles.add(m));
+    WEEKS.forEach((wk,wi)=>wk.days.forEach((_,di)=>{
+      if(getWDone(wi,di)===todayStr) getMusclesForDay(wi,di).forEach(m=>muscles.add(m));
+    }));
   } else if(mode==='week'){
     WEEKS[aW].days.forEach((_,di)=>{
-      if(getWDone(aW,di)||di===aD) getMusclesForDay(aW,di).forEach(m=>muscles.add(m));
+      if(getWDone(aW,di)) getMusclesForDay(aW,di).forEach(m=>muscles.add(m));
     });
   } else {
     WEEKS.forEach((wk,wi)=>wk.days.forEach((_,di)=>{
