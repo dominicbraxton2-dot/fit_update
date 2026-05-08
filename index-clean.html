@@ -1261,9 +1261,12 @@ function renderCalendar(){
 }
 
 function calcStreak(completedDates,todayStr){
-  let streak=0,check=new Date(todayStr);
+  let streak=0;
+  const start=new Date(todayStr+'T12:00:00');
+  if(!completedDates[todayStr]) start.setDate(start.getDate()-1);
+  const check=new Date(start);
   while(true){
-    const s=check.toISOString().split('T')[0];
+    const s=`${check.getFullYear()}-${String(check.getMonth()+1).padStart(2,'0')}-${String(check.getDate()).padStart(2,'0')}`;
     if(completedDates[s]){streak++;check.setDate(check.getDate()-1);}
     else break;
   }
@@ -1378,7 +1381,7 @@ function updateTimerUI(){
   document.getElementById('ringFg').style.stroke=color;
   document.getElementById('timerBig').textContent=tSec;
   document.getElementById('timerBig').style.color=color;
-  const pt=tIsRest?(timerMode==='rest'?'REST':'REST'):'WORK';
+  const pt=tIsRest?'REST':'WORK';
   document.getElementById('timerMini').textContent=pt;
   document.getElementById('timerMini').style.color=color;
   document.getElementById('phaseLabel').textContent=pt;
@@ -1694,11 +1697,14 @@ function getMusclesForDay(wi,di){
 
 function getMusclesForRange(mode){
   const muscles=new Set();
+  const todayStr=new Date().toISOString().split('T')[0];
   if(mode==='today'){
-    getMusclesForDay(aW,aD).forEach(m=>muscles.add(m));
+    WEEKS.forEach((wk,wi)=>wk.days.forEach((_,di)=>{
+      if(getWDone(wi,di)===todayStr) getMusclesForDay(wi,di).forEach(m=>muscles.add(m));
+    }));
   } else if(mode==='week'){
     WEEKS[aW].days.forEach((_,di)=>{
-      if(getWDone(aW,di)||di===aD) getMusclesForDay(aW,di).forEach(m=>muscles.add(m));
+      if(getWDone(aW,di)) getMusclesForDay(aW,di).forEach(m=>muscles.add(m));
     });
   } else {
     WEEKS.forEach((wk,wi)=>wk.days.forEach((_,di)=>{
