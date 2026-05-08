@@ -46,8 +46,8 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 }
 [data-theme="dark"] .nav-bar{background:rgba(5,5,8,0.92);}
 [data-theme="light"] .nav-bar{background:rgba(242,242,247,0.92);}
-.nav-btn{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;background:none;border:none;padding:4px 0;color:var(--muted);font-size:8px;letter-spacing:1px;text-transform:uppercase;font-weight:600;}
-.nav-btn .nav-icon{font-size:18px;line-height:1;}
+.nav-btn{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;background:none;border:none;padding:4px 2px;color:var(--muted);font-size:7px;letter-spacing:0.5px;text-transform:uppercase;font-weight:600;white-space:nowrap;overflow:hidden;}
+.nav-btn .nav-icon{font-size:17px;line-height:1;}
 .nav-btn.active{color:var(--yellow);}
 [data-theme="light"] .nav-btn.active{color:#c8a800;}
 
@@ -1304,7 +1304,7 @@ function renderPRs(filter=''){
 function filterPRs(val){renderPRs(val);}
 function confirmClearPRs(){
   if(confirm('Clear all personal records?')){
-    getAllExercises().forEach(ex=>localStorage.removeItem(prKey(ex.name)));
+    getAllExercises().forEach(ex=>dbDel(prKey(ex.name)));
     renderPRs();
   }
 }
@@ -1510,8 +1510,6 @@ const MUSCLE_GROUP_MAP={
   "Lats":["bm-lats"],"Traps":["bm-traps"],"Lower Back":["bm-lowerback"],
   "Glutes":["bm-glutes"],"Hamstrings":["bm-lham","bm-rham"],"Rear Delts":["bm-lshoulder","bm-rshoulder"],
 };
-
-let muscleMapMode='today';
 
 // ── HISTORY ──
 function renderHistory(){
