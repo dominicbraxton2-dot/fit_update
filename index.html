@@ -294,6 +294,11 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
     </div>
     <h1>DOM'S<br/><span class="acc">FIT</span><br/>PLAN</h1>
     <p class="tagline">Big Chest · Massive Legs · Shredded Abs · Kill The Visceral Fat</p>
+    <div style="display:flex;gap:12px;margin-top:10px;flex-wrap:wrap;">
+      <div style="background:var(--surface);border:1px solid var(--border-bright);border-radius:10px;padding:5px 12px;font-size:11px;color:var(--muted);">35 yrs · Dec 20</div>
+      <div style="background:var(--surface);border:1px solid var(--border-bright);border-radius:10px;padding:5px 12px;font-size:11px;color:var(--muted);">5'6" · 158–165 lbs</div>
+      <div style="background:var(--surface);border:1px solid var(--border-bright);border-radius:10px;padding:5px 12px;font-size:11px;color:var(--muted);">Fitness 8/10 · Cardio 5/10</div>
+    </div>
   </div>
 
   <!-- WORKOUT REMINDERS -->
@@ -695,8 +700,8 @@ const WEEKS=[
     ]},
     {day:2,label:"Legs — Quad Focus",icon:"🦵",type:"legs",note:"Break parallel on squats. Drive through your heels on the way up. Quads and calves both need high volume to grow — every set counts.",exercises:[
       {name:"Barbell Back Squat",sets:4,reps:"10",weight:"Moderate",timer:false},
-      {name:"Leg Press",sets:4,reps:"15",weight:"3 plates per side",timer:false},
-      {name:"Leg Extension",sets:4,reps:"15",weight:"Moderate",timer:false},
+      {name:"Barbell Hack Squat",sets:4,reps:"15",weight:"Moderate",timer:false},
+      {name:"Band Terminal Knee Extension",sets:4,reps:"15",weight:"Resistance band",timer:false},
       {name:"Bulgarian Split Squat",sets:3,reps:"10 each",weight:"30 lbs DBs",timer:false},
       {name:"Standing Calf Raise",sets:4,reps:"20",weight:"BW + 60 lbs",timer:false},
       {name:"Seated Calf Raise",sets:4,reps:"20",weight:"35 lbs on knees",timer:false},
@@ -722,7 +727,7 @@ const WEEKS=[
     ]},
     {day:5,label:"Hamstrings + Abs",icon:"🔥",type:"legs",note:"Hamstrings are often the most undertrained muscle. Make them a priority today. Big hamstrings balance the quads and protect your knees — plus calves need hit twice a week to grow.",exercises:[
       {name:"Romanian Deadlift",sets:4,reps:"10",weight:"35 lbs DBs",timer:false},
-      {name:"Leg Curl Machine",sets:4,reps:"12",weight:"Moderate",timer:false},
+      {name:"Nordic Curl (hyperextension bench)",sets:4,reps:"5",weight:"Bodyweight (assisted ok)",timer:false},
       {name:"Glute Bridge w/ Barbell",sets:3,reps:"15",weight:"Moderate",timer:false},
       {name:"Stiff-Leg Deadlift",sets:3,reps:"10",weight:"Moderate",timer:false},
       {name:"Standing Calf Raise",sets:4,reps:"20",weight:"BW + 60 lbs",timer:false},
@@ -749,23 +754,23 @@ const WEEKS=[
     ]},
   ]},
   {week:2,theme:"Progressive Overload",days:[
-    {day:1,label:"Chest & Triceps",icon:"💪",type:"push",note:"Add 5–10 lbs to every barbell and DB movement from Week 1. Four chest movements hit flat, incline, isolation, and lower chest — building width and thickness for a bigger chest.",exercises:[
+    {day:1,label:"Chest & Triceps",icon:"💪",type:"push",note:"Add 5–10 lbs to every barbell and DB movement from Week 1. Hit flat, incline, isolation, and lower chest in that order — width and thickness come from attacking all angles. Bigger chest requires volume before triceps.",exercises:[
       {name:"Barbell Bench Press",sets:4,reps:"8",weight:"+5–10 lbs vs W1",timer:false},
       {name:"Incline DB Press",sets:4,reps:"10",weight:"35 lbs",timer:false},
       {name:"GMWD Chest Press Machine",sets:3,reps:"10",weight:"Heavier",timer:false},
-      {name:"Band Crossover",sets:3,reps:"15",weight:"Resistance band",timer:false},
+      {name:"Decline DB Press",sets:3,reps:"12",weight:"25–30 lbs",timer:false},
       {name:"Close-Grip Bench Press",sets:3,reps:"10",weight:"Moderate",timer:false},
       {name:"Skull Crushers",sets:3,reps:"12",weight:"Light-moderate",timer:false},
     ]},
-    {day:2,label:"Legs — Quad Focus",icon:"🦵",type:"legs",note:"5 sets this week. Push the 60 lb DB on goblet squats.",exercises:[
+    {day:2,label:"Legs — Quad Focus",icon:"🦵",type:"legs",note:"5 sets on squat this week. Push the 60 lb DB on goblet squats. Calves need high frequency — both standing and seated hit today to build the gastrocnemius and soleus.",exercises:[
       {name:"Barbell Back Squat",sets:5,reps:"8",weight:"+10 lbs vs W1",timer:false},
-      {name:"Goblet Squat",sets:3,reps:"10",weight:"60 lbs",timer:false},
-      {name:"Hack Squat (barbell)",sets:3,reps:"10",weight:"Moderate",timer:false},
+      {name:"Barbell Hack Squat",sets:4,reps:"15",weight:"Moderate",timer:false},
+      {name:"Sissy Squat",sets:4,reps:"12",weight:"Bodyweight",timer:false},
       {name:"Walking Lunges",sets:3,reps:"12 each",weight:"30 lbs DBs",timer:false},
-      {name:"Leg Extension",sets:4,reps:"12",weight:"Moderate-heavy",timer:false},
-      {name:"Weighted Calf Raise",sets:4,reps:"20",weight:"60 lbs DB",timer:false},
+      {name:"Standing Calf Raise",sets:4,reps:"20",weight:"BW + 60 lbs",timer:false},
+      {name:"Seated Calf Raise",sets:4,reps:"20",weight:"35 lbs on knees",timer:false},
     ]},
-    {day:3,label:"Incline Walk — Intervals",icon:"🚶",type:"cardio",note:"Alternate between steep and moderate incline every 5 min. This spikes your heart rate without running.",exercises:[
+    {day:3,label:"Incline Walk — Intervals",icon:"🚶",type:"cardio",note:"Incline walking at 3 mph is one of the most effective tools for attacking visceral fat — it's low impact, sustainable, and keeps you in Zone 2 the whole time. Alternate between steep and moderate incline every 5 min. This spikes your heart rate without running. Finish with abs to attack the gut.",exercises:[
       {name:"Warm-up Walk",sets:1,reps:"5 min",weight:"3 mph / 4% incline",timer:true},
       {name:"High Incline Interval",sets:1,reps:"5 min",weight:"3 mph / 15% incline",timer:true},
       {name:"Recovery Walk",sets:1,reps:"5 min",weight:"3 mph / 6% incline",timer:true},
@@ -773,33 +778,40 @@ const WEEKS=[
       {name:"Recovery Walk",sets:1,reps:"5 min",weight:"3 mph / 6% incline",timer:true},
       {name:"High Incline Interval",sets:1,reps:"5 min",weight:"3 mph / 15% incline",timer:true},
       {name:"Cool-down Walk",sets:1,reps:"5 min",weight:"3 mph / 3% incline",timer:true},
-      {name:"Hanging Knee Raise",sets:4,reps:"15",weight:"Bodyweight",timer:false},
-      {name:"Weighted Sit-Up",sets:3,reps:"15",weight:"10 lbs plate",timer:false},
+      {name:"Hanging Leg Raise",sets:4,reps:"15",weight:"Bodyweight",timer:false},
+      {name:"Ab Wheel Rollout",sets:3,reps:"10",weight:"Bodyweight",timer:false},
+      {name:"Plank",sets:3,reps:"45 sec",weight:"—",timer:true},
     ]},
-    {day:4,label:"Back & Biceps",icon:"🏋️",type:"pull",note:"Weighted pull-ups this week. If you can't, do 3 slow bodyweight.",exercises:[
+    {day:4,label:"Back & Biceps",icon:"🏋️",type:"pull",note:"Weighted pull-ups this week. If you can't, do 3 slow bodyweight. Abs at the end — core strength directly supports every pull and reduces belly bloat.",exercises:[
       {name:"Barbell Deadlift",sets:4,reps:"6",weight:"+10–20 lbs vs W1",timer:false},
       {name:"Weighted Pull-Ups",sets:4,reps:"6–8",weight:"Weighted vest",timer:false},
-      {name:"Hex Bar Row",sets:3,reps:"10",weight:"Moderate",timer:false},
+      {name:"Barbell Row",sets:3,reps:"10",weight:"Moderate",timer:false},
       {name:"Single-Arm DB Row",sets:3,reps:"10 each",weight:"60 lbs",timer:false},
       {name:"Barbell Curl",sets:3,reps:"10",weight:"Moderate",timer:false},
       {name:"Incline DB Curl",sets:3,reps:"12",weight:"15–20 lbs",timer:false},
+      {name:"Hanging Knee Raise",sets:3,reps:"15",weight:"Bodyweight",timer:false},
+      {name:"Plank",sets:3,reps:"45 sec",weight:"—",timer:true},
     ]},
-    {day:5,label:"Hamstrings + Abs",icon:"🔥",type:"legs",note:"RDLs with 60 lb DBs today. Feel the hamstring stretch at the bottom.",exercises:[
+    {day:5,label:"Hamstrings + Abs",icon:"🔥",type:"legs",note:"RDLs with 60 lb DBs today. Feel the hamstring stretch at the bottom. Calves need twice-weekly hits to grow — both standing and seated today. Finish with abs to shred the core and kill visceral fat.",exercises:[
       {name:"Romanian Deadlift",sets:4,reps:"8",weight:"60 lbs DBs",timer:false},
-      {name:"Leg Curl Machine",sets:4,reps:"10",weight:"Heavier + drop set",timer:false},
-      {name:"Sumo Deadlift",sets:3,reps:"8",weight:"Moderate",timer:false},
+      {name:"Nordic Curl (hyperextension bench)",sets:4,reps:"5",weight:"Bodyweight (assisted ok)",timer:false},
       {name:"Hip Thrust w/ Barbell",sets:4,reps:"12",weight:"Moderate",timer:false},
+      {name:"Stiff-Leg Deadlift",sets:3,reps:"10",weight:"Moderate",timer:false},
+      {name:"Standing Calf Raise",sets:4,reps:"20",weight:"BW + 60 lbs",timer:false},
       {name:"Seated Calf Raise",sets:4,reps:"20",weight:"35 lbs",timer:false},
       {name:"Ab Wheel Rollout",sets:4,reps:"12",weight:"Bodyweight",timer:false},
       {name:"Hanging Leg Raise (straight)",sets:3,reps:"10",weight:"Bodyweight",timer:false},
+      {name:"Weighted Sit-Up",sets:3,reps:"15",weight:"Weight plate",timer:false},
     ]},
-    {day:6,label:"Incline Walk + Strength Circuit",icon:"🚶",type:"cardio",note:"Walk first to pre-exhaust, then hit the circuit. Visceral fat doesn't stand a chance.",exercises:[
+    {day:6,label:"Incline Walk + Strength Circuit",icon:"🚶",type:"cardio",note:"Incline walking at 3 mph is one of the most effective tools for attacking visceral fat — it's low impact, sustainable, and keeps you in Zone 2 the whole time. Walk first to pre-exhaust, then hit the circuit. Finish with abs to build that shredded core.",exercises:[
       {name:"Incline Walk",sets:1,reps:"20 min",weight:"3 mph / 12% incline",timer:true},
       {name:"Kettlebell Swings",sets:4,reps:"20",weight:"Kettlebell",timer:true},
       {name:"Slam Ball Slams",sets:4,reps:"15",weight:"Slam ball",timer:false},
       {name:"Jump Rope",sets:3,reps:"1 min",weight:"—",timer:true},
       {name:"Boxing Rounds (gloves)",sets:3,reps:"2 min",weight:"—",timer:true},
-      {name:"Plank to Push-Up",sets:3,reps:"10",weight:"Bodyweight",timer:false},
+      {name:"Hanging Leg Raise",sets:4,reps:"15",weight:"Bodyweight",timer:false},
+      {name:"Ab Wheel Rollout",sets:3,reps:"10",weight:"Bodyweight",timer:false},
+      {name:"Plank",sets:3,reps:"45 sec",weight:"—",timer:true},
     ]},
     {day:7,label:"Rest & Recovery",icon:"🧘",type:"rest",note:"Hydrate. 8+ hours of sleep. Your muscles are rebuilding right now.",exercises:[
       {name:"Foam Roll / Stretch",sets:1,reps:"20–30 min",weight:"—",timer:false},
@@ -807,53 +819,59 @@ const WEEKS=[
     ]},
   ]},
   {week:3,theme:"Intensity Surge",days:[
-    {day:1,label:"Chest & Triceps — Supersets",icon:"💪",type:"push",note:"No rest between paired exercises. Move immediately from one to the next.",exercises:[
+    {day:1,label:"Chest & Triceps — Supersets",icon:"💪",type:"push",note:"No rest between paired exercises. Move immediately from one to the next. Superset flat with flyes, incline with push-ups — four chest angles before a single tricep rep. This is how you build a bigger chest.",exercises:[
       {name:"Bench Press + DB Flyes",sets:4,reps:"8+12",weight:"Heavy + 15 lbs [SUPERSET]",timer:false},
       {name:"Incline Press + Push-Ups",sets:3,reps:"10+failure",weight:"35 lbs + BW [SUPERSET]",timer:false},
       {name:"GMWD Machine Drop Set",sets:3,reps:"8/12",weight:"Heavy→lighter [DROP SET]",timer:false},
-      {name:"Weighted Tricep Dips",sets:4,reps:"15",weight:"Weighted vest",timer:false},
+      {name:"Decline DB Press",sets:3,reps:"12",weight:"25–30 lbs",timer:false},
+      {name:"Weighted Tricep Dips",sets:3,reps:"12",weight:"Weighted vest",timer:false},
       {name:"Close-Grip Push-Up",sets:3,reps:"15",weight:"Bodyweight",timer:false},
     ]},
-    {day:2,label:"Legs — Full Superset Day",icon:"🦵",type:"legs",note:"Your legs will be screaming. That's exactly the point. Push through it.",exercises:[
+    {day:2,label:"Legs — Full Superset Day",icon:"🦵",type:"legs",note:"Your legs will be screaming. That's exactly the point. Push through it. Quads, hamstrings, and calves all hit today — calves need standing and seated hits to grow both heads.",exercises:[
       {name:"Barbell Squat + Jump Squat",sets:4,reps:"8+10",weight:"Heavy + BW [SUPERSET]",timer:false},
-      {name:"Leg Extension + Leg Curl",sets:4,reps:"12+12",weight:"Moderate [SUPERSET]",timer:false},
+      {name:"Barbell Hack Squat",sets:4,reps:"15",weight:"Moderate",timer:false},
+      {name:"Band Terminal Knee Extension + Nordic Curl (hyperextension bench)",sets:4,reps:"12+5",weight:"Band + BW [SUPERSET]",timer:false},
       {name:"Bulgarian Split Squat",sets:3,reps:"12 each",weight:"35 lbs DBs",timer:false},
-      {name:"Calf Raise Drop Set",sets:3,reps:"15/20/25",weight:"Heavy→light [DROP SET]",timer:false},
-      {name:"Slam Ball Squat Throw",sets:3,reps:"12",weight:"Slam ball",timer:true},
+      {name:"Standing Calf Raise",sets:4,reps:"20",weight:"BW + 60 lbs",timer:false},
+      {name:"Seated Calf Raise",sets:4,reps:"20",weight:"35 lbs on knees",timer:false},
     ]},
-    {day:3,label:"Incline Walk + Core Burn",icon:"🚶",type:"cardio",note:"Push the incline higher this week — 15% or above. 3 mph stays the same.",exercises:[
+    {day:3,label:"Incline Walk + Core Burn",icon:"🚶",type:"cardio",note:"Incline walking at 3 mph is one of the most effective tools for attacking visceral fat — it's low impact, sustainable, and keeps you in Zone 2 the whole time. Push the incline higher this week — 15% or above. 3 mph stays the same. Abs after the walk burn even more gut fat.",exercises:[
       {name:"Warm-up Walk",sets:1,reps:"5 min",weight:"3 mph / 5% incline",timer:true},
       {name:"Steep Incline Walk",sets:1,reps:"10 min",weight:"3 mph / 15% incline",timer:true},
       {name:"Recovery Walk",sets:1,reps:"5 min",weight:"3 mph / 6% incline",timer:true},
       {name:"Max Incline Push",sets:1,reps:"10 min",weight:"3 mph / max incline",timer:true},
       {name:"Cool-down Walk",sets:1,reps:"5 min",weight:"3 mph / 3% incline",timer:true},
-      {name:"Ab Wheel Rollout",sets:4,reps:"12",weight:"Bodyweight",timer:false},
-      {name:"Hanging Leg Raise",sets:4,reps:"12",weight:"Bodyweight",timer:false},
-      {name:"Weighted Russian Twist",sets:3,reps:"20",weight:"10 lbs plate",timer:false},
+      {name:"Hanging Leg Raise",sets:4,reps:"15",weight:"Bodyweight",timer:false},
+      {name:"Ab Wheel Rollout",sets:3,reps:"10",weight:"Bodyweight",timer:false},
+      {name:"Plank",sets:3,reps:"45 sec",weight:"—",timer:true},
     ]},
-    {day:4,label:"Back & Biceps — Heavy",icon:"🏋️",type:"pull",note:"5×5 deadlift protocol. Heaviest back session of the entire month.",exercises:[
+    {day:4,label:"Back & Biceps — Heavy",icon:"🏋️",type:"pull",note:"5×5 deadlift protocol. Heaviest back session of the entire month. Abs at the end — core strength directly supports every heavy pull and reduces belly bloat.",exercises:[
       {name:"Barbell Deadlift 5×5",sets:5,reps:"5",weight:"Heaviest of month",timer:false},
       {name:"Weighted Pull-Ups",sets:5,reps:"5",weight:"Weighted vest — heavy",timer:false},
       {name:"Barbell Row",sets:4,reps:"8",weight:"Heavy",timer:false},
       {name:"DB Row Drop Set",sets:3,reps:"8/10/12",weight:"60/35/15 lbs [DROP SET]",timer:false},
       {name:"Barbell Curl + Hammer Curl",sets:3,reps:"8+12",weight:"Moderate [SUPERSET]",timer:false},
+      {name:"Hanging Knee Raise",sets:3,reps:"15",weight:"Bodyweight",timer:false},
+      {name:"Plank",sets:3,reps:"45 sec",weight:"—",timer:true},
     ]},
-    {day:5,label:"Hamstrings + Abs",icon:"🔥",type:"legs",note:"Heaviest hamstring day of the month. Barbell or heavy DBs on RDL.",exercises:[
+    {day:5,label:"Hamstrings + Abs",icon:"🔥",type:"legs",note:"Heaviest hamstring day of the month. Barbell or heavy DBs on RDL. Hit standing and seated calves for full calf development — both heads need to be trained. Three ab movements at the end attack visceral fat directly.",exercises:[
       {name:"Romanian Deadlift",sets:5,reps:"8",weight:"Heaviest yet",timer:false},
-      {name:"Leg Curl Drop Set",sets:4,reps:"8/12/15",weight:"Heavy→light [DROP SET]",timer:false},
-      {name:"Sumo Deadlift",sets:3,reps:"8",weight:"Moderate-heavy",timer:false},
-      {name:"Glute Bridge + Calf Raise",sets:3,reps:"15+20",weight:"Barbell / BW [SUPERSET]",timer:false},
+      {name:"Lying DB Leg Curl",sets:4,reps:"8/12/15",weight:"Heavy→light [DROP SET]",timer:false},
+      {name:"Hip Thrust",sets:3,reps:"15",weight:"Barbell moderate",timer:false},
+      {name:"Stiff-Leg Deadlift",sets:3,reps:"10",weight:"Moderate-heavy",timer:false},
+      {name:"Standing Calf Raise",sets:4,reps:"20",weight:"BW + 60 lbs",timer:false},
+      {name:"Seated Calf Raise",sets:4,reps:"20",weight:"35 lbs on knees",timer:false},
       {name:"Hanging Leg Raise",sets:4,reps:"12",weight:"Bodyweight",timer:false},
       {name:"Ab Wheel Rollout",sets:4,reps:"12",weight:"Bodyweight",timer:false},
       {name:"Weighted Plank",sets:3,reps:"45 sec",weight:"Plate on back",timer:true},
     ]},
-    {day:6,label:"Long Incline Walk — Peak Burn",icon:"🚶",type:"cardio",note:"Longest walk of the month. 45 min at 12%+ incline. No handrails.",exercises:[
+    {day:6,label:"Long Incline Walk — Peak Burn",icon:"🚶",type:"cardio",note:"Incline walking at 3 mph is one of the most effective tools for attacking visceral fat — it's low impact, sustainable, and keeps you in Zone 2 the whole time. Longest walk of the month. 45 min at 12%+ incline. No handrails. Abs after the walk to hit the gut from both directions.",exercises:[
       {name:"Warm-up Walk",sets:1,reps:"5 min",weight:"3 mph / 5% incline",timer:true},
       {name:"Long Incline Walk",sets:1,reps:"40 min",weight:"3 mph / 12% incline",timer:true},
       {name:"Cool-down Walk",sets:1,reps:"5 min",weight:"3 mph / 3% incline",timer:true},
-      {name:"Ab Wheel Rollout",sets:3,reps:"12",weight:"Bodyweight",timer:false},
-      {name:"Leg Raises",sets:3,reps:"15",weight:"Bodyweight",timer:false},
-      {name:"Russian Twist",sets:3,reps:"20",weight:"10 lbs plate",timer:false},
+      {name:"Hanging Leg Raise",sets:4,reps:"15",weight:"Bodyweight",timer:false},
+      {name:"Ab Wheel Rollout",sets:3,reps:"10",weight:"Bodyweight",timer:false},
+      {name:"Plank",sets:3,reps:"45 sec",weight:"—",timer:true},
     ]},
     {day:7,label:"Rest & Recovery",icon:"🧘",type:"rest",note:"You've put in serious work this week. Earn the rest.",exercises:[
       {name:"Full Body Stretch",sets:1,reps:"30 min",weight:"—",timer:false},
@@ -861,51 +879,61 @@ const WEEKS=[
     ]},
   ]},
   {week:4,theme:"Peak Week",days:[
-    {day:1,label:"Chest & Triceps — Peak",icon:"💪",type:"push",note:"Pyramid to your max. Hit a new bench press PR today.",exercises:[
+    {day:1,label:"Chest & Triceps — Peak",icon:"💪",type:"push",note:"Pyramid to your max. Hit a new bench press PR today. After the PR attempt, hit incline, isolation, and lower chest — all four angles before touching triceps. Bigger chest requires hitting every zone.",exercises:[
       {name:"Bench Press PR Attempt",sets:5,reps:"5/4/3/2/1",weight:"Pyramid to 1RM",timer:false},
       {name:"Incline DB Press",sets:4,reps:"10",weight:"35 lbs",timer:false},
-      {name:"GMWD Machine + Push-Up",sets:3,reps:"10+failure",weight:"Heavy + BW [SUPERSET]",timer:false},
       {name:"DB Flyes",sets:3,reps:"15",weight:"15 lbs",timer:false},
-      {name:"Weighted Tricep Dips",sets:4,reps:"15",weight:"Weighted vest",timer:false},
+      {name:"Decline DB Press",sets:3,reps:"12",weight:"25–30 lbs",timer:false},
+      {name:"Weighted Tricep Dips",sets:3,reps:"12",weight:"Weighted vest",timer:false},
       {name:"Overhead Extension Drop Set",sets:3,reps:"10/12/15",weight:"30/20/15 lbs [DROP SET]",timer:false},
     ]},
-    {day:2,label:"Legs — Peak Quad",icon:"🦵",type:"legs",note:"Squat heavier than any previous week. This is your moment.",exercises:[
+    {day:2,label:"Legs — Peak Quad",icon:"🦵",type:"legs",note:"Squat heavier than any previous week. This is your moment. Barbell Hack Squat and Band Terminal Knee Extension after the PR attempt for full quad volume. Calves need both standing and seated every leg day to grow.",exercises:[
       {name:"Barbell Squat PR Attempt",sets:5,reps:"5/4/3/2/1",weight:"Pyramid to 1RM",timer:false},
-      {name:"Leg Extension",sets:4,reps:"15",weight:"Heavy",timer:false},
+      {name:"Barbell Hack Squat",sets:4,reps:"15",weight:"Heavy",timer:false},
+      {name:"Band Terminal Knee Extension",sets:4,reps:"15",weight:"Resistance band",timer:false},
       {name:"Bulgarian Split Squat",sets:4,reps:"10 each",weight:"35 lbs DBs",timer:false},
-      {name:"Goblet Squat",sets:3,reps:"15",weight:"60 lbs",timer:false},
-      {name:"Calf Raise 100 Rep Challenge",sets:1,reps:"100 total",weight:"Bodyweight",timer:false},
+      {name:"Standing Calf Raise",sets:4,reps:"20",weight:"BW + 60 lbs",timer:false},
+      {name:"Seated Calf Raise",sets:4,reps:"20",weight:"35 lbs on knees",timer:false},
     ]},
-    {day:3,label:"Peak Incline Walk",icon:"🚶",type:"cardio",note:"Max incline all session. This is the hardest walk of the month.",exercises:[
+    {day:3,label:"Peak Incline Walk",icon:"🚶",type:"cardio",note:"Incline walking at 3 mph is one of the most effective tools for attacking visceral fat — it's low impact, sustainable, and keeps you in Zone 2 the whole time. Max incline all session. This is the hardest walk of the month. Abs to finish — gut fat doesn't stand a chance.",exercises:[
       {name:"Warm-up Walk",sets:1,reps:"5 min",weight:"3 mph / 6% incline",timer:true},
       {name:"Max Incline Walk Block 1",sets:1,reps:"12 min",weight:"3 mph / max incline",timer:true},
       {name:"Recovery Walk",sets:1,reps:"3 min",weight:"3 mph / 5% incline",timer:true},
       {name:"Max Incline Walk Block 2",sets:1,reps:"12 min",weight:"3 mph / max incline",timer:true},
       {name:"Recovery Walk",sets:1,reps:"3 min",weight:"3 mph / 5% incline",timer:true},
       {name:"Cool-down Walk",sets:1,reps:"5 min",weight:"3 mph / 3% incline",timer:true},
-      {name:"Core Circuit",sets:4,reps:"3 rounds",weight:"Rollout/Hang/Twist",timer:true},
+      {name:"Hanging Leg Raise",sets:4,reps:"15",weight:"Bodyweight",timer:false},
+      {name:"Ab Wheel Rollout",sets:3,reps:"10",weight:"Bodyweight",timer:false},
+      {name:"Plank",sets:3,reps:"45 sec",weight:"—",timer:true},
     ]},
-    {day:4,label:"Back & Biceps — Peak",icon:"🏋️",type:"pull",note:"Deadlift PR day. Everything you've built this month goes into this pull.",exercises:[
+    {day:4,label:"Back & Biceps — Peak",icon:"🏋️",type:"pull",note:"Deadlift PR day. Everything you've built this month goes into this pull. Abs at the end — core strength directly supports every heavy pull and reduces belly bloat.",exercises:[
       {name:"Deadlift PR Attempt",sets:5,reps:"5/4/3/2/1",weight:"Pyramid to 1RM",timer:false},
       {name:"Pull-Up Max Sets",sets:4,reps:"Max reps",weight:"Weighted vest",timer:false},
       {name:"Barbell Row",sets:4,reps:"8",weight:"Heavy",timer:false},
       {name:"Single-Arm DB Row",sets:3,reps:"10 each",weight:"60 lbs",timer:false},
       {name:"Bicep Curl 21s",sets:3,reps:"21",weight:"15 lbs",timer:false},
+      {name:"Hanging Knee Raise",sets:3,reps:"15",weight:"Bodyweight",timer:false},
+      {name:"Plank",sets:3,reps:"45 sec",weight:"—",timer:true},
     ]},
-    {day:5,label:"Peak Hamstrings + Abs",icon:"🔥",type:"legs",note:"Heaviest RDL of the month. Leave absolutely nothing in the tank.",exercises:[
+    {day:5,label:"Peak Hamstrings + Abs",icon:"🔥",type:"legs",note:"Heaviest RDL of the month. Leave absolutely nothing in the tank. Calves hit with standing and seated for full development. Three dedicated ab exercises at the end to shred the core and attack visceral fat.",exercises:[
       {name:"Romanian Deadlift",sets:5,reps:"6",weight:"Heaviest of month",timer:false},
-      {name:"Leg Curl",sets:4,reps:"10",weight:"Heaviest",timer:false},
-      {name:"Sumo Deadlift",sets:3,reps:"6",weight:"Heavy",timer:false},
+      {name:"Nordic Curl (hyperextension bench)",sets:4,reps:"6",weight:"Bodyweight",timer:false},
       {name:"Hip Thrust",sets:4,reps:"12",weight:"Moderate-heavy barbell",timer:false},
+      {name:"Stiff-Leg Deadlift",sets:3,reps:"8",weight:"Heavy",timer:false},
+      {name:"Standing Calf Raise",sets:4,reps:"20",weight:"BW + 60 lbs",timer:false},
       {name:"Seated Calf Raise",sets:4,reps:"20",weight:"35 lbs",timer:false},
-      {name:"Full Ab Circuit",sets:4,reps:"Rounds",weight:"Rollout/Raise/Plank/Twist",timer:true},
+      {name:"Hanging Leg Raise",sets:4,reps:"15",weight:"Bodyweight",timer:false},
+      {name:"Ab Wheel Rollout",sets:3,reps:"10",weight:"Bodyweight",timer:false},
+      {name:"Plank",sets:3,reps:"45 sec",weight:"—",timer:true},
     ]},
-    {day:6,label:"Final Incline Walk + Finisher",icon:"🚶",type:"cardio",note:"Last cardio session of the month. Walk hard, finish strong.",exercises:[
+    {day:6,label:"Final Incline Walk + Finisher",icon:"🚶",type:"cardio",note:"Incline walking at 3 mph is one of the most effective tools for attacking visceral fat — it's low impact, sustainable, and keeps you in Zone 2 the whole time. Last cardio session of the month. Walk hard, finish strong. End with abs — kill the visceral fat.",exercises:[
       {name:"Incline Walk",sets:1,reps:"30 min",weight:"3 mph / 12–15% incline",timer:true},
       {name:"Kettlebell Swings",sets:5,reps:"20",weight:"Kettlebell",timer:false},
       {name:"Slam Ball Slams",sets:5,reps:"15",weight:"Slam ball",timer:false},
       {name:"Jump Rope",sets:3,reps:"2 min",weight:"—",timer:true},
-      {name:"Boxing Rounds",sets:3,reps:"3 min",weight:"Gloves",timer:true},
+      {name:"Hanging Leg Raise",sets:4,reps:"15",weight:"Bodyweight",timer:false},
+      {name:"Ab Wheel Rollout",sets:3,reps:"10",weight:"Bodyweight",timer:false},
+      {name:"Plank",sets:3,reps:"45 sec",weight:"—",timer:true},
     ]},
     {day:7,label:"Month Complete 🏆",icon:"🏆",type:"rest",note:"4 weeks done. Reflect on how far you've come. Plan your next cycle.",exercises:[
       {name:"Full Body Stretch",sets:1,reps:"30–40 min",weight:"—",timer:false},
@@ -914,53 +942,60 @@ const WEEKS=[
   ]},
   // ── PHASE 2 — HYPERTROPHY ──
   {week:5,theme:"Hypertrophy — Volume",days:[
-    {day:1,label:"Chest & Triceps",icon:"💪",type:"push",note:"Higher volume this phase. Focus on the squeeze at the top of every press.",exercises:[
+    {day:1,label:"Chest & Triceps",icon:"💪",type:"push",note:"Higher volume this phase. Focus on the squeeze at the top of every press. Hit all four chest angles — incline barbell, flat DB, DB flyes isolation, and band crossover — before any tricep work. This is how you build a bigger, fuller chest.",exercises:[
       {name:"Incline Barbell Press",sets:4,reps:"12",weight:"135 lbs",timer:false},
       {name:"Flat DB Press",sets:4,reps:"12",weight:"40 lbs",timer:false},
-      {name:"Pec Deck Machine",sets:4,reps:"15",weight:"Moderate",timer:false},
-      {name:"Cable Crossover",sets:4,reps:"15",weight:"Light-moderate",timer:false},
-      {name:"Tricep Rope Pushdown",sets:4,reps:"15",weight:"Moderate",timer:false},
-      {name:"Close-Grip Bench Press",sets:3,reps:"10",weight:"95 lbs",timer:false},
+      {name:"DB Flyes (flat bench)",sets:4,reps:"15",weight:"15–20 lbs",timer:false},
+      {name:"Band Crossover",sets:4,reps:"15",weight:"Resistance band",timer:false},
+      {name:"Band Tricep Pushdown",sets:4,reps:"15",weight:"Resistance band",timer:false},
+      {name:"Close-Grip Bench Press",sets:2,reps:"10",weight:"95 lbs",timer:false},
     ]},
-    {day:2,label:"Legs — Quad Focus",icon:"🦵",type:"legs",note:"Front squats challenge your core and quads differently. Keep elbows up.",exercises:[
+    {day:2,label:"Legs — Quad Focus",icon:"🦵",type:"legs",note:"Front squats challenge your core and quads differently. Keep elbows up. Calves need both gastrocnemius and soleus trained — standing and seated every leg day for bigger calves.",exercises:[
       {name:"Front Squat",sets:4,reps:"10",weight:"95 lbs",timer:false},
-      {name:"Leg Press",sets:4,reps:"12",weight:"3 plates per side",timer:false},
+      {name:"Barbell Hack Squat",sets:4,reps:"12",weight:"Moderate",timer:false},
+      {name:"Band Terminal Knee Extension",sets:4,reps:"15",weight:"Resistance band",timer:false},
       {name:"Walking Lunges",sets:4,reps:"12 each",weight:"30 lbs DBs",timer:false},
-      {name:"Leg Extension",sets:4,reps:"15",weight:"Moderate-heavy",timer:false},
-      {name:"Box Jumps",sets:3,reps:"10",weight:"Bodyweight",timer:false},
+      {name:"Standing Calf Raise",sets:4,reps:"20",weight:"BW + 60 lbs",timer:false},
       {name:"Seated Calf Raise",sets:4,reps:"20",weight:"35 lbs on knees",timer:false},
     ]},
-    {day:3,label:"Incline Walk + Core",icon:"🚶",type:"cardio",note:"Steady Zone 2 cardio today. New addition: boxing rounds to spike the heart rate.",exercises:[
+    {day:3,label:"Incline Walk + Core",icon:"🚶",type:"cardio",note:"Incline walking at 3 mph is one of the most effective tools for attacking visceral fat — it's low impact, sustainable, and keeps you in Zone 2 the whole time. Steady Zone 2 cardio today. New addition: boxing rounds to spike the heart rate. Abs after to keep shredding the gut.",exercises:[
       {name:"Warm-up Walk",sets:1,reps:"5 min",weight:"3 mph / 5% incline",timer:true},
       {name:"Steady Incline Walk",sets:1,reps:"20 min",weight:"3 mph / 12% incline",timer:true},
       {name:"Boxing Rounds",sets:3,reps:"2 min",weight:"Gloves",timer:true},
       {name:"Jump Rope",sets:3,reps:"1 min",weight:"—",timer:true},
-      {name:"Ab Wheel Rollout",sets:4,reps:"12",weight:"Bodyweight",timer:false},
-      {name:"Hanging Knee Raise",sets:4,reps:"15",weight:"Bodyweight",timer:false},
+      {name:"Hanging Leg Raise",sets:4,reps:"15",weight:"Bodyweight",timer:false},
+      {name:"Ab Wheel Rollout",sets:3,reps:"10",weight:"Bodyweight",timer:false},
+      {name:"Plank",sets:3,reps:"45 sec",weight:"—",timer:true},
     ]},
-    {day:4,label:"Back & Biceps",icon:"🏋️",type:"pull",note:"Lat pulldowns and cable rows target the lats with more control than free weights. Feel the stretch.",exercises:[
-      {name:"Lat Pulldown",sets:4,reps:"12",weight:"Moderate",timer:false},
-      {name:"Seated Cable Row",sets:4,reps:"12",weight:"Moderate",timer:false},
-      {name:"Face Pulls",sets:4,reps:"15",weight:"Light-moderate",timer:false},
-      {name:"T-Bar Row",sets:4,reps:"10",weight:"Moderate",timer:false},
-      {name:"Preacher Curl",sets:4,reps:"12",weight:"30 lbs bar",timer:false},
+    {day:4,label:"Back & Biceps",icon:"🏋️",type:"pull",note:"Pull-ups and DB rows build the lats hard — initiate every rep from the lats, not the arms. Feel the stretch at the top. Abs at the end — core strength directly supports every pull and reduces belly bloat.",exercises:[
+      {name:"Pull-Ups (rack bar)",sets:4,reps:"12",weight:"Bodyweight",timer:false},
+      {name:"DB Bent-Over Row",sets:4,reps:"12",weight:"35–40 lbs",timer:false},
+      {name:"Band Face Pull",sets:4,reps:"15",weight:"Resistance band",timer:false},
+      {name:"Barbell Row",sets:4,reps:"10",weight:"Moderate",timer:false},
+      {name:"Preacher Curl (DB)",sets:4,reps:"12",weight:"25–30 lbs DB",timer:false},
       {name:"Hammer Curl",sets:3,reps:"12",weight:"30 lbs",timer:false},
+      {name:"Hanging Knee Raise",sets:3,reps:"15",weight:"Bodyweight",timer:false},
+      {name:"Plank",sets:3,reps:"45 sec",weight:"—",timer:true},
     ]},
-    {day:5,label:"Hamstrings + Abs",icon:"🔥",type:"legs",note:"Hip thrusts are the king of glute activation. Drive through the heels.",exercises:[
+    {day:5,label:"Hamstrings + Abs",icon:"🔥",type:"legs",note:"Hip thrusts are the king of glute activation. Drive through the heels. Hit standing and seated calves for full calf development — frequency is what makes calves grow. Three ab movements at the end attack visceral fat.",exercises:[
       {name:"Romanian Deadlift",sets:4,reps:"12",weight:"50 lbs DBs",timer:false},
-      {name:"Leg Curl Machine",sets:4,reps:"12",weight:"Moderate",timer:false},
+      {name:"Nordic Curl (hyperextension bench)",sets:4,reps:"6",weight:"Bodyweight (assisted ok)",timer:false},
       {name:"Hip Thrust",sets:4,reps:"12",weight:"135 lbs barbell",timer:false},
-      {name:"Glute Kickback Machine",sets:3,reps:"15 each",weight:"Moderate",timer:false},
+      {name:"Nordic Curl (hyperextension bench)",sets:3,reps:"5",weight:"Bodyweight (assisted ok)",timer:false},
+      {name:"Standing Calf Raise",sets:4,reps:"20",weight:"BW + 60 lbs",timer:false},
       {name:"Seated Calf Raise",sets:4,reps:"20",weight:"35 lbs",timer:false},
       {name:"Ab Wheel Rollout",sets:4,reps:"12",weight:"Bodyweight",timer:false},
       {name:"Hanging Leg Raise",sets:3,reps:"15",weight:"Bodyweight",timer:false},
+      {name:"Weighted Sit-Up",sets:3,reps:"15",weight:"Weight plate",timer:false},
     ]},
-    {day:6,label:"Incline Walk — Burn",icon:"🚶",type:"cardio",note:"Longer cardio session. Walk hard, then finish with jump rope circuits.",exercises:[
+    {day:6,label:"Incline Walk — Burn",icon:"🚶",type:"cardio",note:"Incline walking at 3 mph is one of the most effective tools for attacking visceral fat — it's low impact, sustainable, and keeps you in Zone 2 the whole time. Longer cardio session. Walk hard, then finish with abs — two fronts attacking visceral fat simultaneously.",exercises:[
       {name:"Warm-up Walk",sets:1,reps:"5 min",weight:"3 mph / 5% incline",timer:true},
       {name:"Steady Incline Walk",sets:1,reps:"25 min",weight:"3 mph / 12% incline",timer:true},
       {name:"Jump Rope",sets:4,reps:"2 min",weight:"—",timer:true},
       {name:"Slam Ball Slams",sets:3,reps:"15",weight:"Slam ball",timer:false},
+      {name:"Hanging Leg Raise",sets:4,reps:"15",weight:"Bodyweight",timer:false},
       {name:"Ab Wheel Rollout",sets:3,reps:"10",weight:"Bodyweight",timer:false},
+      {name:"Plank",sets:3,reps:"45 sec",weight:"—",timer:true},
     ]},
     {day:7,label:"Rest & Recovery",icon:"🧘",type:"rest",note:"First week of hypertrophy phase done. Let the muscles repair and grow.",exercises:[
       {name:"Light Walk or Stretch",sets:1,reps:"20–30 min",weight:"—",timer:false},
@@ -970,54 +1005,62 @@ const WEEKS=[
     ]},
   ]},
   {week:6,theme:"Hypertrophy — Accumulation",days:[
-    {day:1,label:"Chest & Triceps",icon:"💪",type:"push",note:"Add 5 lbs to all barbell work and 2.5 lbs to DB movements. Volume accumulates.",exercises:[
+    {day:1,label:"Chest & Triceps",icon:"💪",type:"push",note:"Add 5 lbs to all barbell work and 2.5 lbs to DB movements. Volume accumulates. Four chest movements before triceps — incline barbell, flat DB, DB flyes, and band crossover — covering every angle of the chest for maximum growth.",exercises:[
       {name:"Incline Barbell Press",sets:5,reps:"10",weight:"145 lbs",timer:false},
       {name:"Flat DB Press",sets:4,reps:"12",weight:"42.5 lbs",timer:false},
-      {name:"Pec Deck Machine",sets:4,reps:"15",weight:"Heavier",timer:false},
-      {name:"Cable Crossover",sets:4,reps:"15",weight:"Moderate",timer:false},
-      {name:"Tricep Rope Pushdown",sets:4,reps:"12",weight:"Heavier",timer:false},
-      {name:"Close-Grip Bench Press",sets:4,reps:"10",weight:"100 lbs",timer:false},
+      {name:"DB Flyes (flat bench)",sets:4,reps:"15",weight:"15–20 lbs",timer:false},
+      {name:"Band Crossover",sets:4,reps:"15",weight:"Resistance band",timer:false},
+      {name:"Band Tricep Pushdown",sets:4,reps:"12",weight:"Resistance band",timer:false},
+      {name:"Close-Grip Bench Press",sets:3,reps:"10",weight:"100 lbs",timer:false},
     ]},
-    {day:2,label:"Legs — Quad Focus",icon:"🦵",type:"legs",note:"5 sets on leg press this week. Progressive overload is the key to growth.",exercises:[
+    {day:2,label:"Legs — Quad Focus",icon:"🦵",type:"legs",note:"5 sets on barbell hack squat this week. Progressive overload is the key to growth. Calves need both standing and seated work every leg day — gastrocnemius and soleus both have to be trained to build bigger calves.",exercises:[
       {name:"Front Squat",sets:4,reps:"10",weight:"105 lbs",timer:false},
-      {name:"Leg Press",sets:5,reps:"12",weight:"3.5 plates per side",timer:false},
+      {name:"Barbell Hack Squat",sets:5,reps:"12",weight:"Moderate-heavy",timer:false},
+      {name:"Sissy Squat",sets:5,reps:"15",weight:"Bodyweight",timer:false},
       {name:"Walking Lunges",sets:4,reps:"12 each",weight:"35 lbs DBs",timer:false},
-      {name:"Leg Extension",sets:5,reps:"15",weight:"Heavier",timer:false},
-      {name:"Box Jumps",sets:3,reps:"10",weight:"Bodyweight",timer:false},
+      {name:"Standing Calf Raise",sets:4,reps:"20",weight:"BW + 60 lbs",timer:false},
       {name:"Seated Calf Raise",sets:4,reps:"20",weight:"40 lbs",timer:false},
     ]},
-    {day:3,label:"Incline Walk + Core",icon:"🚶",type:"cardio",note:"Add 5 min to your incline walk this week. More time in Zone 2 means more fat burned.",exercises:[
+    {day:3,label:"Incline Walk + Core",icon:"🚶",type:"cardio",note:"Incline walking at 3 mph is one of the most effective tools for attacking visceral fat — it's low impact, sustainable, and keeps you in Zone 2 the whole time. Add 5 min to your incline walk this week. More time in Zone 2 means more visceral fat burned.",exercises:[
       {name:"Warm-up Walk",sets:1,reps:"5 min",weight:"3 mph / 5% incline",timer:true},
       {name:"Steady Incline Walk",sets:1,reps:"25 min",weight:"3 mph / 12% incline",timer:true},
       {name:"Boxing Rounds",sets:4,reps:"2 min",weight:"Gloves",timer:true},
       {name:"Jump Rope",sets:3,reps:"90 sec",weight:"—",timer:true},
-      {name:"Ab Wheel Rollout",sets:4,reps:"12",weight:"Bodyweight",timer:false},
-      {name:"Hanging Leg Raise",sets:4,reps:"12",weight:"Bodyweight",timer:false},
+      {name:"Hanging Leg Raise",sets:4,reps:"15",weight:"Bodyweight",timer:false},
+      {name:"Ab Wheel Rollout",sets:3,reps:"10",weight:"Bodyweight",timer:false},
+      {name:"Plank",sets:3,reps:"45 sec",weight:"—",timer:true},
     ]},
-    {day:4,label:"Back & Biceps",icon:"🏋️",type:"pull",note:"5 sets on lat pulldown and cable row. Control the eccentric — 2 seconds down.",exercises:[
-      {name:"Lat Pulldown",sets:5,reps:"12",weight:"Heavier",timer:false},
-      {name:"Seated Cable Row",sets:5,reps:"10",weight:"Heavier",timer:false},
-      {name:"Face Pulls",sets:4,reps:"20",weight:"Light",timer:false},
-      {name:"T-Bar Row",sets:4,reps:"10",weight:"Heavier",timer:false},
-      {name:"Preacher Curl",sets:4,reps:"10",weight:"35 lbs bar",timer:false},
+    {day:4,label:"Back & Biceps",icon:"🏋️",type:"pull",note:"5 sets on pull-ups and DB rows. Control the eccentric — 2 seconds down. Abs at the end — core strength directly supports every pull and reduces belly bloat.",exercises:[
+      {name:"Pull-Ups (rack bar)",sets:5,reps:"10",weight:"Bodyweight / Weighted vest",timer:false},
+      {name:"DB Bent-Over Row",sets:5,reps:"10",weight:"40–45 lbs",timer:false},
+      {name:"Band Face Pull",sets:4,reps:"20",weight:"Resistance band",timer:false},
+      {name:"Barbell Row",sets:4,reps:"10",weight:"Heavier",timer:false},
+      {name:"Preacher Curl (DB)",sets:4,reps:"10",weight:"30–35 lbs DB",timer:false},
       {name:"Hammer Curl",sets:4,reps:"12",weight:"32.5 lbs",timer:false},
+      {name:"Hanging Knee Raise",sets:3,reps:"15",weight:"Bodyweight",timer:false},
+      {name:"Plank",sets:3,reps:"45 sec",weight:"—",timer:true},
     ]},
-    {day:5,label:"Hamstrings + Abs",icon:"🔥",type:"legs",note:"Nordic curl attempt today — even partial reps are great hamstring builders.",exercises:[
+    {day:5,label:"Hamstrings + Abs",icon:"🔥",type:"legs",note:"Nordic curl attempt today — even partial reps are great hamstring builders. Hit both standing and seated calves for full lower leg development. Three ab movements at the end to shred the core and attack visceral fat.",exercises:[
       {name:"Romanian Deadlift",sets:5,reps:"10",weight:"55 lbs DBs",timer:false},
-      {name:"Leg Curl Machine",sets:4,reps:"12",weight:"Heavier",timer:false},
+      {name:"Nordic Curl (hyperextension bench)",sets:4,reps:"6",weight:"Bodyweight",timer:false},
       {name:"Hip Thrust",sets:5,reps:"12",weight:"155 lbs barbell",timer:false},
-      {name:"Nordic Curl",sets:3,reps:"5",weight:"Bodyweight (assisted ok)",timer:false},
-      {name:"Glute Kickback Machine",sets:3,reps:"15 each",weight:"Heavier",timer:false},
+      {name:"Nordic Curl (hyperextension bench)",sets:3,reps:"5",weight:"Bodyweight (assisted ok)",timer:false},
+      {name:"Standing Calf Raise",sets:4,reps:"20",weight:"BW + 60 lbs",timer:false},
       {name:"Seated Calf Raise",sets:4,reps:"20",weight:"40 lbs",timer:false},
       {name:"Hanging Leg Raise",sets:4,reps:"15",weight:"Bodyweight",timer:false},
+      {name:"Ab Wheel Rollout",sets:3,reps:"10",weight:"Bodyweight",timer:false},
+      {name:"Weighted Sit-Up",sets:3,reps:"15",weight:"Weight plate",timer:false},
     ]},
-    {day:6,label:"Incline Walk — Burn",icon:"🚶",type:"cardio",note:"Max incline sections today. Alternate every 10 min between steep and moderate.",exercises:[
+    {day:6,label:"Incline Walk — Burn",icon:"🚶",type:"cardio",note:"Incline walking at 3 mph is one of the most effective tools for attacking visceral fat — it's low impact, sustainable, and keeps you in Zone 2 the whole time. Max incline sections today. Alternate every 10 min between steep and moderate. Abs after to finish off the gut.",exercises:[
       {name:"Warm-up Walk",sets:1,reps:"5 min",weight:"3 mph / 5% incline",timer:true},
       {name:"High Incline Walk",sets:1,reps:"10 min",weight:"3 mph / 15% incline",timer:true},
       {name:"Moderate Walk",sets:1,reps:"5 min",weight:"3 mph / 8% incline",timer:true},
       {name:"High Incline Walk",sets:1,reps:"10 min",weight:"3 mph / 15% incline",timer:true},
       {name:"Jump Rope",sets:4,reps:"2 min",weight:"—",timer:true},
       {name:"Slam Ball Slams",sets:4,reps:"15",weight:"Slam ball",timer:false},
+      {name:"Hanging Leg Raise",sets:4,reps:"15",weight:"Bodyweight",timer:false},
+      {name:"Ab Wheel Rollout",sets:3,reps:"10",weight:"Bodyweight",timer:false},
+      {name:"Plank",sets:3,reps:"45 sec",weight:"—",timer:true},
     ]},
     {day:7,label:"Rest & Recovery",icon:"🧘",type:"rest",note:"You're accumulating serious volume. Let your body adapt. Sleep is your best supplement.",exercises:[
       {name:"Full Body Stretch",sets:1,reps:"30 min",weight:"—",timer:false},
@@ -1025,55 +1068,62 @@ const WEEKS=[
     ]},
   ]},
   {week:7,theme:"Hypertrophy — Supersets",days:[
-    {day:1,label:"Chest & Triceps — Supersets",icon:"💪",type:"push",note:"Superset presses with isolation. No rest between paired exercises — maximum pump.",exercises:[
+    {day:1,label:"Chest & Triceps — Supersets",icon:"💪",type:"push",note:"Superset presses with isolation. No rest between paired exercises — maximum pump. Four chest angles hit before touching triceps: incline barbell, flat DB, DB flyes, and band crossover. This multi-angle approach is what builds a bigger, thicker chest.",exercises:[
       {name:"Incline Barbell Press",sets:4,reps:"10",weight:"150 lbs",timer:false},
       {name:"Flat DB Press",sets:4,reps:"12",weight:"45 lbs [paired below]",timer:false},
-      {name:"Pec Deck Machine",sets:4,reps:"15",weight:"Heavier [SUPERSET w/ Flat DB]",timer:false},
-      {name:"Cable Crossover",sets:4,reps:"15",weight:"Moderate [SUPERSET below]",timer:false},
-      {name:"Tricep Rope Pushdown",sets:4,reps:"15",weight:"Heavier [SUPERSET w/ Crossover]",timer:false},
-      {name:"Close-Grip Bench Press",sets:4,reps:"10",weight:"105 lbs",timer:false},
+      {name:"DB Flyes (flat bench)",sets:4,reps:"15",weight:"15–20 lbs [SUPERSET w/ Flat DB]",timer:false},
+      {name:"Band Crossover",sets:4,reps:"15",weight:"Resistance band [SUPERSET below]",timer:false},
+      {name:"Band Tricep Pushdown",sets:4,reps:"15",weight:"Resistance band [SUPERSET w/ Crossover]",timer:false},
+      {name:"Close-Grip Bench Press",sets:3,reps:"10",weight:"105 lbs",timer:false},
     ]},
-    {day:2,label:"Legs — Full Superset Day",icon:"🦵",type:"legs",note:"Quads and hamstrings superset today. The pumps will be brutal — embrace it.",exercises:[
+    {day:2,label:"Legs — Full Superset Day",icon:"🦵",type:"legs",note:"Quads and hamstrings superset today. The pumps will be brutal — embrace it. Both standing and seated calves hit every leg day — gastrocnemius needs the standing, soleus needs the seated.",exercises:[
       {name:"Front Squat",sets:4,reps:"8",weight:"115 lbs [SUPERSET below]",timer:false},
-      {name:"Leg Press",sets:4,reps:"15",weight:"4 plates [SUPERSET w/ Front Squat]",timer:false},
-      {name:"Leg Extension",sets:4,reps:"15",weight:"Heavier [SUPERSET below]",timer:false},
+      {name:"Barbell Hack Squat",sets:4,reps:"15",weight:"Moderate [SUPERSET w/ Front Squat]",timer:false},
+      {name:"Sissy Squat",sets:4,reps:"15",weight:"Bodyweight [SUPERSET below]",timer:false},
       {name:"Leg Curl Machine",sets:4,reps:"15",weight:"Heavier [SUPERSET w/ Extension]",timer:false},
       {name:"Walking Lunges",sets:3,reps:"12 each",weight:"35 lbs DBs",timer:false},
-      {name:"Box Jumps",sets:3,reps:"10",weight:"Bodyweight",timer:false},
+      {name:"Standing Calf Raise",sets:4,reps:"20",weight:"BW + 60 lbs",timer:false},
       {name:"Seated Calf Raise",sets:4,reps:"20",weight:"45 lbs",timer:false},
     ]},
-    {day:3,label:"Incline Walk + Core Burn",icon:"🚶",type:"cardio",note:"This week add boxing rounds after your walk. Great for conditioning and core stability.",exercises:[
+    {day:3,label:"Incline Walk + Core Burn",icon:"🚶",type:"cardio",note:"Incline walking at 3 mph is one of the most effective tools for attacking visceral fat — it's low impact, sustainable, and keeps you in Zone 2 the whole time. This week add boxing rounds after your walk. Great for conditioning and core stability. Abs at the end shred the gut.",exercises:[
       {name:"Warm-up Walk",sets:1,reps:"5 min",weight:"3 mph / 5% incline",timer:true},
       {name:"Steady Incline Walk",sets:1,reps:"25 min",weight:"3 mph / 14% incline",timer:true},
       {name:"Boxing Rounds",sets:4,reps:"3 min",weight:"Gloves",timer:true},
       {name:"Jump Rope",sets:4,reps:"90 sec",weight:"—",timer:true},
-      {name:"Ab Wheel Rollout",sets:4,reps:"12",weight:"Bodyweight",timer:false},
       {name:"Hanging Leg Raise",sets:4,reps:"15",weight:"Bodyweight",timer:false},
-      {name:"Weighted Russian Twist",sets:3,reps:"20",weight:"10 lbs plate",timer:false},
+      {name:"Ab Wheel Rollout",sets:3,reps:"10",weight:"Bodyweight",timer:false},
+      {name:"Plank",sets:3,reps:"45 sec",weight:"—",timer:true},
     ]},
-    {day:4,label:"Back & Biceps — Supersets",icon:"🏋️",type:"pull",note:"Superset back and biceps for maximum hypertrophy stimulus. Lats then bis, no rest.",exercises:[
-      {name:"Lat Pulldown",sets:4,reps:"12",weight:"Heavier [SUPERSET below]",timer:false},
-      {name:"Preacher Curl",sets:4,reps:"12",weight:"35 lbs [SUPERSET w/ Pulldown]",timer:false},
-      {name:"Seated Cable Row",sets:4,reps:"10",weight:"Heavier [SUPERSET below]",timer:false},
+    {day:4,label:"Back & Biceps — Supersets",icon:"🏋️",type:"pull",note:"Superset back and biceps for maximum hypertrophy stimulus. Lats then bis, no rest. Abs at the end — core strength directly supports every pull and reduces belly bloat.",exercises:[
+      {name:"Pull-Ups (rack bar)",sets:4,reps:"10",weight:"Bodyweight [SUPERSET below]",timer:false},
+      {name:"Preacher Curl (DB)",sets:4,reps:"12",weight:"30 lbs DB [SUPERSET w/ Pull-Up]",timer:false},
+      {name:"DB Bent-Over Row",sets:4,reps:"10",weight:"Heavier [SUPERSET below]",timer:false},
       {name:"Hammer Curl",sets:4,reps:"12",weight:"32.5 lbs [SUPERSET w/ Row]",timer:false},
-      {name:"Face Pulls",sets:4,reps:"20",weight:"Light",timer:false},
-      {name:"T-Bar Row",sets:4,reps:"10",weight:"Heavier",timer:false},
+      {name:"Band Face Pull",sets:4,reps:"20",weight:"Resistance band",timer:false},
+      {name:"Barbell Row",sets:4,reps:"10",weight:"Heavier",timer:false},
+      {name:"Hanging Knee Raise",sets:3,reps:"15",weight:"Bodyweight",timer:false},
+      {name:"Plank",sets:3,reps:"45 sec",weight:"—",timer:true},
     ]},
-    {day:5,label:"Hamstrings + Abs",icon:"🔥",type:"legs",note:"Heaviest hip thrust of Phase 2. Drive the hips up explosively, control the descent.",exercises:[
+    {day:5,label:"Hamstrings + Abs",icon:"🔥",type:"legs",note:"Heaviest hip thrust of Phase 2. Drive the hips up explosively, control the descent. Standing and seated calves both hit today — frequency is the key to bigger calves. Three ab movements at the end attack visceral fat directly.",exercises:[
       {name:"Romanian Deadlift",sets:5,reps:"10",weight:"60 lbs DBs",timer:false},
-      {name:"Leg Curl Machine",sets:4,reps:"12",weight:"Heavier [SUPERSET below]",timer:false},
+      {name:"Nordic Curl (hyperextension bench)",sets:4,reps:"6",weight:"Bodyweight [SUPERSET below]",timer:false},
       {name:"Hip Thrust",sets:5,reps:"12",weight:"165 lbs barbell [SUPERSET w/ Curl]",timer:false},
-      {name:"Glute Kickback Machine",sets:4,reps:"15 each",weight:"Heavier",timer:false},
-      {name:"Nordic Curl",sets:3,reps:"6",weight:"Bodyweight",timer:false},
+      {name:"Nordic Curl (hyperextension bench)",sets:3,reps:"6",weight:"Bodyweight",timer:false},
+      {name:"Standing Calf Raise",sets:4,reps:"20",weight:"BW + 60 lbs",timer:false},
       {name:"Seated Calf Raise",sets:4,reps:"20",weight:"45 lbs",timer:false},
       {name:"Ab Wheel Rollout",sets:4,reps:"12",weight:"Bodyweight",timer:false},
+      {name:"Hanging Leg Raise",sets:3,reps:"15",weight:"Bodyweight",timer:false},
+      {name:"Weighted Sit-Up",sets:3,reps:"15",weight:"Weight plate",timer:false},
     ]},
-    {day:6,label:"Incline Walk — Burn",icon:"🚶",type:"cardio",note:"45 minute walk + conditioning finisher. This burns fat and improves your cardio base simultaneously.",exercises:[
+    {day:6,label:"Incline Walk — Burn",icon:"🚶",type:"cardio",note:"Incline walking at 3 mph is one of the most effective tools for attacking visceral fat — it's low impact, sustainable, and keeps you in Zone 2 the whole time. 45 minute walk + conditioning finisher. Abs at the end to burn visceral fat on two fronts.",exercises:[
       {name:"Warm-up Walk",sets:1,reps:"5 min",weight:"3 mph / 5% incline",timer:true},
       {name:"Long Incline Walk",sets:1,reps:"35 min",weight:"3 mph / 13% incline",timer:true},
       {name:"Boxing Rounds",sets:5,reps:"2 min",weight:"Gloves",timer:true},
       {name:"Jump Rope",sets:3,reps:"2 min",weight:"—",timer:true},
       {name:"Slam Ball Slams",sets:3,reps:"15",weight:"Slam ball",timer:false},
+      {name:"Hanging Leg Raise",sets:4,reps:"15",weight:"Bodyweight",timer:false},
+      {name:"Ab Wheel Rollout",sets:3,reps:"10",weight:"Bodyweight",timer:false},
+      {name:"Plank",sets:3,reps:"45 sec",weight:"—",timer:true},
     ]},
     {day:7,label:"Rest & Recovery",icon:"🧘",type:"rest",note:"Supersets mean extra muscle damage. Extra recovery needed. Hydrate and eat protein.",exercises:[
       {name:"Full Body Stretch",sets:1,reps:"30 min",weight:"—",timer:false},
@@ -1082,54 +1132,63 @@ const WEEKS=[
     ]},
   ]},
   {week:8,theme:"Hypertrophy — Peak",days:[
-    {day:1,label:"Chest & Triceps — Peak",icon:"💪",type:"push",note:"Peak hypertrophy week. Hit your heaviest weights of Phase 2 on all movements.",exercises:[
+    {day:1,label:"Chest & Triceps — Peak",icon:"💪",type:"push",note:"Peak hypertrophy week. Hit your heaviest weights of Phase 2 on all movements. Four chest movements — incline barbell, flat DB, DB flyes, and band crossover — before touching triceps. Every angle of the chest at max intensity for maximum growth.",exercises:[
       {name:"Incline Barbell Press",sets:5,reps:"8",weight:"155 lbs",timer:false},
       {name:"Flat DB Press",sets:5,reps:"10",weight:"47.5 lbs",timer:false},
-      {name:"Pec Deck Machine",sets:4,reps:"12",weight:"Heaviest yet [SUPERSET below]",timer:false},
-      {name:"Cable Crossover",sets:4,reps:"15",weight:"Heavier [SUPERSET w/ Pec Deck]",timer:false},
-      {name:"Tricep Rope Pushdown",sets:5,reps:"12",weight:"Heaviest yet",timer:false},
-      {name:"Close-Grip Bench Press",sets:4,reps:"8",weight:"110 lbs",timer:false},
+      {name:"DB Flyes (flat bench)",sets:4,reps:"12",weight:"20 lbs [SUPERSET below]",timer:false},
+      {name:"Band Crossover",sets:4,reps:"15",weight:"Heavy band [SUPERSET w/ DB Flyes]",timer:false},
+      {name:"Band Tricep Pushdown",sets:4,reps:"12",weight:"Heavy resistance band",timer:false},
+      {name:"Close-Grip Bench Press",sets:3,reps:"8",weight:"110 lbs",timer:false},
     ]},
-    {day:2,label:"Legs — Peak Quad",icon:"🦵",type:"legs",note:"Peak quad day. Hit every movement harder than any previous week of Phase 2.",exercises:[
+    {day:2,label:"Legs — Peak Quad",icon:"🦵",type:"legs",note:"Peak quad day. Hit every movement harder than any previous week of Phase 2. Standing and seated calves both — this is the high frequency approach that builds bigger calves.",exercises:[
       {name:"Front Squat",sets:5,reps:"8",weight:"120 lbs",timer:false},
-      {name:"Leg Press",sets:5,reps:"12",weight:"4+ plates per side",timer:false},
-      {name:"Leg Extension",sets:5,reps:"15",weight:"Heaviest",timer:false},
+      {name:"Barbell Hack Squat",sets:5,reps:"12",weight:"Heavy",timer:false},
+      {name:"Sissy Squat",sets:5,reps:"15",weight:"Bodyweight",timer:false},
       {name:"Walking Lunges",sets:4,reps:"12 each",weight:"37.5 lbs DBs",timer:false},
-      {name:"Box Jumps",sets:4,reps:"10",weight:"Bodyweight",timer:false},
+      {name:"Standing Calf Raise",sets:4,reps:"20",weight:"BW + 60 lbs",timer:false},
       {name:"Seated Calf Raise",sets:4,reps:"20",weight:"50 lbs",timer:false},
     ]},
-    {day:3,label:"Incline Walk + Core",icon:"🚶",type:"cardio",note:"Peak cardio of Phase 2. Max incline blocks plus boxing finisher.",exercises:[
+    {day:3,label:"Incline Walk + Core",icon:"🚶",type:"cardio",note:"Incline walking at 3 mph is one of the most effective tools for attacking visceral fat — it's low impact, sustainable, and keeps you in Zone 2 the whole time. Peak cardio of Phase 2. Max incline blocks plus boxing finisher. Abs to kill the gut.",exercises:[
       {name:"Warm-up Walk",sets:1,reps:"5 min",weight:"3 mph / 6% incline",timer:true},
       {name:"Max Incline Walk Block 1",sets:1,reps:"12 min",weight:"3 mph / max incline",timer:true},
       {name:"Recovery Walk",sets:1,reps:"3 min",weight:"3 mph / 6% incline",timer:true},
       {name:"Max Incline Walk Block 2",sets:1,reps:"12 min",weight:"3 mph / max incline",timer:true},
       {name:"Boxing Rounds",sets:5,reps:"3 min",weight:"Gloves",timer:true},
       {name:"Jump Rope",sets:4,reps:"2 min",weight:"—",timer:true},
-      {name:"Ab Wheel Rollout",sets:4,reps:"12",weight:"Bodyweight",timer:false},
+      {name:"Hanging Leg Raise",sets:4,reps:"15",weight:"Bodyweight",timer:false},
+      {name:"Ab Wheel Rollout",sets:3,reps:"10",weight:"Bodyweight",timer:false},
+      {name:"Plank",sets:3,reps:"45 sec",weight:"—",timer:true},
     ]},
-    {day:4,label:"Back & Biceps — Peak",icon:"🏋️",type:"pull",note:"Heaviest back session of Phase 2. Initiate every pull from the lats.",exercises:[
-      {name:"Lat Pulldown",sets:5,reps:"10",weight:"Heaviest",timer:false},
-      {name:"Seated Cable Row",sets:5,reps:"10",weight:"Heaviest",timer:false},
-      {name:"T-Bar Row",sets:5,reps:"8",weight:"Heaviest",timer:false},
-      {name:"Face Pulls",sets:4,reps:"20",weight:"Light",timer:false},
-      {name:"Preacher Curl",sets:5,reps:"10",weight:"40 lbs bar",timer:false},
+    {day:4,label:"Back & Biceps — Peak",icon:"🏋️",type:"pull",note:"Heaviest back session of Phase 2. Initiate every pull from the lats. Abs at the end — core strength directly supports every pull and reduces belly bloat.",exercises:[
+      {name:"Pull-Ups (rack bar)",sets:5,reps:"8",weight:"Bodyweight / Weighted vest",timer:false},
+      {name:"DB Bent-Over Row",sets:5,reps:"10",weight:"Heaviest",timer:false},
+      {name:"Barbell Row",sets:5,reps:"8",weight:"Heaviest",timer:false},
+      {name:"Band Face Pull",sets:4,reps:"20",weight:"Resistance band",timer:false},
+      {name:"Preacher Curl (DB)",sets:5,reps:"10",weight:"35–40 lbs DB",timer:false},
       {name:"Hammer Curl",sets:4,reps:"12",weight:"35 lbs",timer:false},
+      {name:"Hanging Knee Raise",sets:3,reps:"15",weight:"Bodyweight",timer:false},
+      {name:"Plank",sets:3,reps:"45 sec",weight:"—",timer:true},
     ]},
-    {day:5,label:"Peak Hamstrings + Abs",icon:"🔥",type:"legs",note:"Heaviest hamstring session of Phase 2. RDL heavy — feel the hamstrings load at the bottom.",exercises:[
+    {day:5,label:"Peak Hamstrings + Abs",icon:"🔥",type:"legs",note:"Heaviest hamstring session of Phase 2. RDL heavy — feel the hamstrings load at the bottom. Standing and seated calves at full volume. Three ab movements at the end to shred the core and attack visceral fat.",exercises:[
       {name:"Romanian Deadlift",sets:5,reps:"8",weight:"65 lbs DBs",timer:false},
-      {name:"Leg Curl Machine",sets:5,reps:"12",weight:"Heaviest",timer:false},
+      {name:"Nordic Curl (hyperextension bench)",sets:5,reps:"6",weight:"Bodyweight",timer:false},
       {name:"Hip Thrust",sets:5,reps:"10",weight:"175 lbs barbell",timer:false},
-      {name:"Nordic Curl",sets:4,reps:"5",weight:"Bodyweight",timer:false},
-      {name:"Glute Kickback Machine",sets:4,reps:"15 each",weight:"Heaviest",timer:false},
+      {name:"Nordic Curl (hyperextension bench)",sets:4,reps:"5",weight:"Bodyweight",timer:false},
+      {name:"Standing Calf Raise",sets:4,reps:"20",weight:"BW + 60 lbs",timer:false},
       {name:"Seated Calf Raise",sets:4,reps:"20",weight:"50 lbs",timer:false},
       {name:"Ab Wheel Rollout",sets:4,reps:"12",weight:"Bodyweight",timer:false},
+      {name:"Hanging Leg Raise",sets:3,reps:"15",weight:"Bodyweight",timer:false},
+      {name:"Weighted Sit-Up",sets:3,reps:"15",weight:"Weight plate",timer:false},
     ]},
-    {day:6,label:"Incline Walk — Burn",icon:"🚶",type:"cardio",note:"Phase 2 peak burn. Walk hard, box hard, finish strong.",exercises:[
+    {day:6,label:"Incline Walk — Burn",icon:"🚶",type:"cardio",note:"Incline walking at 3 mph is one of the most effective tools for attacking visceral fat — it's low impact, sustainable, and keeps you in Zone 2 the whole time. Phase 2 peak burn. Walk hard, box hard, finish with abs — kill the visceral fat.",exercises:[
       {name:"Warm-up Walk",sets:1,reps:"5 min",weight:"3 mph / 6% incline",timer:true},
       {name:"Long Incline Walk",sets:1,reps:"40 min",weight:"3 mph / 13% incline",timer:true},
       {name:"Boxing Rounds",sets:5,reps:"3 min",weight:"Gloves",timer:true},
       {name:"Jump Rope",sets:4,reps:"2 min",weight:"—",timer:true},
       {name:"Slam Ball Slams",sets:5,reps:"15",weight:"Slam ball",timer:false},
+      {name:"Hanging Leg Raise",sets:4,reps:"15",weight:"Bodyweight",timer:false},
+      {name:"Ab Wheel Rollout",sets:3,reps:"10",weight:"Bodyweight",timer:false},
+      {name:"Plank",sets:3,reps:"45 sec",weight:"—",timer:true},
     ]},
     {day:7,label:"Rest & Recovery",icon:"🧘",type:"rest",note:"Phase 2 complete. You've built serious size. Phase 3 shifts to pure strength — prepare mentally.",exercises:[
       {name:"Full Body Stretch",sets:1,reps:"40 min",weight:"—",timer:false},
@@ -1138,50 +1197,60 @@ const WEEKS=[
   ]},
   // ── PHASE 3 — STRENGTH + CONDITIONING ──
   {week:9,theme:"Strength — Foundation",days:[
-    {day:1,label:"Chest & Triceps",icon:"💪",type:"push",note:"Shifting to 5x5 strength work. Heavier weight, fewer reps, longer rest between sets.",exercises:[
+    {day:1,label:"Chest & Triceps",icon:"💪",type:"push",note:"Shifting to 5x5 strength work. Heavier weight, fewer reps, longer rest between sets. Still hitting four chest movements — incline barbell, flat DB, DB flyes isolation, and weighted dips for lower chest — before triceps. Strength phase doesn't mean skipping chest angles.",exercises:[
       {name:"Incline Barbell Press",sets:5,reps:"5",weight:"160 lbs",timer:false},
       {name:"Flat DB Press",sets:4,reps:"8",weight:"50 lbs",timer:false},
+      {name:"DB Flyes (flat bench)",sets:3,reps:"12",weight:"15 lbs",timer:false},
       {name:"Weighted Dips",sets:4,reps:"8",weight:"+25 lbs vest",timer:false},
       {name:"Close-Grip Bench Press",sets:3,reps:"8",weight:"115 lbs",timer:false},
-      {name:"Tricep Rope Pushdown",sets:3,reps:"12",weight:"Moderate",timer:false},
+      {name:"Band Tricep Pushdown",sets:2,reps:"12",weight:"Resistance band",timer:false},
     ]},
-    {day:2,label:"Legs — Quad Focus",icon:"🦵",type:"legs",note:"Back to heavy squats — this is the bread and butter of strength training. Break parallel every rep.",exercises:[
+    {day:2,label:"Legs — Quad Focus",icon:"🦵",type:"legs",note:"Back to heavy squats — this is the bread and butter of strength training. Break parallel every rep. Both standing and seated calves hit today — frequency and volume are the only things that build bigger calves.",exercises:[
       {name:"Barbell Back Squat",sets:5,reps:"5",weight:"185 lbs",timer:false},
-      {name:"Hack Squat",sets:4,reps:"8",weight:"3 plates per side",timer:false},
-      {name:"Leg Press",sets:4,reps:"10",weight:"4 plates per side",timer:false},
-      {name:"Leg Extension",sets:3,reps:"12",weight:"Moderate",timer:false},
+      {name:"Barbell Hack Squat",sets:4,reps:"10",weight:"Moderate-heavy",timer:false},
+      {name:"Band Terminal Knee Extension",sets:3,reps:"15",weight:"Resistance band",timer:false},
+      {name:"Walking Lunges",sets:3,reps:"10 each",weight:"30 lbs DBs",timer:false},
+      {name:"Standing Calf Raise",sets:4,reps:"20",weight:"BW + 60 lbs",timer:false},
       {name:"Seated Calf Raise",sets:4,reps:"15",weight:"50 lbs",timer:false},
     ]},
-    {day:3,label:"Incline Walk + Core",icon:"🚶",type:"cardio",note:"Strength phase cardio — maintain your base. Max incline walk plus boxing for conditioning.",exercises:[
+    {day:3,label:"Incline Walk + Core",icon:"🚶",type:"cardio",note:"Incline walking at 3 mph is one of the most effective tools for attacking visceral fat — it's low impact, sustainable, and keeps you in Zone 2 the whole time. Strength phase cardio — maintain your base. Max incline walk plus boxing for conditioning. Abs at the end attack the gut.",exercises:[
       {name:"Warm-up Walk",sets:1,reps:"5 min",weight:"3 mph / 5% incline",timer:true},
       {name:"High Incline Sprint Walk",sets:1,reps:"20 min",weight:"3.5 mph / 15% incline",timer:true},
       {name:"Boxing Rounds",sets:4,reps:"3 min",weight:"Gloves",timer:true},
       {name:"Jump Rope",sets:4,reps:"2 min",weight:"—",timer:true},
-      {name:"Ab Wheel Rollout",sets:4,reps:"12",weight:"Bodyweight",timer:false},
       {name:"Hanging Leg Raise",sets:4,reps:"15",weight:"Bodyweight",timer:false},
+      {name:"Ab Wheel Rollout",sets:3,reps:"10",weight:"Bodyweight",timer:false},
+      {name:"Plank",sets:3,reps:"45 sec",weight:"—",timer:true},
     ]},
-    {day:4,label:"Back & Biceps",icon:"🏋️",type:"pull",note:"Heavy deadlift day. Brace your core before every pull. Think of it as a total body tension exercise.",exercises:[
+    {day:4,label:"Back & Biceps",icon:"🏋️",type:"pull",note:"Heavy deadlift day. Brace your core before every pull. Think of it as a total body tension exercise. Abs at the end — core strength directly supports every heavy pull and reduces belly bloat.",exercises:[
       {name:"Barbell Deadlift",sets:5,reps:"5",weight:"225 lbs",timer:false},
       {name:"Weighted Pull-Ups",sets:4,reps:"6",weight:"+25 lbs",timer:false},
       {name:"Barbell Row",sets:4,reps:"8",weight:"Heavy",timer:false},
-      {name:"Seated Cable Row",sets:3,reps:"10",weight:"Moderate",timer:false},
-      {name:"Preacher Curl",sets:3,reps:"10",weight:"40 lbs bar",timer:false},
+      {name:"DB Bent-Over Row",sets:3,reps:"10",weight:"Moderate",timer:false},
+      {name:"Preacher Curl (DB)",sets:3,reps:"10",weight:"35 lbs DB",timer:false},
+      {name:"Hanging Knee Raise",sets:3,reps:"15",weight:"Bodyweight",timer:false},
+      {name:"Plank",sets:3,reps:"45 sec",weight:"—",timer:true},
     ]},
-    {day:5,label:"Hamstrings + Abs",icon:"🔥",type:"legs",note:"Heavy RDL is the foundation of posterior chain strength. Control every inch of the descent.",exercises:[
+    {day:5,label:"Hamstrings + Abs",icon:"🔥",type:"legs",note:"Heavy RDL is the foundation of posterior chain strength. Control every inch of the descent. Standing and seated calves both hit today — high frequency is the only way to build bigger calves. Three ab movements at the end attack visceral fat.",exercises:[
       {name:"Romanian Deadlift",sets:5,reps:"8",weight:"185 lbs barbell",timer:false},
-      {name:"Leg Curl Machine",sets:4,reps:"10",weight:"Heavy",timer:false},
+      {name:"Nordic Curl (hyperextension bench)",sets:4,reps:"6",weight:"Bodyweight",timer:false},
       {name:"Hip Thrust",sets:4,reps:"10",weight:"185 lbs barbell",timer:false},
       {name:"Nordic Curl",sets:3,reps:"5",weight:"Bodyweight",timer:false},
+      {name:"Standing Calf Raise",sets:4,reps:"20",weight:"BW + 60 lbs",timer:false},
       {name:"Seated Calf Raise",sets:4,reps:"15",weight:"50 lbs",timer:false},
       {name:"Ab Wheel Rollout",sets:4,reps:"12",weight:"Bodyweight",timer:false},
       {name:"Hanging Leg Raise",sets:4,reps:"15",weight:"Bodyweight",timer:false},
+      {name:"Weighted Sit-Up",sets:3,reps:"15",weight:"Weight plate",timer:false},
     ]},
-    {day:6,label:"Incline Walk — Burn",icon:"🚶",type:"cardio",note:"Conditioning day. Max incline walk plus HIIT circuits to keep fat loss moving.",exercises:[
+    {day:6,label:"Incline Walk — Burn",icon:"🚶",type:"cardio",note:"Incline walking at 3 mph is one of the most effective tools for attacking visceral fat — it's low impact, sustainable, and keeps you in Zone 2 the whole time. Conditioning day. Max incline walk plus HIIT circuits to keep fat loss moving. Abs at the end to shred the gut.",exercises:[
       {name:"Warm-up Walk",sets:1,reps:"5 min",weight:"3 mph / 5% incline",timer:true},
       {name:"High Incline Sprint Walk",sets:1,reps:"25 min",weight:"3.5 mph / 15% incline",timer:true},
       {name:"Kettlebell Swings",sets:5,reps:"20",weight:"Kettlebell",timer:false},
       {name:"Boxing Rounds",sets:4,reps:"3 min",weight:"Gloves",timer:true},
       {name:"Jump Rope",sets:3,reps:"2 min",weight:"—",timer:true},
+      {name:"Hanging Leg Raise",sets:4,reps:"15",weight:"Bodyweight",timer:false},
+      {name:"Ab Wheel Rollout",sets:3,reps:"10",weight:"Bodyweight",timer:false},
+      {name:"Plank",sets:3,reps:"45 sec",weight:"—",timer:true},
     ]},
     {day:7,label:"Rest & Recovery",icon:"🧘",type:"rest",note:"Heavy lifting demands heavy recovery. 8+ hours of sleep, 1g protein per lb bodyweight.",exercises:[
       {name:"Full Body Stretch",sets:1,reps:"30 min",weight:"—",timer:false},
@@ -1189,49 +1258,60 @@ const WEEKS=[
     ]},
   ]},
   {week:10,theme:"Strength — Loading",days:[
-    {day:1,label:"Chest & Triceps",icon:"💪",type:"push",note:"Add weight to every movement. The 5x5 protocol demands consistent loading each week.",exercises:[
+    {day:1,label:"Chest & Triceps",icon:"💪",type:"push",note:"Add weight to every movement. The 5x5 protocol demands consistent loading each week. Four chest movements — incline barbell, flat DB, DB flyes, and weighted dips — before any tricep work. Bigger chest is the goal.",exercises:[
       {name:"Incline Barbell Press",sets:5,reps:"5",weight:"170 lbs",timer:false},
       {name:"Flat DB Press",sets:4,reps:"8",weight:"52.5 lbs",timer:false},
+      {name:"DB Flyes (flat bench)",sets:3,reps:"12",weight:"15–20 lbs",timer:false},
       {name:"Weighted Dips",sets:4,reps:"8",weight:"+35 lbs vest",timer:false},
-      {name:"Close-Grip Bench Press",sets:4,reps:"8",weight:"120 lbs",timer:false},
-      {name:"Tricep Rope Pushdown",sets:3,reps:"12",weight:"Heavier",timer:false},
+      {name:"Close-Grip Bench Press",sets:3,reps:"8",weight:"120 lbs",timer:false},
+      {name:"Band Tricep Pushdown",sets:2,reps:"12",weight:"Resistance band",timer:false},
     ]},
-    {day:2,label:"Legs — Quad Focus",icon:"🦵",type:"legs",note:"Add 10 lbs to squat. 195 lbs for 5x5 — own the movement. No bouncing at the bottom.",exercises:[
+    {day:2,label:"Legs — Quad Focus",icon:"🦵",type:"legs",note:"Add 10 lbs to squat. 195 lbs for 5x5 — own the movement. No bouncing at the bottom. Standing and seated calves both hit every leg day — that's what builds bigger calves.",exercises:[
       {name:"Barbell Back Squat",sets:5,reps:"5",weight:"195 lbs",timer:false},
-      {name:"Hack Squat",sets:4,reps:"8",weight:"3.5 plates per side",timer:false},
-      {name:"Leg Press",sets:4,reps:"10",weight:"4.5 plates per side",timer:false},
-      {name:"Leg Extension",sets:3,reps:"12",weight:"Heavy",timer:false},
+      {name:"Barbell Hack Squat",sets:4,reps:"10",weight:"Heavy",timer:false},
+      {name:"Band Terminal Knee Extension",sets:3,reps:"15",weight:"Resistance band",timer:false},
+      {name:"Walking Lunges",sets:3,reps:"10 each",weight:"32.5 lbs DBs",timer:false},
+      {name:"Standing Calf Raise",sets:4,reps:"20",weight:"BW + 60 lbs",timer:false},
       {name:"Seated Calf Raise",sets:4,reps:"15",weight:"55 lbs",timer:false},
     ]},
-    {day:3,label:"Incline Walk + Core",icon:"🚶",type:"cardio",note:"Increase your walk pace to 3.5 mph this week. More intensity = more fat burned.",exercises:[
+    {day:3,label:"Incline Walk + Core",icon:"🚶",type:"cardio",note:"Incline walking at 3 mph is one of the most effective tools for attacking visceral fat — it's low impact, sustainable, and keeps you in Zone 2 the whole time. Increase your walk pace to 3.5 mph this week. More intensity = more visceral fat burned.",exercises:[
       {name:"Warm-up Walk",sets:1,reps:"5 min",weight:"3 mph / 5% incline",timer:true},
       {name:"High Incline Sprint Walk",sets:1,reps:"25 min",weight:"3.5 mph / 15% incline",timer:true},
       {name:"Boxing Rounds",sets:5,reps:"3 min",weight:"Gloves",timer:true},
       {name:"Jump Rope",sets:4,reps:"2 min",weight:"—",timer:true},
-      {name:"Ab Wheel Rollout",sets:4,reps:"15",weight:"Bodyweight",timer:false},
       {name:"Hanging Leg Raise",sets:4,reps:"15",weight:"Bodyweight",timer:false},
+      {name:"Ab Wheel Rollout",sets:3,reps:"10",weight:"Bodyweight",timer:false},
+      {name:"Plank",sets:3,reps:"45 sec",weight:"—",timer:true},
     ]},
-    {day:4,label:"Back & Biceps",icon:"🏋️",type:"pull",note:"Deadlift loading week. Add 15 lbs from last week. Big pull, big back.",exercises:[
+    {day:4,label:"Back & Biceps",icon:"🏋️",type:"pull",note:"Deadlift loading week. Add 15 lbs from last week. Big pull, big back. Abs at the end — core strength directly supports every heavy pull and reduces belly bloat.",exercises:[
       {name:"Barbell Deadlift",sets:5,reps:"5",weight:"240 lbs",timer:false},
       {name:"Weighted Pull-Ups",sets:4,reps:"6",weight:"+30 lbs",timer:false},
       {name:"Barbell Row",sets:4,reps:"8",weight:"Heavier",timer:false},
-      {name:"Seated Cable Row",sets:4,reps:"10",weight:"Heavier",timer:false},
-      {name:"Preacher Curl",sets:4,reps:"10",weight:"45 lbs bar",timer:false},
+      {name:"DB Bent-Over Row",sets:4,reps:"10",weight:"Heavier",timer:false},
+      {name:"Preacher Curl (DB)",sets:4,reps:"10",weight:"40 lbs DB",timer:false},
+      {name:"Hanging Knee Raise",sets:3,reps:"15",weight:"Bodyweight",timer:false},
+      {name:"Plank",sets:3,reps:"45 sec",weight:"—",timer:true},
     ]},
-    {day:5,label:"Hamstrings + Abs",icon:"🔥",type:"legs",note:"Sumo deadlift added this week for variety and inner thigh engagement.",exercises:[
+    {day:5,label:"Hamstrings + Abs",icon:"🔥",type:"legs",note:"Heavy hamstring session. Nordic curl keeps the posterior chain flexible and strong. Both standing and seated calves hit for full lower leg development. Three ab movements to attack visceral fat.",exercises:[
       {name:"Romanian Deadlift",sets:5,reps:"6",weight:"200 lbs barbell",timer:false},
-      {name:"Leg Curl Machine",sets:4,reps:"10",weight:"Heavier",timer:false},
+      {name:"Nordic Curl (hyperextension bench)",sets:4,reps:"6",weight:"Bodyweight",timer:false},
       {name:"Hip Thrust",sets:5,reps:"10",weight:"200 lbs barbell",timer:false},
-      {name:"Nordic Curl",sets:3,reps:"6",weight:"Bodyweight",timer:false},
+      {name:"Nordic Curl (hyperextension bench)",sets:3,reps:"6",weight:"Bodyweight",timer:false},
+      {name:"Standing Calf Raise",sets:4,reps:"20",weight:"BW + 60 lbs",timer:false},
       {name:"Seated Calf Raise",sets:4,reps:"15",weight:"55 lbs",timer:false},
       {name:"Ab Wheel Rollout",sets:4,reps:"15",weight:"Bodyweight",timer:false},
+      {name:"Hanging Leg Raise",sets:4,reps:"15",weight:"Bodyweight",timer:false},
+      {name:"Weighted Sit-Up",sets:3,reps:"15",weight:"Weight plate",timer:false},
     ]},
-    {day:6,label:"Incline Walk — Burn",icon:"🚶",type:"cardio",note:"Heavy conditioning day. Walk + HIIT circuit for fat burning on top of strength gains.",exercises:[
+    {day:6,label:"Incline Walk — Burn",icon:"🚶",type:"cardio",note:"Incline walking at 3 mph is one of the most effective tools for attacking visceral fat — it's low impact, sustainable, and keeps you in Zone 2 the whole time. Heavy conditioning day. Walk + HIIT circuit for fat burning on top of strength gains. Abs at the end to kill the visceral fat.",exercises:[
       {name:"High Incline Sprint Walk",sets:1,reps:"30 min",weight:"3.5 mph / 15% incline",timer:true},
       {name:"Kettlebell Swings",sets:5,reps:"20",weight:"Heavy kettlebell",timer:false},
       {name:"Slam Ball Slams",sets:5,reps:"15",weight:"Slam ball",timer:false},
       {name:"Boxing Rounds",sets:4,reps:"3 min",weight:"Gloves",timer:true},
       {name:"Jump Rope",sets:3,reps:"2 min",weight:"—",timer:true},
+      {name:"Hanging Leg Raise",sets:4,reps:"15",weight:"Bodyweight",timer:false},
+      {name:"Ab Wheel Rollout",sets:3,reps:"10",weight:"Bodyweight",timer:false},
+      {name:"Plank",sets:3,reps:"45 sec",weight:"—",timer:true},
     ]},
     {day:7,label:"Rest & Recovery",icon:"🧘",type:"rest",note:"Loading phase demands maximal recovery. No negotiating on sleep and protein.",exercises:[
       {name:"Full Body Stretch",sets:1,reps:"30 min",weight:"—",timer:false},
@@ -1240,49 +1320,60 @@ const WEEKS=[
     ]},
   ]},
   {week:11,theme:"Strength — Peak Intensity",days:[
-    {day:1,label:"Chest & Triceps — Heavy",icon:"💪",type:"push",note:"Peak intensity week. Every set should feel like a PR attempt. Leave nothing in the rack.",exercises:[
+    {day:1,label:"Chest & Triceps — Heavy",icon:"💪",type:"push",note:"Peak intensity week. Every set should feel like a PR attempt. Leave nothing in the rack. Four chest movements — incline barbell, flat DB, DB flyes, and weighted dips for lower chest — before triceps. A bigger chest is built by hitting all angles hard.",exercises:[
       {name:"Incline Barbell Press",sets:5,reps:"5",weight:"180 lbs",timer:false},
       {name:"Flat DB Press",sets:5,reps:"6",weight:"55 lbs",timer:false},
+      {name:"DB Flyes (flat bench)",sets:3,reps:"10",weight:"20 lbs",timer:false},
       {name:"Weighted Dips",sets:4,reps:"6",weight:"+45 lbs vest",timer:false},
-      {name:"Close-Grip Bench Press",sets:4,reps:"6",weight:"125 lbs",timer:false},
-      {name:"Tricep Rope Pushdown",sets:4,reps:"10",weight:"Heavy",timer:false},
+      {name:"Close-Grip Bench Press",sets:3,reps:"6",weight:"125 lbs",timer:false},
+      {name:"Band Tricep Pushdown",sets:3,reps:"10",weight:"Heavy resistance band",timer:false},
     ]},
-    {day:2,label:"Legs — Peak Quad",icon:"🦵",type:"legs",note:"205 lbs squat for 5x5. This is peak strength territory. Brace hard, drive through.",exercises:[
+    {day:2,label:"Legs — Peak Quad",icon:"🦵",type:"legs",note:"205 lbs squat for 5x5. This is peak strength territory. Brace hard, drive through. Both standing and seated calves at full volume — every leg day, both heads, to build massive calves.",exercises:[
       {name:"Barbell Back Squat",sets:5,reps:"5",weight:"205 lbs",timer:false},
-      {name:"Hack Squat",sets:4,reps:"6",weight:"4 plates per side",timer:false},
-      {name:"Leg Press",sets:4,reps:"8",weight:"5 plates per side",timer:false},
-      {name:"Leg Extension",sets:3,reps:"12",weight:"Heavy",timer:false},
+      {name:"Barbell Hack Squat",sets:4,reps:"8",weight:"Heavy",timer:false},
+      {name:"Band Terminal Knee Extension",sets:3,reps:"15",weight:"Resistance band",timer:false},
+      {name:"Walking Lunges",sets:3,reps:"10 each",weight:"35 lbs DBs",timer:false},
+      {name:"Standing Calf Raise",sets:4,reps:"20",weight:"BW + 60 lbs",timer:false},
       {name:"Seated Calf Raise",sets:4,reps:"15",weight:"60 lbs",timer:false},
     ]},
-    {day:3,label:"Incline Walk + Core",icon:"🚶",type:"cardio",note:"Maximum cardio intensity this week. No handrails. Push the pace on max incline.",exercises:[
+    {day:3,label:"Incline Walk + Core",icon:"🚶",type:"cardio",note:"Incline walking at 3 mph is one of the most effective tools for attacking visceral fat — it's low impact, sustainable, and keeps you in Zone 2 the whole time. Maximum cardio intensity this week. No handrails. Push the pace on max incline. Abs after to finish off the gut.",exercises:[
       {name:"Warm-up Walk",sets:1,reps:"5 min",weight:"3.5 mph / 6% incline",timer:true},
       {name:"High Incline Sprint Walk",sets:1,reps:"30 min",weight:"3.5 mph / max incline",timer:true},
       {name:"Boxing Rounds",sets:5,reps:"3 min",weight:"Gloves",timer:true},
       {name:"Jump Rope",sets:5,reps:"2 min",weight:"—",timer:true},
-      {name:"Ab Wheel Rollout",sets:5,reps:"12",weight:"Bodyweight",timer:false},
-      {name:"Hanging Leg Raise",sets:5,reps:"15",weight:"Bodyweight",timer:false},
+      {name:"Hanging Leg Raise",sets:4,reps:"15",weight:"Bodyweight",timer:false},
+      {name:"Ab Wheel Rollout",sets:3,reps:"10",weight:"Bodyweight",timer:false},
+      {name:"Plank",sets:3,reps:"45 sec",weight:"—",timer:true},
     ]},
-    {day:4,label:"Back & Biceps — Heavy",icon:"🏋️",type:"pull",note:"255 lbs deadlift for 5x5. This is your peak pull strength. Brace every rep.",exercises:[
+    {day:4,label:"Back & Biceps — Heavy",icon:"🏋️",type:"pull",note:"255 lbs deadlift for 5x5. This is your peak pull strength. Brace every rep. Abs at the end — core strength directly supports every heavy pull and reduces belly bloat.",exercises:[
       {name:"Barbell Deadlift",sets:5,reps:"5",weight:"255 lbs",timer:false},
       {name:"Weighted Pull-Ups",sets:5,reps:"5",weight:"+35 lbs",timer:false},
       {name:"Barbell Row",sets:5,reps:"6",weight:"Heavy",timer:false},
-      {name:"Seated Cable Row",sets:4,reps:"8",weight:"Heavy",timer:false},
-      {name:"Preacher Curl",sets:4,reps:"8",weight:"50 lbs bar",timer:false},
+      {name:"DB Bent-Over Row",sets:4,reps:"8",weight:"Heavy",timer:false},
+      {name:"Preacher Curl (DB)",sets:4,reps:"8",weight:"45 lbs DB",timer:false},
+      {name:"Hanging Knee Raise",sets:3,reps:"15",weight:"Bodyweight",timer:false},
+      {name:"Plank",sets:3,reps:"45 sec",weight:"—",timer:true},
     ]},
-    {day:5,label:"Peak Hamstrings + Abs",icon:"🔥",type:"legs",note:"Peak posterior chain strength. Every movement at max intensity. This is what 11 weeks of work feels like.",exercises:[
+    {day:5,label:"Peak Hamstrings + Abs",icon:"🔥",type:"legs",note:"Peak posterior chain strength. Every movement at max intensity. This is what 11 weeks of work feels like. Both calves hit today — gastrocnemius and soleus need high frequency to grow. Three ab movements to attack visceral fat.",exercises:[
       {name:"Romanian Deadlift",sets:5,reps:"5",weight:"215 lbs barbell",timer:false},
-      {name:"Leg Curl Machine",sets:4,reps:"8",weight:"Heaviest",timer:false},
+      {name:"Nordic Curl (hyperextension bench)",sets:4,reps:"6",weight:"Bodyweight",timer:false},
       {name:"Hip Thrust",sets:5,reps:"8",weight:"215 lbs barbell",timer:false},
-      {name:"Nordic Curl",sets:4,reps:"6",weight:"Bodyweight",timer:false},
+      {name:"Nordic Curl (hyperextension bench)",sets:4,reps:"6",weight:"Bodyweight",timer:false},
+      {name:"Standing Calf Raise",sets:4,reps:"20",weight:"BW + 60 lbs",timer:false},
       {name:"Seated Calf Raise",sets:4,reps:"15",weight:"60 lbs",timer:false},
       {name:"Ab Wheel Rollout",sets:5,reps:"12",weight:"Bodyweight",timer:false},
+      {name:"Hanging Leg Raise",sets:4,reps:"15",weight:"Bodyweight",timer:false},
+      {name:"Weighted Sit-Up",sets:3,reps:"15",weight:"Weight plate",timer:false},
     ]},
-    {day:6,label:"Incline Walk — Peak Burn",icon:"🚶",type:"cardio",note:"Peak conditioning session. Max effort walk plus HIIT finisher — leave everything you have.",exercises:[
+    {day:6,label:"Incline Walk — Peak Burn",icon:"🚶",type:"cardio",note:"Incline walking at 3 mph is one of the most effective tools for attacking visceral fat — it's low impact, sustainable, and keeps you in Zone 2 the whole time. Peak conditioning session. Max effort walk plus HIIT finisher — leave everything you have. End with abs to burn the last of the visceral fat.",exercises:[
       {name:"High Incline Sprint Walk",sets:1,reps:"35 min",weight:"3.5 mph / max incline",timer:true},
       {name:"Kettlebell Swings",sets:6,reps:"20",weight:"Heavy kettlebell",timer:false},
       {name:"Slam Ball Slams",sets:5,reps:"20",weight:"Slam ball",timer:false},
       {name:"Boxing Rounds",sets:5,reps:"3 min",weight:"Gloves",timer:true},
       {name:"Jump Rope",sets:5,reps:"2 min",weight:"—",timer:true},
+      {name:"Hanging Leg Raise",sets:4,reps:"15",weight:"Bodyweight",timer:false},
+      {name:"Ab Wheel Rollout",sets:3,reps:"10",weight:"Bodyweight",timer:false},
+      {name:"Plank",sets:3,reps:"45 sec",weight:"—",timer:true},
     ]},
     {day:7,label:"Rest & Recovery",icon:"🧘",type:"rest",note:"One more week to go. Peak week is next — rest completely today. Tomorrow the PR hunt begins.",exercises:[
       {name:"Full Body Stretch",sets:1,reps:"40 min",weight:"—",timer:false},
@@ -1290,53 +1381,61 @@ const WEEKS=[
     ]},
   ]},
   {week:12,theme:"Strength + Conditioning — Final",days:[
-    {day:1,label:"Chest — PR Day",icon:"💪",type:"push",note:"12 weeks of work come down to today. Go for a new bench press 1RM. Leave nothing in the rack.",exercises:[
+    {day:1,label:"Chest — PR Day",icon:"💪",type:"push",note:"12 weeks of work come down to today. Go for a new bench press 1RM. After the PR attempt, hit flat, isolation, and lower chest — four chest movements total before triceps. Bigger chest is the mission.",exercises:[
       {name:"Incline Barbell Press",sets:1,reps:"5/3/2/1/1",weight:"Pyramid to max",timer:false},
       {name:"Flat DB Press",sets:4,reps:"8",weight:"55 lbs",timer:false},
-      {name:"Weighted Dips",sets:4,reps:"8",weight:"+45 lbs",timer:false},
+      {name:"DB Flyes (flat bench)",sets:3,reps:"12",weight:"15 lbs",timer:false},
+      {name:"Weighted Dips",sets:3,reps:"8",weight:"+45 lbs",timer:false},
       {name:"Close-Grip Bench Press",sets:3,reps:"8",weight:"125 lbs",timer:false},
-      {name:"Tricep Rope Pushdown",sets:3,reps:"12",weight:"Moderate",timer:false},
-      {name:"Kettlebell Swings",sets:3,reps:"20",weight:"Kettlebell — conditioning finisher",timer:true},
+      {name:"Band Tricep Pushdown",sets:2,reps:"12",weight:"Resistance band",timer:false},
     ]},
-    {day:2,label:"Legs — Squat PR Day",icon:"🦵",type:"legs",note:"Squat PR day. 12 weeks of leg work. Trust the process and get under the bar.",exercises:[
+    {day:2,label:"Legs — Squat PR Day",icon:"🦵",type:"legs",note:"Squat PR day. 12 weeks of leg work. Trust the process and get under the bar. Standing and seated calves both — every leg day, both heads, to build massive calves. That's 24 sessions of calf work across the program.",exercises:[
       {name:"Barbell Back Squat",sets:1,reps:"5/3/2/1/1",weight:"Pyramid to max 1RM",timer:false},
-      {name:"Hack Squat",sets:4,reps:"8",weight:"4 plates",timer:false},
-      {name:"Leg Press",sets:4,reps:"10",weight:"5 plates",timer:false},
-      {name:"Leg Extension",sets:3,reps:"12",weight:"Moderate",timer:false},
+      {name:"Barbell Hack Squat",sets:4,reps:"10",weight:"Heavy",timer:false},
+      {name:"Band Terminal Knee Extension",sets:3,reps:"15",weight:"Resistance band",timer:false},
+      {name:"Walking Lunges",sets:3,reps:"10 each",weight:"35 lbs DBs",timer:false},
+      {name:"Standing Calf Raise",sets:4,reps:"20",weight:"BW + 60 lbs",timer:false},
       {name:"Seated Calf Raise",sets:4,reps:"20",weight:"60 lbs",timer:false},
-      {name:"Slam Ball Slams",sets:3,reps:"15",weight:"Slam ball — finisher",timer:false},
     ]},
-    {day:3,label:"Final Incline Walk + Conditioning",icon:"🚶",type:"cardio",note:"Final cardio of the 12 weeks. Max incline walk, then a full conditioning circuit. End it strong.",exercises:[
+    {day:3,label:"Final Incline Walk + Conditioning",icon:"🚶",type:"cardio",note:"Incline walking at 3 mph is one of the most effective tools for attacking visceral fat — it's low impact, sustainable, and keeps you in Zone 2 the whole time. Final cardio of the 12 weeks. Max incline walk, then a full conditioning circuit. End with abs — 12 weeks of gut work comes down to this.",exercises:[
       {name:"Warm-up Walk",sets:1,reps:"5 min",weight:"3.5 mph / 6% incline",timer:true},
       {name:"High Incline Sprint Walk",sets:1,reps:"30 min",weight:"3.5 mph / max incline",timer:true},
       {name:"Boxing Rounds",sets:6,reps:"3 min",weight:"Gloves",timer:true},
       {name:"Jump Rope",sets:5,reps:"2 min",weight:"—",timer:true},
       {name:"Kettlebell Swings",sets:5,reps:"20",weight:"Heavy kettlebell",timer:false},
-      {name:"Slam Ball Slams",sets:5,reps:"15",weight:"Slam ball",timer:false},
+      {name:"Hanging Leg Raise",sets:4,reps:"15",weight:"Bodyweight",timer:false},
+      {name:"Ab Wheel Rollout",sets:3,reps:"10",weight:"Bodyweight",timer:false},
+      {name:"Plank",sets:3,reps:"45 sec",weight:"—",timer:true},
     ]},
-    {day:4,label:"Back — Deadlift PR Day",icon:"🏋️",type:"pull",note:"Deadlift PR day. 12 weeks of posterior chain work. Every rep of every week led to this moment.",exercises:[
+    {day:4,label:"Back — Deadlift PR Day",icon:"🏋️",type:"pull",note:"Deadlift PR day. 12 weeks of posterior chain work. Every rep of every week led to this moment. Abs at the end — core strength directly supports every heavy pull and reduces belly bloat.",exercises:[
       {name:"Barbell Deadlift",sets:1,reps:"5/3/2/1/1",weight:"Pyramid to max 1RM",timer:false},
       {name:"Weighted Pull-Ups",sets:4,reps:"6",weight:"+35 lbs",timer:false},
       {name:"Barbell Row",sets:4,reps:"8",weight:"Heavy",timer:false},
-      {name:"Seated Cable Row",sets:3,reps:"10",weight:"Moderate",timer:false},
-      {name:"Preacher Curl",sets:3,reps:"10",weight:"50 lbs bar",timer:false},
-      {name:"Kettlebell Swings",sets:3,reps:"20",weight:"Kettlebell — finisher",timer:true},
+      {name:"DB Bent-Over Row",sets:3,reps:"10",weight:"Moderate",timer:false},
+      {name:"Preacher Curl (DB)",sets:3,reps:"10",weight:"45 lbs DB",timer:false},
+      {name:"Hanging Knee Raise",sets:3,reps:"15",weight:"Bodyweight",timer:false},
+      {name:"Plank",sets:3,reps:"45 sec",weight:"—",timer:true},
     ]},
-    {day:5,label:"Final Hamstrings + Abs",icon:"🔥",type:"legs",note:"Final posterior chain session. Heavy RDL PR attempt, then a conditioning finisher to cap off 12 weeks.",exercises:[
+    {day:5,label:"Final Hamstrings + Abs",icon:"🔥",type:"legs",note:"Final posterior chain session. Heavy RDL PR attempt, then hit standing and seated calves — the last of 24 calf sessions across this program. Three ab movements to finish off the visceral fat. Leave nothing undone.",exercises:[
       {name:"Romanian Deadlift",sets:1,reps:"5/3/2/1/1",weight:"Pyramid to max",timer:false},
-      {name:"Leg Curl Machine",sets:4,reps:"10",weight:"Heaviest",timer:false},
+      {name:"Nordic Curl (hyperextension bench)",sets:4,reps:"6",weight:"Bodyweight",timer:false},
       {name:"Hip Thrust",sets:4,reps:"10",weight:"Heaviest of program",timer:false},
-      {name:"Nordic Curl",sets:4,reps:"6",weight:"Bodyweight",timer:false},
+      {name:"Nordic Curl (hyperextension bench)",sets:4,reps:"6",weight:"Bodyweight",timer:false},
+      {name:"Standing Calf Raise",sets:4,reps:"20",weight:"BW + 60 lbs",timer:false},
       {name:"Seated Calf Raise",sets:4,reps:"20",weight:"60 lbs",timer:false},
       {name:"Ab Wheel Rollout",sets:5,reps:"12",weight:"Bodyweight",timer:false},
       {name:"Hanging Leg Raise",sets:5,reps:"15",weight:"Bodyweight",timer:false},
+      {name:"Weighted Sit-Up",sets:3,reps:"15",weight:"Weight plate",timer:false},
     ]},
-    {day:6,label:"12-Week Grand Finale",icon:"🚶",type:"cardio",note:"The final session. Walk to warm up, then an all-out conditioning circuit. You earned this.",exercises:[
+    {day:6,label:"12-Week Grand Finale",icon:"🚶",type:"cardio",note:"Incline walking at 3 mph is one of the most effective tools for attacking visceral fat — it's low impact, sustainable, and keeps you in Zone 2 the whole time. The final session. Walk to warm up, then an all-out conditioning circuit. End with abs — the final assault on visceral fat. You earned this.",exercises:[
       {name:"High Incline Sprint Walk",sets:1,reps:"30 min",weight:"3.5 mph / max incline",timer:true},
       {name:"Boxing Rounds",sets:6,reps:"3 min",weight:"Gloves",timer:true},
       {name:"Kettlebell Swings",sets:5,reps:"25",weight:"Heavy kettlebell",timer:false},
       {name:"Slam Ball Slams",sets:5,reps:"20",weight:"Slam ball",timer:false},
       {name:"Jump Rope",sets:5,reps:"2 min",weight:"—",timer:true},
+      {name:"Hanging Leg Raise",sets:4,reps:"15",weight:"Bodyweight",timer:false},
+      {name:"Ab Wheel Rollout",sets:3,reps:"10",weight:"Bodyweight",timer:false},
+      {name:"Plank",sets:3,reps:"45 sec",weight:"—",timer:true},
     ]},
     {day:7,label:"Program Complete 🏆",icon:"🏆",type:"rest",note:"12 weeks done. You are not the same person who started Day 1. Reflect, recover, plan the next chapter.",exercises:[
       {name:"Full Body Stretch",sets:1,reps:"45 min",weight:"—",timer:false},
