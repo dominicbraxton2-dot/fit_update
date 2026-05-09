@@ -692,8 +692,8 @@ const WEEKS=[
     {day:1,label:"Chest & Triceps",icon:"💪",type:"push",note:"Full range of motion on every rep. Control the negative — 3 seconds down. Big chest is built on volume — flat, incline, isolation, and lower-chest all hit today.",exercises:[
       {name:"Barbell Bench Press",sets:4,reps:"10",weight:"Moderate",timer:false},
       {name:"Incline DB Press",sets:3,reps:"12",weight:"30–35 lbs",timer:false},
-      {name:"GMWD Chest Press Machine",sets:3,reps:"12",weight:"Moderate",timer:false},
       {name:"DB Flyes (flat bench)",sets:3,reps:"12",weight:"15–20 lbs",timer:false},
+      {name:"Dumbbell Pullover",sets:3,reps:"12",weight:"25–30 lbs",timer:false},
       {name:"Decline DB Press",sets:3,reps:"12",weight:"25–30 lbs",timer:false},
       {name:"Tricep Dips",sets:3,reps:"12",weight:"Bodyweight",timer:false},
       {name:"Overhead Tricep Extension",sets:3,reps:"12",weight:"30 lbs DB",timer:false},
@@ -736,7 +736,7 @@ const WEEKS=[
       {name:"Ab Wheel Rollout",sets:3,reps:"10",weight:"Bodyweight",timer:false},
       {name:"Plank",sets:3,reps:"45 sec",weight:"—",timer:true},
     ]},
-    {day:6,label:"Incline Walk — Long Burn",icon:"🚶",type:"cardio",note:"Incline walking at 3 mph is one of the most effective tools for attacking visceral fat — it's low impact, sustainable, and keeps you in Zone 2 the whole time. Longer walk today — pure fat oxidation mode.",exercises:[
+    {day:6,label:"Incline Walk — Long Burn",icon:"🚶",type:"cardio",note:"Incline walking at 3 mph is one of the most effective tools for attacking visceral fat — it's low impact, sustainable, and keeps you in Zone 2 the whole time. Longer walk today — pure fat oxidation mode. 🚴 Spin bike option: swap the incline walk for 30–35 min steady S22i ride at resistance 8–10.",exercises:[
       {name:"Warm-up Walk",sets:1,reps:"5 min",weight:"3 mph / 4% incline",timer:true},
       {name:"Steady Incline Walk",sets:1,reps:"30 min",weight:"3 mph / 10% incline",timer:true},
       {name:"Cool-down Walk",sets:1,reps:"5 min",weight:"3 mph / 3% incline",timer:true},
@@ -757,7 +757,7 @@ const WEEKS=[
     {day:1,label:"Chest & Triceps",icon:"💪",type:"push",note:"Add 5–10 lbs to every barbell and DB movement from Week 1. Hit flat, incline, isolation, and lower chest in that order — width and thickness come from attacking all angles. Bigger chest requires volume before triceps.",exercises:[
       {name:"Barbell Bench Press",sets:4,reps:"8",weight:"+5–10 lbs vs W1",timer:false},
       {name:"Incline DB Press",sets:4,reps:"10",weight:"35 lbs",timer:false},
-      {name:"GMWD Chest Press Machine",sets:3,reps:"10",weight:"Heavier",timer:false},
+      {name:"Dumbbell Pullover",sets:3,reps:"10",weight:"30 lbs",timer:false},
       {name:"Decline DB Press",sets:3,reps:"12",weight:"25–30 lbs",timer:false},
       {name:"Close-Grip Bench Press",sets:3,reps:"10",weight:"Moderate",timer:false},
       {name:"Skull Crushers",sets:3,reps:"12",weight:"Light-moderate",timer:false},
@@ -803,7 +803,7 @@ const WEEKS=[
       {name:"Hanging Leg Raise (straight)",sets:3,reps:"10",weight:"Bodyweight",timer:false},
       {name:"Weighted Sit-Up",sets:3,reps:"15",weight:"Weight plate",timer:false},
     ]},
-    {day:6,label:"Incline Walk + Strength Circuit",icon:"🚶",type:"cardio",note:"Incline walking at 3 mph is one of the most effective tools for attacking visceral fat — it's low impact, sustainable, and keeps you in Zone 2 the whole time. Walk first to pre-exhaust, then hit the circuit. Finish with abs to build that shredded core.",exercises:[
+    {day:6,label:"Incline Walk + Strength Circuit",icon:"🚶",type:"cardio",note:"Incline walking at 3 mph is one of the most effective tools for attacking visceral fat — it's low impact, sustainable, and keeps you in Zone 2 the whole time. Walk first to pre-exhaust, then hit the circuit. Finish with abs to build that shredded core. 🚴 Spin bike option: sub the walk for 20 min S22i steady ride before the circuit.",exercises:[
       {name:"Incline Walk",sets:1,reps:"20 min",weight:"3 mph / 12% incline",timer:true},
       {name:"Kettlebell Swings",sets:4,reps:"20",weight:"Kettlebell",timer:true},
       {name:"Slam Ball Slams",sets:4,reps:"15",weight:"Slam ball",timer:false},
@@ -822,7 +822,7 @@ const WEEKS=[
     {day:1,label:"Chest & Triceps — Supersets",icon:"💪",type:"push",note:"No rest between paired exercises. Move immediately from one to the next. Superset flat with flyes, incline with push-ups — four chest angles before a single tricep rep. This is how you build a bigger chest.",exercises:[
       {name:"Bench Press + DB Flyes",sets:4,reps:"8+12",weight:"Heavy + 15 lbs [SUPERSET]",timer:false},
       {name:"Incline Press + Push-Ups",sets:3,reps:"10+failure",weight:"35 lbs + BW [SUPERSET]",timer:false},
-      {name:"GMWD Machine Drop Set",sets:3,reps:"8/12",weight:"Heavy→lighter [DROP SET]",timer:false},
+      {name:"DB Flyes Drop Set",sets:3,reps:"8/12",weight:"Heavy→lighter [DROP SET]",timer:false},
       {name:"Decline DB Press",sets:3,reps:"12",weight:"25–30 lbs",timer:false},
       {name:"Weighted Tricep Dips",sets:3,reps:"12",weight:"Weighted vest",timer:false},
       {name:"Close-Grip Push-Up",sets:3,reps:"15",weight:"Bodyweight",timer:false},
@@ -865,7 +865,7 @@ const WEEKS=[
       {name:"Ab Wheel Rollout",sets:4,reps:"12",weight:"Bodyweight",timer:false},
       {name:"Weighted Plank",sets:3,reps:"45 sec",weight:"Plate on back",timer:true},
     ]},
-    {day:6,label:"Long Incline Walk — Peak Burn",icon:"🚶",type:"cardio",note:"Incline walking at 3 mph is one of the most effective tools for attacking visceral fat — it's low impact, sustainable, and keeps you in Zone 2 the whole time. Longest walk of the month. 45 min at 12%+ incline. No handrails. Abs after the walk to hit the gut from both directions.",exercises:[
+    {day:6,label:"Long Incline Walk — Peak Burn",icon:"🚶",type:"cardio",note:"Incline walking at 3 mph is one of the most effective tools for attacking visceral fat — it's low impact, sustainable, and keeps you in Zone 2 the whole time. Longest walk of the month. 45 min at 12%+ incline. No handrails. Abs after the walk to hit the gut from both directions. 🚴 Spin bike option: 40 min S22i steady ride, resistance 8.",exercises:[
       {name:"Warm-up Walk",sets:1,reps:"5 min",weight:"3 mph / 5% incline",timer:true},
       {name:"Long Incline Walk",sets:1,reps:"40 min",weight:"3 mph / 12% incline",timer:true},
       {name:"Cool-down Walk",sets:1,reps:"5 min",weight:"3 mph / 3% incline",timer:true},
@@ -926,7 +926,7 @@ const WEEKS=[
       {name:"Ab Wheel Rollout",sets:3,reps:"10",weight:"Bodyweight",timer:false},
       {name:"Plank",sets:3,reps:"45 sec",weight:"—",timer:true},
     ]},
-    {day:6,label:"Final Incline Walk + Finisher",icon:"🚶",type:"cardio",note:"Incline walking at 3 mph is one of the most effective tools for attacking visceral fat — it's low impact, sustainable, and keeps you in Zone 2 the whole time. Last cardio session of the month. Walk hard, finish strong. End with abs — kill the visceral fat.",exercises:[
+    {day:6,label:"Final Incline Walk + Finisher",icon:"🚶",type:"cardio",note:"Incline walking at 3 mph is one of the most effective tools for attacking visceral fat — it's low impact, sustainable, and keeps you in Zone 2 the whole time. Last cardio session of Phase 1. Walk hard, finish strong. End with abs — kill the visceral fat. 🚴 Spin bike option: swap the incline walk for 30 min S22i steady ride + 5 min cool-down.",exercises:[
       {name:"Incline Walk",sets:1,reps:"30 min",weight:"3 mph / 12–15% incline",timer:true},
       {name:"Kettlebell Swings",sets:5,reps:"20",weight:"Kettlebell",timer:false},
       {name:"Slam Ball Slams",sets:5,reps:"15",weight:"Slam ball",timer:false},
@@ -988,9 +988,11 @@ const WEEKS=[
       {name:"Hanging Leg Raise",sets:3,reps:"15",weight:"Bodyweight",timer:false},
       {name:"Weighted Sit-Up",sets:3,reps:"15",weight:"Weight plate",timer:false},
     ]},
-    {day:6,label:"Incline Walk — Burn",icon:"🚶",type:"cardio",note:"Incline walking at 3 mph is one of the most effective tools for attacking visceral fat — it's low impact, sustainable, and keeps you in Zone 2 the whole time. Longer cardio session. Walk hard, then finish with abs — two fronts attacking visceral fat simultaneously.",exercises:[
-      {name:"Warm-up Walk",sets:1,reps:"5 min",weight:"3 mph / 5% incline",timer:true},
-      {name:"Steady Incline Walk",sets:1,reps:"25 min",weight:"3 mph / 12% incline",timer:true},
+    {day:6,label:"Spin Bike HIIT + Burn",icon:"🚴",type:"cardio",note:"Primary: S22i Spin Bike HIIT — spinning is best for cardio improvement. 🚴 Warm up, 10 min steady, then 4 rounds of 1 min all-out / 1 min easy — this spikes VO2 max and crushes visceral fat. Alternative: 25 min incline walk at 3 mph / 12% incline. Finish with abs.",exercises:[
+      {name:"Spin Bike Warm-Up",sets:1,reps:"5 min",weight:"Resistance level 5",timer:true},
+      {name:"Spin Bike Steady State",sets:1,reps:"10 min",weight:"Resistance 8",timer:true},
+      {name:"Spin Bike HIIT Intervals",sets:4,reps:"1 min hard / 1 min easy",weight:"Max resistance",timer:true},
+      {name:"Spin Bike Cool-Down",sets:1,reps:"5 min",weight:"Resistance 4",timer:true},
       {name:"Jump Rope",sets:4,reps:"2 min",weight:"—",timer:true},
       {name:"Slam Ball Slams",sets:3,reps:"15",weight:"Slam ball",timer:false},
       {name:"Hanging Leg Raise",sets:4,reps:"15",weight:"Bodyweight",timer:false},
@@ -1051,11 +1053,11 @@ const WEEKS=[
       {name:"Ab Wheel Rollout",sets:3,reps:"10",weight:"Bodyweight",timer:false},
       {name:"Weighted Sit-Up",sets:3,reps:"15",weight:"Weight plate",timer:false},
     ]},
-    {day:6,label:"Incline Walk — Burn",icon:"🚶",type:"cardio",note:"Incline walking at 3 mph is one of the most effective tools for attacking visceral fat — it's low impact, sustainable, and keeps you in Zone 2 the whole time. Max incline sections today. Alternate every 10 min between steep and moderate. Abs after to finish off the gut.",exercises:[
-      {name:"Warm-up Walk",sets:1,reps:"5 min",weight:"3 mph / 5% incline",timer:true},
-      {name:"High Incline Walk",sets:1,reps:"10 min",weight:"3 mph / 15% incline",timer:true},
-      {name:"Moderate Walk",sets:1,reps:"5 min",weight:"3 mph / 8% incline",timer:true},
-      {name:"High Incline Walk",sets:1,reps:"10 min",weight:"3 mph / 15% incline",timer:true},
+    {day:6,label:"Spin Bike HIIT + Burn",icon:"🚴",type:"cardio",note:"Primary: S22i Spin Bike HIIT — best for cardio improvement. 🚴 Warm up, 10 min steady state resistance 8, then 4 rounds all-out intervals. Alternative: Treadmill intervals 3 mph alternating 15%/8% incline every 10 min. Finish with abs.",exercises:[
+      {name:"Spin Bike Warm-Up",sets:1,reps:"5 min",weight:"Resistance level 5",timer:true},
+      {name:"Spin Bike Steady State",sets:1,reps:"10 min",weight:"Resistance 8",timer:true},
+      {name:"Spin Bike HIIT Intervals",sets:4,reps:"1 min hard / 1 min easy",weight:"Max resistance",timer:true},
+      {name:"Spin Bike Cool-Down",sets:1,reps:"5 min",weight:"Resistance 4",timer:true},
       {name:"Jump Rope",sets:4,reps:"2 min",weight:"—",timer:true},
       {name:"Slam Ball Slams",sets:4,reps:"15",weight:"Slam ball",timer:false},
       {name:"Hanging Leg Raise",sets:4,reps:"15",weight:"Bodyweight",timer:false},
@@ -1115,9 +1117,11 @@ const WEEKS=[
       {name:"Hanging Leg Raise",sets:3,reps:"15",weight:"Bodyweight",timer:false},
       {name:"Weighted Sit-Up",sets:3,reps:"15",weight:"Weight plate",timer:false},
     ]},
-    {day:6,label:"Incline Walk — Burn",icon:"🚶",type:"cardio",note:"Incline walking at 3 mph is one of the most effective tools for attacking visceral fat — it's low impact, sustainable, and keeps you in Zone 2 the whole time. 45 minute walk + conditioning finisher. Abs at the end to burn visceral fat on two fronts.",exercises:[
-      {name:"Warm-up Walk",sets:1,reps:"5 min",weight:"3 mph / 5% incline",timer:true},
-      {name:"Long Incline Walk",sets:1,reps:"35 min",weight:"3 mph / 13% incline",timer:true},
+    {day:6,label:"Spin Bike HIIT + Conditioning",icon:"🚴",type:"cardio",note:"Primary: S22i Spin Bike HIIT — spinning drives cardio gains like nothing else. 🚴 4 all-out HIIT intervals then conditioning circuit. Alternative: 35 min incline walk 3 mph / 13% incline. Abs to finish.",exercises:[
+      {name:"Spin Bike Warm-Up",sets:1,reps:"5 min",weight:"Resistance level 5",timer:true},
+      {name:"Spin Bike Steady State",sets:1,reps:"10 min",weight:"Resistance 8",timer:true},
+      {name:"Spin Bike HIIT Intervals",sets:4,reps:"1 min hard / 1 min easy",weight:"Max resistance",timer:true},
+      {name:"Spin Bike Cool-Down",sets:1,reps:"5 min",weight:"Resistance 4",timer:true},
       {name:"Boxing Rounds",sets:5,reps:"2 min",weight:"Gloves",timer:true},
       {name:"Jump Rope",sets:3,reps:"2 min",weight:"—",timer:true},
       {name:"Slam Ball Slams",sets:3,reps:"15",weight:"Slam ball",timer:false},
@@ -1180,9 +1184,11 @@ const WEEKS=[
       {name:"Hanging Leg Raise",sets:3,reps:"15",weight:"Bodyweight",timer:false},
       {name:"Weighted Sit-Up",sets:3,reps:"15",weight:"Weight plate",timer:false},
     ]},
-    {day:6,label:"Incline Walk — Burn",icon:"🚶",type:"cardio",note:"Incline walking at 3 mph is one of the most effective tools for attacking visceral fat — it's low impact, sustainable, and keeps you in Zone 2 the whole time. Phase 2 peak burn. Walk hard, box hard, finish with abs — kill the visceral fat.",exercises:[
-      {name:"Warm-up Walk",sets:1,reps:"5 min",weight:"3 mph / 6% incline",timer:true},
-      {name:"Long Incline Walk",sets:1,reps:"40 min",weight:"3 mph / 13% incline",timer:true},
+    {day:6,label:"Spin Bike HIIT — Phase 2 Peak",icon:"🚴",type:"cardio",note:"Primary: S22i Spin Bike HIIT — Phase 2 peak burn. 🚴 Warm up, steady state, 4 all-out rounds. This is your best tool for cardio improvement. Alternative: 40 min incline walk 3 mph / 13% incline. Boxing and abs to finish.",exercises:[
+      {name:"Spin Bike Warm-Up",sets:1,reps:"5 min",weight:"Resistance level 5",timer:true},
+      {name:"Spin Bike Steady State",sets:1,reps:"10 min",weight:"Resistance 8",timer:true},
+      {name:"Spin Bike HIIT Intervals",sets:4,reps:"1 min hard / 1 min easy",weight:"Max resistance",timer:true},
+      {name:"Spin Bike Cool-Down",sets:1,reps:"5 min",weight:"Resistance 4",timer:true},
       {name:"Boxing Rounds",sets:5,reps:"3 min",weight:"Gloves",timer:true},
       {name:"Jump Rope",sets:4,reps:"2 min",weight:"—",timer:true},
       {name:"Slam Ball Slams",sets:5,reps:"15",weight:"Slam ball",timer:false},
@@ -1241,10 +1247,12 @@ const WEEKS=[
       {name:"Hanging Leg Raise",sets:4,reps:"15",weight:"Bodyweight",timer:false},
       {name:"Weighted Sit-Up",sets:3,reps:"15",weight:"Weight plate",timer:false},
     ]},
-    {day:6,label:"Incline Walk — Burn",icon:"🚶",type:"cardio",note:"Incline walking at 3 mph is one of the most effective tools for attacking visceral fat — it's low impact, sustainable, and keeps you in Zone 2 the whole time. Conditioning day. Max incline walk plus HIIT circuits to keep fat loss moving. Abs at the end to shred the gut.",exercises:[
-      {name:"Warm-up Walk",sets:1,reps:"5 min",weight:"3 mph / 5% incline",timer:true},
-      {name:"High Incline Sprint Walk",sets:1,reps:"25 min",weight:"3.5 mph / 15% incline",timer:true},
-      {name:"Kettlebell Swings",sets:5,reps:"20",weight:"Kettlebell",timer:false},
+    {day:6,label:"Spin Bike HIIT — Phase 3",icon:"🚴",type:"cardio",note:"Primary: S22i Spin Bike HIIT — Phase 3 cardio foundation. 🚴 Spin intervals spike VO2 max far better than walking. Alternative: 25 min high incline sprint walk 3.5 mph / 15%. Then conditioning circuit. Abs to end.",exercises:[
+      {name:"Spin Bike Warm-Up",sets:1,reps:"5 min",weight:"Resistance level 5",timer:true},
+      {name:"Spin Bike Steady State",sets:1,reps:"10 min",weight:"Resistance 8",timer:true},
+      {name:"Spin Bike HIIT Intervals",sets:4,reps:"1 min hard / 1 min easy",weight:"Max resistance",timer:true},
+      {name:"Spin Bike Cool-Down",sets:1,reps:"5 min",weight:"Resistance 4",timer:true},
+      {name:"Kettlebell Swings",sets:5,reps:"20",weight:"Kettlebell / Slam ball",timer:false},
       {name:"Boxing Rounds",sets:4,reps:"3 min",weight:"Gloves",timer:true},
       {name:"Jump Rope",sets:3,reps:"2 min",weight:"—",timer:true},
       {name:"Hanging Leg Raise",sets:4,reps:"15",weight:"Bodyweight",timer:false},
@@ -1302,9 +1310,12 @@ const WEEKS=[
       {name:"Hanging Leg Raise",sets:4,reps:"15",weight:"Bodyweight",timer:false},
       {name:"Weighted Sit-Up",sets:3,reps:"15",weight:"Weight plate",timer:false},
     ]},
-    {day:6,label:"Incline Walk — Burn",icon:"🚶",type:"cardio",note:"Incline walking at 3 mph is one of the most effective tools for attacking visceral fat — it's low impact, sustainable, and keeps you in Zone 2 the whole time. Heavy conditioning day. Walk + HIIT circuit for fat burning on top of strength gains. Abs at the end to kill the visceral fat.",exercises:[
-      {name:"High Incline Sprint Walk",sets:1,reps:"30 min",weight:"3.5 mph / 15% incline",timer:true},
-      {name:"Kettlebell Swings",sets:5,reps:"20",weight:"Heavy kettlebell",timer:false},
+    {day:6,label:"Spin Bike HIIT — Loading",icon:"🚴",type:"cardio",note:"Primary: S22i Spin Bike HIIT — heavy conditioning week. 🚴 Spin HIIT + full circuit is a monster fat-burning combo. Alternative: 30 min high incline sprint walk 3.5 mph / 15%. Then HIIT circuit. Abs at end.",exercises:[
+      {name:"Spin Bike Warm-Up",sets:1,reps:"5 min",weight:"Resistance level 5",timer:true},
+      {name:"Spin Bike Steady State",sets:1,reps:"10 min",weight:"Resistance 8",timer:true},
+      {name:"Spin Bike HIIT Intervals",sets:4,reps:"1 min hard / 1 min easy",weight:"Max resistance",timer:true},
+      {name:"Spin Bike Cool-Down",sets:1,reps:"5 min",weight:"Resistance 4",timer:true},
+      {name:"Kettlebell Swings",sets:5,reps:"20",weight:"Slam ball",timer:false},
       {name:"Slam Ball Slams",sets:5,reps:"15",weight:"Slam ball",timer:false},
       {name:"Boxing Rounds",sets:4,reps:"3 min",weight:"Gloves",timer:true},
       {name:"Jump Rope",sets:3,reps:"2 min",weight:"—",timer:true},
@@ -1364,9 +1375,12 @@ const WEEKS=[
       {name:"Hanging Leg Raise",sets:4,reps:"15",weight:"Bodyweight",timer:false},
       {name:"Weighted Sit-Up",sets:3,reps:"15",weight:"Weight plate",timer:false},
     ]},
-    {day:6,label:"Incline Walk — Peak Burn",icon:"🚶",type:"cardio",note:"Incline walking at 3 mph is one of the most effective tools for attacking visceral fat — it's low impact, sustainable, and keeps you in Zone 2 the whole time. Peak conditioning session. Max effort walk plus HIIT finisher — leave everything you have. End with abs to burn the last of the visceral fat.",exercises:[
-      {name:"High Incline Sprint Walk",sets:1,reps:"35 min",weight:"3.5 mph / max incline",timer:true},
-      {name:"Kettlebell Swings",sets:6,reps:"20",weight:"Heavy kettlebell",timer:false},
+    {day:6,label:"Spin Bike HIIT — Peak Burn",icon:"🚴",type:"cardio",note:"Primary: S22i Spin Bike HIIT — peak intensity week. 🚴 Max effort spin intervals — this is the hardest cardio session of the program. Alternative: 35 min high incline sprint walk 3.5 mph / max incline. Full HIIT circuit after. Leave nothing.",exercises:[
+      {name:"Spin Bike Warm-Up",sets:1,reps:"5 min",weight:"Resistance level 5",timer:true},
+      {name:"Spin Bike Steady State",sets:1,reps:"10 min",weight:"Resistance 8",timer:true},
+      {name:"Spin Bike HIIT Intervals",sets:4,reps:"1 min hard / 1 min easy",weight:"Max resistance",timer:true},
+      {name:"Spin Bike Cool-Down",sets:1,reps:"5 min",weight:"Resistance 4",timer:true},
+      {name:"Kettlebell Swings",sets:6,reps:"20",weight:"Slam ball",timer:false},
       {name:"Slam Ball Slams",sets:5,reps:"20",weight:"Slam ball",timer:false},
       {name:"Boxing Rounds",sets:5,reps:"3 min",weight:"Gloves",timer:true},
       {name:"Jump Rope",sets:5,reps:"2 min",weight:"—",timer:true},
@@ -1426,10 +1440,13 @@ const WEEKS=[
       {name:"Hanging Leg Raise",sets:5,reps:"15",weight:"Bodyweight",timer:false},
       {name:"Weighted Sit-Up",sets:3,reps:"15",weight:"Weight plate",timer:false},
     ]},
-    {day:6,label:"12-Week Grand Finale",icon:"🚶",type:"cardio",note:"Incline walking at 3 mph is one of the most effective tools for attacking visceral fat — it's low impact, sustainable, and keeps you in Zone 2 the whole time. The final session. Walk to warm up, then an all-out conditioning circuit. End with abs — the final assault on visceral fat. You earned this.",exercises:[
-      {name:"High Incline Sprint Walk",sets:1,reps:"30 min",weight:"3.5 mph / max incline",timer:true},
+    {day:6,label:"12-Week Grand Finale — Spin + Circuit",icon:"🚴",type:"cardio",note:"FINAL SESSION. Primary: S22i Spin Bike HIIT — go all out on the intervals. This is it. 12 weeks of work comes down to this ride. Then all-out conditioning circuit. Alternative: 30 min max incline sprint walk 3.5 mph. End with abs — the final assault on visceral fat. You earned this.",exercises:[
+      {name:"Spin Bike Warm-Up",sets:1,reps:"5 min",weight:"Resistance level 5",timer:true},
+      {name:"Spin Bike Steady State",sets:1,reps:"10 min",weight:"Resistance 8",timer:true},
+      {name:"Spin Bike HIIT Intervals",sets:4,reps:"1 min hard / 1 min easy",weight:"Max resistance",timer:true},
+      {name:"Spin Bike Cool-Down",sets:1,reps:"5 min",weight:"Resistance 4",timer:true},
       {name:"Boxing Rounds",sets:6,reps:"3 min",weight:"Gloves",timer:true},
-      {name:"Kettlebell Swings",sets:5,reps:"25",weight:"Heavy kettlebell",timer:false},
+      {name:"Kettlebell Swings",sets:5,reps:"25",weight:"Slam ball",timer:false},
       {name:"Slam Ball Slams",sets:5,reps:"20",weight:"Slam ball",timer:false},
       {name:"Jump Rope",sets:5,reps:"2 min",weight:"—",timer:true},
       {name:"Hanging Leg Raise",sets:4,reps:"15",weight:"Bodyweight",timer:false},
@@ -2122,9 +2139,25 @@ const MUSCLE_MAP={
   "Face Pulls":["bm-traps","bm-lshoulder","bm-rshoulder"],
   "T-Bar Row":["bm-lats","bm-traps","fm-lbicep","fm-rbicep"],
   "Preacher Curl":["fm-lbicep","fm-rbicep"],
+  "Preacher Curl (DB)":["fm-lbicep","fm-rbicep"],
   // Phase 2 Legs Ham
   "Glute Kickback Machine":["bm-glutes"],
   "Nordic Curl":["bm-lham","bm-rham"],
+  "Nordic Curl (hyperextension bench)":["bm-lham","bm-rham"],
+  "Lying DB Leg Curl":["bm-lham","bm-rham"],
+  "Band Terminal Knee Extension":["fm-lquad","fm-rquad"],
+  "Sissy Squat":["fm-lquad","fm-rquad"],
+  "Band Face Pull":["bm-traps","bm-lshoulder","bm-rshoulder"],
+  "Donkey Kick (resistance band)":["bm-glutes"],
+  "Band Tricep Pushdown":["bm-ltricep","bm-rtricep"],
+  "Barbell Hack Squat":["fm-lquad","fm-rquad","bm-glutes"],
+  "DB Goblet Squat":["fm-lquad","fm-rquad","bm-glutes"],
+  "Back Extension":["bm-lowerback","bm-glutes","bm-lham","bm-rham"],
+  // Spin Bike
+  "Spin Bike Warm-Up":["fm-lquad","fm-rquad","bm-lham","bm-rham","fm-lcalf","fm-rcalf"],
+  "Spin Bike Steady State":["fm-lquad","fm-rquad","bm-lham","bm-rham"],
+  "Spin Bike HIIT Intervals":["fm-lquad","fm-rquad","bm-lham","bm-rham","fm-lcalf","fm-rcalf"],
+  "Spin Bike Cool-Down":["fm-lquad","fm-rquad","bm-lham","bm-rham"],
   // Phase 3 Cardio
   "Boxing Rounds":["fm-lshoulder","fm-rshoulder","fm-lbicep","fm-rbicep","fm-abs"],
   "Boxing Rounds (gloves)":["fm-lshoulder","fm-rshoulder","fm-lbicep","fm-rbicep","fm-abs"],
