@@ -244,6 +244,41 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
 .complete-banner{position:fixed;bottom:88px;left:50%;transform:translateX(-50%);border-radius:100px;padding:14px 32px;font-size:15px;font-weight:700;letter-spacing:0.5px;box-shadow:0 12px 50px #00000080;display:none;white-space:nowrap;z-index:100;background:linear-gradient(135deg,#e8ff00,#b8ff00);color:#000;}
 #home{overflow-y:auto;min-height:100vh;padding-bottom:env(safe-area-inset-bottom);}
 @keyframes pop{from{transform:translateX(-50%) scale(0.85);opacity:0}to{transform:translateX(-50%) scale(1);opacity:1}}
+
+/* Phase divider */
+.phase-divider{margin:8px 16px 4px;display:flex;align-items:center;gap:10px;}
+.phase-divider-line{flex:1;height:1px;background:var(--border);}
+.phase-divider-label{font-size:9px;letter-spacing:3px;text-transform:uppercase;font-weight:700;padding:3px 10px;border-radius:100px;border:1px solid;}
+
+/* History card */
+.hist-card{background:var(--surface);border-radius:16px;overflow:hidden;display:flex;cursor:pointer;transition:transform 0.15s;}
+.hist-card:active{transform:scale(0.98);}
+.hist-stripe{width:4px;flex-shrink:0;}
+.hist-body{flex:1;padding:14px 16px;}
+.hist-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;}
+.hist-date{font-size:10px;letter-spacing:2px;text-transform:uppercase;margin-bottom:2px;}
+.hist-name{font-size:15px;font-weight:700;line-height:1.2;}
+.hist-right{text-align:right;flex-shrink:0;}
+.hist-sets{font-family:'Bebas Neue',sans-serif;font-size:28px;line-height:1;}
+.hist-sets-lbl{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;}
+.hist-muscles{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px;}
+.hist-tag{font-size:10px;padding:2px 8px;border-radius:100px;font-weight:500;}
+.hist-vol{font-size:11px;color:var(--muted);margin-top:6px;}
+
+/* Stat tile */
+.stat-tile{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px;text-align:center;border-top-width:2px;}
+.stat-tile-num{font-family:'Bebas Neue',sans-serif;font-size:36px;line-height:1;}
+.stat-tile-lbl{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-top:2px;}
+
+/* Log Workout button */
+.log-workout-btn{margin:0 16px 16px;padding:18px;border-radius:18px;border:none;font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;width:calc(100% - 32px);background:linear-gradient(135deg,#00c896,#00a878);color:#fff;box-shadow:0 8px 32px #00c89630;display:block;}
+
+/* Done exercise card enhanced */
+.ex-card.done .ex-check{background:linear-gradient(135deg,var(--c),var(--c));border-color:var(--c) !important;color:#000 !important;box-shadow:0 2px 12px var(--glow);}
+
+/* Nav dot indicator */
+.nav-dot{width:5px;height:5px;border-radius:50%;background:#00c896;position:absolute;top:2px;right:50%;transform:translateX(10px);box-shadow:0 0 6px #00c896;}
+.nav-btn{position:relative;}
 </style>
 </head>
 <body>
@@ -253,7 +288,7 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
   <div class="home-hero">
     <div class="hero-top">
       <div>
-        <div class="hero-badge"><span class="dot"></span>4-Week Program</div>
+        <div class="hero-badge"><span class="dot"></span>12-Week Program</div>
       </div>
       <button class="theme-btn" onclick="toggleTheme()" id="themeBtn">🌙</button>
     </div>
@@ -500,6 +535,7 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
     <h2 style="font-family:'Bebas Neue',sans-serif;font-size:48px;letter-spacing:2px;line-height:1;">WORKOUT<br/>HISTORY</h2>
     <p style="font-size:12px;color:var(--muted);margin-top:4px;">Every session you've completed</p>
   </div>
+  <div id="historyStats" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;padding:0 16px 16px;"></div>
   <div id="historyList" style="padding:0 16px;display:flex;flex-direction:column;gap:10px;"></div>
 </div>
 
@@ -541,7 +577,7 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
 <div id="musclemap" class="screen" style="padding-bottom:100px;">
   <div style="padding:48px 24px 16px;">
     <h2 style="font-family:'Bebas Neue',sans-serif;font-size:48px;letter-spacing:2px;line-height:1;">MUSCLE<br/>MAP</h2>
-    <p style="font-size:12px;color:var(--muted);margin-top:4px;">Muscles trained today</p>
+    <p style="font-size:12px;color:var(--muted);margin-top:4px;">Muscles activated this period</p>
   </div>
   <!-- DAY SELECTOR -->
   <div style="padding:0 16px 14px;display:flex;gap:8px;overflow-x:auto;">
@@ -630,7 +666,6 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
     <div style="font-size:10px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-bottom:12px;">Share Workout Summary</div>
     <div style="display:flex;gap:10px;">
       <button onclick="shareWorkoutText()" style="flex:1;padding:12px;border-radius:12px;border:1px solid var(--border-bright);background:var(--surface2);color:var(--text);font-size:13px;font-weight:600;">📋 Copy Summary</button>
-      <button onclick="shareWorkoutImage()" style="flex:1;padding:12px;border-radius:12px;border:none;background:linear-gradient(135deg,var(--yellow),#b8ff00);color:#000;font-size:13px;font-weight:700;">📸 Save as Image</button>
     </div>
   </div>
 </div>
@@ -1063,13 +1098,33 @@ function goHome(){navTo('home');}
 function openDay(w,d){aW=w;aD=d;navTo('workout');}
 
 // ── HOME ──
+const PHASES=[
+  {label:"Phase 1 — Foundation",color:"#ff5c35",border:"#ff5c35",weeks:[0,1,2,3]},
+  {label:"Phase 2 — Hypertrophy",color:"#9858e8",border:"#9858e8",weeks:[4,5,6,7]},
+  {label:"Phase 3 — Strength",color:"#28b8e8",border:"#28b8e8",weeks:[8,9,10,11]},
+];
+function getPhase(wi){return PHASES.find(p=>p.weeks.includes(wi));}
+
 function renderHome(){
   const c=document.getElementById('weekCards');
   c.innerHTML='';
+  let lastPhase=null;
   WEEKS.forEach((wk,wi)=>{
+    const phase=getPhase(wi);
+    if(phase && phase!==lastPhase){
+      const div=document.createElement('div');
+      div.className='phase-divider';
+      div.innerHTML=`<div class="phase-divider-line"></div>
+        <div class="phase-divider-label" style="color:${phase.color};border-color:${phase.color}55;">${phase.label}</div>
+        <div class="phase-divider-line"></div>`;
+      c.appendChild(div);
+      lastPhase=phase;
+    }
     const wp=weekProg(wi),isA=wi===aW;
     const div=document.createElement('div');
+    const phaseColor=phase?phase.color:'var(--border-bright)';
     div.className='wk-card'+(isA?' cur':'');
+    if(isA) div.style.cssText=`border-color:${phaseColor}55;box-shadow:0 0 0 1px ${phaseColor}22,0 8px 40px ${phaseColor}18;`;
     const dots=wk.days.map((d,di)=>{
       const ts=TYPE[d.type],dp=dayProg(wi,di),done=dp===1;
       return `<button class="day-dot" onclick="openDay(${wi},${di})"
@@ -1081,7 +1136,7 @@ function renderHome(){
     div.innerHTML=`
       <div class="wk-top" onclick="openDay(${wi},0)">
         <div class="wk-row">
-          <div><div class="wk-num">Week ${wi+1}</div><div class="wk-theme">${wk.theme}</div></div>
+          <div><div class="wk-num" style="${isA?'color:'+phaseColor+';':''}">Week ${wi+1}</div><div class="wk-theme">${wk.theme}</div></div>
           <div class="wk-pct">${Math.round(wp*100)}%</div>
         </div>
         <div class="prog-track"><div class="prog-fill" style="width:${wp*100}%"></div></div>
@@ -1089,6 +1144,14 @@ function renderHome(){
       <div class="day-dots">${dots}</div>`;
     c.appendChild(div);
   });
+  // History nav dot
+  const anyHistory=WEEKS.some((wk,wi)=>wk.days.some((_,di)=>getWDone(wi,di)));
+  const histBtn=document.getElementById('nav-history');
+  if(histBtn){
+    const existing=histBtn.querySelector('.nav-dot');
+    if(existing)existing.remove();
+    if(anyHistory){const dot=document.createElement('span');dot.className='nav-dot';histBtn.appendChild(dot);}
+  }
 }
 
 // ── WORKOUT ──
@@ -1098,7 +1161,7 @@ function renderWorkout(){
   const pct=tot?Math.round(done/tot*100):0;
 
   // Auto-mark day complete with today's date
-  if(pct===100 && !getWDone(aW,aD)){
+  if(pct>=50 && !getWDone(aW,aD)){
     setWDone(aW,aD,new Date().toISOString().split('T')[0]);
   }
 
@@ -1123,7 +1186,8 @@ function renderWorkout(){
     </button>`;
   }).join('');
 
-  document.getElementById('exerciseList').innerHTML=day.exercises.map((ex,ei)=>{
+  const exListEl=document.getElementById('exerciseList');
+  exListEl.innerHTML=day.exercises.map((ex,ei)=>{
     const isDone=gED(aW,aD,ei);
     const pr=getPR(ex.name);
     const prBadge=pr>0?`<div class="ex-pr-badge">🏆 PR: ${pr} lbs</div>`:'';
@@ -1166,6 +1230,15 @@ function renderWorkout(){
     </div>`;
   }).join('');
 
+  // Log Workout button — show when pct>0
+  if(pct>0){
+    const logBtn=document.createElement('button');
+    logBtn.className='log-workout-btn';
+    logBtn.textContent='✓ Log Workout';
+    logBtn.onclick=finishWorkout;
+    exListEl.appendChild(logBtn);
+  }
+
   const banner=document.getElementById('banner');
   if(pct===100){banner.style.cssText='position:fixed;bottom:88px;left:50%;transform:translateX(-50%);border-radius:100px;padding:14px 32px;font-size:15px;font-weight:700;letter-spacing:0.5px;box-shadow:0 12px 50px #00000080;white-space:nowrap;z-index:100;background:linear-gradient(135deg,#e8ff00,#b8ff00);color:#000;display:block;animation:pop 0.35s cubic-bezier(0.34,1.56,0.64,1);';}
   else{banner.style.display='none';}
@@ -1179,6 +1252,14 @@ function toggleSD(ei,si,btn){
 }
 function toggleED(ei){sED(aW,aD,ei,!gED(aW,aD,ei));renderWorkout();}
 function switchDay(d){aD=d;renderWorkout();window.scrollTo(0,0);}
+
+function finishWorkout(){
+  const day=WEEKS[aW].days[aD];
+  const pct=dayProg(aW,aD);
+  if(pct===0){return;}
+  setWDone(aW,aD,new Date().toISOString().split('T')[0]);
+  renderWorkout();
+}
 
 // ── REST TIMER (inline) ──
 let restTimerInt=null,restTimerSec=0,restEi=-1,restSi=-1;
