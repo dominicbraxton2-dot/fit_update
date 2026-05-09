@@ -293,7 +293,7 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
       <button class="theme-btn" onclick="toggleTheme()" id="themeBtn">🌙</button>
     </div>
     <h1>DOM'S<br/><span class="acc">FIT</span><br/>PLAN</h1>
-    <p class="tagline">Chest · Legs · Abs · Fat Loss · Endurance</p>
+    <p class="tagline">Big Chest · Massive Legs · Shredded Abs · Kill The Visceral Fat</p>
   </div>
 
   <!-- WORKOUT REMINDERS -->
@@ -315,11 +315,11 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
   <div class="week-cards" id="weekCards"></div>
   <div class="tips-section">
     <div class="tips-label">Program Guidelines</div>
-    <div class="tip"><span>📈</span><span>Add 5–10 lbs to every lift each week</span></div>
-    <div class="tip"><span>🥩</span><span>0.8–1g protein per lb of bodyweight daily</span></div>
-    <div class="tip"><span>💧</span><span>Drink 3–4L of water to fight bloat</span></div>
-    <div class="tip"><span>😴</span><span>7–9 hrs sleep — growth happens at rest</span></div>
-    <div class="tip"><span>🧂</span><span>Cut sodium & processed foods for fat loss</span></div>
+    <div class="tip"><span>🔥</span><span>Target 500 cal deficit daily — walk + weights = visceral fat's worst enemy</span></div>
+    <div class="tip"><span>🥩</span><span>1g protein per lb bodyweight — keeps muscle while cutting fat</span></div>
+    <div class="tip"><span>💧</span><span>4L water daily — flushes sodium, kills bloat instantly</span></div>
+    <div class="tip"><span>🧂</span><span>Zero processed food, zero alcohol — they park fat on your organs</span></div>
+    <div class="tip"><span>😴</span><span>8+ hrs sleep — cortisol from bad sleep stores fat around the gut</span></div>
   </div>
   <!-- BACKUP -->
   <div style="margin:0 16px 200px;background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:18px;">
@@ -684,29 +684,31 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
 <script>
 const WEEKS=[
   {week:1,theme:"Foundation & Volume",days:[
-    {day:1,label:"Chest & Triceps",icon:"💪",type:"push",note:"Full range of motion on every rep. Control the negative — 3 seconds down.",exercises:[
+    {day:1,label:"Chest & Triceps",icon:"💪",type:"push",note:"Full range of motion on every rep. Control the negative — 3 seconds down. Big chest is built on volume — flat, incline, isolation, and lower-chest all hit today.",exercises:[
       {name:"Barbell Bench Press",sets:4,reps:"10",weight:"Moderate",timer:false},
       {name:"Incline DB Press",sets:3,reps:"12",weight:"30–35 lbs",timer:false},
       {name:"GMWD Chest Press Machine",sets:3,reps:"12",weight:"Moderate",timer:false},
       {name:"DB Flyes (flat bench)",sets:3,reps:"12",weight:"15–20 lbs",timer:false},
+      {name:"Decline DB Press",sets:3,reps:"12",weight:"25–30 lbs",timer:false},
       {name:"Tricep Dips",sets:3,reps:"12",weight:"Bodyweight",timer:false},
       {name:"Overhead Tricep Extension",sets:3,reps:"12",weight:"30 lbs DB",timer:false},
     ]},
-    {day:2,label:"Legs — Quad Focus",icon:"🦵",type:"legs",note:"Break parallel on squats. Drive through your heels on the way up.",exercises:[
+    {day:2,label:"Legs — Quad Focus",icon:"🦵",type:"legs",note:"Break parallel on squats. Drive through your heels on the way up. Quads and calves both need high volume to grow — every set counts.",exercises:[
       {name:"Barbell Back Squat",sets:4,reps:"10",weight:"Moderate",timer:false},
-      {name:"Goblet Squat",sets:3,reps:"12",weight:"60 lbs",timer:false},
+      {name:"Leg Press",sets:4,reps:"15",weight:"3 plates per side",timer:false},
+      {name:"Leg Extension",sets:4,reps:"15",weight:"Moderate",timer:false},
       {name:"Bulgarian Split Squat",sets:3,reps:"10 each",weight:"30 lbs DBs",timer:false},
-      {name:"Leg Extension",sets:3,reps:"15",weight:"Moderate",timer:false},
       {name:"Standing Calf Raise",sets:4,reps:"20",weight:"BW + 60 lbs",timer:false},
-      {name:"Jump Rope",sets:1,reps:"3 min",weight:"—",timer:true},
+      {name:"Seated Calf Raise",sets:4,reps:"20",weight:"35 lbs on knees",timer:false},
     ]},
-    {day:3,label:"Incline Walk + Core",icon:"🚶",type:"cardio",note:"3 mph at high incline keeps you in Zone 2 — the fat-burning sweet spot. No handrails.",exercises:[
+    {day:3,label:"Incline Walk + Core",icon:"🚶",type:"cardio",note:"Incline walking at 3 mph is one of the most effective tools for attacking visceral fat — it's low impact, sustainable, and keeps you in Zone 2 the whole time. Finish with abs to build that shredded core.",exercises:[
       {name:"Warm-up Walk",sets:1,reps:"5 min",weight:"3 mph / 4% incline",timer:true},
       {name:"Steady Incline Walk",sets:1,reps:"15 min",weight:"3 mph / 10% incline",timer:true},
       {name:"High Incline Blast",sets:1,reps:"10 min",weight:"3 mph / 14% incline",timer:true},
       {name:"Recovery Walk",sets:1,reps:"5 min",weight:"3 mph / 5% incline",timer:true},
+      {name:"Hanging Leg Raise",sets:4,reps:"15",weight:"Bodyweight",timer:false},
       {name:"Ab Wheel Rollout",sets:3,reps:"10",weight:"Bodyweight",timer:false},
-      {name:"Hanging Knee Raise",sets:3,reps:"15",weight:"Bodyweight",timer:false},
+      {name:"Plank",sets:3,reps:"45 sec",weight:"—",timer:true},
     ]},
     {day:4,label:"Back & Biceps",icon:"🏋️",type:"pull",note:"Initiate every pull with your lats — not your arms. Think elbow to hip.",exercises:[
       {name:"Barbell Deadlift",sets:4,reps:"8",weight:"Moderate-heavy",timer:false},
@@ -715,23 +717,28 @@ const WEEKS=[
       {name:"Barbell Row",sets:3,reps:"10",weight:"Moderate",timer:false},
       {name:"DB Bicep Curl",sets:3,reps:"12",weight:"30–35 lbs",timer:false},
       {name:"Hammer Curl",sets:3,reps:"12",weight:"30 lbs",timer:false},
-    ]},
-    {day:5,label:"Hamstrings + Abs",icon:"🔥",type:"legs",note:"Hamstrings are often the most undertrained muscle. Make them a priority today.",exercises:[
-      {name:"Romanian Deadlift",sets:4,reps:"10",weight:"35 lbs DBs",timer:false},
-      {name:"Leg Curl Machine",sets:4,reps:"12",weight:"Moderate",timer:false},
-      {name:"Kettlebell Swings",sets:4,reps:"15",weight:"Kettlebell",timer:true},
-      {name:"Glute Bridge w/ Barbell",sets:3,reps:"15",weight:"Moderate",timer:false},
-      {name:"Seated Calf Raise",sets:4,reps:"20",weight:"35 lbs on knees",timer:false},
-      {name:"Weighted Sit-Up",sets:3,reps:"15",weight:"Weight plate",timer:false},
+      {name:"Hanging Knee Raise",sets:3,reps:"15",weight:"Bodyweight",timer:false},
       {name:"Plank",sets:3,reps:"45 sec",weight:"—",timer:true},
     ]},
-    {day:6,label:"Incline Walk — Long Burn",icon:"🚶",type:"cardio",note:"Longer walk today. 3 mph at steady incline — this is pure fat oxidation mode.",exercises:[
+    {day:5,label:"Hamstrings + Abs",icon:"🔥",type:"legs",note:"Hamstrings are often the most undertrained muscle. Make them a priority today. Big hamstrings balance the quads and protect your knees — plus calves need hit twice a week to grow.",exercises:[
+      {name:"Romanian Deadlift",sets:4,reps:"10",weight:"35 lbs DBs",timer:false},
+      {name:"Leg Curl Machine",sets:4,reps:"12",weight:"Moderate",timer:false},
+      {name:"Glute Bridge w/ Barbell",sets:3,reps:"15",weight:"Moderate",timer:false},
+      {name:"Stiff-Leg Deadlift",sets:3,reps:"10",weight:"Moderate",timer:false},
+      {name:"Standing Calf Raise",sets:4,reps:"20",weight:"BW + 60 lbs",timer:false},
+      {name:"Seated Calf Raise",sets:4,reps:"20",weight:"35 lbs on knees",timer:false},
+      {name:"Weighted Sit-Up",sets:3,reps:"15",weight:"Weight plate",timer:false},
+      {name:"Ab Wheel Rollout",sets:3,reps:"10",weight:"Bodyweight",timer:false},
+      {name:"Plank",sets:3,reps:"45 sec",weight:"—",timer:true},
+    ]},
+    {day:6,label:"Incline Walk — Long Burn",icon:"🚶",type:"cardio",note:"Incline walking at 3 mph is one of the most effective tools for attacking visceral fat — it's low impact, sustainable, and keeps you in Zone 2 the whole time. Longer walk today — pure fat oxidation mode.",exercises:[
       {name:"Warm-up Walk",sets:1,reps:"5 min",weight:"3 mph / 4% incline",timer:true},
       {name:"Steady Incline Walk",sets:1,reps:"30 min",weight:"3 mph / 10% incline",timer:true},
       {name:"Cool-down Walk",sets:1,reps:"5 min",weight:"3 mph / 3% incline",timer:true},
       {name:"Slam Ball Slams",sets:3,reps:"15",weight:"Slam ball",timer:false},
+      {name:"Hanging Leg Raise",sets:4,reps:"15",weight:"Bodyweight",timer:false},
       {name:"Ab Wheel Rollout",sets:3,reps:"10",weight:"Bodyweight",timer:false},
-      {name:"Leg Raises",sets:3,reps:"15",weight:"Bodyweight",timer:false},
+      {name:"Plank",sets:3,reps:"45 sec",weight:"—",timer:true},
     ]},
     {day:7,label:"Rest & Recovery",icon:"🧘",type:"rest",note:"Recovery is when you actually grow. Protect this day.",exercises:[
       {name:"Light Walk or Stretch",sets:1,reps:"20–30 min",weight:"—",timer:false},
@@ -742,7 +749,7 @@ const WEEKS=[
     ]},
   ]},
   {week:2,theme:"Progressive Overload",days:[
-    {day:1,label:"Chest & Triceps",icon:"💪",type:"push",note:"Add 5–10 lbs to every barbell and DB movement from Week 1.",exercises:[
+    {day:1,label:"Chest & Triceps",icon:"💪",type:"push",note:"Add 5–10 lbs to every barbell and DB movement from Week 1. Four chest movements hit flat, incline, isolation, and lower chest — building width and thickness for a bigger chest.",exercises:[
       {name:"Barbell Bench Press",sets:4,reps:"8",weight:"+5–10 lbs vs W1",timer:false},
       {name:"Incline DB Press",sets:4,reps:"10",weight:"35 lbs",timer:false},
       {name:"GMWD Chest Press Machine",sets:3,reps:"10",weight:"Heavier",timer:false},
