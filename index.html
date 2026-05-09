@@ -92,7 +92,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .wk-theme{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:1px;line-height:1;}
 .wk-pct{font-family:'Bebas Neue',sans-serif;font-size:30px;color:var(--muted);opacity:0.4;}
 .prog-track{height:2px;background:var(--border);border-radius:2px;overflow:hidden;}
-.prog-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,#ff5c35,#ffde59);transition:width 0.5s cubic-bezier(0.4,0,0.2,1);}
+.prog-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,#ff5c35,#ff9f35,#e8ff00);transition:width 0.5s cubic-bezier(0.4,0,0.2,1);}
 .day-dots{display:flex;gap:5px;padding:0 16px 16px;}
 .day-dot{flex:1;border-radius:10px;padding:7px 3px;cursor:pointer;text-align:center;background:var(--surface2);border:1px solid var(--border);}
 .day-dot .dl{font-size:8px;color:var(--muted);font-weight:600;letter-spacing:1px;text-transform:uppercase;}
@@ -124,10 +124,10 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .ex-list{padding:12px 16px 100px;display:flex;flex-direction:column;gap:10px;}
 
 /* EXERCISE CARD */
-.ex-card{border-radius:20px;overflow:hidden;border:1px solid var(--border);background:var(--surface);transition:border-color 0.25s,box-shadow 0.25s;}
+.ex-card{border-radius:20px;overflow:hidden;border:1px solid var(--border);background:var(--surface);transition:border-color 0.25s,box-shadow 0.25s;border-left:3px solid var(--c, var(--border));}
 .ex-card.done{box-shadow:0 4px 30px var(--glow);}
 .ex-card-header{display:flex;justify-content:space-between;align-items:flex-start;padding:16px 16px 10px;gap:12px;}
-.ex-info .ex-name{font-size:15px;font-weight:600;margin-bottom:4px;line-height:1.2;}
+.ex-info .ex-name{font-size:16px;font-weight:600;margin-bottom:4px;line-height:1.2;letter-spacing:-0.3px;}
 .ex-card.done .ex-name{text-decoration:line-through;opacity:0.45;}
 .ex-info .ex-rec{font-size:11px;color:var(--muted);font-weight:300;}
 .ex-pr-badge{display:inline-flex;align-items:center;gap:4px;margin-top:4px;background:var(--surface2);border:1px solid var(--border-bright);border-radius:100px;padding:2px 8px;font-size:10px;color:var(--muted);font-weight:500;}
@@ -143,7 +143,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .sets-divider{height:1px;background:var(--border);margin-bottom:6px;}
 .set-row{display:grid;grid-template-columns:52px 1fr 36px 36px;gap:6px;align-items:center;}
 .set-lbl{font-size:10px;color:var(--muted);font-weight:500;letter-spacing:1px;text-transform:uppercase;}
-.set-input{background:var(--surface2);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:15px;font-weight:500;padding:8px 10px;width:100%;outline:none;transition:border-color 0.2s,background 0.2s;-webkit-appearance:none;}
+.set-input{background:var(--surface2);border:1px solid var(--border);border-radius:12px;color:var(--text);font-size:15px;font-weight:600;padding:8px 10px;width:100%;outline:none;transition:border-color 0.2s,background 0.2s;-webkit-appearance:none;}
 .set-input:focus{border-color:var(--ac);}
 .set-input::placeholder{color:var(--muted);opacity:0.4;}
 .set-chk{width:32px;height:32px;border-radius:10px;border:1.5px solid var(--border-bright);background:transparent;display:flex;align-items:center;justify-content:center;font-size:12px;color:#000;font-weight:700;transition:all 0.2s;flex-shrink:0;}
@@ -186,7 +186,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .pr-ex-name{font-size:14px;font-weight:600;margin-bottom:2px;}
 .pr-ex-type{font-size:10px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;}
 .pr-val{text-align:right;}
-.pr-lbs{font-family:'Bebas Neue',sans-serif;font-size:28px;line-height:1;}
+.pr-lbs{font-family:'Bebas Neue',sans-serif;font-size:32px;line-height:1;}
 .pr-lbs-label{font-size:10px;color:var(--muted);}
 .pr-empty{font-size:12px;color:var(--muted);font-style:italic;}
 .pr-clear-btn{margin:0 16px 12px;width:calc(100%-32px);padding:12px;border-radius:14px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:12px;font-weight:500;}
@@ -251,7 +251,7 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
 .phase-divider-label{font-size:9px;letter-spacing:3px;text-transform:uppercase;font-weight:700;padding:3px 10px;border-radius:100px;border:1px solid;}
 
 /* History card */
-.hist-card{background:var(--surface);border-radius:16px;overflow:hidden;display:flex;cursor:pointer;transition:transform 0.15s;}
+.hist-card{background:var(--surface);border:1px solid var(--border);border-radius:20px;overflow:hidden;display:flex;cursor:pointer;transition:transform 0.15s;}
 .hist-card:active{transform:scale(0.98);}
 .hist-stripe{width:4px;flex-shrink:0;}
 .hist-body{flex:1;padding:14px 16px;}
@@ -266,8 +266,8 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
 .hist-vol{font-size:11px;color:var(--muted);margin-top:6px;}
 
 /* Stat tile */
-.stat-tile{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px;text-align:center;border-top-width:2px;}
-.stat-tile-num{font-family:'Bebas Neue',sans-serif;font-size:36px;line-height:1;}
+.stat-tile{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:14px;text-align:center;border-top-width:2px;}
+.stat-tile-num{font-family:'Bebas Neue',sans-serif;font-size:40px;line-height:1;}
 .stat-tile-lbl{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-top:2px;}
 
 /* Log Workout button */
@@ -279,6 +279,60 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
 /* Nav dot indicator */
 .nav-dot{width:5px;height:5px;border-radius:50%;background:#00c896;position:absolute;top:2px;right:50%;transform:translateX(10px);box-shadow:0 0 6px #00c896;}
 .nav-btn{position:relative;}
+
+/* WEEK STRIP */
+.wstrip-wrap{margin:0 16px 14px;background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:14px 16px;}
+.wstrip-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;font-size:9px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;font-weight:600;}
+.streak-pill{background:#e8ff0015;border:1px solid #e8ff0030;color:#e8ff00;border-radius:100px;padding:2px 8px;font-size:9px;letter-spacing:1px;text-transform:none;font-weight:600;}
+[data-theme="light"] .streak-pill{background:#c8a80015;border-color:#c8a80040;color:#b89800;}
+.wstrip-inner{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;}
+.wstrip-day{display:flex;flex-direction:column;align-items:center;gap:6px;padding:8px 2px;border-radius:12px;border:1px solid transparent;transition:all 0.2s;}
+.wstrip-lbl{font-size:9px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--muted);}
+.wstrip-dot{width:24px;height:24px;display:flex;align-items:center;justify-content:center;}
+.wstrip-today-dot{width:6px;height:6px;border-radius:50%;background:var(--text2);}
+.wstrip-done .wstrip-lbl{color:var(--text);}
+.wstrip-today{border-color:var(--border-bright);background:var(--surface2);}
+.wstrip-today .wstrip-lbl{color:var(--text);}
+.wstrip-future .wstrip-lbl{opacity:0.35;}
+
+/* WORKOUT STATS BAR */
+.w-stats-bar{display:flex;align-items:center;margin:10px 16px 0;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:14px 8px;}
+.w-stat{flex:1;text-align:center;}
+.w-stat-num{font-family:'Bebas Neue',sans-serif;font-size:26px;line-height:1;color:var(--text);}
+.w-stat-lbl{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-top:2px;font-weight:600;}
+.w-stat-div{width:1px;height:32px;background:var(--border);}
+
+/* CURRENT WEEK PILL */
+.cur-week-pill{display:inline-flex;align-items:center;gap:5px;background:var(--yellow);color:#000;border-radius:100px;padding:2px 10px;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;}
+[data-theme="light"] .cur-week-pill{background:#c8a800;}
+
+/* SUGGESTED BADGE */
+.suggested-badge{background:#4facfe12;border-color:#4facfe30;color:#4facfe;}
+[data-theme="light"] .suggested-badge{background:#0070c015;border-color:#0070c040;color:#0070c0;}
+
+/* PROFILE STATS */
+.profile-stats{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;}
+.profile-tile{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:8px 12px;backdrop-filter:blur(10px);}
+[data-theme="light"] .profile-tile{background:rgba(0,0,0,0.04);border-color:rgba(0,0,0,0.08);}
+.profile-tile-val{font-family:'Bebas Neue',sans-serif;font-size:20px;line-height:1;color:var(--text);}
+.profile-tile-lbl{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-top:2px;font-weight:600;}
+
+/* NAV BAR ACTIVE INDICATOR */
+.nav-btn.active::before{content:'';position:absolute;top:-10px;left:50%;transform:translateX(-50%);width:40px;height:3px;border-radius:0 0 3px 3px;background:var(--yellow);}
+[data-theme="light"] .nav-btn.active::before{background:#c8a800;}
+
+/* DAY DOT TRANSITIONS */
+.day-dot{transition:all 0.15s;}
+.day-dot:active{transform:scale(0.94);}
+
+/* DS-BTN TRANSITION */
+.ds-btn{transition:all 0.2s;}
+
+/* SECTION LABEL */
+.section-label{font-size:9px;letter-spacing:4px;color:var(--muted);text-transform:uppercase;font-weight:700;padding:0 16px;margin-bottom:8px;display:block;}
+
+/* BACK BUTTON */
+.back-btn{gap:8px;font-weight:600;}
 </style>
 </head>
 <body>
@@ -300,6 +354,8 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
       <div style="background:var(--surface);border:1px solid var(--border-bright);border-radius:10px;padding:5px 12px;font-size:11px;color:var(--muted);">Fitness 8/10 · Cardio 5/10</div>
     </div>
   </div>
+
+  <div id="weekStrip"></div>
 
   <!-- WORKOUT REMINDERS -->
   <div class="reminder-strip">
@@ -360,6 +416,7 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
     <div class="note-label">Coach's Note</div>
     <div class="note-text" id="dayNoteText"></div>
   </div>
+  <div id="workoutStatsBar"></div>
   <div class="ex-list" id="exerciseList"></div>
   <div class="complete-banner" id="banner">🔥 Day Complete!</div>
 </div>
@@ -1658,6 +1715,63 @@ const PHASES=[
 ];
 function getPhase(wi){return PHASES.find(p=>p.weeks.includes(wi));}
 
+function renderWeekStrip(){
+  const today=new Date();
+  const todayStr=today.toISOString().split('T')[0];
+  const completedDates=new Set();
+  WEEKS.forEach((wk,wi)=>wk.days.forEach((_,di)=>{const d=getWDone(wi,di);if(d)completedDates.add(d);}));
+  const dow=today.getDay();
+  const sun=new Date(today);sun.setDate(today.getDate()-dow);
+  const DAY_LABELS=['Su','Mo','Tu','We','Th','Fr','Sa'];
+  const cells=DAY_LABELS.map((lbl,i)=>{
+    const d=new Date(sun);d.setDate(sun.getDate()+i);
+    const ds=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+    const done=completedDates.has(ds);
+    const isToday=ds===todayStr;
+    const isFuture=ds>todayStr;
+    return `<div class="wstrip-day${done?' wstrip-done':''}${isToday?' wstrip-today':''}${isFuture?' wstrip-future':''}">
+      <div class="wstrip-lbl">${lbl}</div>
+      <div class="wstrip-dot">${done?'<svg width="14" height="14" viewBox="0 0 14 14"><circle cx="7" cy="7" r="6" fill="#e8ff00" opacity="0.15"/><path d="M4 7l2 2 4-4" stroke="#e8ff00" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>':isToday?'<div class="wstrip-today-dot"></div>':''}</div>
+    </div>`;
+  }).join('');
+  const el=document.getElementById('weekStrip');
+  if(el)el.innerHTML=`<div class="wstrip-wrap"><div class="wstrip-header"><span>THIS WEEK</span><span id="weekStreakBadge"></span></div><div class="wstrip-inner">${cells}</div></div>`;
+  // streak badge
+  const streak=calcStreak(Object.fromEntries([...completedDates].map(d=>[d,true])),todayStr);
+  const sb=document.getElementById('weekStreakBadge');
+  if(sb&&streak>0)sb.innerHTML=`<span class="streak-pill">🔥 ${streak} day streak</span>`;
+}
+
+function calcWorkoutStats(wi,di){
+  const day=WEEKS[wi].days[di];
+  let totalSets=0;
+  day.exercises.forEach(ex=>{totalSets+=ex.sets;});
+  const minPerSet=day.type==='cardio'?3:day.type==='legs'?2.8:2.5;
+  const estMin=Math.round(totalSets*minPerSet)+10;
+  const calPerMin={push:9,pull:8,legs:11,cardio:10,rest:4}[day.type]||8;
+  const estCal=Math.round(estMin*calPerMin);
+  return{exercises:day.exercises.length,sets:totalSets,estMin,estCal};
+}
+
+function getSuggestedWeight(exName){
+  for(let wi2=aW;wi2>=0;wi2--){
+    const wk=WEEKS[wi2];
+    for(let di2=wk.days.length-1;di2>=0;di2--){
+      if(wi2===aW&&di2===aD)continue;
+      const day=wk.days[di2];
+      for(let ei2=0;ei2<day.exercises.length;ei2++){
+        if(day.exercises[ei2].name===exName){
+          for(let si2=day.exercises[ei2].sets-1;si2>=0;si2--){
+            const w=gW(wi2,di2,ei2,si2);
+            if(w&&parseFloat(w)>0)return parseFloat(w);
+          }
+        }
+      }
+    }
+  }
+  return 0;
+}
+
 function renderHome(){
   const c=document.getElementById('weekCards');
   c.innerHTML='';
@@ -1681,15 +1795,15 @@ function renderHome(){
     const dots=wk.days.map((d,di)=>{
       const ts=TYPE[d.type],dp=dayProg(wi,di),done=dp===1;
       return `<button class="day-dot" onclick="openDay(${wi},${di})"
-        style="${done?'background:'+ts.color+'18;border-color:'+ts.color+'44;':''}">
-        <div class="dl" style="${done?'color:'+ts.color+';':''}">${DAYS[di]}</div>
+        style="${done?'background:'+ts.color+'18;border-color:'+ts.color+'44;':isA&&di===aD?'border-color:var(--border-bright);background:var(--surface3);':''}">
+        <div class="dl" style="${done?'color:'+ts.color+';':isA&&di===aD?'color:var(--text2);':''}">${DAYS[di]}</div>
         <div class="di">${done?'✓':d.icon}</div>
       </button>`;
     }).join('');
     div.innerHTML=`
       <div class="wk-top" onclick="openDay(${wi},0)">
         <div class="wk-row">
-          <div><div class="wk-num" style="${isA?'color:'+phaseColor+';':''}">Week ${wi+1}</div><div class="wk-theme">${wk.theme}</div></div>
+          <div>${isA?'<div class="cur-week-pill">CURRENT</div>':''}<div class="wk-num" style="${isA?'color:'+phaseColor+';':''}">Week ${wi+1}</div><div class="wk-theme">${wk.theme}</div></div>
           <div class="wk-pct">${Math.round(wp*100)}%</div>
         </div>
         <div class="prog-track"><div class="prog-fill" style="width:${wp*100}%"></div></div>
@@ -1705,6 +1819,7 @@ function renderHome(){
     if(existing)existing.remove();
     if(anyHistory){const dot=document.createElement('span');dot.className='nav-dot';histBtn.appendChild(dot);}
   }
+  renderWeekStrip();
 }
 
 // ── WORKOUT ──
@@ -1731,6 +1846,10 @@ function renderWorkout(){
   document.getElementById('dayNoteText').textContent=day.note;
   document.getElementById('dayNoteText').style.color=c+'bb';
 
+  const stats=calcWorkoutStats(aW,aD);
+  const statsEl=document.getElementById('workoutStatsBar');
+  if(statsEl)statsEl.innerHTML=`<div class="w-stats-bar"><div class="w-stat"><div class="w-stat-num">${stats.exercises}</div><div class="w-stat-lbl">Exercises</div></div><div class="w-stat-div"></div><div class="w-stat"><div class="w-stat-num">~${stats.estMin}</div><div class="w-stat-lbl">Min</div></div><div class="w-stat-div"></div><div class="w-stat"><div class="w-stat-num">~${stats.estCal}</div><div class="w-stat-lbl">Cal</div></div><div class="w-stat-div"></div><div class="w-stat"><div class="w-stat-num">${stats.sets}</div><div class="w-stat-lbl">Total Sets</div></div></div>`;
+
   document.getElementById('dayStrip').innerHTML=wk.days.map((d,di)=>{
     const ts2=TYPE[d.type],dp=dayProg(aW,di),isA=di===aD;
     return `<button class="ds-btn" onclick="switchDay(${di})"
@@ -1743,7 +1862,9 @@ function renderWorkout(){
   exListEl.innerHTML=day.exercises.map((ex,ei)=>{
     const isDone=gED(aW,aD,ei);
     const pr=getPR(ex.name);
+    const suggested=getSuggestedWeight(ex.name);
     const prBadge=pr>0?`<div class="ex-pr-badge">🏆 PR: ${pr} lbs</div>`:'';
+    const suggestedBadge=suggested>0&&suggested!==pr?`<div class="ex-pr-badge suggested-badge">↑ Last: ${suggested} lbs</div>`:'';
     let sHtml=`<div class="sets-divider"></div>`;
     for(let si=0;si<ex.sets;si++){
       const w=gW(aW,aD,ei,si),sd=gSD(aW,aD,ei,si);
@@ -1766,7 +1887,7 @@ function renderWorkout(){
         <div class="ex-info">
           <div class="ex-name" style="${isDone?'color:'+c+'55;':''}">${ex.name}</div>
           <div class="ex-rec">${ex.reps} reps · ${ex.weight}</div>
-          ${prBadge}
+          ${prBadge}${suggestedBadge}
         </div>
         <div class="ex-actions">
           <div class="ex-sets-tag" style="color:${c}66">${ex.sets} sets</div>
@@ -1793,7 +1914,7 @@ function renderWorkout(){
   }
 
   const banner=document.getElementById('banner');
-  if(pct===100){banner.style.cssText='position:fixed;bottom:88px;left:50%;transform:translateX(-50%);border-radius:100px;padding:14px 32px;font-size:15px;font-weight:700;letter-spacing:0.5px;box-shadow:0 12px 50px #00000080;white-space:nowrap;z-index:100;background:linear-gradient(135deg,#e8ff00,#b8ff00);color:#000;display:block;animation:pop 0.35s cubic-bezier(0.34,1.56,0.64,1);';}
+  if(pct===100){banner.style.cssText='position:fixed;bottom:88px;left:50%;transform:translateX(-50%);border-radius:100px;padding:14px 32px;font-size:15px;font-weight:700;letter-spacing:0.5px;box-shadow:0 12px 50px #00000080;white-space:nowrap;z-index:100;background:linear-gradient(135deg,#e8ff00,#b8ff00,#00e896);color:#000;display:block;animation:pop 0.35s cubic-bezier(0.34,1.56,0.64,1);';}
   else{banner.style.display='none';}
 }
 
