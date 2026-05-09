@@ -348,11 +348,7 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
     </div>
     <h1>DOM'S<br/><span class="acc">FIT</span><br/>PLAN</h1>
     <p class="tagline">Big Chest · Massive Legs · Shredded Abs · Kill The Visceral Fat</p>
-    <div style="display:flex;gap:12px;margin-top:10px;flex-wrap:wrap;">
-      <div style="background:var(--surface);border:1px solid var(--border-bright);border-radius:10px;padding:5px 12px;font-size:11px;color:var(--muted);">35 yrs · Dec 20</div>
-      <div style="background:var(--surface);border:1px solid var(--border-bright);border-radius:10px;padding:5px 12px;font-size:11px;color:var(--muted);">5'6" · 158–165 lbs</div>
-      <div style="background:var(--surface);border:1px solid var(--border-bright);border-radius:10px;padding:5px 12px;font-size:11px;color:var(--muted);">Fitness 8/10 · Cardio 5/10</div>
-    </div>
+
   </div>
 
   <div id="weekStrip"></div>
@@ -758,7 +754,7 @@ const WEEKS=[
     {day:2,label:"Legs — Quad Focus",icon:"🦵",type:"legs",note:"Break parallel on squats. Drive through your heels on the way up. Quads and calves both need high volume to grow — every set counts.",exercises:[
       {name:"Barbell Back Squat",sets:4,reps:"10",weight:"Moderate",timer:false},
       {name:"Barbell Hack Squat",sets:4,reps:"15",weight:"Moderate",timer:false},
-      {name:"Band Terminal Knee Extension",sets:4,reps:"15",weight:"Resistance band",timer:false},
+      {name:"Sissy Squat",sets:4,reps:"15",weight:"Bodyweight",timer:false},
       {name:"Bulgarian Split Squat",sets:3,reps:"10 each",weight:"30 lbs DBs",timer:false},
       {name:"Standing Calf Raise",sets:4,reps:"20",weight:"BW + 60 lbs",timer:false},
       {name:"Seated Calf Raise",sets:4,reps:"20",weight:"35 lbs on knees",timer:false},
@@ -887,7 +883,7 @@ const WEEKS=[
     {day:2,label:"Legs — Full Superset Day",icon:"🦵",type:"legs",note:"Your legs will be screaming. That's exactly the point. Push through it. Quads, hamstrings, and calves all hit today — calves need standing and seated hits to grow both heads.",exercises:[
       {name:"Barbell Squat + Jump Squat",sets:4,reps:"8+10",weight:"Heavy + BW [SUPERSET]",timer:false},
       {name:"Barbell Hack Squat",sets:4,reps:"15",weight:"Moderate",timer:false},
-      {name:"Band Terminal Knee Extension + Nordic Curl (hyperextension bench)",sets:4,reps:"12+5",weight:"Band + BW [SUPERSET]",timer:false},
+      {name:"Sissy Squat + Nordic Curl (hyperextension bench)",sets:4,reps:"12+5",weight:"BW + BW [SUPERSET]",timer:false},
       {name:"Bulgarian Split Squat",sets:3,reps:"12 each",weight:"35 lbs DBs",timer:false},
       {name:"Standing Calf Raise",sets:4,reps:"20",weight:"BW + 60 lbs",timer:false},
       {name:"Seated Calf Raise",sets:4,reps:"20",weight:"35 lbs on knees",timer:false},
@@ -947,7 +943,7 @@ const WEEKS=[
     {day:2,label:"Legs — Peak Quad",icon:"🦵",type:"legs",note:"Squat heavier than any previous week. This is your moment. Barbell Hack Squat and Band Terminal Knee Extension after the PR attempt for full quad volume. Calves need both standing and seated every leg day to grow.",exercises:[
       {name:"Barbell Squat PR Attempt",sets:5,reps:"5/4/3/2/1",weight:"Pyramid to 1RM",timer:false},
       {name:"Barbell Hack Squat",sets:4,reps:"15",weight:"Heavy",timer:false},
-      {name:"Band Terminal Knee Extension",sets:4,reps:"15",weight:"Resistance band",timer:false},
+      {name:"Sissy Squat",sets:4,reps:"15",weight:"Bodyweight",timer:false},
       {name:"Bulgarian Split Squat",sets:4,reps:"10 each",weight:"35 lbs DBs",timer:false},
       {name:"Standing Calf Raise",sets:4,reps:"20",weight:"BW + 60 lbs",timer:false},
       {name:"Seated Calf Raise",sets:4,reps:"20",weight:"35 lbs on knees",timer:false},
@@ -1003,14 +999,14 @@ const WEEKS=[
       {name:"Incline Barbell Press",sets:4,reps:"12",weight:"135 lbs",timer:false},
       {name:"Flat DB Press",sets:4,reps:"12",weight:"40 lbs",timer:false},
       {name:"DB Flyes (flat bench)",sets:4,reps:"15",weight:"15–20 lbs",timer:false},
-      {name:"Band Crossover",sets:4,reps:"15",weight:"Resistance band",timer:false},
-      {name:"Band Tricep Pushdown",sets:4,reps:"15",weight:"Resistance band",timer:false},
+      {name:"DB Flyes (flat bench)",sets:4,reps:"15",weight:"15–20 lbs",timer:false},
+      {name:"Overhead Tricep Extension",sets:4,reps:"15",weight:"30 lbs DB",timer:false},
       {name:"Close-Grip Bench Press",sets:2,reps:"10",weight:"95 lbs",timer:false},
     ]},
     {day:2,label:"Legs — Quad Focus",icon:"🦵",type:"legs",note:"Front squats challenge your core and quads differently. Keep elbows up. Calves need both gastrocnemius and soleus trained — standing and seated every leg day for bigger calves.",exercises:[
       {name:"Front Squat",sets:4,reps:"10",weight:"95 lbs",timer:false},
       {name:"Barbell Hack Squat",sets:4,reps:"12",weight:"Moderate",timer:false},
-      {name:"Band Terminal Knee Extension",sets:4,reps:"15",weight:"Resistance band",timer:false},
+      {name:"Sissy Squat",sets:4,reps:"15",weight:"Bodyweight",timer:false},
       {name:"Walking Lunges",sets:4,reps:"12 each",weight:"30 lbs DBs",timer:false},
       {name:"Standing Calf Raise",sets:4,reps:"20",weight:"BW + 60 lbs",timer:false},
       {name:"Seated Calf Raise",sets:4,reps:"20",weight:"35 lbs on knees",timer:false},
@@ -1027,7 +1023,7 @@ const WEEKS=[
     {day:4,label:"Back & Biceps",icon:"🏋️",type:"pull",note:"Pull-ups and DB rows build the lats hard — initiate every rep from the lats, not the arms. Feel the stretch at the top. Abs at the end — core strength directly supports every pull and reduces belly bloat.",exercises:[
       {name:"Pull-Ups (rack bar)",sets:4,reps:"12",weight:"Bodyweight",timer:false},
       {name:"DB Bent-Over Row",sets:4,reps:"12",weight:"35–40 lbs",timer:false},
-      {name:"Band Face Pull",sets:4,reps:"15",weight:"Resistance band",timer:false},
+      {name:"DB Rear Delt Fly",sets:4,reps:"15",weight:"15–20 lbs",timer:false},
       {name:"Barbell Row",sets:4,reps:"10",weight:"Moderate",timer:false},
       {name:"Preacher Curl (DB)",sets:4,reps:"12",weight:"25–30 lbs DB",timer:false},
       {name:"Hammer Curl",sets:3,reps:"12",weight:"30 lbs",timer:false},
@@ -1068,8 +1064,8 @@ const WEEKS=[
       {name:"Incline Barbell Press",sets:5,reps:"10",weight:"145 lbs",timer:false},
       {name:"Flat DB Press",sets:4,reps:"12",weight:"42.5 lbs",timer:false},
       {name:"DB Flyes (flat bench)",sets:4,reps:"15",weight:"15–20 lbs",timer:false},
-      {name:"Band Crossover",sets:4,reps:"15",weight:"Resistance band",timer:false},
-      {name:"Band Tricep Pushdown",sets:4,reps:"12",weight:"Resistance band",timer:false},
+      {name:"DB Flyes (flat bench)",sets:4,reps:"15",weight:"15–20 lbs",timer:false},
+      {name:"Overhead Tricep Extension",sets:4,reps:"12",weight:"30–35 lbs DB",timer:false},
       {name:"Close-Grip Bench Press",sets:3,reps:"10",weight:"100 lbs",timer:false},
     ]},
     {day:2,label:"Legs — Quad Focus",icon:"🦵",type:"legs",note:"5 sets on barbell hack squat this week. Progressive overload is the key to growth. Calves need both standing and seated work every leg day — gastrocnemius and soleus both have to be trained to build bigger calves.",exercises:[
@@ -1092,7 +1088,7 @@ const WEEKS=[
     {day:4,label:"Back & Biceps",icon:"🏋️",type:"pull",note:"5 sets on pull-ups and DB rows. Control the eccentric — 2 seconds down. Abs at the end — core strength directly supports every pull and reduces belly bloat.",exercises:[
       {name:"Pull-Ups (rack bar)",sets:5,reps:"10",weight:"Bodyweight / Weighted vest",timer:false},
       {name:"DB Bent-Over Row",sets:5,reps:"10",weight:"40–45 lbs",timer:false},
-      {name:"Band Face Pull",sets:4,reps:"20",weight:"Resistance band",timer:false},
+      {name:"DB Rear Delt Fly",sets:4,reps:"20",weight:"15 lbs",timer:false},
       {name:"Barbell Row",sets:4,reps:"10",weight:"Heavier",timer:false},
       {name:"Preacher Curl (DB)",sets:4,reps:"10",weight:"30–35 lbs DB",timer:false},
       {name:"Hammer Curl",sets:4,reps:"12",weight:"32.5 lbs",timer:false},
@@ -1131,8 +1127,8 @@ const WEEKS=[
       {name:"Incline Barbell Press",sets:4,reps:"10",weight:"150 lbs",timer:false},
       {name:"Flat DB Press",sets:4,reps:"12",weight:"45 lbs [paired below]",timer:false},
       {name:"DB Flyes (flat bench)",sets:4,reps:"15",weight:"15–20 lbs [SUPERSET w/ Flat DB]",timer:false},
-      {name:"Band Crossover",sets:4,reps:"15",weight:"Resistance band [SUPERSET below]",timer:false},
-      {name:"Band Tricep Pushdown",sets:4,reps:"15",weight:"Resistance band [SUPERSET w/ Crossover]",timer:false},
+      {name:"DB Flyes (flat bench)",sets:4,reps:"15",weight:"15–20 lbs [SUPERSET below]",timer:false},
+      {name:"Overhead Tricep Extension",sets:4,reps:"15",weight:"30 lbs DB [SUPERSET w/ DB Flyes]",timer:false},
       {name:"Close-Grip Bench Press",sets:3,reps:"10",weight:"105 lbs",timer:false},
     ]},
     {day:2,label:"Legs — Full Superset Day",icon:"🦵",type:"legs",note:"Quads and hamstrings superset today. The pumps will be brutal — embrace it. Both standing and seated calves hit every leg day — gastrocnemius needs the standing, soleus needs the seated.",exercises:[
@@ -1158,7 +1154,7 @@ const WEEKS=[
       {name:"Preacher Curl (DB)",sets:4,reps:"12",weight:"30 lbs DB [SUPERSET w/ Pull-Up]",timer:false},
       {name:"DB Bent-Over Row",sets:4,reps:"10",weight:"Heavier [SUPERSET below]",timer:false},
       {name:"Hammer Curl",sets:4,reps:"12",weight:"32.5 lbs [SUPERSET w/ Row]",timer:false},
-      {name:"Band Face Pull",sets:4,reps:"20",weight:"Resistance band",timer:false},
+      {name:"DB Rear Delt Fly",sets:4,reps:"20",weight:"15 lbs",timer:false},
       {name:"Barbell Row",sets:4,reps:"10",weight:"Heavier",timer:false},
       {name:"Hanging Knee Raise",sets:3,reps:"15",weight:"Bodyweight",timer:false},
       {name:"Plank",sets:3,reps:"45 sec",weight:"—",timer:true},
@@ -1197,8 +1193,8 @@ const WEEKS=[
       {name:"Incline Barbell Press",sets:5,reps:"8",weight:"155 lbs",timer:false},
       {name:"Flat DB Press",sets:5,reps:"10",weight:"47.5 lbs",timer:false},
       {name:"DB Flyes (flat bench)",sets:4,reps:"12",weight:"20 lbs [SUPERSET below]",timer:false},
-      {name:"Band Crossover",sets:4,reps:"15",weight:"Heavy band [SUPERSET w/ DB Flyes]",timer:false},
-      {name:"Band Tricep Pushdown",sets:4,reps:"12",weight:"Heavy resistance band",timer:false},
+      {name:"DB Chest Fly Drop Set",sets:4,reps:"15",weight:"20→15 lbs [DROP SET]",timer:false},
+      {name:"EZ Bar Skull Crushers",sets:4,reps:"12",weight:"Moderate-heavy",timer:false},
       {name:"Close-Grip Bench Press",sets:3,reps:"8",weight:"110 lbs",timer:false},
     ]},
     {day:2,label:"Legs — Peak Quad",icon:"🦵",type:"legs",note:"Peak quad day. Hit every movement harder than any previous week of Phase 2. Standing and seated calves both — this is the high frequency approach that builds bigger calves.",exercises:[
@@ -1224,7 +1220,7 @@ const WEEKS=[
       {name:"Pull-Ups (rack bar)",sets:5,reps:"8",weight:"Bodyweight / Weighted vest",timer:false},
       {name:"DB Bent-Over Row",sets:5,reps:"10",weight:"Heaviest",timer:false},
       {name:"Barbell Row",sets:5,reps:"8",weight:"Heaviest",timer:false},
-      {name:"Band Face Pull",sets:4,reps:"20",weight:"Resistance band",timer:false},
+      {name:"DB Rear Delt Fly",sets:4,reps:"20",weight:"15 lbs",timer:false},
       {name:"Preacher Curl (DB)",sets:5,reps:"10",weight:"35–40 lbs DB",timer:false},
       {name:"Hammer Curl",sets:4,reps:"12",weight:"35 lbs",timer:false},
       {name:"Hanging Knee Raise",sets:3,reps:"15",weight:"Bodyweight",timer:false},
@@ -1266,12 +1262,12 @@ const WEEKS=[
       {name:"DB Flyes (flat bench)",sets:3,reps:"12",weight:"15 lbs",timer:false},
       {name:"Weighted Dips",sets:4,reps:"8",weight:"+25 lbs vest",timer:false},
       {name:"Close-Grip Bench Press",sets:3,reps:"8",weight:"115 lbs",timer:false},
-      {name:"Band Tricep Pushdown",sets:2,reps:"12",weight:"Resistance band",timer:false},
+      {name:"Overhead Tricep Extension",sets:2,reps:"12",weight:"30 lbs DB",timer:false},
     ]},
     {day:2,label:"Legs — Quad Focus",icon:"🦵",type:"legs",note:"Back to heavy squats — this is the bread and butter of strength training. Break parallel every rep. Both standing and seated calves hit today — frequency and volume are the only things that build bigger calves.",exercises:[
       {name:"Barbell Back Squat",sets:5,reps:"5",weight:"185 lbs",timer:false},
       {name:"Barbell Hack Squat",sets:4,reps:"10",weight:"Moderate-heavy",timer:false},
-      {name:"Band Terminal Knee Extension",sets:3,reps:"15",weight:"Resistance band",timer:false},
+      {name:"Sissy Squat",sets:3,reps:"15",weight:"Bodyweight",timer:false},
       {name:"Walking Lunges",sets:3,reps:"10 each",weight:"30 lbs DBs",timer:false},
       {name:"Standing Calf Raise",sets:4,reps:"20",weight:"BW + 60 lbs",timer:false},
       {name:"Seated Calf Raise",sets:4,reps:"15",weight:"50 lbs",timer:false},
@@ -1328,12 +1324,12 @@ const WEEKS=[
       {name:"DB Flyes (flat bench)",sets:3,reps:"12",weight:"15–20 lbs",timer:false},
       {name:"Weighted Dips",sets:4,reps:"8",weight:"+35 lbs vest",timer:false},
       {name:"Close-Grip Bench Press",sets:3,reps:"8",weight:"120 lbs",timer:false},
-      {name:"Band Tricep Pushdown",sets:2,reps:"12",weight:"Resistance band",timer:false},
+      {name:"Overhead Tricep Extension",sets:2,reps:"12",weight:"30 lbs DB",timer:false},
     ]},
     {day:2,label:"Legs — Quad Focus",icon:"🦵",type:"legs",note:"Add 10 lbs to squat. 195 lbs for 5x5 — own the movement. No bouncing at the bottom. Standing and seated calves both hit every leg day — that's what builds bigger calves.",exercises:[
       {name:"Barbell Back Squat",sets:5,reps:"5",weight:"195 lbs",timer:false},
       {name:"Barbell Hack Squat",sets:4,reps:"10",weight:"Heavy",timer:false},
-      {name:"Band Terminal Knee Extension",sets:3,reps:"15",weight:"Resistance band",timer:false},
+      {name:"Sissy Squat",sets:3,reps:"15",weight:"Bodyweight",timer:false},
       {name:"Walking Lunges",sets:3,reps:"10 each",weight:"32.5 lbs DBs",timer:false},
       {name:"Standing Calf Raise",sets:4,reps:"20",weight:"BW + 60 lbs",timer:false},
       {name:"Seated Calf Raise",sets:4,reps:"15",weight:"55 lbs",timer:false},
@@ -1393,12 +1389,12 @@ const WEEKS=[
       {name:"DB Flyes (flat bench)",sets:3,reps:"10",weight:"20 lbs",timer:false},
       {name:"Weighted Dips",sets:4,reps:"6",weight:"+45 lbs vest",timer:false},
       {name:"Close-Grip Bench Press",sets:3,reps:"6",weight:"125 lbs",timer:false},
-      {name:"Band Tricep Pushdown",sets:3,reps:"10",weight:"Heavy resistance band",timer:false},
+      {name:"EZ Bar Skull Crushers",sets:3,reps:"10",weight:"Moderate",timer:false},
     ]},
     {day:2,label:"Legs — Peak Quad",icon:"🦵",type:"legs",note:"205 lbs squat for 5x5. This is peak strength territory. Brace hard, drive through. Both standing and seated calves at full volume — every leg day, both heads, to build massive calves.",exercises:[
       {name:"Barbell Back Squat",sets:5,reps:"5",weight:"205 lbs",timer:false},
       {name:"Barbell Hack Squat",sets:4,reps:"8",weight:"Heavy",timer:false},
-      {name:"Band Terminal Knee Extension",sets:3,reps:"15",weight:"Resistance band",timer:false},
+      {name:"Sissy Squat",sets:3,reps:"15",weight:"Bodyweight",timer:false},
       {name:"Walking Lunges",sets:3,reps:"10 each",weight:"35 lbs DBs",timer:false},
       {name:"Standing Calf Raise",sets:4,reps:"20",weight:"BW + 60 lbs",timer:false},
       {name:"Seated Calf Raise",sets:4,reps:"15",weight:"60 lbs",timer:false},
@@ -1457,12 +1453,12 @@ const WEEKS=[
       {name:"DB Flyes (flat bench)",sets:3,reps:"12",weight:"15 lbs",timer:false},
       {name:"Weighted Dips",sets:3,reps:"8",weight:"+45 lbs",timer:false},
       {name:"Close-Grip Bench Press",sets:3,reps:"8",weight:"125 lbs",timer:false},
-      {name:"Band Tricep Pushdown",sets:2,reps:"12",weight:"Resistance band",timer:false},
+      {name:"Overhead Tricep Extension",sets:2,reps:"12",weight:"30 lbs DB",timer:false},
     ]},
     {day:2,label:"Legs — Squat PR Day",icon:"🦵",type:"legs",note:"Squat PR day. 12 weeks of leg work. Trust the process and get under the bar. Standing and seated calves both — every leg day, both heads, to build massive calves. That's 24 sessions of calf work across the program.",exercises:[
       {name:"Barbell Back Squat",sets:1,reps:"5/3/2/1/1",weight:"Pyramid to max 1RM",timer:false},
       {name:"Barbell Hack Squat",sets:4,reps:"10",weight:"Heavy",timer:false},
-      {name:"Band Terminal Knee Extension",sets:3,reps:"15",weight:"Resistance band",timer:false},
+      {name:"Sissy Squat",sets:3,reps:"15",weight:"Bodyweight",timer:false},
       {name:"Walking Lunges",sets:3,reps:"10 each",weight:"35 lbs DBs",timer:false},
       {name:"Standing Calf Raise",sets:4,reps:"20",weight:"BW + 60 lbs",timer:false},
       {name:"Seated Calf Raise",sets:4,reps:"20",weight:"60 lbs",timer:false},
