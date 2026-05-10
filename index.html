@@ -333,6 +333,88 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
 
 /* BACK BUTTON */
 .back-btn{gap:8px;font-weight:600;}
+
+/* PROGRESSION BADGE */
+.prog-badge{display:inline-flex;align-items:center;gap:4px;margin-top:3px;border-radius:8px;padding:3px 8px;font-size:10px;font-weight:600;letter-spacing:0.3px;}
+.prog-increase{background:#00c89615;border:1px solid #00c89640;color:#00c896;}
+.prog-hold{background:#e8ff0012;border:1px solid #e8ff0030;color:#e8ff00;}
+[data-theme="light"] .prog-increase{background:#00a87815;border-color:#00a87840;color:#00a878;}
+[data-theme="light"] .prog-hold{background:#c8a80015;border-color:#c8a80040;color:#b89800;}
+
+/* COACH CARD */
+.coach-card{margin:0 16px 14px;background:linear-gradient(135deg,var(--surface),var(--surface2));border:1px solid var(--border-bright);border-radius:20px;padding:18px 20px;position:relative;overflow:hidden;}
+[data-theme="dark"] .coach-card::before{content:'';position:absolute;top:-40px;right:-40px;width:120px;height:120px;background:radial-gradient(circle,#e8ff0008,transparent 70%);pointer-events:none;}
+.coach-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+.coach-label{font-size:9px;letter-spacing:4px;color:var(--muted);text-transform:uppercase;font-weight:700;}
+.coach-icon{font-size:20px;}
+.coach-msg{font-size:14px;font-weight:500;line-height:1.5;color:var(--text);font-style:italic;}
+.coach-balance{margin-top:10px;font-size:11px;color:#ff5c35;font-weight:600;padding-top:10px;border-top:1px solid var(--border);}
+
+/* WORKOUT COACH STRIP */
+.w-coach-strip{display:flex;align-items:flex-start;gap:10px;margin:10px 16px 0;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:12px 14px;}
+.w-coach-icon{font-size:16px;flex-shrink:0;margin-top:1px;}
+.w-coach-text{font-size:12px;color:var(--muted);font-style:italic;line-height:1.4;}
+
+/* COMPLETION SCREEN */
+.completion-card{background:var(--surface);border:1px solid var(--border-bright);border-radius:28px;padding:28px 24px;max-width:380px;width:100%;position:relative;overflow:hidden;max-height:90vh;overflow-y:auto;}
+.comp-glow{position:absolute;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;pointer-events:none;}
+.comp-phase{font-size:10px;letter-spacing:5px;color:var(--muted);text-transform:uppercase;font-weight:700;margin-bottom:8px;}
+.comp-title{font-family:'Bebas Neue',sans-serif;font-size:36px;line-height:1;margin-bottom:4px;}
+.comp-week{font-size:12px;color:var(--muted);margin-bottom:20px;}
+.comp-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:18px;}
+.comp-stat{background:var(--surface2);border-radius:14px;padding:12px 8px;text-align:center;}
+.comp-stat-num{font-family:'Bebas Neue',sans-serif;font-size:28px;line-height:1;}
+.comp-stat-lbl{font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-top:2px;font-weight:600;}
+.comp-prs{background:#e8ff0010;border:1px solid #e8ff0030;border-radius:14px;padding:12px 14px;margin-bottom:14px;}
+.comp-prs-label{font-size:10px;font-weight:700;color:#e8ff00;letter-spacing:2px;margin-bottom:6px;}
+.comp-pr-item{font-size:12px;color:var(--text);padding:2px 0;}
+.comp-muscles{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;}
+.comp-muscle-tag{font-size:10px;border:1px solid;border-radius:100px;padding:3px 10px;font-weight:600;}
+.comp-streak{font-size:13px;font-weight:700;color:#e8ff00;margin-bottom:14px;text-align:center;}
+.comp-coach{font-size:12px;color:var(--muted);font-style:italic;line-height:1.5;padding:12px 14px;background:var(--surface2);border-radius:12px;margin-bottom:18px;}
+.comp-actions{display:flex;gap:10px;}
+.comp-btn-primary{flex:1;padding:16px;border-radius:16px;border:none;background:linear-gradient(135deg,#e8ff00,#b8ff00);color:#000;font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:1px;cursor:pointer;}
+.comp-btn-secondary{flex:1;padding:16px;border-radius:16px;border:1px solid var(--border-bright);background:var(--surface2);color:var(--text);font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:1px;cursor:pointer;}
+
+/* MUSCLE MAP HEAT */
+.muscle-legend-row{display:flex;align-items:center;gap:10px;padding:5px 0;}
+.muscle-legend-name{font-size:12px;font-weight:500;min-width:80px;color:var(--text);}
+.muscle-legend-bar{flex:1;height:6px;background:var(--surface2);border-radius:3px;overflow:hidden;}
+.muscle-legend-fill{height:100%;border-radius:3px;transition:width 0.5s cubic-bezier(0.4,0,0.2,1);}
+.muscle-fatigue-tag{font-size:9px;border:1px solid;border-radius:100px;padding:2px 6px;font-weight:700;letter-spacing:1px;flex-shrink:0;}
+.map-empty{text-align:center;padding:30px 20px;}
+.map-empty-icon{font-size:36px;margin-bottom:12px;}
+.map-empty-title{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--text2);margin-bottom:6px;}
+.map-empty-sub{font-size:12px;color:var(--muted);}
+
+/* EMPTY STATES */
+.empty-state{text-align:center;padding:48px 24px;}
+.es-icon{font-size:44px;margin-bottom:14px;}
+.es-title{font-family:'Bebas Neue',sans-serif;font-size:26px;color:var(--text2);margin-bottom:8px;letter-spacing:1px;}
+.es-sub{font-size:13px;color:var(--muted);line-height:1.5;max-width:260px;margin:0 auto 20px;}
+.es-btn{padding:12px 24px;border-radius:14px;border:none;background:linear-gradient(135deg,#e8ff00,#b8ff00);color:#000;font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:1px;cursor:pointer;}
+
+/* QUICK ACTIONS */
+.qa-bar{display:flex;align-items:center;gap:8px;padding:0 16px 14px;}
+.qa-btn{display:flex;align-items:center;gap:6px;padding:10px 14px;border-radius:14px;border:1px solid var(--border-bright);background:var(--surface);color:var(--text);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:all 0.2s;white-space:nowrap;}
+.qa-btn:active{transform:scale(0.95);}
+.qa-primary{background:linear-gradient(135deg,#e8ff00,#b8ff00);color:#000;border:none;flex:1;}
+[data-theme="light"] .qa-primary{background:linear-gradient(135deg,#c8a800,#a08000);color:#fff;}
+.qa-icon{font-size:14px;}
+.qa-streak{font-size:13px;font-weight:700;color:#e8ff00;padding:8px 12px;background:#e8ff0015;border:1px solid #e8ff0030;border-radius:14px;white-space:nowrap;}
+[data-theme="light"] .qa-streak{color:#b89800;background:#c8a80015;border-color:#c8a80040;}
+
+/* HAPTIC + ANIMATION ENHANCEMENTS */
+@keyframes pulseGlow{0%,100%{box-shadow:0 0 0 0 transparent}50%{box-shadow:0 0 20px 4px var(--yellow)}}
+@keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+@keyframes scaleIn{from{opacity:0;transform:scale(0.9)}to{opacity:1;transform:scale(1)}}
+.completion-card{animation:scaleIn 0.3s cubic-bezier(0.34,1.56,0.64,1);}
+.coach-card{animation:slideUp 0.3s ease;}
+.ex-card{transition:transform 0.15s,box-shadow 0.2s;}
+.ex-card:active{transform:scale(0.99);}
+.wk-card{transition:transform 0.2s,box-shadow 0.3s,border-color 0.3s;}
+.qa-btn.qa-primary:active{transform:scale(0.97);filter:brightness(1.05);}
+.ex-card.done{transition:all 0.3s;}
 </style>
 </head>
 <body>
@@ -351,7 +433,9 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
 
  </div>
 
+ <div id="quickActions"></div>
  <div id="weekStrip"></div>
+ <div id="coachCard"></div>
 
  <!-- WORKOUT REMINDERS -->
  <div class="reminder-strip">
@@ -413,6 +497,7 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
   <div class="note-text" id="dayNoteText"></div>
  </div>
  <div id="workoutStatsBar"></div>
+ <div id="workoutCoach"></div>
  <div class="ex-list" id="exerciseList"></div>
  <div class="complete-banner" id="banner">🔥 Day Complete!</div>
 </div>
@@ -604,7 +689,7 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
   <p style="font-size:12px;color:var(--muted);margin-top:4px;">Your training breakdown</p>
  </div>
  <!-- STATS ROW -->
- <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;padding:0 16px 16px;" id="analyticsStats"></div>
+ <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:0 16px 16px;" id="analyticsStats"></div>
  <!-- PIE CHART -->
  <div style="margin:0 16px 14px;background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:18px;">
   <div style="font-size:10px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-bottom:14px;">Workout Type Split</div>
@@ -618,7 +703,11 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
   <div style="font-size:10px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-bottom:14px;">Volume by Muscle Group</div>
   <div id="muscleBarChart" style="display:flex;flex-direction:column;gap:8px;"></div>
  </div>
- <!-- WEEKLY LOAD -->
+ <!-- WEEKLY LOAD CHART -->
+ <div style="margin:0 16px 14px;background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:18px;">
+  <div id="weeklyLoadChart" style="display:flex;flex-direction:column;gap:2px;"></div>
+ </div>
+ <!-- WEEKLY LOAD (legacy bar chart) -->
  <div style="margin:0 16px 14px;background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:18px;">
   <div style="font-size:10px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-bottom:14px;">Weekly Load Distribution</div>
   <div id="weeklyLoad" style="display:flex;align-items:flex-end;gap:6px;height:80px;"></div>
@@ -738,6 +827,8 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
  <button class="nav-btn" id="nav-prs" onclick="navTo('prs')"><span class="nav-icon">🏆</span>PRs</button>
  <button class="nav-btn" id="nav-timer" onclick="navTo('timer')"><span class="nav-icon">⏱</span>Timer</button>
 </div>
+
+<div id="completionOverlay" style="display:none;position:fixed;inset:0;background:#00000095;backdrop-filter:blur(12px);z-index:500;align-items:center;justify-content:center;padding:20px;" onclick="closeCompletion()"></div>
 
 <script>
 const WEEKS=[
@@ -1768,6 +1859,73 @@ function getSuggestedWeight(exName){
  return 0;
 }
 
+function buildWorkoutHistory(){
+  const today=new Date().toISOString().split('T')[0];
+  const completedDates={};
+  const recentTypes={};
+  let lastDate=null;
+  WEEKS.forEach((wk,wi)=>wk.days.forEach((day,di)=>{
+    const d=getWDone(wi,di);
+    if(!d)return;
+    completedDates[d]={wi,di,type:day.type,label:day.label};
+    if(!lastDate||d>lastDate)lastDate=d;
+    const daysAgo=Math.floor((new Date(today)-new Date(d))/86400000);
+    if(daysAgo<=7){recentTypes[day.type]=(recentTypes[day.type]||0)+1;}
+  }));
+  const daysSinceLast=lastDate?Math.floor((new Date(today)-new Date(lastDate))/86400000):999;
+  const streak=calcStreak(completedDates,today);
+  return{completedDates,recentTypes,lastDate,daysSinceLast,streak,total:Object.keys(completedDates).length};
+}
+
+function getCoachInsight(){
+  const h=buildWorkoutHistory();
+  const cur=WEEKS[aW]&&WEEKS[aW].days[aD];
+  if(h.total===0)return{icon:'⚡',msg:'Protocol initialized. Your first session starts here. No excuses — only reps.'};
+  if(h.daysSinceLast>=5)return{icon:'🔥',msg:`${h.daysSinceLast} days offline. The bar doesn't care. Get back under it today.`};
+  if(h.daysSinceLast>=3)return{icon:'⚠️',msg:`${h.daysSinceLast} days since last session. Don't let momentum die. One session changes everything.`};
+  if(h.recentTypes.push>=3)return{icon:'📊',msg:'Heavy push volume this week. Shoulders and pecs are accumulating fatigue. Chase pull and legs next.'};
+  if(h.recentTypes.legs>=3)return{icon:'📊',msg:'Quad and hamstring frequency is high. Monitor knee recovery. Prioritize upper body.'};
+  if(h.recentTypes.pull>=3)return{icon:'📊',msg:'Back and bicep volume stacking up. Balance it with chest and legs this cycle.'};
+  if(h.streak>=5)return{icon:'🏆',msg:`${h.streak}-day streak. You're in the zone — don't break the chain. Discipline is compounding.`};
+  if(h.streak>=3)return{icon:'💪',msg:`${h.streak} sessions straight. Momentum is real. Don't negotiate with rest days right now.`};
+  if(cur&&cur.type==='legs')return{icon:'🦵',msg:'Leg day. The sets that break you are the sets that build you. Quads, hamstrings, calves — leave nothing.'};
+  if(cur&&cur.type==='push')return{icon:'💪',msg:'Chest and triceps. Control the negative — 3 seconds down. Volume today, not ego.'};
+  if(cur&&cur.type==='pull')return{icon:'🏋️',msg:'Back and biceps. Squeeze at the top. Your posterior chain is what people see from behind.'};
+  if(cur&&cur.type==='cardio')return{icon:'🔥',msg:'Cardio session. Zone 2 incline walking is the single best tool for burning visceral fat. Stay the course.'};
+  return{icon:'⚡',msg:'Every session is a deposit. Consistency compounds. Show up.'};
+}
+
+function getProgressionInsight(exName){
+  const pr=getPR(exName);
+  const last=getSuggestedWeight(exName);
+  if(!last||last===0)return null;
+  if(pr>0&&last>=pr*0.95)return{type:'hold',msg:'Hold weight. Lock in clean reps before adding load.'};
+  const next=Math.round((last+5)/5)*5;
+  return{type:'increase',msg:`Next session: ${next} lbs (+5)`};
+}
+
+function getMuscleBalanceInsight(){
+  const h=buildWorkoutHistory();
+  const types=h.recentTypes;
+  const msgs=[];
+  if((types.push||0)>(types.pull||0)+1)msgs.push('Push volume exceeds pull. Add a row or deadlift pattern.');
+  if((types.legs||0)<1&&h.total>3)msgs.push('Legs undertrained this week. Quad and hamstring frequency needs to increase.');
+  if(h.total>0&&!(types.cardio||0))msgs.push('No cardio logged this week. Incline walk burns visceral fat — add it.');
+  return msgs.length?msgs[0]:null;
+}
+
+function renderCoachCard(){
+  const el=document.getElementById('coachCard');
+  if(!el)return;
+  const insight=getCoachInsight();
+  const balance=getMuscleBalanceInsight();
+  el.innerHTML=`<div class="coach-card">
+    <div class="coach-header"><span class="coach-label">COACH</span><span class="coach-icon">${insight.icon}</span></div>
+    <div class="coach-msg">"${insight.msg}"</div>
+    ${balance?`<div class="coach-balance">${balance}</div>`:''}
+  </div>`;
+}
+
 function renderHome(){
  const c=document.getElementById('weekCards');
  c.innerHTML='';
@@ -1815,7 +1973,21 @@ function renderHome(){
   if(existing)existing.remove();
   if(anyHistory){const dot=document.createElement('span');dot.className='nav-dot';histBtn.appendChild(dot);}
  }
+ // Quick Actions bar
+ const qa=document.getElementById('quickActions');
+ if(qa){
+  const today=new Date().toISOString().split('T')[0];
+  const allD={};WEEKS.forEach((wk,wi)=>wk.days.forEach((_,di)=>{const d=getWDone(wi,di);if(d)allD[d]=true;}));
+  const str=calcStreak(allD,today);
+  qa.innerHTML=`<div class="qa-bar">
+    <button class="qa-btn qa-primary" onclick="openDay(${aW},${aD})"><span class="qa-icon">⚡</span><span>START SESSION</span></button>
+    <button class="qa-btn" onclick="navTo('prs')"><span class="qa-icon">🏆</span><span>PRs</span></button>
+    <button class="qa-btn" onclick="navTo('timer')"><span class="qa-icon">⏱</span><span>TIMER</span></button>
+    ${str>0?`<div class="qa-streak">🔥 ${str}</div>`:''}
+  </div>`;
+ }
  renderWeekStrip();
+ renderCoachCard();
 }
 
 // ── WORKOUT ──
@@ -1845,6 +2017,9 @@ function renderWorkout(){
  const stats=calcWorkoutStats(aW,aD);
  const statsEl=document.getElementById('workoutStatsBar');
  if(statsEl)statsEl.innerHTML=`<div class="w-stats-bar"><div class="w-stat"><div class="w-stat-num">${stats.exercises}</div><div class="w-stat-lbl">Exercises</div></div><div class="w-stat-div"></div><div class="w-stat"><div class="w-stat-num">~${stats.estMin}</div><div class="w-stat-lbl">Min</div></div><div class="w-stat-div"></div><div class="w-stat"><div class="w-stat-num">~${stats.estCal}</div><div class="w-stat-lbl">Cal</div></div><div class="w-stat-div"></div><div class="w-stat"><div class="w-stat-num">${stats.sets}</div><div class="w-stat-lbl">Total Sets</div></div></div>`;
+ const wCoach=getCoachInsight();
+ const workoutCoachEl=document.getElementById('workoutCoach');
+ if(workoutCoachEl)workoutCoachEl.innerHTML=`<div class="w-coach-strip"><span class="w-coach-icon">${wCoach.icon}</span><span class="w-coach-text">${wCoach.msg}</span></div>`;
 
  document.getElementById('dayStrip').innerHTML=wk.days.map((d,di)=>{
   const ts2=TYPE[d.type],dp=dayProg(aW,di),isA=di===aD;
@@ -1861,6 +2036,8 @@ function renderWorkout(){
   const suggested=getSuggestedWeight(ex.name);
   const prBadge=pr>0?`<div class="ex-pr-badge">🏆 PR: ${pr} lbs</div>`:'';
   const suggestedBadge=suggested>0&&suggested!==pr?`<div class="ex-pr-badge suggested-badge">↑ Last: ${suggested} lbs</div>`:'';
+  const prog=getProgressionInsight(ex.name);
+  const progBadge=prog?`<div class="prog-badge prog-${prog.type}">${prog.type==='increase'?'↑':'→'} ${prog.msg}</div>`:'';
   let sHtml=`<div class="sets-divider"></div>`;
   for(let si=0;si<ex.sets;si++){
    const w=gW(aW,aD,ei,si),sd=gSD(aW,aD,ei,si);
@@ -1883,7 +2060,7 @@ function renderWorkout(){
     <div class="ex-info">
      <div class="ex-name" style="${isDone?'color:'+c+'55;':''}">${ex.name}</div>
      <div class="ex-rec">${ex.reps} reps · ${ex.weight}</div>
-     ${prBadge}${suggestedBadge}
+     ${prBadge}${suggestedBadge}${progBadge}
     </div>
     <div class="ex-actions">
      <div class="ex-sets-tag" style="color:${c}66">${ex.sets} sets</div>
@@ -1917,18 +2094,71 @@ function renderWorkout(){
 function toggleSD(ei,si,btn){
  const newVal=!gSD(aW,aD,ei,si);
  sSD(aW,aD,ei,si,newVal);
- if(newVal) startRestTimer(ei,si);
+ if(newVal){
+   startRestTimer(ei,si);
+   if(navigator.vibrate)navigator.vibrate(40);
+ }
  renderWorkout();
 }
 function toggleED(ei){sED(aW,aD,ei,!gED(aW,aD,ei));renderWorkout();}
 function switchDay(d){aD=d;renderWorkout();window.scrollTo(0,0);}
 
 function finishWorkout(){
- const day=WEEKS[aW].days[aD];
- const pct=dayProg(aW,aD);
- if(pct===0){return;}
- setWDone(aW,aD,new Date().toISOString().split('T')[0]);
- renderWorkout();
+  const day=WEEKS[aW].days[aD];
+  const pct=dayProg(aW,aD);
+  if(pct===0){return;}
+  setWDone(aW,aD,new Date().toISOString().split('T')[0]);
+  // Calculate stats
+  let totalSets=0,totalLbs=0;
+  const prsHit=[];
+  day.exercises.forEach((ex,ei)=>{
+    for(let si=0;si<ex.sets;si++){
+      if(gSD(aW,aD,ei,si)){
+        totalSets++;
+        const w=parseFloat(gW(aW,aD,ei,si))||0;
+        totalLbs+=w;
+      }
+    }
+    const pr=getPR(ex.name);
+    for(let si=0;si<ex.sets;si++){
+      const w=parseFloat(gW(aW,aD,ei,si))||0;
+      if(w>0&&w>=pr&&pr>0&&!prsHit.includes(ex.name))prsHit.push(ex.name);
+    }
+  });
+  const muscles=[...new Set((MUSCLE_MAP[day.exercises[0]&&day.exercises[0].name]||[]).concat(...day.exercises.map(ex=>MUSCLE_MAP[ex.name]||[])).map(m=>MUSCLE_NAMES[m]).filter(Boolean))].slice(0,6);
+  const ts=TYPE[day.type];
+  const h=buildWorkoutHistory();
+  const coach=getCoachInsight();
+  const estCal=Math.round(totalSets*2.5*(day.type==='legs'?11:day.type==='cardio'?10:9));
+  const overlay=document.getElementById('completionOverlay');
+  if(!overlay)return;
+  overlay.innerHTML=`<div class="completion-card" onclick="event.stopPropagation()">
+    <div class="comp-glow" style="background:${ts.color}22;"></div>
+    <div class="comp-phase">SESSION COMPLETE</div>
+    <div class="comp-title" style="color:${ts.color}">${day.label}</div>
+    <div class="comp-week">Week ${aW+1} · Phase ${Math.floor(aW/4)+1}</div>
+    <div class="comp-stats">
+      <div class="comp-stat"><div class="comp-stat-num">${day.exercises.length}</div><div class="comp-stat-lbl">Exercises</div></div>
+      <div class="comp-stat"><div class="comp-stat-num">${totalSets}</div><div class="comp-stat-lbl">Sets</div></div>
+      <div class="comp-stat"><div class="comp-stat-num">${totalLbs>999?Math.round(totalLbs/1000)+'k':totalLbs}</div><div class="comp-stat-lbl">Lbs</div></div>
+      <div class="comp-stat"><div class="comp-stat-num" style="color:#e8ff00">~${estCal}</div><div class="comp-stat-lbl">Cal</div></div>
+    </div>
+    ${prsHit.length?`<div class="comp-prs"><div class="comp-prs-label">🏆 NEW PRs HIT</div>${prsHit.map(n=>`<div class="comp-pr-item">${n}</div>`).join('')}</div>`:''}
+    ${muscles.length?`<div class="comp-muscles">${muscles.map(m=>`<span class="comp-muscle-tag" style="border-color:${ts.color}40;color:${ts.color}">${m}</span>`).join('')}</div>`:''}
+    ${h.streak>1?`<div class="comp-streak">🔥 ${h.streak}-Session Streak</div>`:''}
+    <div class="comp-coach">${coach.icon} "${coach.msg}"</div>
+    <div class="comp-actions">
+      <button class="comp-btn-primary" onclick="closeCompletion()">DONE</button>
+      <button class="comp-btn-secondary" onclick="shareWorkoutText();closeCompletion()">SHARE</button>
+    </div>
+  </div>`;
+  overlay.style.display='flex';
+  if(navigator.vibrate)navigator.vibrate([100,50,200]);
+  renderWorkout();
+}
+function closeCompletion(){
+  const o=document.getElementById('completionOverlay');
+  if(o)o.style.display='none';
 }
 
 // ── REST TIMER (inline) ──
@@ -2042,6 +2272,7 @@ function renderPRs(filter=''){
  const noPR=exercises.filter(e=>getPR(e.name)===0);
  const sorted=[...hasPR.sort((a,b)=>getPR(b.name)-getPR(a.name)),...noPR];
 
+ const anyPR=sorted.some(ex=>getPR(ex.name)>0);
  document.getElementById('prList').innerHTML=sorted.map(ex=>{
   const pr=getPR(ex.name);
   const ts=TYPE[ex.type];
@@ -2055,7 +2286,7 @@ function renderPRs(filter=''){
     :`<div class="pr-empty">No PR yet</div>`}
    </div>
   </div>`;
- }).join('');
+ }).join('')+(anyPR?'':`<div class="empty-state"><div class="es-icon">🏆</div><div class="es-title">NO PRs YET</div><div class="es-sub">Log heavy sets and your personal records will save automatically.</div></div>`);
 }
 function filterPRs(val){renderPRs(val);}
 function confirmClearPRs(){
@@ -2355,7 +2586,7 @@ function renderHistory(){
   </div>`;
 
  if(!entries.length){
-  list.innerHTML=`<div style="text-align:center;padding:40px 0;color:var(--muted);font-size:14px;">No workouts completed yet.<br/>Start training to see your history!</div>`;
+  list.innerHTML=`<div class="empty-state"><div class="es-icon">📋</div><div class="es-title">NO SESSIONS LOGGED</div><div class="es-sub">Complete your first workout to build your training history.</div><button class="es-btn" onclick="openDay(${aW},${aD})">START TODAY'S SESSION</button></div>`;
   return;
  }
 
@@ -2417,20 +2648,27 @@ function renderAnalytics(){
   });
  });
 
- // Stats row
+ // Empty state
+ if(totalWorkouts===0){
+  document.getElementById('analyticsStats').innerHTML=`<div style="grid-column:1/-1;text-align:center;padding:40px 20px;"><div style="font-size:36px;margin-bottom:12px;">📊</div><div style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--text2);margin-bottom:8px;">NO DATA YET</div><div style="font-size:13px;color:var(--muted);">Complete your first session to unlock analytics.</div><button onclick="openDay(${aW},${aD})" style="margin-top:16px;padding:12px 24px;border-radius:14px;border:none;background:linear-gradient(135deg,#e8ff00,#b8ff00);color:#000;font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:1px;cursor:pointer;">START SESSION</button></div>`;
+  document.getElementById('muscleBarChart').innerHTML='';
+  return;
+ }
+ // Stats row — 6 tiles in 3x2 grid
+ const today=new Date().toISOString().split('T')[0];
+ const allDates={};
+ WEEKS.forEach((wk,wi)=>wk.days.forEach((_,di)=>{const d=getWDone(wi,di);if(d)allDates[d]=true;}));
+ const streak=calcStreak(allDates,today);
+ const wkProg=Math.round(weekProg(aW)*100);
+ const avgVol=totalVol/Math.max(totalWorkouts,1);
+ const avgDisplay=avgVol>999?Math.round(avgVol/1000)+'k':Math.round(avgVol);
  document.getElementById('analyticsStats').innerHTML=`
-  <div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px;text-align:center;">
-   <div style="font-family:'Bebas Neue',sans-serif;font-size:32px;color:var(--yellow)">${totalWorkouts}</div>
-   <div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;">Sessions</div>
-  </div>
-  <div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px;text-align:center;">
-   <div style="font-family:'Bebas Neue',sans-serif;font-size:32px;color:#ff5c35">${totalSets}</div>
-   <div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;">Total Sets</div>
-  </div>
-  <div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px;text-align:center;">
-   <div style="font-family:'Bebas Neue',sans-serif;font-size:32px;color:#00c896">${totalVol>999?Math.round(totalVol/1000)+'k':totalVol}</div>
-   <div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;">Lbs Lifted</div>
-  </div>`;
+  <div class="stat-tile" style="border-top-color:#e8ff00"><div class="stat-tile-num" style="color:#e8ff00">${totalWorkouts}</div><div class="stat-tile-lbl">Sessions</div></div>
+  <div class="stat-tile" style="border-top-color:#ff5c35"><div class="stat-tile-num" style="color:#ff5c35">${totalSets}</div><div class="stat-tile-lbl">Total Sets</div></div>
+  <div class="stat-tile" style="border-top-color:#00c896"><div class="stat-tile-num" style="color:#00c896">${totalVol>999?Math.round(totalVol/1000)+'k':totalVol}</div><div class="stat-tile-lbl">Lbs Lifted</div></div>
+  <div class="stat-tile" style="border-top-color:#9858e8"><div class="stat-tile-num" style="color:#9858e8">${streak}</div><div class="stat-tile-lbl">Streak</div></div>
+  <div class="stat-tile" style="border-top-color:#28b8e8"><div class="stat-tile-num" style="color:#28b8e8">${wkProg}%</div><div class="stat-tile-lbl">Week ${aW+1}</div></div>
+  <div class="stat-tile" style="border-top-color:#ff9f35"><div class="stat-tile-num" style="color:#ff9f35">${avgDisplay}</div><div class="stat-tile-lbl">Avg Volume</div></div>`;
 
  // Pie chart
  drawPieChart(typeCounts);
@@ -2450,7 +2688,28 @@ function renderAnalytics(){
   </div>`;
  }).join('');
 
- // Weekly load bars
+ // Weekly load sparkline (new chart)
+ const nonZeroWeeks=weeklyVol.filter(v=>v>0);
+ if(nonZeroWeeks.length>0){
+  const maxWV=Math.max(...weeklyVol,1);
+  const wlEl=document.getElementById('weeklyLoadChart');
+  if(wlEl){
+   wlEl.innerHTML=`<div style="font-size:9px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;font-weight:700;margin-bottom:12px;">WEEKLY LOAD</div>`+
+   WEEKS.map((wk,wi)=>{
+    const v=weeklyVol[wi];
+    const pct=Math.round(v/maxWV*100);
+    const isActive=wi===aW;
+    if(!v)return `<div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;"><div style="font-size:10px;color:var(--muted);min-width:52px;">W${wi+1}</div><div style="flex:1;height:6px;background:var(--surface2);border-radius:3px;"></div><div style="font-size:10px;color:var(--muted);min-width:30px;text-align:right;">—</div></div>`;
+    return `<div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
+     <div style="font-size:10px;color:${isActive?'var(--yellow)':'var(--muted)'};min-width:52px;font-weight:${isActive?700:400};">W${wi+1}${isActive?' ●':''}</div>
+     <div style="flex:1;height:8px;background:var(--surface2);border-radius:4px;overflow:hidden;"><div style="width:${pct}%;height:100%;background:${isActive?'linear-gradient(90deg,#ff5c35,#e8ff00)':'linear-gradient(90deg,#ff5c3555,#e8ff0033)'};border-radius:4px;"></div></div>
+     <div style="font-size:10px;color:${isActive?'var(--yellow)':'var(--muted)'};min-width:38px;text-align:right;">${v>999?Math.round(v/1000)+'k':v}</div>
+    </div>`;
+   }).join('');
+  }
+ }
+
+ // Weekly load bars (legacy)
  const maxW=Math.max(...weeklyVol,1);
  document.getElementById('weeklyLoad').innerHTML=weeklyVol.map((v,i)=>{
   const h=Math.round(v/maxW*70)+4;
@@ -2549,30 +2808,46 @@ function setMuscleDay(mode){
 }
 
 function renderMuscleMap(){
- // Reset all muscles
- document.querySelectorAll('[id^="fm-"],[id^="bm-"]').forEach(el=>{
-  el.style.fill='var(--surface2)';
-  el.style.stroke='var(--border-bright)';
- });
-
- const activated=getMusclesForRange(muscleMapMode);
- // Count how often each muscle appears for intensity
- const counts={};
- activated.forEach(m=>{counts[m]=(counts[m]||0)+1;});
-
- activated.forEach(m=>{
-  const el=document.getElementById(m);
-  if(el){
-   el.style.fill='#ff5c3588';
-   el.style.stroke='#ff5c35';
+  // Reset all
+  document.querySelectorAll('[id^="fm-"],[id^="bm-"]').forEach(el=>{
+    el.style.fill='var(--surface2)';el.style.stroke='var(--border-bright)';el.style.filter='';
+  });
+  const activated=getMusclesForRange(muscleMapMode);
+  const counts={};
+  activated.forEach(m=>{counts[m]=(counts[m]||0)+1;});
+  const maxCount=Math.max(...Object.values(counts),1);
+  // Heat levels
+  Object.entries(counts).forEach(([m,cnt])=>{
+    const el=document.getElementById(m);
+    if(!el)return;
+    const intensity=cnt/maxCount;
+    let color,glow,fatigue;
+    if(intensity>=0.8){color='#ff2020';glow='0 0 16px #ff202080';fatigue='HIGH';}
+    else if(intensity>=0.5){color='#ff5c35';glow='0 0 12px #ff5c3560';fatigue='MODERATE';}
+    else if(intensity>=0.2){color='#e8ff00';glow='0 0 8px #e8ff0040';fatigue='LOW';}
+    else{color='#00c896';glow='0 0 6px #00c89630';fatigue='LIGHT';}
+    el.style.fill=color+'55';
+    el.style.stroke=color;
+    el.style.filter=`drop-shadow(${glow})`;
+    el.setAttribute('data-fatigue',fatigue);
+  });
+  // Legend with fatigue tags
+  const uniqueGroups=[...new Map(activated.map(m=>[MUSCLE_NAMES[m],{name:MUSCLE_NAMES[m],count:counts[m]||1,maxCount}])).values()].filter(x=>x.name).sort((a,b)=>b.count-a.count);
+  const legendEl=document.getElementById('muscleLegend');
+  if(!uniqueGroups.length){
+    legendEl.innerHTML=`<div class="map-empty"><div class="map-empty-icon">🫀</div><div class="map-empty-title">No muscle data</div><div class="map-empty-sub">Log a workout to activate your muscle map.</div></div>`;
+    return;
   }
- });
-
- // Legend
- const uniqueGroups=[...new Set(activated.map(m=>MUSCLE_NAMES[m]).filter(Boolean))];
- document.getElementById('muscleLegend').innerHTML=uniqueGroups.length?
-  uniqueGroups.map(g=>`<div style="background:#ff5c3520;border:1px solid #ff5c3550;border-radius:100px;padding:4px 12px;font-size:11px;color:#ff5c35;font-weight:500;">${g}</div>`).join('')
-  :`<div style="font-size:12px;color:var(--muted);font-style:italic;">No workout data for this period</div>`;
+  legendEl.innerHTML=uniqueGroups.map(({name,count,maxCount})=>{
+    const pct=count/maxCount;
+    const tag=pct>=0.8?'HIGH':pct>=0.5?'MODERATE':pct>=0.2?'LOW':'LIGHT';
+    const tagColor=pct>=0.8?'#ff2020':pct>=0.5?'#ff5c35':pct>=0.2?'#e8ff00':'#00c896';
+    return `<div class="muscle-legend-row">
+      <span class="muscle-legend-name">${name}</span>
+      <div class="muscle-legend-bar"><div class="muscle-legend-fill" style="width:${Math.round(pct*100)}%;background:${tagColor};"></div></div>
+      <span class="muscle-fatigue-tag" style="color:${tagColor};border-color:${tagColor}40;">${tag}</span>
+    </div>`;
+  }).join('');
 }
 
 // ── SHARE ──
