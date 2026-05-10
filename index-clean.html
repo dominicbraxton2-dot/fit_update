@@ -960,128 +960,74 @@ const ICONS={
   share:`<svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="15" cy="4" r="2"/><circle cx="5" cy="10" r="2"/><circle cx="15" cy="16" r="2"/><line x1="7" y1="9" x2="13" y2="5"/><line x1="7" y1="11" x2="13" y2="15"/></svg>`,
 };
 
-// Day type detailed illustrated SVG icons
+// Day type detailed illustrated SVG icons — NO gradient IDs (avoids conflicts when multiple render on same page)
 const TYPE_ICONS={
- push:`<svg width="36" height="36" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-   <radialGradient id="pg1" cx="50%" cy="40%" r="60%"><stop offset="0%" stop-color="#ff7a50"/><stop offset="100%" stop-color="#ff3500"/></radialGradient>
-   <radialGradient id="pg2" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#ff9060" stop-opacity="0.3"/><stop offset="100%" stop-color="#ff3500" stop-opacity="0"/></radialGradient>
-  </defs>
-  <circle cx="40" cy="40" r="38" fill="url(#pg2)"/>
-  <!-- barbell shaft -->
-  <rect x="8" y="37" width="64" height="6" rx="3" fill="url(#pg1)" opacity="0.9"/>
-  <!-- left plates -->
-  <rect x="8" y="29" width="6" height="22" rx="3" fill="#ff5c35"/>
-  <rect x="11" y="27" width="5" height="26" rx="2.5" fill="#ff7a50"/>
-  <!-- right plates -->
-  <rect x="66" y="29" width="6" height="22" rx="3" fill="#ff5c35"/>
-  <rect x="64" y="27" width="5" height="26" rx="2.5" fill="#ff7a50"/>
-  <!-- person lying on bench - torso -->
-  <ellipse cx="40" cy="46" rx="16" ry="5" fill="#cc4422" opacity="0.6"/>
-  <!-- arms pushing up -->
-  <path d="M26 40 Q28 32 32 30" stroke="#ff9060" stroke-width="3" stroke-linecap="round"/>
-  <path d="M54 40 Q52 32 48 30" stroke="#ff9060" stroke-width="3" stroke-linecap="round"/>
-  <!-- glow center -->
-  <circle cx="40" cy="40" r="6" fill="#ff5c35" opacity="0.15"/>
+ push:`<svg width="36" height="36" viewBox="0 0 80 80" fill="none">
+  <circle cx="40" cy="40" r="36" fill="#ff5c35" fill-opacity="0.1"/>
+  <rect x="10" y="37" width="60" height="6" rx="3" fill="#ff5c35" fill-opacity="0.9"/>
+  <rect x="8" y="30" width="8" height="20" rx="3" fill="#ff7050"/>
+  <rect x="6" y="27" width="6" height="26" rx="3" fill="#ff5c35"/>
+  <rect x="64" y="30" width="8" height="20" rx="3" fill="#ff7050"/>
+  <rect x="68" y="27" width="6" height="26" rx="3" fill="#ff5c35"/>
+  <ellipse cx="40" cy="48" rx="14" ry="5" fill="#cc3520" fill-opacity="0.65"/>
+  <path d="M27 44 Q26 36 31 33" stroke="#ff9060" stroke-width="3.5" stroke-linecap="round"/>
+  <path d="M53 44 Q54 36 49 33" stroke="#ff9060" stroke-width="3.5" stroke-linecap="round"/>
+  <circle cx="40" cy="40" r="5" fill="#ff5c35" fill-opacity="0.12"/>
  </svg>`,
- legs:`<svg width="36" height="36" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-   <radialGradient id="lg1" cx="50%" cy="40%" r="60%"><stop offset="0%" stop-color="#20eeaa"/><stop offset="100%" stop-color="#009966"/></radialGradient>
-   <radialGradient id="lg2" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#00c896" stop-opacity="0.25"/><stop offset="100%" stop-color="#00c896" stop-opacity="0"/></radialGradient>
-  </defs>
-  <circle cx="40" cy="40" r="38" fill="url(#lg2)"/>
-  <!-- barbell on back -->
-  <rect x="10" y="26" width="60" height="5" rx="2.5" fill="url(#lg1)" opacity="0.9"/>
-  <rect x="8" y="22" width="5" height="13" rx="2.5" fill="#00c896"/>
-  <rect x="67" y="22" width="5" height="13" rx="2.5" fill="#00c896"/>
-  <!-- squat figure -->
-  <!-- head -->
-  <circle cx="40" cy="20" r="5" fill="#20d8a0" opacity="0.8"/>
-  <!-- torso bent forward -->
-  <path d="M40 25 L36 35 L34 50" stroke="#00c896" stroke-width="4" stroke-linecap="round"/>
-  <!-- thighs down -->
-  <path d="M36 35 L28 50" stroke="#20d8a0" stroke-width="5" stroke-linecap="round"/>
-  <path d="M36 35 L44 50" stroke="#20d8a0" stroke-width="5" stroke-linecap="round"/>
-  <!-- calves -->
-  <path d="M28 50 L30 62" stroke="#00c896" stroke-width="4" stroke-linecap="round"/>
-  <path d="M44 50 L46 62" stroke="#00c896" stroke-width="4" stroke-linecap="round"/>
-  <!-- feet -->
-  <ellipse cx="31" cy="63" rx="5" ry="2.5" fill="#009966"/>
-  <ellipse cx="47" cy="63" rx="5" ry="2.5" fill="#009966"/>
-  <!-- muscle glow quads -->
-  <ellipse cx="30" cy="52" rx="5" ry="7" fill="#00c896" opacity="0.12"/>
-  <ellipse cx="46" cy="52" rx="5" ry="7" fill="#00c896" opacity="0.12"/>
+ legs:`<svg width="36" height="36" viewBox="0 0 80 80" fill="none">
+  <circle cx="40" cy="40" r="36" fill="#00c896" fill-opacity="0.1"/>
+  <rect x="12" y="27" width="56" height="5" rx="2.5" fill="#00c896" fill-opacity="0.88"/>
+  <rect x="7" y="22" width="9" height="15" rx="3" fill="#00a87a"/>
+  <rect x="64" y="22" width="9" height="15" rx="3" fill="#00a87a"/>
+  <circle cx="40" cy="20" r="5.5" fill="#22e8a8" fill-opacity="0.85"/>
+  <path d="M40 26 L35 37" stroke="#00c896" stroke-width="4" stroke-linecap="round"/>
+  <path d="M35 37 L24 53" stroke="#20e8a8" stroke-width="5.5" stroke-linecap="round"/>
+  <path d="M35 37 L46 53" stroke="#20e8a8" stroke-width="5.5" stroke-linecap="round"/>
+  <path d="M24 53 L26 66" stroke="#00c896" stroke-width="4" stroke-linecap="round"/>
+  <path d="M46 53 L48 66" stroke="#00c896" stroke-width="4" stroke-linecap="round"/>
+  <ellipse cx="27" cy="67" rx="6" ry="3" fill="#009966"/>
+  <ellipse cx="49" cy="67" rx="6" ry="3" fill="#009966"/>
  </svg>`,
- cardio:`<svg width="36" height="36" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-   <radialGradient id="cg1" cx="50%" cy="40%" r="60%"><stop offset="0%" stop-color="#60d0f8"/><stop offset="100%" stop-color="#0090c8"/></radialGradient>
-   <radialGradient id="cg2" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#28b8e8" stop-opacity="0.25"/><stop offset="100%" stop-color="#28b8e8" stop-opacity="0"/></radialGradient>
-   <linearGradient id="tmill" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#1a6080"/><stop offset="100%" stop-color="#28b8e8" stop-opacity="0.5"/></linearGradient>
-  </defs>
-  <circle cx="40" cy="40" r="38" fill="url(#cg2)"/>
-  <!-- treadmill belt (incline) -->
-  <rect x="12" y="52" width="56" height="8" rx="4" fill="url(#tmill)" transform="rotate(-8,40,56)"/>
-  <!-- treadmill frame -->
-  <path d="M14 56 L18 70 M66 56 L62 70" stroke="#28b8e8" stroke-width="3" stroke-linecap="round" opacity="0.7"/>
-  <line x1="18" y1="70" x2="62" y2="70" stroke="#28b8e8" stroke-width="3" stroke-linecap="round" opacity="0.5"/>
-  <!-- running figure -->
-  <!-- head -->
-  <circle cx="52" cy="18" r="5" fill="#60d0f8" opacity="0.9"/>
-  <!-- body lean forward -->
-  <path d="M52 23 L48 36" stroke="#28b8e8" stroke-width="4" stroke-linecap="round"/>
-  <!-- arms pumping -->
-  <path d="M50 27 L42 22" stroke="#60d0f8" stroke-width="3" stroke-linecap="round"/>
-  <path d="M48 30 L56 26" stroke="#60d0f8" stroke-width="3" stroke-linecap="round"/>
-  <!-- stride legs -->
-  <path d="M48 36 L40 48 L36 56" stroke="#28b8e8" stroke-width="4" stroke-linecap="round"/>
-  <path d="M48 36 L56 46 L60 42" stroke="#28b8e8" stroke-width="4" stroke-linecap="round"/>
-  <!-- motion lines -->
-  <line x1="18" y1="28" x2="26" y2="28" stroke="#60d0f8" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
-  <line x1="14" y1="34" x2="24" y2="34" stroke="#60d0f8" stroke-width="1.5" stroke-linecap="round" opacity="0.35"/>
-  <line x1="16" y1="40" x2="22" y2="40" stroke="#60d0f8" stroke-width="1.5" stroke-linecap="round" opacity="0.2"/>
+ cardio:`<svg width="36" height="36" viewBox="0 0 80 80" fill="none">
+  <circle cx="40" cy="40" r="36" fill="#28b8e8" fill-opacity="0.1"/>
+  <rect x="10" y="52" width="60" height="8" rx="4" fill="#1a6888" fill-opacity="0.8" transform="rotate(-8,40,56)"/>
+  <rect x="10" y="56" width="60" height="3" rx="1.5" fill="#28b8e8" fill-opacity="0.25" transform="rotate(-8,40,56)"/>
+  <path d="M12 57 L16 70" stroke="#28b8e8" stroke-width="3" stroke-linecap="round" fill-opacity="0.7"/>
+  <path d="M68 53 L64 66" stroke="#28b8e8" stroke-width="3" stroke-linecap="round" fill-opacity="0.7"/>
+  <line x1="16" y1="70" x2="64" y2="66" stroke="#28b8e8" stroke-width="3" stroke-linecap="round" stroke-opacity="0.5"/>
+  <circle cx="28" cy="16" r="5" fill="#60d0f8" fill-opacity="0.9"/>
+  <path d="M28 21 L34 35" stroke="#28b8e8" stroke-width="4" stroke-linecap="round"/>
+  <path d="M30 27 L42 23" stroke="#60d0f8" stroke-width="3" stroke-linecap="round"/>
+  <path d="M32 30 L22 26" stroke="#60d0f8" stroke-width="3" stroke-linecap="round"/>
+  <path d="M34 35 L44 47 L48 55" stroke="#28b8e8" stroke-width="4" stroke-linecap="round"/>
+  <path d="M34 35 L26 47 L20 43" stroke="#28b8e8" stroke-width="4" stroke-linecap="round"/>
+  <line x1="56" y1="26" x2="64" y2="26" stroke="#60d0f8" stroke-width="1.5" stroke-linecap="round" stroke-opacity="0.5"/>
+  <line x1="58" y1="33" x2="68" y2="33" stroke="#60d0f8" stroke-width="1.5" stroke-linecap="round" stroke-opacity="0.35"/>
+  <line x1="58" y1="40" x2="66" y2="40" stroke="#60d0f8" stroke-width="1.5" stroke-linecap="round" stroke-opacity="0.2"/>
  </svg>`,
- pull:`<svg width="36" height="36" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-   <radialGradient id="puG1" cx="50%" cy="40%" r="60%"><stop offset="0%" stop-color="#c080ff"/><stop offset="100%" stop-color="#7020d0"/></radialGradient>
-   <radialGradient id="puG2" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#9858e8" stop-opacity="0.25"/><stop offset="100%" stop-color="#9858e8" stop-opacity="0"/></radialGradient>
-  </defs>
-  <circle cx="40" cy="40" r="38" fill="url(#puG2)"/>
-  <!-- floor line -->
-  <line x1="14" y1="68" x2="66" y2="68" stroke="#9858e8" stroke-width="2" opacity="0.4"/>
-  <!-- barbell on floor -->
-  <rect x="14" y="56" width="52" height="5" rx="2.5" fill="url(#puG1)" opacity="0.9"/>
-  <rect x="12" y="52" width="5" height="13" rx="2.5" fill="#9858e8"/>
-  <rect x="63" y="52" width="5" height="13" rx="2.5" fill="#9858e8"/>
-  <!-- bent-over row figure -->
-  <!-- head -->
-  <circle cx="28" cy="22" r="5" fill="#c080ff" opacity="0.85"/>
-  <!-- torso horizontal -->
-  <path d="M28 27 L44 35" stroke="#9858e8" stroke-width="4.5" stroke-linecap="round"/>
-  <!-- legs standing -->
-  <path d="M44 35 L46 52 L44 65" stroke="#c080ff" stroke-width="4" stroke-linecap="round"/>
-  <path d="M44 35 L50 52 L52 65" stroke="#c080ff" stroke-width="4" stroke-linecap="round"/>
-  <!-- arms pulling bar up -->
-  <path d="M28 27 L32 42" stroke="#c080ff" stroke-width="3.5" stroke-linecap="round"/>
-  <path d="M36 32 L38 46" stroke="#c080ff" stroke-width="3.5" stroke-linecap="round"/>
-  <!-- lat glow -->
-  <ellipse cx="38" cy="36" rx="10" ry="6" fill="#9858e8" opacity="0.12" transform="rotate(20,38,36)"/>
+ pull:`<svg width="36" height="36" viewBox="0 0 80 80" fill="none">
+  <circle cx="40" cy="40" r="36" fill="#9858e8" fill-opacity="0.1"/>
+  <line x1="12" y1="68" x2="68" y2="68" stroke="#9858e8" stroke-width="2" stroke-opacity="0.4"/>
+  <rect x="14" y="57" width="52" height="6" rx="3" fill="#9858e8" fill-opacity="0.88"/>
+  <rect x="10" y="52" width="8" height="15" rx="3" fill="#7828c8"/>
+  <rect x="62" y="52" width="8" height="15" rx="3" fill="#7828c8"/>
+  <circle cx="26" cy="20" r="5.5" fill="#c080ff" fill-opacity="0.85"/>
+  <path d="M26 26 L44 36" stroke="#9858e8" stroke-width="4.5" stroke-linecap="round"/>
+  <path d="M44 36 L46 53 L44 66" stroke="#c080ff" stroke-width="4" stroke-linecap="round"/>
+  <path d="M44 36 L52 53 L54 66" stroke="#c080ff" stroke-width="4" stroke-linecap="round"/>
+  <path d="M26 26 L30 43" stroke="#c080ff" stroke-width="3.5" stroke-linecap="round"/>
+  <path d="M34 31 L37 47" stroke="#c080ff" stroke-width="3.5" stroke-linecap="round"/>
+  <ellipse cx="37" cy="37" rx="10" ry="6" fill="#9858e8" fill-opacity="0.12" transform="rotate(20,37,37)"/>
  </svg>`,
- rest:`<svg width="36" height="36" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-   <radialGradient id="rg1" cx="50%" cy="50%" r="55%"><stop offset="0%" stop-color="#8898cc"/><stop offset="100%" stop-color="#4a5a80"/></radialGradient>
-   <radialGradient id="rg2" cx="50%" cy="50%" r="55%"><stop offset="0%" stop-color="#6b7fa3" stop-opacity="0.2"/><stop offset="100%" stop-color="#6b7fa3" stop-opacity="0"/></radialGradient>
-  </defs>
-  <circle cx="40" cy="40" r="38" fill="url(#rg2)"/>
-  <!-- crescent moon -->
-  <path d="M50 18 A20 20 0 1 1 50 62 A14 14 0 1 0 50 18Z" fill="url(#rg1)" opacity="0.9"/>
-  <!-- stars -->
-  <circle cx="22" cy="22" r="1.5" fill="#c0cce8" opacity="0.8"/>
-  <circle cx="62" cy="28" r="1.2" fill="#c0cce8" opacity="0.6"/>
-  <circle cx="18" cy="46" r="1" fill="#c0cce8" opacity="0.5"/>
-  <circle cx="64" cy="55" r="1.5" fill="#c0cce8" opacity="0.7"/>
-  <circle cx="24" cy="60" r="1" fill="#c0cce8" opacity="0.4"/>
-  <!-- sparkle star -->
-  <path d="M64 18 L65 21 L68 22 L65 23 L64 26 L63 23 L60 22 L63 21Z" fill="#d0daff" opacity="0.7"/>
+ rest:`<svg width="36" height="36" viewBox="0 0 80 80" fill="none">
+  <circle cx="40" cy="40" r="36" fill="#6b7fa3" fill-opacity="0.1"/>
+  <path d="M48 16 A22 22 0 1 1 48 64 A15 15 0 1 0 48 16Z" fill="#8898cc" fill-opacity="0.88"/>
+  <circle cx="20" cy="22" r="1.8" fill="#c8d4f0" fill-opacity="0.85"/>
+  <circle cx="63" cy="27" r="1.4" fill="#c8d4f0" fill-opacity="0.65"/>
+  <circle cx="16" cy="48" r="1.1" fill="#c8d4f0" fill-opacity="0.55"/>
+  <circle cx="65" cy="54" r="1.8" fill="#c8d4f0" fill-opacity="0.75"/>
+  <circle cx="22" cy="60" r="1.1" fill="#c8d4f0" fill-opacity="0.45"/>
+  <path d="M63 17 L64.2 20.5 L68 21.5 L64.2 22.5 L63 26 L61.8 22.5 L58 21.5 L61.8 20.5Z" fill="#d8e2ff" fill-opacity="0.75"/>
  </svg>`
 };
 
