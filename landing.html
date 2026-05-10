@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="Strength Identity — A 12-week AI-powered strength program built for serious athletes. Big chest. Massive legs. Shredded core."/>
+<title>Strength Identity — 12-Week Program</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=JetBrains+Mono:wght@400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:#000;color:#f0f0f0;font-family:'DM Sans',sans-serif;overflow-x:hidden;}
+
+/* ── NOISE OVERLAY ── */
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:0.3;}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:20px 40px;background:rgba(0,0,0,0.6);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,0.06);}
+.nav-logo{font-family:'Montserrat',sans-serif;font-weight:900;font-size:16px;letter-spacing:2px;text-transform:uppercase;color:#e6eb00;}
+.nav-cta{background:#e6eb00;color:#000;font-family:'JetBrains Mono',monospace;font-weight:600;font-size:12px;letter-spacing:2px;text-transform:uppercase;padding:10px 22px;border-radius:100px;text-decoration:none;transition:transform 0.15s,box-shadow 0.15s;}
+.nav-cta:hover{transform:scale(1.04);box-shadow:0 0 20px rgba(230,235,0,0.4);}
+
+/* ── HERO ── */
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 24px 80px;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;top:-200px;left:50%;transform:translateX(-50%);width:800px;height:800px;background:radial-gradient(circle,rgba(230,235,0,0.06) 0%,transparent 65%);pointer-events:none;}
+.hero::after{content:'';position:absolute;bottom:-100px;right:-100px;width:500px;height:500px;background:radial-gradient(circle,rgba(255,92,53,0.07) 0%,transparent 65%);pointer-events:none;}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(230,235,0,0.08);border:1px solid rgba(230,235,0,0.2);border-radius:100px;padding:7px 18px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:3px;color:#e6eb00;text-transform:uppercase;margin-bottom:32px;animation:fadeUp 0.6s ease both;}
+.hero-badge .dot{width:6px;height:6px;border-radius:50%;background:#e6eb00;box-shadow:0 0 8px #e6eb00;animation:blink 2s infinite;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
+.hero h1{font-family:'Montserrat',sans-serif;font-weight:900;font-size:clamp(72px,15vw,130px);line-height:0.86;letter-spacing:-3px;text-transform:uppercase;margin-bottom:24px;animation:fadeUp 0.7s 0.1s ease both;}
+.hero h1 .line-yellow{color:#e6eb00;display:block;}
+.hero h1 .line-white{color:#ffffff;display:block;}
+.hero-sub{font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:48px;line-height:2;animation:fadeUp 0.7s 0.2s ease both;}
+.hero-sub span{color:rgba(255,255,255,0.6);}
+.hero-actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;animation:fadeUp 0.7s 0.3s ease both;}
+.btn-primary{background:#e6eb00;color:#000;font-family:'Montserrat',sans-serif;font-weight:800;font-size:14px;letter-spacing:1px;text-transform:uppercase;padding:18px 42px;border-radius:100px;text-decoration:none;transition:transform 0.15s,box-shadow 0.2s;box-shadow:0 0 0 rgba(230,235,0,0);}
+.btn-primary:hover{transform:scale(1.04);box-shadow:0 0 30px rgba(230,235,0,0.45);}
+.btn-secondary{background:rgba(255,255,255,0.06);color:#fff;font-family:'Montserrat',sans-serif;font-weight:700;font-size:14px;letter-spacing:1px;text-transform:uppercase;padding:18px 42px;border-radius:100px;text-decoration:none;border:1px solid rgba(255,255,255,0.12);transition:background 0.2s,border-color 0.2s;}
+.btn-secondary:hover{background:rgba(255,255,255,0.1);border-color:rgba(255,255,255,0.25);}
+.hero-scroll{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:6px;animation:fadeUp 0.7s 0.5s ease both;}
+.scroll-line{width:1px;height:40px;background:linear-gradient(to bottom,rgba(255,255,255,0.3),transparent);animation:scrollPulse 1.5s infinite;}
+.scroll-label{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:3px;color:rgba(255,255,255,0.3);text-transform:uppercase;}
+@keyframes scrollPulse{0%{opacity:0;transform:scaleY(0);transform-origin:top}50%{opacity:1}100%{opacity:0;transform:scaleY(1);transform-origin:top}}
+
+/* ── STATS STRIP ── */
+.stats-strip{display:flex;border-top:1px solid rgba(255,255,255,0.06);border-bottom:1px solid rgba(255,255,255,0.06);}
+.stat-item{flex:1;padding:36px 20px;text-align:center;border-right:1px solid rgba(255,255,255,0.06);}
+.stat-item:last-child{border-right:none;}
+.stat-num{font-family:'Montserrat',sans-serif;font-weight:900;font-size:clamp(36px,6vw,56px);letter-spacing:-2px;line-height:1;color:#e6eb00;}
+.stat-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-top:6px;}
+
+/* ── SECTIONS ── */
+section{padding:100px 24px;}
+.section-inner{max-width:1100px;margin:0 auto;}
+.section-tag{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:4px;color:#e6eb00;text-transform:uppercase;margin-bottom:16px;}
+.section-title{font-family:'Montserrat',sans-serif;font-weight:900;font-size:clamp(36px,5vw,56px);letter-spacing:-1px;line-height:1;text-transform:uppercase;margin-bottom:16px;}
+.section-sub{font-size:16px;color:rgba(255,255,255,0.45);max-width:480px;line-height:1.7;font-weight:300;}
+
+/* ── FEATURES BENTO ── */
+.features{background:#000;}
+.bento{display:grid;grid-template-columns:repeat(12,1fr);gap:12px;margin-top:60px;}
+.bento-card{background:rgba(18,18,18,0.7);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.08);border-radius:24px;padding:32px;position:relative;overflow:hidden;transition:border-color 0.3s,transform 0.3s;}
+.bento-card:hover{border-color:rgba(255,255,255,0.16);transform:translateY(-2px);}
+.bento-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.08),transparent);}
+.bc-1{grid-column:span 7;}
+.bc-2{grid-column:span 5;}
+.bc-3{grid-column:span 4;}
+.bc-4{grid-column:span 4;}
+.bc-5{grid-column:span 4;}
+.bc-6{grid-column:span 12;}
+@media(max-width:768px){
+ .bc-1,.bc-2,.bc-3,.bc-4,.bc-5,.bc-6{grid-column:span 12;}
+}
+.card-icon{width:52px;height:52px;border-radius:16px;display:flex;align-items:center;justify-content:center;margin-bottom:20px;font-size:26px;}
+.card-icon.yellow{background:rgba(230,235,0,0.12);box-shadow:0 0 20px rgba(230,235,0,0.08);}
+.card-icon.red{background:rgba(255,92,53,0.12);box-shadow:0 0 20px rgba(255,92,53,0.08);}
+.card-icon.blue{background:rgba(40,184,232,0.12);box-shadow:0 0 20px rgba(40,184,232,0.08);}
+.card-icon.purple{background:rgba(152,88,232,0.12);box-shadow:0 0 20px rgba(152,88,232,0.08);}
+.card-icon.green{background:rgba(0,200,150,0.12);box-shadow:0 0 20px rgba(0,200,150,0.08);}
+.bento-card h3{font-family:'Montserrat',sans-serif;font-weight:800;font-size:22px;letter-spacing:-0.5px;margin-bottom:8px;text-transform:uppercase;}
+.bento-card p{font-size:14px;color:rgba(255,255,255,0.45);line-height:1.7;font-weight:300;}
+.bento-card .bc-num{font-family:'Montserrat',sans-serif;font-weight:900;font-size:80px;letter-spacing:-4px;line-height:1;color:rgba(230,235,0,0.08);position:absolute;bottom:-10px;right:20px;}
+.feat-pill{display:inline-flex;align-items:center;gap:6px;background:rgba(230,235,0,0.1);border:1px solid rgba(230,235,0,0.2);border-radius:100px;padding:5px 14px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;color:#e6eb00;text-transform:uppercase;margin-top:16px;}
+
+/* ── WORKOUT TYPES ── */
+.types-section{background:linear-gradient(180deg,#000 0%,#080808 100%);}
+.types-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:50px;}
+@media(max-width:640px){.types-grid{grid-template-columns:repeat(3,1fr);}}
+@media(max-width:380px){.types-grid{grid-template-columns:repeat(2,1fr);}}
+.type-card{border-radius:20px;background:rgba(18,18,18,0.7);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.07);padding:24px 16px;text-align:center;transition:border-color 0.3s,box-shadow 0.3s;}
+.type-card:hover{border-color:rgba(255,255,255,0.15);}
+.type-card.push:hover{border-color:rgba(255,92,53,0.4);box-shadow:0 0 20px rgba(255,92,53,0.08);}
+.type-card.legs:hover{border-color:rgba(0,200,150,0.4);box-shadow:0 0 20px rgba(0,200,150,0.08);}
+.type-card.pull:hover{border-color:rgba(152,88,232,0.4);box-shadow:0 0 20px rgba(152,88,232,0.08);}
+.type-card.cardio:hover{border-color:rgba(40,184,232,0.4);box-shadow:0 0 20px rgba(40,184,232,0.08);}
+.type-card.rest:hover{border-color:rgba(107,127,163,0.4);box-shadow:0 0 20px rgba(107,127,163,0.08);}
+.type-card .ti{display:flex;align-items:center;justify-content:center;margin-bottom:12px;}
+.type-card h4{font-family:'Montserrat',sans-serif;font-weight:800;font-size:13px;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;}
+.type-card p{font-size:11px;color:rgba(255,255,255,0.35);line-height:1.5;}
+
+/* ── PROGRAM ── */
+.program-section{background:#000;}
+.phases{display:flex;flex-direction:column;gap:12px;margin-top:50px;}
+.phase-card{background:rgba(18,18,18,0.7);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.07);border-radius:20px;padding:28px 32px;display:flex;align-items:center;gap:28px;transition:border-color 0.3s;}
+.phase-card:hover{border-color:rgba(255,255,255,0.14);}
+.phase-num{font-family:'Montserrat',sans-serif;font-weight:900;font-size:52px;letter-spacing:-2px;color:rgba(230,235,0,0.15);flex-shrink:0;line-height:1;width:70px;text-align:center;}
+.phase-info{flex:1;}
+.phase-weeks{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:3px;color:#e6eb00;text-transform:uppercase;margin-bottom:6px;}
+.phase-name{font-family:'Montserrat',sans-serif;font-weight:800;font-size:20px;letter-spacing:-0.3px;text-transform:uppercase;margin-bottom:4px;}
+.phase-desc{font-size:13px;color:rgba(255,255,255,0.4);font-weight:300;}
+.phase-bar{flex-shrink:0;width:80px;height:4px;border-radius:2px;background:rgba(255,255,255,0.08);overflow:hidden;}
+.phase-fill{height:100%;border-radius:2px;}
+@media(max-width:540px){.phase-card{flex-wrap:wrap;}.phase-num{width:auto;}}
+
+/* ── CTA ── */
+.cta-section{background:#000;text-align:center;padding:100px 24px 120px;}
+.cta-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:300px;background:radial-gradient(ellipse,rgba(230,235,0,0.07) 0%,transparent 70%);pointer-events:none;}
+.cta-section{position:relative;overflow:hidden;}
+.cta-section h2{font-family:'Montserrat',sans-serif;font-weight:900;font-size:clamp(48px,8vw,88px);letter-spacing:-2px;text-transform:uppercase;line-height:0.9;margin-bottom:24px;}
+.cta-section h2 span{color:#e6eb00;}
+.cta-section p{font-size:16px;color:rgba(255,255,255,0.4);margin-bottom:48px;font-weight:300;}
+.cta-btn{display:inline-flex;align-items:center;gap:12px;background:#e6eb00;color:#000;font-family:'Montserrat',sans-serif;font-weight:900;font-size:16px;letter-spacing:1px;text-transform:uppercase;padding:20px 52px;border-radius:100px;text-decoration:none;transition:transform 0.15s,box-shadow 0.2s;box-shadow:0 0 0 rgba(230,235,0,0);}
+.cta-btn:hover{transform:scale(1.04);box-shadow:0 0 40px rgba(230,235,0,0.45);}
+.cta-btn svg{width:18px;height:18px;}
+
+/* ── FOOTER ── */
+footer{border-top:1px solid rgba(255,255,255,0.06);padding:32px 40px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+.footer-logo{font-family:'Montserrat',sans-serif;font-weight:900;font-size:13px;letter-spacing:2px;color:rgba(255,255,255,0.3);text-transform:uppercase;}
+.footer-note{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;color:rgba(255,255,255,0.2);text-transform:uppercase;}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity 0.7s ease,transform 0.7s ease;}
+.reveal.visible{opacity:1;transform:none;}
+</style>
+</head>
+<body>
+
+<nav>
+ <span class="nav-logo">Strength Identity</span>
+ <a href="index.html" class="nav-cta">Open App</a>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero">
+ <div class="hero-badge"><span class="dot"></span>12-Week Elite Program</div>
+ <h1>
+  <span class="line-white">BUILD YOUR</span>
+  <span class="line-yellow">STRENGTH</span>
+  <span class="line-white">IDENTITY</span>
+ </h1>
+ <p class="hero-sub">
+  <span>Big Chest</span> · <span>Massive Legs</span> · <span>Shredded Abs</span><br/>
+  Kill The Visceral Fat · AI Coach Included
+ </p>
+ <div class="hero-actions">
+  <a href="index.html" class="btn-primary">Start Training</a>
+  <a href="#features" class="btn-secondary">See Features</a>
+ </div>
+ <div class="hero-scroll">
+  <div class="scroll-label">Scroll</div>
+  <div class="scroll-line"></div>
+ </div>
+</section>
+
+<!-- ── STATS ── -->
+<div class="stats-strip">
+ <div class="stat-item">
+  <div class="stat-num">12</div>
+  <div class="stat-label">Weeks</div>
+ </div>
+ <div class="stat-item">
+  <div class="stat-num">3</div>
+  <div class="stat-label">Phases</div>
+ </div>
+ <div class="stat-item">
+  <div class="stat-num">84</div>
+  <div class="stat-label">Sessions</div>
+ </div>
+ <div class="stat-item">
+  <div class="stat-num">AI</div>
+  <div class="stat-label">Coach</div>
+ </div>
+</div>
+
+<!-- ── FEATURES ── -->
+<section class="features" id="features">
+ <div class="section-inner">
+  <div class="section-tag">What's Inside</div>
+  <h2 class="section-title">Built For<br/>Serious Athletes</h2>
+  <p class="section-sub">Every feature purpose-built to track progress, maximize overload, and keep you accountable to the process.</p>
+
+  <div class="bento">
+   <div class="bento-card bc-1 reveal">
+    <div class="card-icon yellow">🤖</div>
+    <h3>AI Coach</h3>
+    <p>Powered by Claude AI (Anthropic). Your coach analyzes your training history — streaks, volume, fatigue, session type — and delivers sharp, context-aware insight every session.</p>
+    <div class="feat-pill">Claude AI · Anthropic</div>
+    <span class="bc-num">01</span>
+   </div>
+   <div class="bento-card bc-2 reveal" style="transition-delay:0.1s">
+    <div class="card-icon red">📈</div>
+    <h3>Progression Engine</h3>
+    <p>Auto-detects when you're ready to add weight. Tracks PR history, progressive overload log, and surfaces increases inline so you always know when to push harder.</p>
+    <span class="bc-num">02</span>
+   </div>
+   <div class="bento-card bc-3 reveal" style="transition-delay:0.15s">
+    <div class="card-icon green">💪</div>
+    <h3>Muscle Map</h3>
+    <p>Real-time heat map showing which muscle groups you've been hammering. Hover to see volume per body part.</p>
+    <span class="bc-num">03</span>
+   </div>
+   <div class="bento-card bc-4 reveal" style="transition-delay:0.2s">
+    <div class="card-icon blue">📊</div>
+    <h3>Analytics</h3>
+    <p>Total volume, session frequency, PR counts, streaks, body weight trends — all tracked automatically as you train.</p>
+    <span class="bc-num">04</span>
+   </div>
+   <div class="bento-card bc-5 reveal" style="transition-delay:0.25s">
+    <div class="card-icon purple">🏆</div>
+    <h3>PR Tracking</h3>
+    <p>Every personal record saved automatically. PR board with full history. Celebrated with a cinematic completion overlay when you hit one.</p>
+    <span class="bc-num">05</span>
+   </div>
+   <div class="bento-card bc-6 reveal" style="transition-delay:0.3s;display:flex;align-items:center;gap:40px;flex-wrap:wrap;">
+    <div>
+     <div class="card-icon yellow">⚡</div>
+     <h3>Offline PWA</h3>
+     <p style="max-width:420px;">Add to your home screen and train without internet. All data stored locally — no account required. Your progress is yours, stored on your device.</p>
+    </div>
+    <div style="flex:1;min-width:200px;">
+     <div style="display:flex;flex-direction:column;gap:10px;">
+      <div style="display:flex;align-items:center;gap:12px;">
+       <div style="width:6px;height:6px;border-radius:50%;background:#e6eb00;box-shadow:0 0 8px #e6eb00;flex-shrink:0;"></div>
+       <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:2px;color:rgba(255,255,255,0.5);text-transform:uppercase;">No Account Required</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;">
+       <div style="width:6px;height:6px;border-radius:50%;background:#e6eb00;box-shadow:0 0 8px #e6eb00;flex-shrink:0;"></div>
+       <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:2px;color:rgba(255,255,255,0.5);text-transform:uppercase;">Works Offline</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;">
+       <div style="width:6px;height:6px;border-radius:50%;background:#e6eb00;box-shadow:0 0 8px #e6eb00;flex-shrink:0;"></div>
+       <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:2px;color:rgba(255,255,255,0.5);text-transform:uppercase;">Data Stays Local</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;">
+       <div style="width:6px;height:6px;border-radius:50%;background:#e6eb00;box-shadow:0 0 8px #e6eb00;flex-shrink:0;"></div>
+       <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:2px;color:rgba(255,255,255,0.5);text-transform:uppercase;">Home Screen Install</span>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- ── WORKOUT TYPES ── -->
+<section class="types-section">
+ <div class="section-inner">
+  <div class="section-tag">Training Days</div>
+  <h2 class="section-title">5-Day<br/>Split System</h2>
+  <p class="section-sub">A structured weekly split designed to maximize muscle frequency and recovery.</p>
+
+  <div class="types-grid" style="margin-top:50px;">
+   <div class="type-card push reveal">
+    <div class="ti">
+     <svg width="72" height="72" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs><radialGradient id="lpg2" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#ff5c35" stop-opacity="0.2"/><stop offset="100%" stop-color="#ff3500" stop-opacity="0"/></radialGradient></defs>
+      <circle cx="40" cy="40" r="38" fill="url(#lpg2)"/>
+      <rect x="8" y="37" width="64" height="6" rx="3" fill="#ff5c35" opacity="0.9"/>
+      <rect x="8" y="29" width="6" height="22" rx="3" fill="#ff4020"/>
+      <rect x="11" y="27" width="5" height="26" rx="2.5" fill="#ff7a50"/>
+      <rect x="66" y="29" width="6" height="22" rx="3" fill="#ff4020"/>
+      <rect x="64" y="27" width="5" height="26" rx="2.5" fill="#ff7a50"/>
+      <ellipse cx="40" cy="46" rx="16" ry="5" fill="#cc4422" opacity="0.5"/>
+      <path d="M26 40 Q28 32 32 30" stroke="#ff9060" stroke-width="3" stroke-linecap="round"/>
+      <path d="M54 40 Q52 32 48 30" stroke="#ff9060" stroke-width="3" stroke-linecap="round"/>
+     </svg>
+    </div>
+    <h4 style="color:#ff7a50;">Push</h4>
+    <p>Chest · Shoulders · Triceps</p>
+   </div>
+   <div class="type-card pull reveal" style="transition-delay:0.1s">
+    <div class="ti">
+     <svg width="72" height="72" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs><radialGradient id="lpuG2" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#9858e8" stop-opacity="0.2"/><stop offset="100%" stop-color="#9858e8" stop-opacity="0"/></radialGradient></defs>
+      <circle cx="40" cy="40" r="38" fill="url(#lpuG2)"/>
+      <line x1="14" y1="68" x2="66" y2="68" stroke="#9858e8" stroke-width="2" opacity="0.4"/>
+      <rect x="14" y="56" width="52" height="5" rx="2.5" fill="#9858e8" opacity="0.9"/>
+      <rect x="12" y="52" width="5" height="13" rx="2.5" fill="#7828c8"/>
+      <rect x="63" y="52" width="5" height="13" rx="2.5" fill="#7828c8"/>
+      <circle cx="28" cy="22" r="5" fill="#c080ff" opacity="0.85"/>
+      <path d="M28 27 L44 35" stroke="#9858e8" stroke-width="4.5" stroke-linecap="round"/>
+      <path d="M44 35 L46 52 L44 65" stroke="#c080ff" stroke-width="4" stroke-linecap="round"/>
+      <path d="M44 35 L50 52 L52 65" stroke="#c080ff" stroke-width="4" stroke-linecap="round"/>
+      <path d="M28 27 L32 42" stroke="#c080ff" stroke-width="3.5" stroke-linecap="round"/>
+      <path d="M36 32 L38 46" stroke="#c080ff" stroke-width="3.5" stroke-linecap="round"/>
+     </svg>
+    </div>
+    <h4 style="color:#c080ff;">Pull</h4>
+    <p>Back · Biceps · Rear Delts</p>
+   </div>
+   <div class="type-card legs reveal" style="transition-delay:0.2s">
+    <div class="ti">
+     <svg width="72" height="72" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs><radialGradient id="llg2" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#00c896" stop-opacity="0.2"/><stop offset="100%" stop-color="#00c896" stop-opacity="0"/></radialGradient></defs>
+      <circle cx="40" cy="40" r="38" fill="url(#llg2)"/>
+      <rect x="10" y="26" width="60" height="5" rx="2.5" fill="#00c896" opacity="0.9"/>
+      <rect x="8" y="22" width="5" height="13" rx="2.5" fill="#009966"/>
+      <rect x="67" y="22" width="5" height="13" rx="2.5" fill="#009966"/>
+      <circle cx="40" cy="20" r="5" fill="#20d8a0" opacity="0.8"/>
+      <path d="M40 25 L36 35 L34 50" stroke="#00c896" stroke-width="4" stroke-linecap="round"/>
+      <path d="M36 35 L28 50" stroke="#20d8a0" stroke-width="5" stroke-linecap="round"/>
+      <path d="M36 35 L44 50" stroke="#20d8a0" stroke-width="5" stroke-linecap="round"/>
+      <path d="M28 50 L30 62" stroke="#00c896" stroke-width="4" stroke-linecap="round"/>
+      <path d="M44 50 L46 62" stroke="#00c896" stroke-width="4" stroke-linecap="round"/>
+      <ellipse cx="31" cy="63" rx="5" ry="2.5" fill="#009966"/>
+      <ellipse cx="47" cy="63" rx="5" ry="2.5" fill="#009966"/>
+     </svg>
+    </div>
+    <h4 style="color:#00c896;">Legs</h4>
+    <p>Quads · Hams · Glutes · Calves</p>
+   </div>
+   <div class="type-card cardio reveal" style="transition-delay:0.3s">
+    <div class="ti">
+     <svg width="72" height="72" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs><radialGradient id="lcg2" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#28b8e8" stop-opacity="0.2"/><stop offset="100%" stop-color="#28b8e8" stop-opacity="0"/></radialGradient><linearGradient id="ltmill" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#1a6080"/><stop offset="100%" stop-color="#28b8e8" stop-opacity="0.5"/></linearGradient></defs>
+      <circle cx="40" cy="40" r="38" fill="url(#lcg2)"/>
+      <rect x="12" y="52" width="56" height="8" rx="4" fill="url(#ltmill)" transform="rotate(-8,40,56)"/>
+      <path d="M14 56 L18 70 M66 56 L62 70" stroke="#28b8e8" stroke-width="3" stroke-linecap="round" opacity="0.7"/>
+      <line x1="18" y1="70" x2="62" y2="70" stroke="#28b8e8" stroke-width="3" stroke-linecap="round" opacity="0.5"/>
+      <circle cx="52" cy="18" r="5" fill="#60d0f8" opacity="0.9"/>
+      <path d="M52 23 L48 36" stroke="#28b8e8" stroke-width="4" stroke-linecap="round"/>
+      <path d="M50 27 L42 22" stroke="#60d0f8" stroke-width="3" stroke-linecap="round"/>
+      <path d="M48 30 L56 26" stroke="#60d0f8" stroke-width="3" stroke-linecap="round"/>
+      <path d="M48 36 L40 48 L36 56" stroke="#28b8e8" stroke-width="4" stroke-linecap="round"/>
+      <path d="M48 36 L56 46 L60 42" stroke="#28b8e8" stroke-width="4" stroke-linecap="round"/>
+      <line x1="18" y1="28" x2="26" y2="28" stroke="#60d0f8" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+      <line x1="14" y1="34" x2="24" y2="34" stroke="#60d0f8" stroke-width="1.5" stroke-linecap="round" opacity="0.35"/>
+     </svg>
+    </div>
+    <h4 style="color:#28b8e8;">Cardio</h4>
+    <p>Treadmill Incline Walk · Zone 2</p>
+   </div>
+   <div class="type-card rest reveal" style="transition-delay:0.4s">
+    <div class="ti">
+     <svg width="72" height="72" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs><radialGradient id="lrg2" cx="50%" cy="50%" r="55%"><stop offset="0%" stop-color="#6b7fa3" stop-opacity="0.2"/><stop offset="100%" stop-color="#6b7fa3" stop-opacity="0"/></radialGradient><radialGradient id="lrg1" cx="50%" cy="40%" r="60%"><stop offset="0%" stop-color="#8898cc"/><stop offset="100%" stop-color="#4a5a80"/></radialGradient></defs>
+      <circle cx="40" cy="40" r="38" fill="url(#lrg2)"/>
+      <path d="M50 18 A20 20 0 1 1 50 62 A14 14 0 1 0 50 18Z" fill="url(#lrg1)" opacity="0.9"/>
+      <circle cx="22" cy="22" r="1.5" fill="#c0cce8" opacity="0.8"/>
+      <circle cx="62" cy="28" r="1.2" fill="#c0cce8" opacity="0.6"/>
+      <circle cx="18" cy="46" r="1" fill="#c0cce8" opacity="0.5"/>
+      <circle cx="64" cy="55" r="1.5" fill="#c0cce8" opacity="0.7"/>
+      <path d="M64 18 L65 21 L68 22 L65 23 L64 26 L63 23 L60 22 L63 21Z" fill="#d0daff" opacity="0.7"/>
+     </svg>
+    </div>
+    <h4 style="color:#8898cc;">Rest</h4>
+    <p>Active Recovery · Mobility</p>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- ── PROGRAM ── -->
+<section class="program-section">
+ <div class="section-inner">
+  <div class="section-tag">The Program</div>
+  <h2 class="section-title">3 Phases.<br/>12 Weeks.<br/>Zero Excuses.</h2>
+  <p class="section-sub">Each phase builds on the last — progressive overload baked into every week.</p>
+
+  <div class="phases">
+   <div class="phase-card reveal">
+    <div class="phase-num">01</div>
+    <div class="phase-info">
+     <div class="phase-weeks">Weeks 1–4</div>
+     <div class="phase-name">Foundation & Volume</div>
+     <div class="phase-desc">Build the base. Establish your working weights, dial in form, and drive hypertrophy with high-volume moderate-intensity sets.</div>
+    </div>
+    <div class="phase-bar"><div class="phase-fill" style="width:33%;background:linear-gradient(90deg,#ff5c35,#ffaa35);"></div></div>
+   </div>
+   <div class="phase-card reveal" style="transition-delay:0.1s">
+    <div class="phase-num">02</div>
+    <div class="phase-info">
+     <div class="phase-weeks">Weeks 5–8</div>
+     <div class="phase-name">Strength & Power</div>
+     <div class="phase-desc">Shift to heavier loads, lower rep ranges, and compound-first structure. PR weeks built in. Progressive overload every session.</div>
+    </div>
+    <div class="phase-bar"><div class="phase-fill" style="width:66%;background:linear-gradient(90deg,#ffaa35,#e6eb00);"></div></div>
+   </div>
+   <div class="phase-card reveal" style="transition-delay:0.2s">
+    <div class="phase-num">03</div>
+    <div class="phase-info">
+     <div class="phase-weeks">Weeks 9–12</div>
+     <div class="phase-name">Peak & Cut</div>
+     <div class="phase-desc">Maximum intensity. Supersets, drop sets, and metabolic finishers. Body recomposition drive. End stronger and leaner than you started.</div>
+    </div>
+    <div class="phase-bar"><div class="phase-fill" style="width:100%;background:linear-gradient(90deg,#e6eb00,#b8be00);"></div></div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- ── CTA ── -->
+<section class="cta-section">
+ <div class="cta-glow"></div>
+ <h2>Ready To<br/><span>Build?</span></h2>
+ <p>No gym membership required. No excuses accepted.</p>
+ <a href="index.html" class="cta-btn">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="13,2 7,12 10,12 7,22 17,10 13,10 17,2"/></svg>
+  Launch Training App
+ </a>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+ <span class="footer-logo">Strength Identity</span>
+ <span class="footer-note">12-Week Elite Program · PWA · No Account Required</span>
+</footer>
+
+<script>
+const observer = new IntersectionObserver(entries => {
+ entries.forEach(e => {
+  if (e.isIntersecting) {
+   e.target.classList.add('visible');
+   observer.unobserve(e.target);
+  }
+ });
+}, {threshold: 0.12});
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
