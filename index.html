@@ -103,8 +103,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .day-dot{flex:1;border-radius:12px;padding:8px 3px;cursor:pointer;text-align:center;background:rgba(255,255,255,0.03);border:1px solid var(--border);backdrop-filter:blur(10px);transition:border-color 0.2s,background 0.2s;}
 .day-dot:hover{background:rgba(255,255,255,0.06);border-color:var(--border-bright);}
 .day-dot .dl{font-family:'JetBrains Mono',monospace;font-size:7px;color:var(--muted);font-weight:600;letter-spacing:1px;text-transform:uppercase;}
-.day-dot .di{font-size:14px;margin-top:4px;display:flex;align-items:center;justify-content:center;line-height:1;}
-.day-dot .di svg{width:32px;height:32px;}
+.day-dot .di{font-size:22px;margin-top:3px;display:flex;align-items:center;justify-content:center;line-height:1;}
 .tips-section{margin:4px 16px 12px;border-radius:20px;background:var(--glass);backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);border:1px solid var(--border);padding:20px;}
 .tips-label{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:4px;color:var(--muted);text-transform:uppercase;margin-bottom:12px;}
 .tip{font-size:12px;color:var(--muted);padding:5px 0;border-bottom:1px solid var(--border);display:flex;gap:8px;align-items:baseline;font-weight:300;}
@@ -121,8 +120,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .w-pct-sub{font-size:10px;color:var(--muted);}
 .day-strip{display:flex;gap:6px;padding:12px 16px;overflow-x:auto;background:var(--bg);}
 .ds-btn{flex-shrink:0;min-width:52px;border-radius:14px;padding:10px 6px;border:1px solid var(--border);background:rgba(255,255,255,0.03);backdrop-filter:blur(10px);color:var(--muted);text-align:center;font-size:10px;font-weight:500;transition:border-color 0.2s,background 0.2s;}
-.ds-btn .ds-icon{font-size:16px;margin-bottom:4px;display:flex;align-items:center;justify-content:center;line-height:1;}
-.ds-btn .ds-icon svg{width:28px;height:28px;}
+.ds-btn .ds-icon{font-size:20px;margin-bottom:4px;display:flex;align-items:center;justify-content:center;line-height:1;}
 .ds-btn .ds-lbl{font-family:'JetBrains Mono',monospace;font-size:7px;letter-spacing:1px;text-transform:uppercase;}
 .w-prog-bar{height:2px;background:var(--border);}
 .w-prog-fill{height:100%;transition:width 0.4s cubic-bezier(0.4,0,0.2,1);}
@@ -433,68 +431,154 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
 .missed-banner-btn{flex-shrink:0;padding:8px 14px;border-radius:10px;border:none;background:#ff5c35;color:#fff;font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:1px;cursor:pointer;}
 
 /* ── ANIMATIONS ── */
-@keyframes fadeSlideUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-@keyframes fadeSlideIn{from{opacity:0;transform:translateX(-12px)}to{opacity:1;transform:translateX(0)}}
-@keyframes countUp{from{opacity:0;transform:scale(0.8)}to{opacity:1;transform:scale(1)}}
-@keyframes glowPulse{0%,100%{opacity:1;filter:drop-shadow(0 0 6px currentColor)}50%{opacity:0.7;filter:drop-shadow(0 0 12px currentColor)}}
+@keyframes fadeSlideUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeSlideIn{from{opacity:0;transform:translateX(-14px)}to{opacity:1;transform:translateX(0)}}
+@keyframes fadeSlideRight{from{opacity:0;transform:translateX(14px)}to{opacity:1;transform:translateX(0)}}
+@keyframes countUp{from{opacity:0;transform:scale(0.75)}to{opacity:1;transform:scale(1)}}
+@keyframes glowPulse{0%,100%{opacity:1;filter:drop-shadow(0 0 6px currentColor)}50%{opacity:0.7;filter:drop-shadow(0 0 14px currentColor)}}
 @keyframes shimmer{0%{background-position:-200% center}100%{background-position:200% center}}
-@keyframes setComplete{0%{transform:scale(1)}40%{transform:scale(1.08)}100%{transform:scale(1)}}
+@keyframes setComplete{0%{transform:scale(1)}35%{transform:scale(1.22)}65%{transform:scale(0.92)}100%{transform:scale(1)}}
 @keyframes slideInRight{from{opacity:0;transform:translateX(30px)}to{opacity:1;transform:translateX(0)}}
 @keyframes navIndicatorSlide{from{transform:translateX(-50%) scaleX(0)}to{transform:translateX(-50%) scaleX(1)}}
+@keyframes bounceIn{0%{opacity:0;transform:scale(0.5) translateY(10px)}65%{transform:scale(1.1) translateY(-4px)}85%{transform:scale(0.95) translateY(1px)}100%{opacity:1;transform:scale(1) translateY(0)}}
+@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+@keyframes glowBorder{0%,100%{box-shadow:0 0 0 0 transparent,var(--card-shadow)}50%{box-shadow:0 0 20px 2px rgba(230,235,0,0.12),var(--card-shadow)}}
+@keyframes streakFlame{0%,100%{filter:drop-shadow(0 0 3px #ff9935)}50%{filter:drop-shadow(0 0 10px #ff5c35) brightness(1.2)}}
+@keyframes emojiPop{0%{transform:scale(1)}30%{transform:scale(1.4) rotate(-8deg)}60%{transform:scale(0.9) rotate(4deg)}100%{transform:scale(1) rotate(0)}}
+@keyframes wipeIn{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0% 0 0)}}
+@keyframes rippleOut{0%{transform:scale(0.5);opacity:0.6}100%{transform:scale(2.2);opacity:0}}
+@keyframes heroFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes prBurst{0%{transform:scale(1) rotate(0)}20%{transform:scale(1.15) rotate(-3deg)}40%{transform:scale(1.1) rotate(3deg)}60%{transform:scale(1.05) rotate(-1deg)}100%{transform:scale(1) rotate(0)}}
+@keyframes scanLine{0%{transform:translateY(-100%)}100%{transform:translateY(100vh)}}
+@keyframes cardReveal{0%{opacity:0;transform:translateY(24px) scale(0.96)}100%{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes dotPing{0%{transform:scale(1);opacity:1}80%{transform:scale(2.2);opacity:0}100%{transform:scale(1);opacity:0}}
 
-/* Staggered card entrance */
-.wk-card{animation:fadeSlideUp 0.35s ease both;}
-.wk-card:nth-child(1){animation-delay:0.05s}
-.wk-card:nth-child(2){animation-delay:0.1s}
-.wk-card:nth-child(3){animation-delay:0.15s}
-.wk-card:nth-child(4){animation-delay:0.2s}
-.wk-card:nth-child(5){animation-delay:0.25s}
-.wk-card:nth-child(6){animation-delay:0.3s}
+/* ── Screen transition ── */
+.screen.active{animation:fadeSlideUp 0.28s cubic-bezier(0.22,1,0.36,1) both;}
 
-/* Exercise card entrance in workout */
-.ex-card{animation:fadeSlideUp 0.3s ease both;}
+/* ── Week cards — staggered reveal ── */
+.wk-card{animation:cardReveal 0.4s cubic-bezier(0.22,1,0.36,1) both;}
+.wk-card:nth-child(1){animation-delay:0.04s}
+.wk-card:nth-child(2){animation-delay:0.09s}
+.wk-card:nth-child(3){animation-delay:0.14s}
+.wk-card:nth-child(4){animation-delay:0.19s}
+.wk-card:nth-child(5){animation-delay:0.24s}
+.wk-card:nth-child(6){animation-delay:0.29s}
+/* Active week card glow pulse */
+.wk-card.cur{animation:cardReveal 0.4s cubic-bezier(0.22,1,0.36,1) both,glowBorder 3s ease-in-out 0.5s infinite;}
 
-/* Coach card */
-.coach-card{animation:fadeSlideIn 0.35s ease both;}
+/* ── Day dots — bounceIn stagger ── */
+.day-dot{animation:bounceIn 0.4s cubic-bezier(0.22,1,0.36,1) both;}
+.day-dot:nth-child(1){animation-delay:0.05s}
+.day-dot:nth-child(2){animation-delay:0.1s}
+.day-dot:nth-child(3){animation-delay:0.15s}
+.day-dot:nth-child(4){animation-delay:0.2s}
+.day-dot:nth-child(5){animation-delay:0.25s}
+.day-dot:nth-child(6){animation-delay:0.3s}
+.day-dot:nth-child(7){animation-delay:0.35s}
+/* Day dot emoji pop on hover */
+.day-dot:hover .di{animation:emojiPop 0.35s cubic-bezier(0.34,1.56,0.64,1);}
+.day-dot:active{transform:scale(0.88)!important;}
 
-/* Quick actions */
-.qa-bar{animation:fadeSlideUp 0.3s ease both;}
+/* ── Hero badge float ── */
+.hero-badge{animation:fadeSlideUp 0.5s ease both,floatY 4s ease-in-out 0.8s infinite;}
 
-/* Week strip */
+/* ── Coach card ── */
+.coach-card{animation:fadeSlideIn 0.38s cubic-bezier(0.22,1,0.36,1) both;}
+
+/* ── Quick actions ── */
+.qa-bar{animation:fadeSlideUp 0.32s cubic-bezier(0.22,1,0.36,1) both;}
+.qa-btn{transition:transform 0.15s cubic-bezier(0.34,1.56,0.64,1),box-shadow 0.15s;}
+.qa-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.4);}
+.qa-btn.qa-primary:hover{box-shadow:0 8px 28px rgba(230,235,0,0.25);}
+
+/* ── Week strip ── */
 .wstrip-wrap{animation:fadeSlideUp 0.25s ease both;}
 
-/* Active muscle glow pulse */
+/* ── Exercise cards — stagger ── */
+.ex-card{animation:cardReveal 0.35s cubic-bezier(0.22,1,0.36,1) both;}
+.ex-card:nth-child(1){animation-delay:0.03s}
+.ex-card:nth-child(2){animation-delay:0.07s}
+.ex-card:nth-child(3){animation-delay:0.11s}
+.ex-card:nth-child(4){animation-delay:0.15s}
+.ex-card:nth-child(5){animation-delay:0.19s}
+.ex-card:nth-child(6){animation-delay:0.23s}
+.ex-card:nth-child(7){animation-delay:0.27s}
+.ex-card:nth-child(8){animation-delay:0.31s}
+
+/* ── Set complete celebration ── */
+.set-chk.chk{animation:setComplete 0.32s cubic-bezier(0.34,1.56,0.64,1);}
+.set-chk.chk .di{animation:emojiPop 0.4s cubic-bezier(0.34,1.56,0.64,1);}
+
+/* ── Progress bars ── */
+.prog-fill{background-size:200% 100%!important;animation:shimmer 2.5s linear infinite;}
+.w-prog-fill{transition:width 0.6s cubic-bezier(0.22,1,0.36,1);}
+
+/* ── Muscle map glow ── */
 [id^="fm-"][style*="fill"],
 [id^="bm-"][style*="fill"]{animation:glowPulse 2.5s ease-in-out infinite;}
 
-/* Set complete animation */
-.set-chk.chk{animation:setComplete 0.25s ease;}
-
-/* Shimmer on active progress fill */
-.prog-fill{background-size:200% 100% !important;animation:shimmer 2s linear infinite;}
-
-/* Nav active indicator */
+/* ── Nav indicator spring ── */
 .nav-btn.active::before{
-  animation:navIndicatorSlide 0.3s cubic-bezier(0.34,1.56,0.64,1) both;
+  animation:navIndicatorSlide 0.35s cubic-bezier(0.34,1.56,0.64,1) both;
   transform-origin:center;
 }
+/* Nav icon lift on active */
+.nav-btn.active .nav-icon{animation:floatY 3s ease-in-out infinite;}
 
-/* Stat tile entrance in analytics */
-.stat-tile{animation:countUp 0.4s ease both;}
+/* ── Stat tiles ── */
+.stat-tile{animation:countUp 0.45s cubic-bezier(0.22,1,0.36,1) both;}
+.stat-tile:nth-child(1){animation-delay:0.05s}
+.stat-tile:nth-child(2){animation-delay:0.1s}
+.stat-tile:nth-child(3){animation-delay:0.15s}
+.stat-tile:nth-child(4){animation-delay:0.2s}
+.stat-tile:nth-child(5){animation-delay:0.25s}
+.stat-tile:nth-child(6){animation-delay:0.3s}
 
-/* Screen transition */
-.screen.active{animation:fadeSlideUp 0.28s ease both;}
+/* ── PR cards ── */
+.pr-card{animation:fadeSlideIn 0.32s cubic-bezier(0.22,1,0.36,1) both;}
+.pr-card:hover{animation:prBurst 0.5s ease;}
+.pr-card:nth-child(1){animation-delay:0.04s}
+.pr-card:nth-child(2){animation-delay:0.08s}
+.pr-card:nth-child(3){animation-delay:0.12s}
+.pr-card:nth-child(4){animation-delay:0.16s}
 
-/* PR card entrance */
-.pr-card{animation:fadeSlideIn 0.3s ease both;}
-
-/* History card entrance */
-.hist-card{animation:fadeSlideIn 0.3s ease both;}
+/* ── History cards ── */
+.hist-card{animation:fadeSlideIn 0.32s cubic-bezier(0.22,1,0.36,1) both;}
 .hist-card:nth-child(1){animation-delay:0s}
-.hist-card:nth-child(2){animation-delay:0.05s}
-.hist-card:nth-child(3){animation-delay:0.1s}
-.hist-card:nth-child(4){animation-delay:0.15s}
-.hist-card:nth-child(5){animation-delay:0.2s}
+.hist-card:nth-child(2){animation-delay:0.06s}
+.hist-card:nth-child(3){animation-delay:0.12s}
+.hist-card:nth-child(4){animation-delay:0.18s}
+.hist-card:nth-child(5){animation-delay:0.24s}
+
+/* ── Streak pill flame ── */
+.streak-pill svg{animation:streakFlame 1.8s ease-in-out infinite;}
+
+/* ── Hero h1 entrance ── */
+.home-hero h1{animation:fadeSlideUp 0.6s cubic-bezier(0.22,1,0.36,1) 0.1s both;}
+.home-hero .tagline{animation:fadeSlideUp 0.6s cubic-bezier(0.22,1,0.36,1) 0.25s both;}
+
+/* ── Day strip buttons ── */
+.ds-btn{animation:bounceIn 0.35s cubic-bezier(0.22,1,0.36,1) both;}
+.ds-btn:nth-child(1){animation-delay:0.04s}
+.ds-btn:nth-child(2){animation-delay:0.08s}
+.ds-btn:nth-child(3){animation-delay:0.12s}
+.ds-btn:nth-child(4){animation-delay:0.16s}
+.ds-btn:nth-child(5){animation-delay:0.2s}
+.ds-btn:nth-child(6){animation-delay:0.24s}
+.ds-btn:nth-child(7){animation-delay:0.28s}
+.ds-btn.active{animation:bounceIn 0.35s cubic-bezier(0.34,1.56,0.64,1) both;}
+.ds-btn:hover .ds-icon{animation:emojiPop 0.35s cubic-bezier(0.34,1.56,0.64,1);}
+
+/* ── Live ping dot on hero badge ── */
+.hero-badge .dot{position:relative;}
+.hero-badge .dot::after{content:'';position:absolute;inset:-3px;border-radius:50%;background:#00c896;animation:dotPing 2s ease-out infinite;}
+
+/* ── Reminder strip entrance ── */
+.reminder-strip{animation:fadeSlideUp 0.4s cubic-bezier(0.22,1,0.36,1) 0.18s both;}
+
+/* ── Tips section entrance ── */
+.tips-section{animation:fadeSlideUp 0.4s cubic-bezier(0.22,1,0.36,1) 0.22s both;}
 
 /* ── PREMIUM VISUAL ── */
 [data-theme="dark"] .home-hero::before{content:'';position:absolute;top:-120px;right:-100px;width:420px;height:420px;background:radial-gradient(circle,#ff5c3522 0%,transparent 65%);border-radius:50%;pointer-events:none;}
@@ -2165,7 +2249,7 @@ function renderHome(){
    return `<button class="day-dot" onclick="openDay(${wi},${di})"
     style="${done?'background:'+ts.color+'18;border-color:'+ts.color+'44;':isA&&di===aD?'border-color:var(--border-bright);background:var(--surface3);':''}">
     <div class="dl" style="${done?'color:'+ts.color+';':isA&&di===aD?'color:var(--text2);':''}">${DAYS[di]}</div>
-    <div class="di">${done?ICONS.check:TYPE_ICONS[d.type]||d.icon}</div>
+    <div class="di">${done?ICONS.check:d.icon}</div>
    </button>`;
   }).join('');
   div.innerHTML=`
@@ -2254,7 +2338,7 @@ function renderWorkout(){
   const ts2=TYPE[d.type],dp=dayProg(aW,di),isA=di===aD;
   return `<button class="ds-btn" onclick="switchDay(${di})"
    style="border-color:${isA?ts2.color:dp===1?ts2.color+'44':'var(--border)'};background:${isA?ts2.color+'18':dp===1?ts2.color+'0a':'transparent'};color:${isA?ts2.color:dp===1?ts2.color+'99':'var(--muted)'};">
-   <div class="ds-icon">${dp===1?ICONS.check:TYPE_ICONS[d.type]||d.icon}</div><div class="ds-lbl">D${di+1}</div>
+   <div class="ds-icon">${dp===1?ICONS.check:d.icon}</div><div class="ds-lbl">D${di+1}</div>
   </button>`;
  }).join('');
 
