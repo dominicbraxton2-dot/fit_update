@@ -8,24 +8,26 @@
 <meta name="apple-mobile-web-app-title" content="Strength Identity"/>
 <meta name="theme-color" content="#050508"/>
 <title>Strength Identity</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@700;800;900&family=JetBrains+Mono:wght@600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <style>
 /* ── THEME VARS ── */
 [data-theme="dark"]{
- --bg:#050508;--surface:#0d0d14;--surface2:#13131e;--surface3:#1a1a28;
- --border:#ffffff0f;--border-bright:#ffffff1a;
- --text:#f0f0f8;--text2:#a0a0b8;--muted:#5a5a72;
- --card-shadow:0 8px 40px #00000060;
- --noise-opacity:0.45;
+ --bg:#000000;--surface:rgba(18,18,18,0.85);--surface2:#121212;--surface3:#1a1a1a;
+ --border:rgba(255,255,255,0.08);--border-bright:rgba(255,255,255,0.14);
+ --text:#f0f0f0;--text2:#a0a0a8;--muted:#606068;
+ --card-shadow:0 8px 40px rgba(0,0,0,0.8);
+ --glass:rgba(18,18,18,0.7);--glass-blur:blur(20px);
+ --noise-opacity:0.35;
 }
 [data-theme="light"]{
  --bg:#f2f2f7;--surface:#ffffff;--surface2:#f8f8fc;--surface3:#efeff5;
  --border:#00000010;--border-bright:#00000018;
  --text:#0a0a14;--text2:#444458;--muted:#888898;
  --card-shadow:0 4px 20px #0000001a;
+ --glass:rgba(255,255,255,0.9);--glass-blur:blur(20px);
  --noise-opacity:0.08;
 }
-:root{--push:#ff5c35;--legs:#00c896;--cardio:#28b8e8;--pull:#9858e8;--rest:#6b7fa3;--yellow:#e8ff00;}
+:root{--push:#ff5c35;--legs:#00c896;--cardio:#28b8e8;--pull:#9858e8;--rest:#6b7fa3;--yellow:#e6eb00;}
 
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
 html,body{height:100%;overscroll-behavior:none;}
@@ -40,16 +42,18 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 
 /* ── NAV BAR ── */
 .nav-bar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;z-index:200;
- background:var(--bg);backdrop-filter:blur(24px);
- border-top:1px solid var(--border-bright);
+ backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);
+ border-top:1px solid rgba(255,255,255,0.08);
  display:flex;padding:10px 0 max(10px,env(safe-area-inset-bottom));
+ border-radius:20px 20px 0 0;
 }
-[data-theme="dark"] .nav-bar{background:rgba(5,5,8,0.92);}
+[data-theme="dark"] .nav-bar{background:rgba(10,10,10,0.88);}
 [data-theme="light"] .nav-bar{background:rgba(242,242,247,0.92);}
 .nav-btn{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;background:none;border:none;padding:6px 2px;color:var(--muted);font-size:7px;letter-spacing:0.5px;text-transform:uppercase;font-weight:600;white-space:nowrap;overflow:hidden;transition:color 0.2s;}
 .nav-icon{width:20px;height:20px;display:flex;align-items:center;justify-content:center;}
 .nav-icon svg{width:20px;height:20px;}
 .nav-btn.active{color:var(--yellow);}
+[data-theme="dark"] .nav-btn.active svg{filter:drop-shadow(0 0 4px rgba(230,235,0,0.6));}
 [data-theme="light"] .nav-btn.active{color:#c8a800;}
 
 /* ── HOME ── */
@@ -60,9 +64,9 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .hero-badge{display:inline-flex;align-items:center;gap:6px;background:var(--surface);border:1px solid var(--border-bright);border-radius:100px;padding:5px 14px;font-size:10px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-bottom:14px;}
 .hero-badge .dot{width:6px;height:6px;border-radius:50%;background:#00c896;box-shadow:0 0 8px #00c896;animation:pulse 2s infinite;}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
-.home-hero h1{font-family:'Bebas Neue',sans-serif;font-size:62px;line-height:0.9;letter-spacing:2px;margin-bottom:8px;}
-.home-hero h1 .acc{background:linear-gradient(135deg,#ff5c35,#ffb535);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.home-hero .tagline{font-size:12px;color:var(--muted);font-weight:300;letter-spacing:1px;}
+.home-hero h1{font-family:'Montserrat','Bebas Neue',sans-serif;font-size:60px;font-weight:900;line-height:0.88;letter-spacing:-1px;margin-bottom:10px;text-transform:uppercase;}
+.home-hero h1 .acc{background:linear-gradient(135deg,var(--yellow),#b8be00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.home-hero .tagline{font-family:'JetBrains Mono','DM Sans',monospace;font-size:10px;color:var(--muted);font-weight:600;letter-spacing:2px;text-transform:uppercase;}
 .theme-btn{width:38px;height:38px;border-radius:12px;border:1px solid var(--border-bright);background:var(--surface);color:var(--text);font-size:18px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:4px;}
 
 /* REMINDER STRIP */
@@ -82,24 +86,27 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .toggle-sw.on::after{transform:translateX(20px);}
 
 .week-cards{padding:0 16px 12px;display:flex;flex-direction:column;gap:10px;}
-.wk-card{border-radius:20px;overflow:hidden;background:var(--surface);border:1px solid var(--border);transition:border-color 0.3s,box-shadow 0.3s;}
-.wk-card.cur{border-color:var(--border-bright);box-shadow:var(--card-shadow),inset 0 1px 0 var(--border-bright);}
+.wk-card{border-radius:20px;overflow:hidden;background:var(--glass);backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);border:1px solid var(--border);transition:border-color 0.3s,box-shadow 0.3s;}
+[data-theme="dark"] .wk-card{box-shadow:0 2px 20px rgba(0,0,0,0.6);}
+.wk-card.cur{border-color:rgba(230,235,0,0.25);box-shadow:0 0 0 1px rgba(230,235,0,0.1),0 8px 40px rgba(0,0,0,0.7);}
 .wk-top{padding:18px 20px 14px;cursor:pointer;position:relative;overflow:hidden;}
-[data-theme="dark"] .wk-top::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,#ffffff15,transparent);}
+[data-theme="dark"] .wk-top::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.1),transparent);}
 .wk-row{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;}
-.wk-num{font-size:10px;letter-spacing:4px;color:var(--muted);text-transform:uppercase;margin-bottom:4px;}
+.wk-num{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:4px;color:var(--muted);text-transform:uppercase;margin-bottom:4px;}
 .wk-card.cur .wk-num{color:var(--yellow);}
 [data-theme="light"] .wk-card.cur .wk-num{color:#b89800;}
-.wk-theme{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:1px;line-height:1;}
-.wk-pct{font-family:'Bebas Neue',sans-serif;font-size:30px;color:var(--muted);opacity:0.4;}
+.wk-theme{font-family:'Montserrat','Bebas Neue',sans-serif;font-size:22px;font-weight:800;letter-spacing:0px;line-height:1;text-transform:uppercase;}
+.wk-pct{font-family:'Montserrat','Bebas Neue',sans-serif;font-size:28px;font-weight:900;color:var(--muted);opacity:0.4;}
 .prog-track{height:2px;background:var(--border);border-radius:2px;overflow:hidden;}
-.prog-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,#ff5c35,#ff9f35,#e8ff00);transition:width 0.5s cubic-bezier(0.4,0,0.2,1);}
+.prog-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,#ff5c35,#ff9f35,var(--yellow));transition:width 0.5s cubic-bezier(0.4,0,0.2,1);}
 .day-dots{display:flex;gap:5px;padding:0 16px 16px;}
-.day-dot{flex:1;border-radius:10px;padding:7px 3px;cursor:pointer;text-align:center;background:var(--surface2);border:1px solid var(--border);}
-.day-dot .dl{font-size:8px;color:var(--muted);font-weight:600;letter-spacing:1px;text-transform:uppercase;}
-.day-dot .di{font-size:14px;margin-top:1px;}
-.tips-section{margin:4px 16px 12px;border-radius:20px;background:var(--surface);border:1px solid var(--border);padding:20px;}
-.tips-label{font-size:9px;letter-spacing:4px;color:var(--muted);text-transform:uppercase;margin-bottom:12px;}
+.day-dot{flex:1;border-radius:12px;padding:8px 3px;cursor:pointer;text-align:center;background:rgba(255,255,255,0.03);border:1px solid var(--border);backdrop-filter:blur(10px);transition:border-color 0.2s,background 0.2s;}
+.day-dot:hover{background:rgba(255,255,255,0.06);border-color:var(--border-bright);}
+.day-dot .dl{font-family:'JetBrains Mono',monospace;font-size:7px;color:var(--muted);font-weight:600;letter-spacing:1px;text-transform:uppercase;}
+.day-dot .di{font-size:14px;margin-top:4px;display:flex;align-items:center;justify-content:center;line-height:1;}
+.day-dot .di svg{width:32px;height:32px;}
+.tips-section{margin:4px 16px 12px;border-radius:20px;background:var(--glass);backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);border:1px solid var(--border);padding:20px;}
+.tips-label{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:4px;color:var(--muted);text-transform:uppercase;margin-bottom:12px;}
 .tip{font-size:12px;color:var(--muted);padding:5px 0;border-bottom:1px solid var(--border);display:flex;gap:8px;align-items:baseline;font-weight:300;}
 .tip:last-child{border-bottom:none;}
 
@@ -113,9 +120,10 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .w-pct-num{font-family:'Bebas Neue',sans-serif;font-size:28px;line-height:1;}
 .w-pct-sub{font-size:10px;color:var(--muted);}
 .day-strip{display:flex;gap:6px;padding:12px 16px;overflow-x:auto;background:var(--bg);}
-.ds-btn{flex-shrink:0;min-width:44px;border-radius:12px;padding:8px 6px;border:1px solid var(--border);background:transparent;color:var(--muted);text-align:center;font-size:10px;font-weight:500;}
-.ds-btn .ds-icon{font-size:16px;margin-bottom:2px;}
-.ds-btn .ds-lbl{font-size:8px;letter-spacing:1px;text-transform:uppercase;}
+.ds-btn{flex-shrink:0;min-width:52px;border-radius:14px;padding:10px 6px;border:1px solid var(--border);background:rgba(255,255,255,0.03);backdrop-filter:blur(10px);color:var(--muted);text-align:center;font-size:10px;font-weight:500;transition:border-color 0.2s,background 0.2s;}
+.ds-btn .ds-icon{font-size:16px;margin-bottom:4px;display:flex;align-items:center;justify-content:center;line-height:1;}
+.ds-btn .ds-icon svg{width:28px;height:28px;}
+.ds-btn .ds-lbl{font-family:'JetBrains Mono',monospace;font-size:7px;letter-spacing:1px;text-transform:uppercase;}
 .w-prog-bar{height:2px;background:var(--border);}
 .w-prog-fill{height:100%;transition:width 0.4s cubic-bezier(0.4,0,0.2,1);}
 .day-note-card{margin:14px 16px 0;border-radius:16px;padding:14px 16px;border:1px solid;position:relative;overflow:hidden;}
@@ -511,7 +519,7 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
    </div>
    <button class="theme-btn" onclick="toggleTheme()" id="themeBtn">🌙</button>
   </div>
-  <h1>STRENGTH<br/><span class="acc">IDEN</span><br/>TITY</h1>
+  <h1>STRENGTH<br/><span class="acc">IDENTITY</span></h1>
   <p class="tagline">Big Chest · Massive Legs · Shredded Abs · Kill The Visceral Fat</p>
 
  </div>
@@ -952,8 +960,130 @@ const ICONS={
   share:`<svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="15" cy="4" r="2"/><circle cx="5" cy="10" r="2"/><circle cx="15" cy="16" r="2"/><line x1="7" y1="9" x2="13" y2="5"/><line x1="7" y1="11" x2="13" y2="15"/></svg>`,
 };
 
-// Day type icon map
-const TYPE_ICONS={push:ICONS.push,legs:ICONS.legs,cardio:ICONS.cardio,pull:ICONS.pull,rest:ICONS.rest};
+// Day type detailed illustrated SVG icons
+const TYPE_ICONS={
+ push:`<svg width="36" height="36" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+   <radialGradient id="pg1" cx="50%" cy="40%" r="60%"><stop offset="0%" stop-color="#ff7a50"/><stop offset="100%" stop-color="#ff3500"/></radialGradient>
+   <radialGradient id="pg2" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#ff9060" stop-opacity="0.3"/><stop offset="100%" stop-color="#ff3500" stop-opacity="0"/></radialGradient>
+  </defs>
+  <circle cx="40" cy="40" r="38" fill="url(#pg2)"/>
+  <!-- barbell shaft -->
+  <rect x="8" y="37" width="64" height="6" rx="3" fill="url(#pg1)" opacity="0.9"/>
+  <!-- left plates -->
+  <rect x="8" y="29" width="6" height="22" rx="3" fill="#ff5c35"/>
+  <rect x="11" y="27" width="5" height="26" rx="2.5" fill="#ff7a50"/>
+  <!-- right plates -->
+  <rect x="66" y="29" width="6" height="22" rx="3" fill="#ff5c35"/>
+  <rect x="64" y="27" width="5" height="26" rx="2.5" fill="#ff7a50"/>
+  <!-- person lying on bench - torso -->
+  <ellipse cx="40" cy="46" rx="16" ry="5" fill="#cc4422" opacity="0.6"/>
+  <!-- arms pushing up -->
+  <path d="M26 40 Q28 32 32 30" stroke="#ff9060" stroke-width="3" stroke-linecap="round"/>
+  <path d="M54 40 Q52 32 48 30" stroke="#ff9060" stroke-width="3" stroke-linecap="round"/>
+  <!-- glow center -->
+  <circle cx="40" cy="40" r="6" fill="#ff5c35" opacity="0.15"/>
+ </svg>`,
+ legs:`<svg width="36" height="36" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+   <radialGradient id="lg1" cx="50%" cy="40%" r="60%"><stop offset="0%" stop-color="#20eeaa"/><stop offset="100%" stop-color="#009966"/></radialGradient>
+   <radialGradient id="lg2" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#00c896" stop-opacity="0.25"/><stop offset="100%" stop-color="#00c896" stop-opacity="0"/></radialGradient>
+  </defs>
+  <circle cx="40" cy="40" r="38" fill="url(#lg2)"/>
+  <!-- barbell on back -->
+  <rect x="10" y="26" width="60" height="5" rx="2.5" fill="url(#lg1)" opacity="0.9"/>
+  <rect x="8" y="22" width="5" height="13" rx="2.5" fill="#00c896"/>
+  <rect x="67" y="22" width="5" height="13" rx="2.5" fill="#00c896"/>
+  <!-- squat figure -->
+  <!-- head -->
+  <circle cx="40" cy="20" r="5" fill="#20d8a0" opacity="0.8"/>
+  <!-- torso bent forward -->
+  <path d="M40 25 L36 35 L34 50" stroke="#00c896" stroke-width="4" stroke-linecap="round"/>
+  <!-- thighs down -->
+  <path d="M36 35 L28 50" stroke="#20d8a0" stroke-width="5" stroke-linecap="round"/>
+  <path d="M36 35 L44 50" stroke="#20d8a0" stroke-width="5" stroke-linecap="round"/>
+  <!-- calves -->
+  <path d="M28 50 L30 62" stroke="#00c896" stroke-width="4" stroke-linecap="round"/>
+  <path d="M44 50 L46 62" stroke="#00c896" stroke-width="4" stroke-linecap="round"/>
+  <!-- feet -->
+  <ellipse cx="31" cy="63" rx="5" ry="2.5" fill="#009966"/>
+  <ellipse cx="47" cy="63" rx="5" ry="2.5" fill="#009966"/>
+  <!-- muscle glow quads -->
+  <ellipse cx="30" cy="52" rx="5" ry="7" fill="#00c896" opacity="0.12"/>
+  <ellipse cx="46" cy="52" rx="5" ry="7" fill="#00c896" opacity="0.12"/>
+ </svg>`,
+ cardio:`<svg width="36" height="36" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+   <radialGradient id="cg1" cx="50%" cy="40%" r="60%"><stop offset="0%" stop-color="#60d0f8"/><stop offset="100%" stop-color="#0090c8"/></radialGradient>
+   <radialGradient id="cg2" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#28b8e8" stop-opacity="0.25"/><stop offset="100%" stop-color="#28b8e8" stop-opacity="0"/></radialGradient>
+   <linearGradient id="tmill" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#1a6080"/><stop offset="100%" stop-color="#28b8e8" stop-opacity="0.5"/></linearGradient>
+  </defs>
+  <circle cx="40" cy="40" r="38" fill="url(#cg2)"/>
+  <!-- treadmill belt (incline) -->
+  <rect x="12" y="52" width="56" height="8" rx="4" fill="url(#tmill)" transform="rotate(-8,40,56)"/>
+  <!-- treadmill frame -->
+  <path d="M14 56 L18 70 M66 56 L62 70" stroke="#28b8e8" stroke-width="3" stroke-linecap="round" opacity="0.7"/>
+  <line x1="18" y1="70" x2="62" y2="70" stroke="#28b8e8" stroke-width="3" stroke-linecap="round" opacity="0.5"/>
+  <!-- running figure -->
+  <!-- head -->
+  <circle cx="52" cy="18" r="5" fill="#60d0f8" opacity="0.9"/>
+  <!-- body lean forward -->
+  <path d="M52 23 L48 36" stroke="#28b8e8" stroke-width="4" stroke-linecap="round"/>
+  <!-- arms pumping -->
+  <path d="M50 27 L42 22" stroke="#60d0f8" stroke-width="3" stroke-linecap="round"/>
+  <path d="M48 30 L56 26" stroke="#60d0f8" stroke-width="3" stroke-linecap="round"/>
+  <!-- stride legs -->
+  <path d="M48 36 L40 48 L36 56" stroke="#28b8e8" stroke-width="4" stroke-linecap="round"/>
+  <path d="M48 36 L56 46 L60 42" stroke="#28b8e8" stroke-width="4" stroke-linecap="round"/>
+  <!-- motion lines -->
+  <line x1="18" y1="28" x2="26" y2="28" stroke="#60d0f8" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+  <line x1="14" y1="34" x2="24" y2="34" stroke="#60d0f8" stroke-width="1.5" stroke-linecap="round" opacity="0.35"/>
+  <line x1="16" y1="40" x2="22" y2="40" stroke="#60d0f8" stroke-width="1.5" stroke-linecap="round" opacity="0.2"/>
+ </svg>`,
+ pull:`<svg width="36" height="36" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+   <radialGradient id="puG1" cx="50%" cy="40%" r="60%"><stop offset="0%" stop-color="#c080ff"/><stop offset="100%" stop-color="#7020d0"/></radialGradient>
+   <radialGradient id="puG2" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#9858e8" stop-opacity="0.25"/><stop offset="100%" stop-color="#9858e8" stop-opacity="0"/></radialGradient>
+  </defs>
+  <circle cx="40" cy="40" r="38" fill="url(#puG2)"/>
+  <!-- floor line -->
+  <line x1="14" y1="68" x2="66" y2="68" stroke="#9858e8" stroke-width="2" opacity="0.4"/>
+  <!-- barbell on floor -->
+  <rect x="14" y="56" width="52" height="5" rx="2.5" fill="url(#puG1)" opacity="0.9"/>
+  <rect x="12" y="52" width="5" height="13" rx="2.5" fill="#9858e8"/>
+  <rect x="63" y="52" width="5" height="13" rx="2.5" fill="#9858e8"/>
+  <!-- bent-over row figure -->
+  <!-- head -->
+  <circle cx="28" cy="22" r="5" fill="#c080ff" opacity="0.85"/>
+  <!-- torso horizontal -->
+  <path d="M28 27 L44 35" stroke="#9858e8" stroke-width="4.5" stroke-linecap="round"/>
+  <!-- legs standing -->
+  <path d="M44 35 L46 52 L44 65" stroke="#c080ff" stroke-width="4" stroke-linecap="round"/>
+  <path d="M44 35 L50 52 L52 65" stroke="#c080ff" stroke-width="4" stroke-linecap="round"/>
+  <!-- arms pulling bar up -->
+  <path d="M28 27 L32 42" stroke="#c080ff" stroke-width="3.5" stroke-linecap="round"/>
+  <path d="M36 32 L38 46" stroke="#c080ff" stroke-width="3.5" stroke-linecap="round"/>
+  <!-- lat glow -->
+  <ellipse cx="38" cy="36" rx="10" ry="6" fill="#9858e8" opacity="0.12" transform="rotate(20,38,36)"/>
+ </svg>`,
+ rest:`<svg width="36" height="36" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+   <radialGradient id="rg1" cx="50%" cy="50%" r="55%"><stop offset="0%" stop-color="#8898cc"/><stop offset="100%" stop-color="#4a5a80"/></radialGradient>
+   <radialGradient id="rg2" cx="50%" cy="50%" r="55%"><stop offset="0%" stop-color="#6b7fa3" stop-opacity="0.2"/><stop offset="100%" stop-color="#6b7fa3" stop-opacity="0"/></radialGradient>
+  </defs>
+  <circle cx="40" cy="40" r="38" fill="url(#rg2)"/>
+  <!-- crescent moon -->
+  <path d="M50 18 A20 20 0 1 1 50 62 A14 14 0 1 0 50 18Z" fill="url(#rg1)" opacity="0.9"/>
+  <!-- stars -->
+  <circle cx="22" cy="22" r="1.5" fill="#c0cce8" opacity="0.8"/>
+  <circle cx="62" cy="28" r="1.2" fill="#c0cce8" opacity="0.6"/>
+  <circle cx="18" cy="46" r="1" fill="#c0cce8" opacity="0.5"/>
+  <circle cx="64" cy="55" r="1.5" fill="#c0cce8" opacity="0.7"/>
+  <circle cx="24" cy="60" r="1" fill="#c0cce8" opacity="0.4"/>
+  <!-- sparkle star -->
+  <path d="M64 18 L65 21 L68 22 L65 23 L64 26 L63 23 L60 22 L63 21Z" fill="#d0daff" opacity="0.7"/>
+ </svg>`
+};
 
 const WEEKS=[
  {week:1,theme:"Foundation & Volume",days:[
