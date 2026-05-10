@@ -303,6 +303,68 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
 .wstrip-today{border-color:var(--border-bright);background:var(--surface2);}
 .wstrip-today .wstrip-lbl{color:var(--text);}
 .wstrip-future .wstrip-lbl{opacity:0.35;}
+/* WSTRIP DATE NUMBER */
+.wstrip-date{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;color:var(--text2);line-height:1;}
+.wstrip-today .wstrip-date{color:var(--yellow);}
+[data-theme="light"] .wstrip-today .wstrip-date{color:#b89800;}
+.wstrip-future .wstrip-date{opacity:0.3;}
+
+/* TODAY WORKOUT CARD */
+.today-card{margin:0 16px 14px;border-radius:24px;overflow:hidden;position:relative;background:var(--surface);border:1px solid var(--border-bright);box-shadow:0 4px 32px rgba(0,0,0,0.5);}
+.today-card-img{width:100%;height:190px;object-fit:cover;object-position:center;display:block;}
+.today-card-overlay{position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(to bottom,transparent 30%,rgba(0,0,0,0.85) 100%);pointer-events:none;}
+.today-card-badge{position:absolute;top:14px;left:14px;background:rgba(0,0,0,0.6);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.15);border-radius:100px;padding:4px 12px;font-size:9px;letter-spacing:3px;color:#fff;text-transform:uppercase;font-weight:700;}
+.today-card-body{padding:14px 16px 16px;}
+.today-card-meta{display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap;}
+.today-card-stat{display:flex;align-items:center;gap:4px;font-size:11px;color:var(--muted);font-weight:600;}
+.today-card-title{font-family:'Montserrat',sans-serif;font-size:20px;font-weight:800;letter-spacing:-0.5px;margin-bottom:10px;text-transform:uppercase;}
+.today-card-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;}
+.today-card-tag{font-size:10px;padding:3px 10px;border-radius:100px;border:1px solid;font-weight:600;}
+.today-card-cta{width:100%;padding:15px;border-radius:16px;border:none;font-family:'Montserrat',sans-serif;font-size:15px;font-weight:800;letter-spacing:1px;text-transform:uppercase;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;transition:all 0.2s;}
+.today-card-cta:active{transform:scale(0.97);}
+
+/* ACTIVITY + READINESS ROW */
+.home-widgets{display:flex;gap:10px;margin:0 16px 14px;}
+.activity-widget{flex:1;background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:14px;display:flex;flex-direction:column;align-items:center;gap:8px;}
+.activity-widget-title{font-size:9px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;font-weight:700;align-self:flex-start;}
+.readiness-widget{flex:1;background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:14px;display:flex;flex-direction:column;justify-content:space-between;}
+.readiness-widget-title{font-size:9px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;font-weight:700;margin-bottom:10px;}
+.readiness-score{font-family:'Bebas Neue',sans-serif;font-size:56px;line-height:1;margin-bottom:2px;}
+.readiness-label{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;}
+.readiness-bar{height:4px;border-radius:4px;background:var(--border);overflow:hidden;margin-bottom:8px;}
+.readiness-bar-fill{height:100%;border-radius:4px;transition:width 0.8s ease;}
+.readiness-desc{font-size:10px;color:var(--muted);line-height:1.4;}
+
+/* OUTDOOR SCREEN */
+.outdoor-screen{padding-bottom:100px;}
+.outdoor-topbar{padding:52px 20px 16px;display:flex;align-items:center;gap:12px;}
+.outdoor-topbar h2{font-family:'Montserrat',sans-serif;font-size:26px;font-weight:800;text-transform:uppercase;flex:1;}
+.outdoor-mode-tabs{display:flex;gap:8px;margin:0 16px 16px;}
+.outdoor-tab{flex:1;padding:10px 4px;border-radius:14px;border:1px solid var(--border);background:var(--surface);color:var(--muted);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;justify-content:center;gap:6px;}
+.outdoor-tab.active{background:var(--yellow);color:#000;border-color:transparent;}
+[data-theme="light"] .outdoor-tab.active{background:#c8a800;}
+.outdoor-map-area{margin:0 16px 14px;border-radius:20px;background:var(--surface2);border:1px solid var(--border);overflow:hidden;position:relative;}
+.outdoor-canvas{width:100%;display:block;border-radius:20px;}
+.outdoor-map-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:200px;gap:8px;color:var(--muted);}
+.outdoor-map-empty-icon{font-size:36px;opacity:0.3;}
+.outdoor-map-empty-text{font-size:12px;letter-spacing:1px;text-transform:uppercase;font-weight:600;}
+.outdoor-stats{display:flex;gap:8px;margin:0 16px 14px;}
+.outdoor-stat{flex:1;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:14px 10px;text-align:center;}
+.outdoor-stat-num{font-family:'Bebas Neue',sans-serif;font-size:30px;line-height:1;}
+.outdoor-stat-lbl{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;font-weight:600;margin-top:3px;}
+.outdoor-cta-wrap{margin:0 16px 16px;}
+.outdoor-start-btn{width:100%;padding:18px;border-radius:18px;border:none;font-family:'Montserrat',sans-serif;font-size:17px;font-weight:800;letter-spacing:2px;text-transform:uppercase;background:linear-gradient(135deg,#00c896,#00a878);color:#fff;box-shadow:0 8px 32px #00c89640;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;transition:all 0.2s;}
+.outdoor-start-btn:active{transform:scale(0.97);}
+.outdoor-start-btn.active-session{background:linear-gradient(135deg,#ff5c35,#e03000);box-shadow:0 8px 32px #ff5c3540;}
+.outdoor-recent{margin:0 16px 16px;}
+.outdoor-recent-title{font-size:9px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;font-weight:700;margin-bottom:10px;}
+.outdoor-session-item{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:14px 16px;margin-bottom:8px;display:flex;align-items:center;gap:12px;}
+.outdoor-session-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.outdoor-session-info{flex:1;}
+.outdoor-session-name{font-size:13px;font-weight:700;margin-bottom:2px;}
+.outdoor-session-sub{font-size:11px;color:var(--muted);}
+.outdoor-session-dist{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--text);}
+
 
 /* WORKOUT STATS BAR */
 .w-stats-bar{display:flex;align-items:center;margin:10px 16px 0;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:14px 8px;}
@@ -456,7 +518,7 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
 @keyframes cardReveal{0%{opacity:0;transform:translateY(24px) scale(0.96)}100%{opacity:1;transform:translateY(0) scale(1)}}
 @keyframes dotPing{0%{transform:scale(1);opacity:1}80%{transform:scale(2.2);opacity:0}100%{transform:scale(1);opacity:0}}
 @keyframes morphOrb{0%,100%{border-radius:60% 40% 50% 50% / 60% 50% 40% 50%}33%{border-radius:40% 60% 40% 60% / 50% 40% 60% 50%}66%{border-radius:50% 50% 60% 40% / 40% 60% 50% 60%}}
-@keyframes confettiBurst{0%{transform:translate(0,0) rotate(0deg);opacity:1}100%{transform:translate(var(--dx,40px),var(--dy,-60px)) rotate(var(--dr,180deg));opacity:0}}
+
 @keyframes waveSlide{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
 @keyframes orbMorph{0%,100%{transform:scale(1) rotate(0deg)}50%{transform:scale(1.15) rotate(180deg)}}
 
@@ -626,6 +688,8 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
 
  <div id="quickActions"></div>
  <div id="weekStrip"></div>
+ <div id="todayWorkoutCard"></div>
+ <div id="activityWidgets"></div>
  <div id="coachCard"></div>
  <div id="missedWorkoutBanner" style="display:none;"></div>
 
@@ -997,6 +1061,49 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
   <div style="display:flex;gap:10px;">
    <button onclick="shareWorkoutText()" style="flex:1;padding:12px;border-radius:12px;border:1px solid var(--border-bright);background:var(--surface2);color:var(--text);font-size:13px;font-weight:600;">📋 Copy Summary</button>
   </div>
+ </div>
+</div>
+
+<!-- OUTDOOR CARDIO TRACKER -->
+<div id="outdoor" class="screen outdoor-screen">
+ <div class="outdoor-topbar">
+  <button class="back-btn" onclick="navTo('home')" style="display:flex;align-items:center;gap:8px;background:none;border:none;color:var(--text);font-size:14px;font-weight:600;padding:0;">
+   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+  </button>
+  <h2>Outdoor</h2>
+ </div>
+ <div class="outdoor-mode-tabs">
+  <button class="outdoor-tab active" id="otab-run" onclick="setOutdoorMode('run')">
+   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="4" r="2"/><path d="M15 8l-3 2-2 4-4 3"/><path d="M12 10l3 4 2 5"/></svg>Run
+  </button>
+  <button class="outdoor-tab" id="otab-walk" onclick="setOutdoorMode('walk')">
+   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="4" r="2"/><path d="M9 8l3 2 2 4"/><path d="M14 14l2 5"/><path d="M10 14l-2 5"/></svg>Walk
+  </button>
+  <button class="outdoor-tab" id="otab-bike" onclick="setOutdoorMode('bike')">
+   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="15" r="4"/><circle cx="18" cy="15" r="4"/><path d="M6 15l4-8h4l2 4-6 4"/></svg>Bike
+  </button>
+ </div>
+ <div class="outdoor-map-area" id="outdoorMapArea">
+  <div class="outdoor-map-empty" id="outdoorMapEmpty">
+   <div class="outdoor-map-empty-icon">📍</div>
+   <div class="outdoor-map-empty-text">Start session to track route</div>
+  </div>
+  <canvas id="outdoorCanvas" class="outdoor-canvas" style="display:none;"></canvas>
+ </div>
+ <div class="outdoor-stats">
+  <div class="outdoor-stat"><div class="outdoor-stat-num" id="oDistNum">0.00</div><div class="outdoor-stat-lbl">Miles</div></div>
+  <div class="outdoor-stat"><div class="outdoor-stat-num" id="oPaceNum">--:--</div><div class="outdoor-stat-lbl">Avg Pace</div></div>
+  <div class="outdoor-stat"><div class="outdoor-stat-num" id="oDurNum">0:00</div><div class="outdoor-stat-lbl">Duration</div></div>
+ </div>
+ <div class="outdoor-cta-wrap">
+  <button class="outdoor-start-btn" id="outdoorStartBtn" onclick="toggleOutdoorSession()">
+   <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
+   START SESSION
+  </button>
+ </div>
+ <div class="outdoor-recent" id="outdoorRecentSection">
+  <div class="outdoor-recent-title">Recent Sessions</div>
+  <div id="outdoorRecentList"></div>
  </div>
 </div>
 
@@ -2147,6 +2254,7 @@ function renderWeekStrip(){
   const isFuture=ds>todayStr;
   return `<div class="wstrip-day${done?' wstrip-done':''}${isToday?' wstrip-today':''}${isFuture?' wstrip-future':''}">
    <div class="wstrip-lbl">${lbl}</div>
+   <div class="wstrip-date">${d.getDate()}</div>
    <div class="wstrip-dot">${done?'<svg width="14" height="14" viewBox="0 0 14 14"><circle cx="7" cy="7" r="6" fill="#e8ff00" opacity="0.15"/><path d="M4 7l2 2 4-4" stroke="#e8ff00" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>':isToday?'<div class="wstrip-today-dot"></div>':''}</div>
   </div>`;
  }).join('');
@@ -2268,6 +2376,244 @@ async function renderCoachCard(){
   }
 }
 
+function renderTodayCard(){
+ const el=document.getElementById('todayWorkoutCard');
+ if(!el)return;
+ const day=WEEKS[aW]&&WEEKS[aW].days[aD];
+ if(!day){el.innerHTML='';return;}
+ const ts=TYPE[day.type]||TYPE.push;
+ const stats=calcWorkoutStats(aW,aD);
+ const img=WORKOUT_IMGS&&WORKOUT_IMGS[aD]?`<img class="today-card-img" src="${WORKOUT_IMGS[aD]}" alt=""/>`:'';
+ const dp=dayProg(aW,aD);
+ const done=dp===1;
+ const muscles=[...new Set(WEEKS[aW].days[aD].exercises.flatMap(ex=>MUSCLE_MAP[ex.name]||[]).map(m=>MUSCLE_NAMES[m]).filter(Boolean))].slice(0,4);
+ el.innerHTML=`<div class="today-card">
+  ${img?`<div style="position:relative">${img}<div class="today-card-overlay"></div><div class="today-card-badge">${done?'COMPLETED':'TODAY'}</div></div>`:''}
+  <div class="today-card-body">
+   <div class="today-card-meta">
+    <span class="today-card-stat"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 15,14"/></svg>${stats.estMin}m</span>
+    <span class="today-card-stat"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="${ts.color}" stroke-width="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg><span style="color:${ts.color}">~${stats.estCal} cal</span></span>
+    <span class="today-card-stat">${stats.exercises} exercises · ${stats.sets} sets</span>
+   </div>
+   <div class="today-card-title" style="color:${ts.color}">${day.label}</div>
+   ${muscles.length?`<div class="today-card-tags">${muscles.map(m=>`<span class="today-card-tag" style="border-color:${ts.color}40;color:${ts.color};background:${ts.color}10">${m}</span>`).join('')}</div>`:''}
+   <button class="today-card-cta" style="background:${done?'var(--surface2)':'linear-gradient(135deg,'+ts.color+','+ts.color+'cc)'};color:${done?ts.color:'#fff'};${done?'border:1px solid '+ts.color+'40;':''}" onclick="openDay(${aW},${aD})">
+    ${done?`<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20,6 9,17 4,12"/></svg>SESSION DONE`:`<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>START WORKOUT`}
+   </button>
+  </div>
+ </div>`;
+}
+
+function renderActivityWidgets(){
+ const el=document.getElementById('activityWidgets');
+ if(!el)return;
+ // Calculate weekly stats
+ const today=new Date();
+ const todayStr=today.toISOString().split('T')[0];
+ let weekCal=0,weekMin=0,weekDays=0;
+ const weekStart=new Date(today);weekStart.setDate(today.getDate()-today.getDay());
+ WEEKS.forEach((wk,wi)=>wk.days.forEach((day,di)=>{
+  const d=getWDone(wi,di);
+  if(!d)return;
+  const ds=new Date(d);
+  if(ds>=weekStart&&ds<=today){
+   const st=calcWorkoutStats(wi,di);
+   weekCal+=st.estCal;weekMin+=st.estMin;weekDays++;
+  }
+ }));
+ const calGoal=2800,minGoal=300,daysGoal=5;
+ const calPct=Math.min(weekCal/calGoal,1);
+ const minPct=Math.min(weekMin/minGoal,1);
+ const daysPct=Math.min(weekDays/daysGoal,1);
+ // Readiness score
+ const h=buildWorkoutHistory();
+ let score=75;
+ if(h.daysSinceLast===0)score=82;
+ else if(h.daysSinceLast===1)score=90;
+ else if(h.daysSinceLast===2)score=95;
+ else if(h.daysSinceLast===3)score=78;
+ else if(h.daysSinceLast>=4)score=65;
+ if(h.streak>=5)score=Math.min(score+8,99);
+ if(h.streak>=3)score=Math.min(score+4,99);
+ if(weekDays>=5)score=Math.max(score-10,50);
+ const rLabel=score>=90?'EXCELLENT':score>=80?'PUSH HARD':score>=65?'MODERATE':'RECOVER';
+ const rColor=score>=90?'#00c896':score>=80?'#e6eb00':score>=65?'#ff9035':'#ff5c35';
+ el.innerHTML=`<div class="home-widgets">
+  <div class="activity-widget">
+   <div class="activity-widget-title">Activity</div>
+   <canvas id="ringsCanvas" width="110" height="110"></canvas>
+   <div style="display:flex;flex-direction:column;gap:5px;width:100%;">
+    <div style="display:flex;align-items:center;gap:6px;font-size:10px;color:var(--muted);">
+     <span style="width:8px;height:8px;border-radius:50%;background:#ff5c35;flex-shrink:0;"></span>Move <span style="margin-left:auto;color:var(--text);font-weight:700;">${weekCal}/${calGoal}</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:6px;font-size:10px;color:var(--muted);">
+     <span style="width:8px;height:8px;border-radius:50%;background:#00c896;flex-shrink:0;"></span>Exercise <span style="margin-left:auto;color:var(--text);font-weight:700;">${weekMin}m</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:6px;font-size:10px;color:var(--muted);">
+     <span style="width:8px;height:8px;border-radius:50%;background:#28b8e8;flex-shrink:0;"></span>Days <span style="margin-left:auto;color:var(--text);font-weight:700;">${weekDays}/${daysGoal}</span>
+    </div>
+   </div>
+  </div>
+  <div class="readiness-widget">
+   <div class="readiness-widget-title">Readiness</div>
+   <div class="readiness-score" style="color:${rColor}">${h.total===0?'--':score}</div>
+   <div class="readiness-label" style="color:${rColor}">${h.total===0?'LOG A WORKOUT':rLabel}</div>
+   <div class="readiness-bar"><div class="readiness-bar-fill" style="width:${h.total===0?0:score}%;background:${rColor};"></div></div>
+   <div class="readiness-desc">${h.total===0?'Complete a session to get your readiness score.':h.daysSinceLast<=1?'Your biomarkers and activity levels indicate you’re primed for high performance.':h.daysSinceLast<=3?'Moderate recovery. Push at 80% effort today.':'Extended rest period. Ease back in — warm up properly.'}</div>
+  </div>
+ </div>`;
+ // Draw activity rings
+ setTimeout(()=>{
+  const canvas=document.getElementById('ringsCanvas');
+  if(!canvas)return;
+  const ctx=canvas.getContext('2d');
+  const cx=55,cy=55,rings=[
+   {pct:calPct,color:'#ff5c35',track:'#ff5c3520',r:48},
+   {pct:minPct,color:'#00c896',track:'#00c89620',r:36},
+   {pct:daysPct,color:'#28b8e8',track:'#28b8e820',r:24},
+  ];
+  ctx.clearRect(0,0,110,110);
+  rings.forEach(({pct,color,track,r})=>{
+   ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.strokeStyle=track;ctx.lineWidth=7;ctx.lineCap='round';ctx.stroke();
+   if(pct>0){
+    ctx.beginPath();ctx.arc(cx,cy,r,-Math.PI/2,-Math.PI/2+Math.PI*2*pct);ctx.strokeStyle=color;ctx.lineWidth=7;ctx.lineCap='round';ctx.stroke();
+   }
+  });
+ },50);
+}
+
+// ── OUTDOOR TRACKER ─────────────────────────────────────────────────────────
+let outdoorMode='run',outdoorActive=false,outdoorWatchId=null;
+let outdoorCoords=[],outdoorStartTime=null,outdoorDurTimer=null;
+const OUTDOOR_SESSIONS_KEY='df7-outdoor-sessions';
+
+function setOutdoorMode(m){
+ outdoorMode=m;
+ ['run','walk','bike'].forEach(t=>{
+  const el=document.getElementById('otab-'+t);
+  if(el)el.classList.toggle('active',t===m);
+ });
+}
+
+function haversine(a,b){
+ const R=3958.8,dLat=(b.lat-a.lat)*Math.PI/180,dLon=(b.lon-a.lon)*Math.PI/180;
+ const x=Math.sin(dLat/2)**2+Math.cos(a.lat*Math.PI/180)*Math.cos(b.lat*Math.PI/180)*Math.sin(dLon/2)**2;
+ return R*2*Math.atan2(Math.sqrt(x),Math.sqrt(1-x));
+}
+
+function getTotalDist(){
+ let d=0;
+ for(let i=1;i<outdoorCoords.length;i++)d+=haversine(outdoorCoords[i-1],outdoorCoords[i]);
+ return d;
+}
+
+function formatDur(sec){
+ const m=Math.floor(sec/60),s=sec%60;
+ return m+':'+(s<10?'0':'')+s;
+}
+
+function formatPace(distMi,sec){
+ if(distMi<0.01)return '--:--';
+ const paceSec=sec/distMi;
+ const pm=Math.floor(paceSec/60),ps=Math.round(paceSec%60);
+ return pm+':'+(ps<10?'0':'')+ps;
+}
+
+function updateOutdoorStats(){
+ const dist=getTotalDist();
+ const elapsed=outdoorStartTime?Math.floor((Date.now()-outdoorStartTime)/1000):0;
+ document.getElementById('oDistNum').textContent=dist.toFixed(2);
+ document.getElementById('oDurNum').textContent=formatDur(elapsed);
+ document.getElementById('oPaceNum').textContent=formatPace(dist,elapsed);
+ drawOutdoorPath();
+}
+
+function drawOutdoorPath(){
+ const canvas=document.getElementById('outdoorCanvas');
+ if(!canvas||outdoorCoords.length<2)return;
+ const ctx=canvas.getContext('2d');
+ const W=canvas.width,H=canvas.height;
+ const lats=outdoorCoords.map(c=>c.lat),lons=outdoorCoords.map(c=>c.lon);
+ const minLat=Math.min(...lats),maxLat=Math.max(...lats);
+ const minLon=Math.min(...lons),maxLon=Math.max(...lons);
+ const pad=30;
+ const scaleX=(W-pad*2)/Math.max(maxLon-minLon,0.0001);
+ const scaleY=(H-pad*2)/Math.max(maxLat-minLat,0.0001);
+ ctx.clearRect(0,0,W,H);
+ ctx.fillStyle='rgba(0,0,0,0.02)';ctx.fillRect(0,0,W,H);
+ // Grid lines
+ ctx.strokeStyle='rgba(255,255,255,0.04)';ctx.lineWidth=1;
+ for(let i=0;i<=4;i++){ctx.beginPath();ctx.moveTo(i*W/4,0);ctx.lineTo(i*W/4,H);ctx.stroke();}
+ for(let i=0;i<=4;i++){ctx.beginPath();ctx.moveTo(0,i*H/4);ctx.lineTo(W,i*H/4);ctx.stroke();}
+ // Path
+ ctx.beginPath();
+ outdoorCoords.forEach((c,i)=>{
+  const x=pad+(c.lon-minLon)*scaleX,y=H-pad-(c.lat-minLat)*scaleY;
+  i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+ });
+ const modeColor=outdoorMode==='run'?'#00c896':outdoorMode==='walk'?'#28b8e8':'#e6eb00';
+ ctx.strokeStyle=modeColor;ctx.lineWidth=3;ctx.lineCap='round';ctx.lineJoin='round';ctx.stroke();
+ // Start dot
+ const s=outdoorCoords[0];
+ const sx=pad+(s.lon-minLon)*scaleX,sy=H-pad-(s.lat-minLat)*scaleY;
+ ctx.beginPath();ctx.arc(sx,sy,6,0,Math.PI*2);ctx.fillStyle='#00c896';ctx.fill();
+ // End dot
+ const e=outdoorCoords[outdoorCoords.length-1];
+ const ex=pad+(e.lon-minLon)*scaleX,ey=H-pad-(e.lat-minLat)*scaleY;
+ ctx.beginPath();ctx.arc(ex,ey,6,0,Math.PI*2);ctx.fillStyle='#ff5c35';ctx.fill();
+}
+
+function toggleOutdoorSession(){
+ if(!outdoorActive){
+  if(!navigator.geolocation){alert('Geolocation is not supported by your browser.');return;}
+  outdoorActive=true;outdoorCoords=[];outdoorStartTime=Date.now();
+  const btn=document.getElementById('outdoorStartBtn');
+  if(btn){btn.innerHTML='<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="6" width="12" height="12" rx="2"/></svg> STOP SESSION';btn.classList.add('active-session');}
+  const canvas=document.getElementById('outdoorCanvas');
+  const empty=document.getElementById('outdoorMapEmpty');
+  if(canvas){canvas.width=canvas.parentElement.offsetWidth||350;canvas.height=220;canvas.style.display='block';}
+  if(empty)empty.style.display='none';
+  outdoorWatchId=navigator.geolocation.watchPosition(pos=>{
+   outdoorCoords.push({lat:pos.coords.latitude,lon:pos.coords.longitude});
+   updateOutdoorStats();
+  },{enableHighAccuracy:true,timeout:10000,maximumAge:1000});
+  outdoorDurTimer=setInterval(updateOutdoorStats,1000);
+ } else {
+  outdoorActive=false;
+  if(outdoorWatchId!=null){navigator.geolocation.clearWatch(outdoorWatchId);outdoorWatchId=null;}
+  clearInterval(outdoorDurTimer);
+  const btn=document.getElementById('outdoorStartBtn');
+  if(btn){btn.innerHTML='<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg> START SESSION';btn.classList.remove('active-session');}
+  if(outdoorCoords.length>1){
+   const dist=getTotalDist();
+   const elapsed=Math.floor((Date.now()-outdoorStartTime)/1000);
+   const sessions=JSON.parse(dbGet(OUTDOOR_SESSIONS_KEY)||'[]');
+   sessions.unshift({mode:outdoorMode,dist:dist.toFixed(2),dur:elapsed,date:new Date().toISOString().split('T')[0]});
+   dbSet(OUTDOOR_SESSIONS_KEY,JSON.stringify(sessions.slice(0,20)));
+   renderOutdoorRecent();
+  }
+ }
+}
+
+function renderOutdoorRecent(){
+ const el=document.getElementById('outdoorRecentList');
+ if(!el)return;
+ const sessions=JSON.parse(dbGet(OUTDOOR_SESSIONS_KEY)||'[]');
+ if(!sessions.length){el.innerHTML='<div style="font-size:12px;color:var(--muted);text-align:center;padding:16px;">No sessions yet. Start your first run!</div>';return;}
+ const icons={run:'🏃',walk:'🚶',bike:'🚴'};
+ const colors={run:'#00c896',walk:'#28b8e8',bike:'#e6eb00'};
+ el.innerHTML=sessions.slice(0,5).map(s=>`
+  <div class="outdoor-session-item">
+   <div class="outdoor-session-icon" style="background:${colors[s.mode]||'#00c896'}18;">${icons[s.mode]||'🏃'}</div>
+   <div class="outdoor-session-info">
+    <div class="outdoor-session-name">${s.mode.charAt(0).toUpperCase()+s.mode.slice(1)}</div>
+    <div class="outdoor-session-sub">${s.date} · ${formatDur(s.dur)}</div>
+   </div>
+   <div class="outdoor-session-dist" style="color:${colors[s.mode]||'#00c896'}">${s.dist}<span style="font-size:11px;color:var(--muted);font-family:inherit;"> mi</span></div>
+  </div>`).join('');
+}
+
+
 function renderHome(){
  const c=document.getElementById('weekCards');
  c.innerHTML='';
@@ -2325,10 +2671,13 @@ function renderHome(){
     <button class="qa-btn qa-primary" onclick="openDay(${aW},${aD})"><span class="qa-icon">${ICONS.lightning}</span><span>START SESSION</span></button>
     <button class="qa-btn" onclick="navTo('prs')"><span class="qa-icon">${ICONS.trophy}</span><span>PRs</span></button>
     <button class="qa-btn" onclick="navTo('timer')"><span class="qa-icon">${ICONS.timer}</span><span>TIMER</span></button>
+    <button class="qa-btn" onclick="navTo('outdoor')"><span class="qa-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="4" r="2"/><path d="M15 8l-3 2-2 4-4 3"/><path d="M12 10l3 4 2 5"/></svg></span><span>RUN</span></button>
     ${str>0?`<div class="qa-streak">${ICONS.flame} ${str}</div>`:''}
   </div>`;
  }
  renderWeekStrip();
+ renderTodayCard();
+ renderActivityWidgets();
  renderCoachCard();
  // Missed workout in-app alert
  const mwEl=document.getElementById('missedWorkoutBanner');
@@ -2480,29 +2829,12 @@ function renderWorkout(){
  else{banner.style.display='none';}
 }
 
-function burstConfetti(el){
- const colors=['#ff5c35','#e6eb00','#9858e8','#00c896','#28b8e8','#ff9035'];
- const rect=el.getBoundingClientRect();
- const cx=rect.left+rect.width/2;
- const cy=rect.top+rect.height/2;
- for(let i=0;i<8;i++){
-  const d=document.createElement('div');
-  const dx=(Math.random()*120-60);
-  const dy=-(Math.random()*60+20);
-  const dr=Math.random()*360;
-  d.style.cssText=`position:fixed;left:${cx-3}px;top:${cy-3}px;width:6px;height:6px;border-radius:50%;pointer-events:none;z-index:9999;background:${colors[i%colors.length]};--dx:${dx}px;--dy:${dy}px;--dr:${dr}deg;animation:confettiBurst 0.7s ease-out forwards;`;
-  document.body.appendChild(d);
-  setTimeout(()=>d.remove(),700);
- }
-}
-
 function toggleSD(ei,si,btn){
  const newVal=!gSD(aW,aD,ei,si);
  sSD(aW,aD,ei,si,newVal);
  if(newVal){
    startRestTimer(ei,si);
    if(navigator.vibrate)navigator.vibrate(40);
-   burstConfetti(btn);
  }
  renderWorkout();
 }
