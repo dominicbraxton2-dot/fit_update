@@ -2672,16 +2672,16 @@ function renderHealthWidget(){
    <div class="health-widget-header">
     <div class="health-widget-title">
      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ff5c35" stroke-width="2" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-     Apple Health
+     Apple Fitness
     </div>
     <span class="health-widget-link" onclick="importHealthData()">Import →</span>
    </div>
    <div class="health-import-area">
     <button class="health-import-btn" onclick="importHealthData()">
      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17,8 12,3 7,8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-     Import Health Export
+     Import Activity Data
     </button>
-    <div class="health-import-note">Export from iPhone: Health → profile → Export All Health Data.<br/>Then import the export.xml from the ZIP here.</div>
+    <div class="health-import-note">Export from iPhone: <b>Fitness app</b> or <b>Health app</b> → profile → Export All Health Data. Open the ZIP and import export.xml — syncs your Move rings, steps, HRV &amp; sleep.</div>
    </div>
   </div>`;
   return;
@@ -2693,7 +2693,7 @@ function renderHealthWidget(){
   <div class="health-widget-header">
    <div class="health-widget-title">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ff5c35" stroke-width="2" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-    <div class="health-connected-dot"></div>Apple Health
+    <div class="health-connected-dot"></div>Apple Fitness
    </div>
    <span class="health-widget-link" onclick="importHealthData()">Update →</span>
   </div>
@@ -2759,14 +2759,14 @@ function importHealthData(){
    }
    text=await file.text();
    const parsed=parseHealthXML(text);
-   if(!parsed){alert('Could not read health data. Make sure to select export.xml from your Apple Health export.');return;}
+   if(!parsed){alert('Could not read activity data. Select export.xml from your Apple Health/Fitness export ZIP.');return;}
    dbSet(HEALTH_KEY,JSON.stringify(parsed));
    renderHealthWidget();
    // Update readiness with HRV if available
    if(parsed.hrv>0){dbSet('df7-hrv',parsed.hrv);}
    if(parsed.sleepHrs>0){dbSet('df7-sleep',parsed.sleepHrs);}
    renderActivityWidgets();
-   alert('✅ Apple Health data imported! '+parsed.days+' days of data synced.');
+   alert('✅ Apple Fitness data synced! '+parsed.days+' days of data synced.');
   }catch(err){alert('❌ Could not parse health data: '+err.message);}
  };
  input.click();
