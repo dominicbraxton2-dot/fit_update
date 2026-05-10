@@ -103,7 +103,8 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .day-dot{flex:1;border-radius:12px;padding:8px 3px;cursor:pointer;text-align:center;background:rgba(255,255,255,0.03);border:1px solid var(--border);backdrop-filter:blur(10px);transition:border-color 0.2s,background 0.2s;}
 .day-dot:hover{background:rgba(255,255,255,0.06);border-color:var(--border-bright);}
 .day-dot .dl{font-family:'JetBrains Mono',monospace;font-size:7px;color:var(--muted);font-weight:600;letter-spacing:1px;text-transform:uppercase;}
-.day-dot .di{font-size:22px;margin-top:3px;display:flex;align-items:center;justify-content:center;line-height:1;}
+.day-dot .di{margin-top:3px;display:flex;align-items:center;justify-content:center;line-height:1;width:36px;height:36px;}
+.day-dot .di svg{width:36px;height:36px;}
 .tips-section{margin:4px 16px 12px;border-radius:20px;background:var(--glass);backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);border:1px solid var(--border);padding:20px;}
 .tips-label{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:4px;color:var(--muted);text-transform:uppercase;margin-bottom:12px;}
 .tip{font-size:12px;color:var(--muted);padding:5px 0;border-bottom:1px solid var(--border);display:flex;gap:8px;align-items:baseline;font-weight:300;}
@@ -120,7 +121,8 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .w-pct-sub{font-size:10px;color:var(--muted);}
 .day-strip{display:flex;gap:6px;padding:12px 16px;overflow-x:auto;background:var(--bg);}
 .ds-btn{flex-shrink:0;min-width:52px;border-radius:14px;padding:10px 6px;border:1px solid var(--border);background:rgba(255,255,255,0.03);backdrop-filter:blur(10px);color:var(--muted);text-align:center;font-size:10px;font-weight:500;transition:border-color 0.2s,background 0.2s;}
-.ds-btn .ds-icon{font-size:20px;margin-bottom:4px;display:flex;align-items:center;justify-content:center;line-height:1;}
+.ds-btn .ds-icon{margin-bottom:4px;display:flex;align-items:center;justify-content:center;line-height:1;width:28px;height:28px;margin-left:auto;margin-right:auto;}
+.ds-btn .ds-icon svg{width:28px;height:28px;}
 .ds-btn .ds-lbl{font-family:'JetBrains Mono',monospace;font-size:7px;letter-spacing:1px;text-transform:uppercase;}
 .w-prog-bar{height:2px;background:var(--border);}
 .w-prog-fill{height:100%;transition:width 0.4s cubic-bezier(0.4,0,0.2,1);}
@@ -584,32 +586,8 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
 /* ── Tips section entrance ── */
 .tips-section{animation:fadeSlideUp 0.4s cubic-bezier(0.22,1,0.36,1) 0.22s both;}
 
-/* Particle field */
-.particle-field{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0;}
-.ptcl{position:absolute;border-radius:50%;animation:ptclRise linear infinite;opacity:0;}
-@keyframes ptclRise{0%{transform:translateY(0) scale(1);opacity:0}10%{opacity:1}80%{opacity:0.4}100%{transform:translateY(-320px) scale(0.3);opacity:0}}
 
-/* ── DAY BANNER ── */
-.day-banner{width:100%;height:190px;position:relative;overflow:hidden;display:block;flex-shrink:0;}
-.day-banner svg{width:100%;height:100%;display:block;}
-.day-banner-overlay{position:absolute;bottom:0;left:0;right:0;height:80px;background:linear-gradient(to top,var(--bg) 0%,transparent 100%);pointer-events:none;}
-.day-banner-badge{position:absolute;top:14px;left:16px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;padding:5px 12px;border-radius:100px;border:1px solid rgba(255,255,255,0.15);backdrop-filter:blur(10px);background:rgba(0,0,0,0.4);color:rgba(255,255,255,0.7);}
-.day-banner-icon{position:absolute;top:12px;right:16px;font-size:28px;line-height:1;animation:floatY 3s ease-in-out infinite;}
-@keyframes bannerPulse{0%,100%{opacity:0.5}50%{opacity:1}}
 
-/* Hero visual rings */
-.hero-visual{margin-top:20px;position:relative;height:80px;display:flex;align-items:center;justify-content:center;gap:16px;}
-.hero-ring{width:64px;height:64px;border-radius:50%;border:2px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;flex-direction:column;position:relative;animation:heroRingFloat 4s ease-in-out infinite;}
-.hero-ring:nth-child(1){animation-delay:0s;}
-.hero-ring:nth-child(2){animation-delay:0.6s;width:80px;height:80px;}
-.hero-ring:nth-child(3){animation-delay:1.2s;}
-.hero-ring:nth-child(4){animation-delay:1.8s;}
-.hero-ring:nth-child(5){animation-delay:2.4s;}
-.hero-ring::before{content:'';position:absolute;inset:-2px;border-radius:50%;border:1.5px solid transparent;background:conic-gradient(from 0deg,transparent 0%,currentColor 60%,transparent 100%) border-box;-webkit-mask:linear-gradient(#fff 0 0) padding-box,linear-gradient(#fff 0 0);mask:linear-gradient(#fff 0 0) padding-box,linear-gradient(#fff 0 0);-webkit-mask-composite:destination-out;mask-composite:exclude;animation:spinRing 3s linear infinite;}
-.hero-ring-emoji{font-size:22px;line-height:1;}
-.hero-ring-lbl{font-family:'JetBrains Mono',monospace;font-size:6px;letter-spacing:1px;color:var(--muted);text-transform:uppercase;margin-top:1px;}
-@keyframes heroRingFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
-@keyframes spinRing{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
 
 /* Wave shimmer on current week card */
 .wk-card.cur{position:relative;overflow:hidden;}
@@ -636,7 +614,6 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
 <!-- HOME -->
 <div id="home" class="screen active">
  <div class="home-hero">
-  <div class="particle-field" id="heroParticles"></div>
   <div class="hero-top">
    <div>
     <div class="hero-badge"><span class="dot"></span>12-Week Program</div>
@@ -645,7 +622,6 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
   </div>
   <h1>STRENGTH<br/><span class="acc">IDENTITY</span></h1>
   <p class="tagline">Big Chest · Massive Legs · Shredded Abs · Kill The Visceral Fat</p>
-  <div class="hero-visual" id="heroVisual"></div>
 
  </div>
 
@@ -707,7 +683,6 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
    <div class="w-pct-sub" id="pctFrac">0/0</div>
   </div>
  </div>
- <div class="day-banner" id="dayBanner"></div>
  <div class="day-strip" id="dayStrip"></div>
  <div class="w-prog-bar"><div class="w-prog-fill" id="progFill"></div></div>
  <div id="dayNoteCard" class="day-note-card">
@@ -968,67 +943,47 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
    <!-- FRONT -->
    <div>
     <div style="font-size:9px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-bottom:8px;">FRONT</div>
-    <svg id="bodyFront" width="120" height="220" viewBox="0 0 120 220">
-     <!-- Body outline -->
-     <ellipse cx="60" cy="22" rx="18" ry="20" fill="var(--surface2)" stroke="var(--border-bright)" stroke-width="1.5"/>
-     <!-- Neck -->
-     <rect x="53" y="40" width="14" height="12" rx="4" fill="var(--surface2)" stroke="var(--border-bright)" stroke-width="1"/>
-     <!-- Chest -->
-     <path d="M30 52 Q60 48 90 52 L88 90 Q60 94 32 90 Z" id="fm-chest" fill="var(--surface2)" stroke="var(--border-bright)" stroke-width="1.5" style="cursor:pointer;"/>
-     <!-- Abs -->
-     <path d="M36 90 Q60 94 84 90 L82 130 Q60 134 38 130 Z" id="fm-abs" fill="var(--surface2)" stroke="var(--border-bright)" stroke-width="1.5" style="cursor:pointer;"/>
-     <!-- Left shoulder -->
-     <ellipse cx="22" cy="62" rx="12" ry="14" id="fm-lshoulder" fill="var(--surface2)" stroke="var(--border-bright)" stroke-width="1.5" style="cursor:pointer;"/>
-     <!-- Right shoulder -->
-     <ellipse cx="98" cy="62" rx="12" ry="14" id="fm-rshoulder" fill="var(--surface2)" stroke="var(--border-bright)" stroke-width="1.5" style="cursor:pointer;"/>
-     <!-- Left bicep -->
-     <path d="M10 74 Q14 72 18 76 L16 102 Q12 104 8 100 Z" id="fm-lbicep" fill="var(--surface2)" stroke="var(--border-bright)" stroke-width="1.5" style="cursor:pointer;"/>
-     <!-- Right bicep -->
-     <path d="M110 74 Q106 72 102 76 L104 102 Q108 104 112 100 Z" id="fm-rbicep" fill="var(--surface2)" stroke="var(--border-bright)" stroke-width="1.5" style="cursor:pointer;"/>
-     <!-- Left forearm -->
-     <path d="M8 102 Q12 100 16 104 L14 128 Q10 130 6 126 Z" id="fm-lforearm" fill="var(--surface2)" stroke="var(--border-bright)" stroke-width="1.5"/>
-     <!-- Right forearm -->
-     <path d="M112 102 Q108 100 104 104 L106 128 Q110 130 114 126 Z" id="fm-rforearm" fill="var(--surface2)" stroke="var(--border-bright)" stroke-width="1.5"/>
-     <!-- Left quad -->
-     <path d="M38 132 Q50 130 56 132 L54 178 Q46 182 36 178 Z" id="fm-lquad" fill="var(--surface2)" stroke="var(--border-bright)" stroke-width="1.5" style="cursor:pointer;"/>
-     <!-- Right quad -->
-     <path d="M82 132 Q70 130 64 132 L66 178 Q74 182 84 178 Z" id="fm-rquad" fill="var(--surface2)" stroke="var(--border-bright)" stroke-width="1.5" style="cursor:pointer;"/>
-     <!-- Left calf front -->
-     <path d="M36 180 Q46 178 52 182 L50 216 Q44 220 36 216 Z" id="fm-lcalf" fill="var(--surface2)" stroke="var(--border-bright)" stroke-width="1.5" style="cursor:pointer;"/>
-     <!-- Right calf front -->
-     <path d="M84 180 Q74 178 68 182 L70 216 Q76 220 84 216 Z" id="fm-rcalf" fill="var(--surface2)" stroke="var(--border-bright)" stroke-width="1.5" style="cursor:pointer;"/>
+    <svg id="bodyFront" width="110" height="240" viewBox="0 0 110 240">
+     <ellipse cx="55" cy="16" rx="13" ry="15" fill="var(--surface3)" stroke="var(--border-bright)" stroke-width="1.2"/>
+     <path d="M49 29 L49 36 Q55 39 61 36 L61 29" fill="var(--surface3)" stroke="var(--border-bright)" stroke-width="1"/>
+     <path d="M30 36 Q20 40 18 52 L16 80 Q15 90 22 94 L22 130 Q22 135 28 136 L38 136 L38 152 Q38 156 42 156 L50 156 L54 136 L56 136 L60 156 L68 156 Q72 156 72 152 L72 136 L82 136 Q88 135 88 130 L88 94 Q95 90 94 80 L92 52 Q90 40 80 36 Z" fill="var(--surface3)" stroke="var(--border-bright)" stroke-width="1.2"/>
+     <ellipse cx="19" cy="48" rx="10" ry="9" id="fm-lshoulder" fill="var(--surface2)" stroke="var(--border-bright)" stroke-width="1.2" style="cursor:pointer;"/>
+     <ellipse cx="91" cy="48" rx="10" ry="9" id="fm-rshoulder" fill="var(--surface2)" stroke="var(--border-bright)" stroke-width="1.2" style="cursor:pointer;"/>
+     <path d="M11 55 Q8 60 8 68 L9 84 Q10 88 15 88 L19 88 Q22 88 22 84 L22 68 Q22 58 19 55 Z" id="fm-lbicep" fill="var(--surface2)" stroke="var(--border-bright)" stroke-width="1.2" style="cursor:pointer;"/>
+     <path d="M99 55 Q102 60 102 68 L101 84 Q100 88 95 88 L91 88 Q88 88 88 84 L88 68 Q88 58 91 55 Z" id="fm-rbicep" fill="var(--surface2)" stroke="var(--border-bright)" stroke-width="1.2" style="cursor:pointer;"/>
+     <path d="M9 88 Q7 94 7 106 L8 118 Q9 121 13 121 L17 121 Q20 121 20 118 L20 106 Q20 94 15 88 Z" id="fm-lforearm" fill="var(--surface3)" stroke="var(--border-bright)" stroke-width="1"/>
+     <path d="M101 88 Q103 94 103 106 L102 118 Q101 121 97 121 L93 121 Q90 121 90 118 L90 106 Q90 94 95 88 Z" id="fm-rforearm" fill="var(--surface3)" stroke="var(--border-bright)" stroke-width="1"/>
+     <path d="M30 42 Q27 44 26 54 L28 74 Q36 78 46 75 L50 58 Q44 46 30 42 Z" id="fm-chest" fill="var(--surface2)" stroke="var(--border-bright)" stroke-width="1.2" style="cursor:pointer;"/>
+     <path d="M80 42 Q83 44 84 54 L82 74 Q74 78 64 75 L60 58 Q66 46 80 42 Z" fill="var(--surface2)" stroke="var(--border-bright)" stroke-width="1.2" style="cursor:pointer;" onclick="document.getElementById('fm-chest').dispatchEvent(new Event('click'))"/>
+     <path d="M38 80 Q36 90 37 110 L38 130 Q46 134 55 133 Q64 134 72 130 L73 110 Q74 90 72 80 Q63 84 55 83 Q47 84 38 80 Z" id="fm-abs" fill="var(--surface2)" stroke="var(--border-bright)" stroke-width="1.2" style="cursor:pointer;"/>
+     <path d="M28 136 Q24 145 25 165 L26 185 Q32 190 38 188 L42 185 Q46 181 46 165 L44 145 Q42 136 38 136 Z" id="fm-lquad" fill="var(--surface2)" stroke="var(--border-bright)" stroke-width="1.2" style="cursor:pointer;"/>
+     <path d="M82 136 Q86 145 85 165 L84 185 Q78 190 72 188 L68 185 Q64 181 64 165 L66 145 Q68 136 72 136 Z" id="fm-rquad" fill="var(--surface2)" stroke="var(--border-bright)" stroke-width="1.2" style="cursor:pointer;"/>
+     <path d="M26 188 Q24 198 25 212 L27 226 Q32 229 37 228 L40 226 Q42 222 42 212 L41 198 Q40 190 38 188 Z" id="fm-lcalf" fill="var(--surface2)" stroke="var(--border-bright)" stroke-width="1.2" style="cursor:pointer;"/>
+     <path d="M84 188 Q86 198 85 212 L83 226 Q78 229 73 228 L70 226 Q68 222 68 212 L69 198 Q70 190 72 188 Z" id="fm-rcalf" fill="var(--surface2)" stroke="var(--border-bright)" stroke-width="1.2" style="cursor:pointer;"/>
     </svg>
    </div>
    <!-- BACK -->
    <div>
     <div style="font-size:9px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-bottom:8px;">BACK</div>
-    <svg id="bodyBack" width="120" height="220" viewBox="0 0 120 220">
-     <ellipse cx="60" cy="22" rx="18" ry="20" fill="var(--surface2)" stroke="var(--border-bright)" stroke-width="1.5"/>
-     <rect x="53" y="40" width="14" height="12" rx="4" fill="var(--surface2)" stroke="var(--border-bright)" stroke-width="1"/>
-     <!-- Upper back / traps -->
-     <path d="M30 52 Q60 48 90 52 L88 76 Q60 72 32 76 Z" id="bm-traps" fill="var(--surface2)" stroke="var(--border-bright)" stroke-width="1.5" style="cursor:pointer;"/>
-     <!-- Lats -->
-     <path d="M32 76 Q60 72 88 76 L86 110 Q60 114 34 110 Z" id="bm-lats" fill="var(--surface2)" stroke="var(--border-bright)" stroke-width="1.5" style="cursor:pointer;"/>
-     <!-- Lower back -->
-     <path d="M36 110 Q60 114 84 110 L82 132 Q60 136 38 132 Z" id="bm-lowerback" fill="var(--surface2)" stroke="var(--border-bright)" stroke-width="1.5" style="cursor:pointer;"/>
-     <!-- Glutes -->
-     <path d="M36 132 Q60 136 84 132 L82 156 Q60 162 38 156 Z" id="bm-glutes" fill="var(--surface2)" stroke="var(--border-bright)" stroke-width="1.5" style="cursor:pointer;"/>
-     <!-- Left shoulder back -->
-     <ellipse cx="22" cy="62" rx="12" ry="14" id="bm-lshoulder" fill="var(--surface2)" stroke="var(--border-bright)" stroke-width="1.5" style="cursor:pointer;"/>
-     <!-- Right shoulder back -->
-     <ellipse cx="98" cy="62" rx="12" ry="14" id="bm-rshoulder" fill="var(--surface2)" stroke="var(--border-bright)" stroke-width="1.5" style="cursor:pointer;"/>
-     <!-- Left tricep -->
-     <path d="M10 74 Q14 72 18 76 L16 102 Q12 104 8 100 Z" id="bm-ltricep" fill="var(--surface2)" stroke="var(--border-bright)" stroke-width="1.5" style="cursor:pointer;"/>
-     <!-- Right tricep -->
-     <path d="M110 74 Q106 72 102 76 L104 102 Q108 104 112 100 Z" id="bm-rtricep" fill="var(--surface2)" stroke="var(--border-bright)" stroke-width="1.5" style="cursor:pointer;"/>
-     <!-- Left hamstring -->
-     <path d="M38 158 Q50 156 56 158 L54 196 Q46 200 36 196 Z" id="bm-lham" fill="var(--surface2)" stroke="var(--border-bright)" stroke-width="1.5" style="cursor:pointer;"/>
-     <!-- Right hamstring -->
-     <path d="M82 158 Q70 156 64 158 L66 196 Q74 200 84 196 Z" id="bm-rham" fill="var(--surface2)" stroke="var(--border-bright)" stroke-width="1.5" style="cursor:pointer;"/>
-     <!-- Left calf back -->
-     <path d="M36 198 Q46 196 52 200 L50 216 Q44 220 36 216 Z" id="bm-lcalfb" fill="var(--surface2)" stroke="var(--border-bright)" stroke-width="1.5"/>
-     <!-- Right calf back -->
-     <path d="M84 198 Q74 196 68 200 L70 216 Q76 220 84 216 Z" id="bm-rcalfb" fill="var(--surface2)" stroke="var(--border-bright)" stroke-width="1.5"/>
+    <svg id="bodyBack" width="110" height="240" viewBox="0 0 110 240">
+     <ellipse cx="55" cy="16" rx="13" ry="15" fill="var(--surface3)" stroke="var(--border-bright)" stroke-width="1.2"/>
+     <path d="M49 29 L49 36 Q55 39 61 36 L61 29" fill="var(--surface3)" stroke="var(--border-bright)" stroke-width="1"/>
+     <path d="M30 36 Q20 40 18 52 L16 80 Q15 90 22 94 L22 130 Q22 135 28 136 L38 136 L38 152 Q38 156 42 156 L50 156 L54 136 L56 136 L60 156 L68 156 Q72 156 72 152 L72 136 L82 136 Q88 135 88 130 L88 94 Q95 90 94 80 L92 52 Q90 40 80 36 Z" fill="var(--surface3)" stroke="var(--border-bright)" stroke-width="1.2"/>
+     <ellipse cx="19" cy="48" rx="10" ry="9" id="bm-lshoulder" fill="var(--surface2)" stroke="var(--border-bright)" stroke-width="1.2" style="cursor:pointer;"/>
+     <ellipse cx="91" cy="48" rx="10" ry="9" id="bm-rshoulder" fill="var(--surface2)" stroke="var(--border-bright)" stroke-width="1.2" style="cursor:pointer;"/>
+     <path d="M11 55 Q8 60 8 68 L9 84 Q10 88 15 88 L19 88 Q22 88 22 84 L22 68 Q22 58 19 55 Z" id="bm-ltricep" fill="var(--surface2)" stroke="var(--border-bright)" stroke-width="1.2" style="cursor:pointer;"/>
+     <path d="M99 55 Q102 60 102 68 L101 84 Q100 88 95 88 L91 88 Q88 88 88 84 L88 68 Q88 58 91 55 Z" id="bm-rtricep" fill="var(--surface2)" stroke="var(--border-bright)" stroke-width="1.2" style="cursor:pointer;"/>
+     <path d="M9 88 Q7 94 7 106 L8 118 Q9 121 13 121 L17 121 Q20 121 20 118 L20 106 Q20 94 15 88 Z" fill="var(--surface3)" stroke="var(--border-bright)" stroke-width="1"/>
+     <path d="M101 88 Q103 94 103 106 L102 118 Q101 121 97 121 L93 121 Q90 121 90 118 L90 106 Q90 94 95 88 Z" fill="var(--surface3)" stroke="var(--border-bright)" stroke-width="1"/>
+     <path d="M30 38 Q40 44 55 44 Q70 44 80 38 L78 56 Q70 62 55 62 Q40 62 32 56 Z" id="bm-traps" fill="var(--surface2)" stroke="var(--border-bright)" stroke-width="1.2" style="cursor:pointer;"/>
+     <path d="M20 58 Q18 66 20 80 L24 94 Q30 98 38 96 L46 88 Q50 82 50 74 L48 62 Q40 60 30 58 Z" id="bm-lats" fill="var(--surface2)" stroke="var(--border-bright)" stroke-width="1.2" style="cursor:pointer;"/>
+     <path d="M90 58 Q92 66 90 80 L86 94 Q80 98 72 96 L64 88 Q60 82 60 74 L62 62 Q70 60 80 58 Z" fill="var(--surface2)" stroke="var(--border-bright)" stroke-width="1.2" style="cursor:pointer;" onclick="document.getElementById('bm-lats').dispatchEvent(new Event('click'))"/>
+     <path d="M38 96 Q36 108 37 122 L38 130 Q46 134 55 133 Q64 134 72 130 L73 122 Q74 108 72 96 Q64 100 55 99 Q46 100 38 96 Z" id="bm-lowerback" fill="var(--surface2)" stroke="var(--border-bright)" stroke-width="1.2" style="cursor:pointer;"/>
+     <path d="M28 132 Q26 140 28 152 L32 156 Q44 160 55 159 Q66 160 78 156 L82 152 Q84 140 82 132 L72 134 L55 135 L38 134 Z" id="bm-glutes" fill="var(--surface2)" stroke="var(--border-bright)" stroke-width="1.2" style="cursor:pointer;"/>
+     <path d="M28 156 Q24 165 25 180 L26 190 Q32 194 38 192 L42 190 Q46 186 46 175 L44 161 Q40 157 38 156 Z" id="bm-lham" fill="var(--surface2)" stroke="var(--border-bright)" stroke-width="1.2" style="cursor:pointer;"/>
+     <path d="M82 156 Q86 165 85 180 L84 190 Q78 194 72 192 L68 190 Q64 186 64 175 L66 161 Q70 157 72 156 Z" id="bm-rham" fill="var(--surface2)" stroke="var(--border-bright)" stroke-width="1.2" style="cursor:pointer;"/>
+     <path d="M26 192 Q24 202 25 216 L27 226 Q32 229 37 228 L40 226 Q42 222 42 216 L41 202 Q40 194 38 192 Z" id="bm-lcalfb" fill="var(--surface2)" stroke="var(--border-bright)" stroke-width="1.2" style="cursor:pointer;"/>
+     <path d="M84 192 Q86 202 85 216 L83 226 Q78 229 73 228 L70 226 Q68 222 68 216 L69 202 Q70 194 72 192 Z" id="bm-rcalfb" fill="var(--surface2)" stroke="var(--border-bright)" stroke-width="1.2" style="cursor:pointer;"/>
     </svg>
    </div>
   </div>
@@ -1053,7 +1008,7 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
  <button class="nav-btn" id="nav-workout" onclick="navTo('workout')"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="8" width="3" height="5" rx="1"/><rect x="16" y="8" width="3" height="5" rx="1"/><rect x="4" y="9.5" width="2" height="2" rx="0.5"/><rect x="14" y="9.5" width="2" height="2" rx="0.5"/><line x1="6" y1="10.5" x2="14" y2="10.5"/></svg></span>Workout</button>
  <button class="nav-btn" id="nav-history" onclick="navTo('history')"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="8"/><polyline points="10,6 10,10 13,12"/></svg></span>History</button>
  <button class="nav-btn" id="nav-analytics" onclick="navTo('analytics')"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="11" width="3" height="7" rx="1"/><rect x="8.5" y="7" width="3" height="11" rx="1"/><rect x="15" y="3" width="3" height="15" rx="1"/></svg></span>Stats</button>
- <button class="nav-btn" id="nav-musclemap" onclick="navTo('musclemap')"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="4.5" r="2"/><path d="M7 9c0-1.66 1.34-3 3-3s3 1.34 3 3v3l1 4H6l1-4V9z"/><line x1="7" y1="16" x2="6.5" y2="19"/><line x1="13" y1="16" x2="13.5" y2="19"/></svg></span>Muscles</button>
+ <button class="nav-btn" id="nav-musclemap" onclick="navTo('musclemap')"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14c0-2 1-3.5 2.5-4.5L8 8c.5-1.5 1-3 3-3.5 1-.3 2 0 2.5.8.4.7.3 1.7-.2 2.2L12 9c1.5.3 3 1.5 3.2 3.2.2 2-1.5 3.5-3.2 3.8-1 .2-2-.1-2.8-.8L8 14.5c-.3 1-.8 2-2 2.5C4.5 17.5 4 16 4 14z"/><path d="M9 5.5c-.5-1-1.5-1.5-2.5-1-1 .5-1.5 1.8-1 3 .3.8.8 1.5 1.5 2"/></svg></span>Muscles</button>
  <button class="nav-btn" id="nav-prs" onclick="navTo('prs')"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8M5 3c0 5 2.5 7.5 5 7.5S15 8 15 3"/><path d="M4 3H2v2c0 1.5 1 3 3 3.5"/><path d="M16 3h2v2c0 1.5-1 3-3 3.5"/><line x1="10" y1="10.5" x2="10" y2="14"/><path d="M7 14h6"/><rect x="6.5" y="14" width="7" height="2.5" rx="1"/></svg></span>PRs</button>
  <button class="nav-btn" id="nav-timer" onclick="navTo('timer')"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="11" r="7.5"/><polyline points="10,7.5 10,11 12.5,13"/><line x1="8.5" y1="2" x2="11.5" y2="2"/></svg></span>Timer</button>
 </div>
@@ -1066,7 +1021,7 @@ const ICONS={
   workout:`<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="8" width="3" height="5" rx="1"/><rect x="16" y="8" width="3" height="5" rx="1"/><rect x="4" y="9.5" width="2" height="2" rx="0.5"/><rect x="14" y="9.5" width="2" height="2" rx="0.5"/><line x1="6" y1="10.5" x2="14" y2="10.5"/></svg>`,
   history:`<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="8"/><polyline points="10,6 10,10 13,12"/></svg>`,
   stats:`<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="11" width="3" height="7" rx="1"/><rect x="8.5" y="7" width="3" height="11" rx="1"/><rect x="15" y="3" width="3" height="15" rx="1"/></svg>`,
-  muscles:`<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="4.5" r="2"/><path d="M7 9c0-1.66 1.34-3 3-3s3 1.34 3 3v3l1 4H6l1-4V9z"/><line x1="7" y1="16" x2="6.5" y2="19"/><line x1="13" y1="16" x2="13.5" y2="19"/></svg>`,
+  muscles:`<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14c0-2 1-3.5 2.5-4.5L8 8c.5-1.5 1-3 3-3.5 1-.3 2 0 2.5.8.4.7.3 1.7-.2 2.2L12 9c1.5.3 3 1.5 3.2 3.2.2 2-1.5 3.5-3.2 3.8-1 .2-2-.1-2.8-.8L8 14.5c-.3 1-.8 2-2 2.5C4.5 17.5 4 16 4 14z"/><path d="M9 5.5c-.5-1-1.5-1.5-2.5-1-1 .5-1.5 1.8-1 3 .3.8.8 1.5 1.5 2"/></svg>`,
   trophy:`<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8M5 3c0 5 2.5 7.5 5 7.5S15 8 15 3"/><path d="M4 3H2v2c0 1.5 1 3 3 3.5"/><path d="M16 3h2v2c0 1.5-1 3-3 3.5"/><line x1="10" y1="10.5" x2="10" y2="14"/><path d="M7 14h6"/><rect x="6.5" y="14" width="7" height="2.5" rx="1"/></svg>`,
   timer:`<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="11" r="7.5"/><polyline points="10,7.5 10,11 12.5,13"/><line x1="8.5" y1="2" x2="11.5" y2="2"/><line x1="10" y1="2" x2="10" y2="3.5"/></svg>`,
   flame:`<svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2c0 4-4 5-4 9a4 4 0 008 0c0-4-4-7-4-9z"/><path d="M10 14a1.5 1.5 0 010-3"/></svg>`,
@@ -1157,126 +1112,6 @@ const TYPE_ICONS={
  </svg>`
 };
 
-const DAY_BANNERS={
-push:`<svg viewBox="0 0 430 190" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect width="430" height="190" fill="#0d0300"/>
-<rect width="430" height="190" fill="#ff5c35" fill-opacity="0.07"/>
-<circle cx="80" cy="-20" r="140" fill="#ff5c35" fill-opacity="0.08"/>
-<circle cx="380" cy="-10" r="120" fill="#ff9035" fill-opacity="0.06"/>
-<text x="215" y="145" text-anchor="middle" font-family="Arial Black,sans-serif" font-size="140" font-weight="900" fill="#ff5c35" fill-opacity="0.04">PUSH</text>
-<rect x="30" y="78" width="370" height="18" rx="9" fill="#cc4020" fill-opacity="0.88"/>
-<rect x="28" y="56" width="22" height="62" rx="8" fill="#ff5c35" fill-opacity="0.9"/>
-<rect x="20" y="48" width="16" height="78" rx="8" fill="#ff7050" fill-opacity="0.85"/>
-<rect x="380" y="56" width="22" height="62" rx="8" fill="#ff5c35" fill-opacity="0.9"/>
-<rect x="394" y="48" width="16" height="78" rx="8" fill="#ff7050" fill-opacity="0.85"/>
-<rect x="50" y="66" width="14" height="42" rx="6" fill="#cc3510" fill-opacity="0.9"/>
-<rect x="366" y="66" width="14" height="42" rx="6" fill="#cc3510" fill-opacity="0.9"/>
-<rect x="110" y="112" width="210" height="18" rx="9" fill="#1a0800"/>
-<line x1="175" y1="130" x2="175" y2="162" stroke="#1a0800" stroke-width="10" stroke-linecap="round"/>
-<line x1="255" y1="130" x2="255" y2="162" stroke="#1a0800" stroke-width="10" stroke-linecap="round"/>
-<line x1="158" y1="160" x2="192" y2="160" stroke="#1a0800" stroke-width="10" stroke-linecap="round"/>
-<line x1="238" y1="160" x2="272" y2="160" stroke="#1a0800" stroke-width="10" stroke-linecap="round"/>
-<ellipse cx="215" cy="112" rx="65" ry="16" fill="#cc3510" fill-opacity="0.5"/>
-<circle cx="215" cy="96" r="13" fill="#cc3510" fill-opacity="0.55"/>
-<path d="M152 104 Q148 88 162 80" stroke="#ff9060" stroke-width="12" stroke-linecap="round"/>
-<path d="M278 104 Q282 88 268 80" stroke="#ff9060" stroke-width="12" stroke-linecap="round"/>
-<ellipse cx="215" cy="85" rx="90" ry="10" fill="#ff5c35" fill-opacity="0.06"/>
-<circle cx="215" cy="87" r="24" fill="#ff5c35" fill-opacity="0.04"/>
-</svg>`,
-legs:`<svg viewBox="0 0 430 190" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect width="430" height="190" fill="#000d08"/>
-<rect width="430" height="190" fill="#00c896" fill-opacity="0.06"/>
-<circle cx="350" cy="-30" r="160" fill="#00c896" fill-opacity="0.07"/>
-<circle cx="50" cy="220" r="120" fill="#00e8a0" fill-opacity="0.05"/>
-<text x="215" y="145" text-anchor="middle" font-family="Arial Black,sans-serif" font-size="140" font-weight="900" fill="#00c896" fill-opacity="0.04">LEGS</text>
-<rect x="160" y="5" width="12" height="180" rx="6" fill="#00a87a" fill-opacity="0.25"/>
-<rect x="258" y="5" width="12" height="180" rx="6" fill="#00a87a" fill-opacity="0.25"/>
-<rect x="60" y="26" width="310" height="12" rx="6" fill="#00c896" fill-opacity="0.8"/>
-<rect x="46" y="14" width="20" height="36" rx="7" fill="#00a87a" fill-opacity="0.9"/>
-<rect x="36" y="8" width="16" height="48" rx="8" fill="#00c896" fill-opacity="0.85"/>
-<rect x="364" y="14" width="20" height="36" rx="7" fill="#00a87a" fill-opacity="0.9"/>
-<rect x="378" y="8" width="16" height="48" rx="8" fill="#00c896" fill-opacity="0.85"/>
-<circle cx="215" cy="18" r="13" fill="#22e8a8" fill-opacity="0.85"/>
-<path d="M215 31 L205 50" stroke="#00c896" stroke-width="10" stroke-linecap="round"/>
-<path d="M205 50 L175 90" stroke="#20e8a8" stroke-width="14" stroke-linecap="round"/>
-<path d="M205 50 L238 90" stroke="#20e8a8" stroke-width="14" stroke-linecap="round"/>
-<path d="M175 90 L180 136" stroke="#00c896" stroke-width="10" stroke-linecap="round"/>
-<path d="M238 90 L244 136" stroke="#00c896" stroke-width="10" stroke-linecap="round"/>
-<ellipse cx="181" cy="138" rx="16" ry="8" fill="#009966" fill-opacity="0.9"/>
-<ellipse cx="245" cy="138" rx="16" ry="8" fill="#009966" fill-opacity="0.9"/>
-<ellipse cx="178" cy="110" rx="12" ry="20" fill="#00c896" fill-opacity="0.1"/>
-<ellipse cx="242" cy="110" rx="12" ry="20" fill="#00c896" fill-opacity="0.1"/>
-</svg>`,
-cardio:`<svg viewBox="0 0 430 190" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect width="430" height="190" fill="#000810"/>
-<rect width="430" height="190" fill="#28b8e8" fill-opacity="0.06"/>
-<circle cx="400" cy="-20" r="150" fill="#28b8e8" fill-opacity="0.07"/>
-<circle cx="30" cy="210" r="100" fill="#60d0f8" fill-opacity="0.05"/>
-<text x="215" y="148" text-anchor="middle" font-family="Arial Black,sans-serif" font-size="110" font-weight="900" fill="#28b8e8" fill-opacity="0.04">CARDIO</text>
-<rect x="20" y="135" width="390" height="22" rx="11" fill="#1a5870" fill-opacity="0.75" transform="rotate(-5,215,146)"/>
-<rect x="20" y="141" width="390" height="8" rx="4" fill="#28b8e8" fill-opacity="0.2" transform="rotate(-5,215,146)"/>
-<path d="M22 142 L34 175" stroke="#28b8e8" stroke-width="8" stroke-linecap="round"/>
-<path d="M408 128 L396 162" stroke="#28b8e8" stroke-width="8" stroke-linecap="round"/>
-<line x1="34" y1="175" x2="396" y2="162" stroke="#28b8e8" stroke-width="6" stroke-linecap="round" stroke-opacity="0.4"/>
-<circle cx="290" cy="24" r="13" fill="#60d0f8" fill-opacity="0.9"/>
-<path d="M290 37 L280 58" stroke="#28b8e8" stroke-width="10" stroke-linecap="round"/>
-<path d="M284 46 L266 38" stroke="#60d0f8" stroke-width="7" stroke-linecap="round"/>
-<path d="M284 50 L300 43" stroke="#60d0f8" stroke-width="7" stroke-linecap="round"/>
-<path d="M280 58 L258 82 L244 102" stroke="#28b8e8" stroke-width="10" stroke-linecap="round"/>
-<path d="M280 58 L304 78 L316 68" stroke="#28b8e8" stroke-width="10" stroke-linecap="round"/>
-<line x1="60" y1="50" x2="120" y2="50" stroke="#60d0f8" stroke-width="3" stroke-linecap="round" stroke-opacity="0.4"/>
-<line x1="50" y1="62" x2="118" y2="62" stroke="#60d0f8" stroke-width="2.5" stroke-linecap="round" stroke-opacity="0.28"/>
-<line x1="56" y1="74" x2="110" y2="74" stroke="#60d0f8" stroke-width="2" stroke-linecap="round" stroke-opacity="0.18"/>
-<line x1="64" y1="86" x2="104" y2="86" stroke="#60d0f8" stroke-width="1.5" stroke-linecap="round" stroke-opacity="0.1"/>
-<text x="350" y="100" font-family="JetBrains Mono,monospace" font-size="11" fill="#28b8e8" fill-opacity="0.3" font-weight="600">12% INCLINE</text>
-<text x="350" y="116" font-family="JetBrains Mono,monospace" font-size="11" fill="#28b8e8" fill-opacity="0.3" font-weight="600">3.5 MPH</text>
-</svg>`,
-pull:`<svg viewBox="0 0 430 190" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect width="430" height="190" fill="#06000e"/>
-<rect width="430" height="190" fill="#9858e8" fill-opacity="0.07"/>
-<circle cx="60" cy="-10" r="150" fill="#9858e8" fill-opacity="0.08"/>
-<circle cx="400" cy="220" r="120" fill="#c080ff" fill-opacity="0.05"/>
-<text x="215" y="145" text-anchor="middle" font-family="Arial Black,sans-serif" font-size="140" font-weight="900" fill="#9858e8" fill-opacity="0.04">PULL</text>
-<line x1="20" y1="175" x2="410" y2="175" stroke="#9858e8" stroke-width="3" stroke-opacity="0.3"/>
-<rect x="30" y="148" width="370" height="16" rx="8" fill="#9858e8" fill-opacity="0.85"/>
-<rect x="18" y="136" width="22" height="40" rx="8" fill="#7828c8" fill-opacity="0.9"/>
-<rect x="10" y="126" width="16" height="60" rx="8" fill="#9858e8" fill-opacity="0.85"/>
-<rect x="390" y="136" width="22" height="40" rx="8" fill="#7828c8" fill-opacity="0.9"/>
-<rect x="404" y="126" width="16" height="60" rx="8" fill="#9858e8" fill-opacity="0.85"/>
-<rect x="42" y="154" width="14" height="28" rx="6" fill="#6018a0" fill-opacity="0.9"/>
-<rect x="374" y="154" width="14" height="28" rx="6" fill="#6018a0" fill-opacity="0.9"/>
-<circle cx="135" cy="28" r="15" fill="#c080ff" fill-opacity="0.85"/>
-<path d="M135 43 L190 66" stroke="#9858e8" stroke-width="12" stroke-linecap="round"/>
-<path d="M190 66 L196 110 L192 148" stroke="#c080ff" stroke-width="11" stroke-linecap="round"/>
-<path d="M190 66 L220 110 L226 148" stroke="#c080ff" stroke-width="11" stroke-linecap="round"/>
-<path d="M135 43 L146 88" stroke="#c080ff" stroke-width="10" stroke-linecap="round"/>
-<path d="M158 55 L166 100" stroke="#c080ff" stroke-width="10" stroke-linecap="round"/>
-<ellipse cx="170" cy="72" rx="28" ry="16" fill="#9858e8" fill-opacity="0.1" transform="rotate(20,170,72)"/>
-<ellipse cx="165" cy="72" rx="22" ry="12" fill="#9858e8" fill-opacity="0.08" transform="rotate(20,165,72)"/>
-</svg>`,
-rest:`<svg viewBox="0 0 430 190" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect width="430" height="190" fill="#01020a"/>
-<rect width="430" height="190" fill="#6b7fa3" fill-opacity="0.05"/>
-<circle cx="300" cy="60" r="90" fill="#8898cc" fill-opacity="0.06"/>
-<text x="215" y="145" text-anchor="middle" font-family="Arial Black,sans-serif" font-size="100" font-weight="900" fill="#6b7fa3" fill-opacity="0.05">RECOVER</text>
-<path d="M300 20 A60 60 0 1 1 300 140 A42 42 0 1 0 300 20Z" fill="#8898cc" fill-opacity="0.82"/>
-<circle cx="50" cy="35" r="3" fill="#c8d4f0" fill-opacity="0.9"/>
-<circle cx="88" cy="18" r="2" fill="#c8d4f0" fill-opacity="0.7"/>
-<circle cx="130" cy="42" r="1.5" fill="#c8d4f0" fill-opacity="0.6"/>
-<circle cx="30" cy="80" r="2" fill="#c8d4f0" fill-opacity="0.5"/>
-<circle cx="70" cy="110" r="1.5" fill="#c8d4f0" fill-opacity="0.6"/>
-<circle cx="110" cy="75" r="1" fill="#c8d4f0" fill-opacity="0.4"/>
-<circle cx="160" cy="20" r="2.5" fill="#c8d4f0" fill-opacity="0.7"/>
-<circle cx="400" cy="40" r="2" fill="#c8d4f0" fill-opacity="0.6"/>
-<circle cx="390" cy="130" r="1.5" fill="#c8d4f0" fill-opacity="0.5"/>
-<circle cx="420" cy="80" r="1" fill="#c8d4f0" fill-opacity="0.4"/>
-<circle cx="140" cy="140" r="1.5" fill="#c8d4f0" fill-opacity="0.5"/>
-<circle cx="60" cy="155" r="1" fill="#c8d4f0" fill-opacity="0.4"/>
-<path d="M400 18 L402 24 L408 26 L402 28 L400 34 L398 28 L392 26 L398 24Z" fill="#d8e2ff" fill-opacity="0.8"/>
-<path d="M150 155 L151.5 160 L156 161.5 L151.5 163 L150 168 L148.5 163 L144 161.5 L148.5 160Z" fill="#d8e2ff" fill-opacity="0.6"/>
-<text x="80" y="170" font-family="JetBrains Mono,monospace" font-size="10" fill="#8898cc" fill-opacity="0.4" font-weight="600" letter-spacing="3">REST · RECOVER · GROW</text>
-</svg>`
-};
 
 const WEEKS=[
  {week:1,theme:"Foundation & Volume",days:[
@@ -2412,7 +2247,7 @@ function renderHome(){
    return `<button class="day-dot" onclick="openDay(${wi},${di})"
     style="${done?'background:'+ts.color+'18;border-color:'+ts.color+'44;':isA&&di===aD?'border-color:var(--border-bright);background:var(--surface3);':''}">
     <div class="dl" style="${done?'color:'+ts.color+';':isA&&di===aD?'color:var(--text2);':''}">${DAYS[di]}</div>
-    <div class="di">${done?ICONS.check:d.icon}</div>
+    <div class="di">${done?ICONS.check:TYPE_ICONS[d.type]||d.icon}</div>
    </button>`;
   }).join('');
   div.innerHTML=`
@@ -2449,12 +2284,6 @@ function renderHome(){
  }
  renderWeekStrip();
  renderCoachCard();
- // Hero visual rings
- const hv = document.getElementById('heroVisual');
- if(hv){
-  const types=[{t:'push',e:'💪',c:'#ff5c35'},{t:'legs',e:'🦵',c:'#00c896'},{t:'cardio',e:'🚶',c:'#28b8e8'},{t:'pull',e:'🏋️',c:'#9858e8'},{t:'rest',e:'🧘',c:'#6b7fa3'}];
-  hv.innerHTML=types.map(x=>`<div class="hero-ring" style="color:${x.c}"><div class="hero-ring-emoji">${x.e}</div><div class="hero-ring-lbl">${x.t}</div></div>`).join('');
- }
  // Missed workout in-app alert
  const mwEl=document.getElementById('missedWorkoutBanner');
  if(mwEl){
@@ -2484,10 +2313,6 @@ function renderWorkout(){
  }
 
  document.getElementById('wdLabel').textContent=`Week ${aW+1} · Day ${aD+1}`;
- const bannerEl = document.getElementById('dayBanner');
- if(bannerEl){
-  bannerEl.innerHTML = `${DAY_BANNERS[day.type]||DAY_BANNERS.rest}<div class="day-banner-overlay"></div><div class="day-banner-badge">${TYPE[day.type]?.label||day.type}</div><div class="day-banner-icon">${day.icon}</div>`;
- }
  document.getElementById('dayTitle').textContent=day.label;
  document.getElementById('pctNum').textContent=pct+'%';
  document.getElementById('pctNum').style.color=pct===100?'#e8ff00':c;
@@ -2511,7 +2336,7 @@ function renderWorkout(){
   const ts2=TYPE[d.type],dp=dayProg(aW,di),isA=di===aD;
   return `<button class="ds-btn" onclick="switchDay(${di})"
    style="border-color:${isA?ts2.color:dp===1?ts2.color+'44':'var(--border)'};background:${isA?ts2.color+'18':dp===1?ts2.color+'0a':'transparent'};color:${isA?ts2.color:dp===1?ts2.color+'99':'var(--muted)'};">
-   <div class="ds-icon">${dp===1?ICONS.check:d.icon}</div><div class="ds-lbl">D${di+1}</div>
+   <div class="ds-icon">${dp===1?ICONS.check:TYPE_ICONS[d.type]||d.icon}</div><div class="ds-lbl">D${di+1}</div>
   </button>`;
  }).join('');
 
@@ -3652,23 +3477,6 @@ function scheduleReminderNotification(){
   },msUntil);
 }
 
-function initParticles(){
- const container=document.getElementById('heroParticles');
- if(!container)return;
- const colors=['#ff5c35','#e6eb00','#9858e8','#00c896','#28b8e8'];
- container.innerHTML='';
- for(let i=0;i<22;i++){
-  const p=document.createElement('div');
-  p.className='ptcl';
-  const size=2+Math.random()*4;
-  const opacity=(0.5+Math.random()*0.3).toFixed(2);
-  const color=colors[Math.floor(Math.random()*colors.length)];
-  const dur=(4+Math.random()*6).toFixed(1);
-  const delay=(Math.random()*8).toFixed(1);
-  p.style.cssText=`width:${size}px;height:${size}px;left:${Math.random()*100}%;bottom:${(Math.random()*40-10)}%;background:${color};opacity:${opacity};animation-duration:${dur}s;animation-delay:${delay}s;`;
-  container.appendChild(p);
- }
-}
 
 // ── INIT — boot from IndexedDB then render ──
 async function boot(){
@@ -3686,7 +3494,6 @@ async function boot(){
  requestNotificationPermission().then(()=>scheduleReminderNotification());
 }
 boot();
-initParticles();
 </script>
 </body>
 </html>
