@@ -415,6 +415,13 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
 .wk-card{transition:transform 0.2s,box-shadow 0.3s,border-color 0.3s;}
 .qa-btn.qa-primary:active{transform:scale(0.97);filter:brightness(1.05);}
 .ex-card.done{transition:all 0.3s;}
+/* SPARKLINE */
+.ex-sparkline{display:flex;align-items:center;margin-top:4px;padding:4px 0;}
+/* MISSED WORKOUT BANNER */
+.missed-banner{display:flex;align-items:center;gap:12px;margin:0 16px 14px;background:#ff5c3512;border:1px solid #ff5c3540;border-radius:16px;padding:14px 16px;}
+.missed-banner-icon{font-size:20px;flex-shrink:0;}
+.missed-banner-text{flex:1;font-size:12px;color:var(--text);line-height:1.4;}
+.missed-banner-btn{flex-shrink:0;padding:8px 14px;border-radius:10px;border:none;background:#ff5c35;color:#fff;font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:1px;cursor:pointer;}
 </style>
 </head>
 <body>
@@ -436,6 +443,7 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
  <div id="quickActions"></div>
  <div id="weekStrip"></div>
  <div id="coachCard"></div>
+ <div id="missedWorkoutBanner" style="display:none;"></div>
 
  <!-- WORKOUT REMINDERS -->
  <div class="reminder-strip">
@@ -663,6 +671,16 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
    <div class="sets-progress" id="setsPips"></div>
   </div>
  </div>
+ <div class="cfg-card" style="margin:12px 16px 0;">
+  <div class="cfg-title">AI COACH — CLAUDE API</div>
+  <div style="font-size:11px;color:var(--muted);margin-bottom:12px;line-height:1.5;">Paste your Anthropic API key. Stored only on this device. Uses Claude Haiku (very low cost).</div>
+  <input id="claudeKeyInput" type="password" placeholder="sk-ant-..." style="width:100%;background:var(--surface2);border:1px solid var(--border-bright);border-radius:12px;color:var(--text);font-size:13px;padding:10px 14px;outline:none;margin-bottom:10px;"/>
+  <div style="display:flex;gap:8px;">
+   <button onclick="saveClaudeKey()" style="flex:1;padding:10px;border-radius:12px;border:none;background:linear-gradient(135deg,#e8ff00,#b8ff00);color:#000;font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:1px;cursor:pointer;">SAVE KEY</button>
+   <button onclick="testClaudeKey()" style="flex:1;padding:10px;border-radius:12px;border:1px solid var(--border-bright);background:var(--surface2);color:var(--text);font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:1px;cursor:pointer;">TEST</button>
+  </div>
+  <div id="claudeKeyStatus" style="font-size:11px;margin-top:8px;color:var(--muted);"></div>
+ </div>
 </div>
 
 <!-- REST TOAST -->
@@ -718,6 +736,8 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
   <div style="font-size:10px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-bottom:14px;">Top PR Lifts</div>
   <div id="topLifts" style="display:flex;flex-direction:column;gap:8px;"></div>
  </div>
+ <!-- BODY WEIGHT -->
+ <div id="bodyWeightSection" style="padding:0 16px 20px;"></div>
 </div>
 
 <!-- MUSCLE MAP SCREEN -->
@@ -1789,6 +1809,7 @@ function navTo(id){
  if(id==='history')renderHistory();
  if(id==='analytics')renderAnalytics();
  if(id==='musclemap'){renderMuscleMap();setMuscleDay(muscleMapMode);}
+ if(id==='timer'){const ki=document.getElementById('claudeKeyInput');if(ki){const k=dbGet('df7-claude-key');if(k)ki.value=k;}}
  window.scrollTo(0,0);
 }
 function goHome(){navTo('home');}
@@ -1914,16 +1935,29 @@ function getMuscleBalanceInsight(){
   return msgs.length?msgs[0]:null;
 }
 
-function renderCoachCard(){
+async function renderCoachCard(){
   const el=document.getElementById('coachCard');
   if(!el)return;
   const insight=getCoachInsight();
   const balance=getMuscleBalanceInsight();
+  // Show rule-based immediately
   el.innerHTML=`<div class="coach-card">
     <div class="coach-header"><span class="coach-label">COACH</span><span class="coach-icon">${insight.icon}</span></div>
-    <div class="coach-msg">"${insight.msg}"</div>
+    <div class="coach-msg" id="coachMsgText">"${insight.msg}"</div>
     ${balance?`<div class="coach-balance">${balance}</div>`:''}
+    ${dbGet('df7-claude-key')?'<div id="aiCoachLoading" style="font-size:10px;color:var(--muted);margin-top:8px;letter-spacing:1px;">⚡ AI COACH LOADING...</div>':''}
   </div>`;
+  // Then try AI upgrade asynchronously
+  if(dbGet('df7-claude-key')){
+    const aiMsg=await refreshAICoach();
+    const msgEl=document.getElementById('coachMsgText');
+    const loadEl=document.getElementById('aiCoachLoading');
+    if(aiMsg&&msgEl){
+      msgEl.textContent=`"${aiMsg}"`;
+      msgEl.style.color='var(--text)';
+    }
+    if(loadEl)loadEl.remove();
+  }
 }
 
 function renderHome(){
@@ -1988,6 +2022,21 @@ function renderHome(){
  }
  renderWeekStrip();
  renderCoachCard();
+ // Missed workout in-app alert
+ const mwEl=document.getElementById('missedWorkoutBanner');
+ if(mwEl){
+   const h2=buildWorkoutHistory();
+   if(h2.daysSinceLast>=3&&h2.total>0){
+     mwEl.innerHTML=`<div class="missed-banner">
+       <div class="missed-banner-icon">⚠️</div>
+       <div class="missed-banner-text"><strong>${h2.daysSinceLast} days offline.</strong> Protocol demands consistency. Don't break the chain.</div>
+       <button class="missed-banner-btn" onclick="openDay(${aW},${aD})">START NOW</button>
+     </div>`;
+     mwEl.style.display='block';
+   } else {
+     mwEl.style.display='none';
+   }
+ }
 }
 
 // ── WORKOUT ──
@@ -2038,6 +2087,23 @@ function renderWorkout(){
   const suggestedBadge=suggested>0&&suggested!==pr?`<div class="ex-pr-badge suggested-badge">↑ Last: ${suggested} lbs</div>`:'';
   const prog=getProgressionInsight(ex.name);
   const progBadge=prog?`<div class="prog-badge prog-${prog.type}">${prog.type==='increase'?'↑':'→'} ${prog.msg}</div>`:'';
+  // Sparkline
+  const history=getProgressionHistory(ex.name);
+  let sparkHtml='';
+  if(history.length>=2){
+    const vals=history.slice(-8).map(e=>e.weight);
+    const mn=Math.min(...vals),mx=Math.max(...vals);
+    const trend=vals[vals.length-1]-vals[0];
+    const trendColor=trend>0?'#00c896':trend<0?'#ff5c35':'var(--muted)';
+    const bars=vals.map(v=>{
+      const h=mn===mx?50:Math.round(10+((v-mn)/(mx-mn))*30);
+      return `<div style="width:6px;height:${h}px;background:${trendColor};border-radius:2px;opacity:0.7;"></div>`;
+    }).join('');
+    sparkHtml=`<div class="ex-sparkline">
+      <div style="display:flex;align-items:flex-end;gap:2px;">${bars}</div>
+      <span style="font-size:9px;color:${trendColor};font-weight:700;margin-left:6px;">${trend>0?'+':''}${trend} lbs</span>
+    </div>`;
+  }
   let sHtml=`<div class="sets-divider"></div>`;
   for(let si=0;si<ex.sets;si++){
    const w=gW(aW,aD,ei,si),sd=gSD(aW,aD,ei,si);
@@ -2060,7 +2126,7 @@ function renderWorkout(){
     <div class="ex-info">
      <div class="ex-name" style="${isDone?'color:'+c+'55;':''}">${ex.name}</div>
      <div class="ex-rec">${ex.reps} reps · ${ex.weight}</div>
-     ${prBadge}${suggestedBadge}${progBadge}
+     ${prBadge}${suggestedBadge}${progBadge}${sparkHtml}
     </div>
     <div class="ex-actions">
      <div class="ex-sets-tag" style="color:${c}66">${ex.sets} sets</div>
@@ -2108,6 +2174,16 @@ function finishWorkout(){
   const pct=dayProg(aW,aD);
   if(pct===0){return;}
   setWDone(aW,aD,new Date().toISOString().split('T')[0]);
+  // Log progression entries for all exercises with weight data
+  const today2=new Date().toISOString().split('T')[0];
+  day.exercises.forEach((ex,ei)=>{
+    let maxW=0;
+    for(let si=0;si<ex.sets;si++){
+      const w=parseFloat(gW(aW,aD,ei,si));
+      if(w>maxW)maxW=w;
+    }
+    if(maxW>0)logProgressionEntry(ex.name,maxW,today2);
+  });
   // Calculate stats
   let totalSets=0,totalLbs=0;
   const prsHit=[];
@@ -2736,6 +2812,49 @@ function renderAnalytics(){
    <div style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:${ts.color}">${e.pr} <span style="font-size:12px;">lbs</span></div>
   </div>`;
  }).join(''):`<div style="font-size:12px;color:var(--muted);font-style:italic;">Log weights to see your top lifts</div>`;
+
+ // Body weight chart
+ const bwHistory=getBodyWeightHistory();
+ const bwEl=document.getElementById('bodyWeightSection');
+ if(bwEl){
+   const today3=new Date().toISOString().split('T')[0];
+   const savedToday=dbGet(bwKey(today3))||'';
+   if(bwHistory.length===0){
+     bwEl.innerHTML=`<div style="font-size:9px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;font-weight:700;margin-bottom:12px;">BODY WEIGHT</div>
+       <div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:16px;">
+         <div style="display:flex;gap:8px;margin-bottom:10px;">
+           <input id="bwInput" type="number" inputmode="decimal" step="0.1" placeholder="e.g. 162.5" value="${savedToday}" style="flex:1;background:var(--surface2);border:1px solid var(--border-bright);border-radius:12px;color:var(--text);font-size:15px;font-weight:600;padding:10px 14px;outline:none;"/>
+           <button onclick="logBWToday()" style="padding:10px 18px;border-radius:12px;border:none;background:linear-gradient(135deg,#e8ff00,#b8ff00);color:#000;font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:1px;cursor:pointer;">LOG</button>
+         </div>
+         <div style="text-align:center;padding:20px 0;font-size:12px;color:var(--muted);">No weight data yet. Log your first entry above.</div>
+       </div>`;
+   } else {
+     const weights=bwHistory.map(e=>e.weight);
+     const mn=Math.min(...weights),mx=Math.max(...weights);
+     const trend=weights[weights.length-1]-weights[0];
+     const trendColor=trend<0?'#00c896':trend>0?'#ff5c35':'var(--muted)';
+     const last=weights[weights.length-1];
+     const recent=bwHistory.slice(-30);
+     const rw=recent.map(e=>e.weight);
+     const rmn=Math.min(...rw),rmx=Math.max(...rw);
+     const bars=recent.map(e=>{
+       const pct=rmn===rmx?50:Math.round(((e.weight-rmn)/(rmx-rmn))*100);
+       return `<div title="${e.date}: ${e.weight} lbs" style="flex:1;min-width:4px;height:${8+Math.round(pct*0.4)}px;background:${trendColor};border-radius:2px 2px 0 0;opacity:0.7;align-self:flex-end;"></div>`;
+     }).join('');
+     bwEl.innerHTML=`<div style="font-size:9px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;font-weight:700;margin-bottom:12px;">BODY WEIGHT</div>
+       <div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:16px;">
+         <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;">
+           <div><div style="font-family:'Bebas Neue',sans-serif;font-size:40px;line-height:1;">${last}</div><div style="font-size:10px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;">Current (lbs)</div></div>
+           <div style="text-align:right;"><div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:${trendColor};">${trend>0?'+':''}${trend.toFixed(1)}</div><div style="font-size:10px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;">vs Start</div></div>
+         </div>
+         <div style="display:flex;align-items:flex-end;gap:2px;height:50px;margin-bottom:14px;">${bars}</div>
+         <div style="display:flex;gap:8px;">
+           <input id="bwInput" type="number" inputmode="decimal" step="0.1" placeholder="Today's weight" value="${savedToday}" style="flex:1;background:var(--surface2);border:1px solid var(--border-bright);border-radius:12px;color:var(--text);font-size:14px;font-weight:600;padding:10px 14px;outline:none;"/>
+           <button onclick="logBWToday()" style="padding:10px 18px;border-radius:12px;border:none;background:linear-gradient(135deg,#e8ff00,#b8ff00);color:#000;font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:1px;cursor:pointer;">LOG</button>
+         </div>
+       </div>`;
+   }
+ }
 }
 
 function drawPieChart(typeCounts){
@@ -2874,6 +2993,182 @@ function shareWorkoutImage(){
  alert('📸 To save as image:\n\n1. Take a screenshot of this screen\n2. Crop to the muscle map area\n\nFull image export coming in a future update!');
 }
 
+// ── BODY WEIGHT TRACKING ──
+function bwKey(date){return 'df7-bw-'+date;}
+function logBodyWeight(w,date){if(w&&!isNaN(parseFloat(w)))dbSet(bwKey(date),String(parseFloat(w).toFixed(1)));}
+function getBodyWeightHistory(){
+  const entries=[];
+  const today=new Date();
+  for(let i=89;i>=0;i--){
+    const d=new Date(today);d.setDate(today.getDate()-i);
+    const ds=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+    const w=dbGet(bwKey(ds));
+    if(w)entries.push({date:ds,weight:parseFloat(w)});
+  }
+  return entries;
+}
+function logBWToday(){
+  const input=document.getElementById('bwInput');
+  if(!input)return;
+  const w=parseFloat(input.value);
+  if(isNaN(w)||w<50||w>500){alert('Enter a valid weight (50–500 lbs).');return;}
+  const today=new Date().toISOString().split('T')[0];
+  logBodyWeight(w,today);
+  renderAnalytics();
+}
+
+// ── PROGRESSIVE OVERLOAD LOG ──
+function poKey(exName,date){return 'df7-po-'+exName.replace(/[^a-zA-Z0-9]/g,'_')+'-'+date;}
+function logProgressionEntry(exName,weight,date){
+  if(!weight||isNaN(parseFloat(weight)))return;
+  dbSet(poKey(exName,date),String(weight));
+}
+function getProgressionHistory(exName){
+  const entries=[];
+  const seen=new Set();
+  WEEKS.forEach((wk,wi)=>wk.days.forEach((day,di)=>{
+    const date=getWDone(wi,di);
+    if(!date)return;
+    day.exercises.forEach((ex,ei)=>{
+      if(ex.name!==exName)return;
+      let maxW=0;
+      for(let si=0;si<ex.sets;si++){
+        const w=parseFloat(gW(wi,di,ei,si));
+        if(w>maxW)maxW=w;
+      }
+      if(maxW>0&&!seen.has(date)){
+        seen.add(date);
+        entries.push({date,weight:maxW});
+      }
+    });
+  }));
+  entries.sort((a,b)=>a.date.localeCompare(b.date));
+  return entries;
+}
+
+// ── CLAUDE AI COACH ──
+let aiCoachCache={msg:null,ts:0};
+const AI_CACHE_TTL=1800000; // 30 min
+
+function saveClaudeKey(){
+  const input=document.getElementById('claudeKeyInput');
+  if(!input)return;
+  const key=input.value.trim();
+  if(!key.startsWith('sk-ant-')){
+    document.getElementById('claudeKeyStatus').textContent='❌ Invalid key format. Should start with sk-ant-';
+    return;
+  }
+  dbSet('df7-claude-key',key);
+  document.getElementById('claudeKeyStatus').textContent='✅ Key saved.';
+  aiCoachCache={msg:null,ts:0};
+}
+
+async function testClaudeKey(){
+  const statusEl=document.getElementById('claudeKeyStatus');
+  statusEl.textContent='Testing...';
+  const result=await getAICoachMessage('Testing connection. Reply with: Connected.');
+  if(result){statusEl.textContent='✅ Connected: '+result.slice(0,60);}
+  else{statusEl.textContent='❌ Failed. Check key and try again.';}
+}
+
+async function getAICoachMessage(prompt){
+  const key=dbGet('df7-claude-key');
+  if(!key)return null;
+  try{
+    const resp=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{
+        'x-api-key':key,
+        'anthropic-version':'2023-06-01',
+        'content-type':'application/json',
+        'anthropic-dangerous-direct-browser-access':'true'
+      },
+      body:JSON.stringify({
+        model:'claude-haiku-4-5-20251001',
+        max_tokens:120,
+        system:"You are Dom's elite personal trainer. Dom: 35yo male, home gym (barbell, bench, GMWD chest press, leg curl/extension machine, treadmill, EZ curl bar, dumbbells, kettlebell, weighted vest). Goals: bigger quads/hamstrings/calves, shredded abs, bigger chest, eliminate visceral fat. Respond in 1-2 punchy sentences. Direct, intense, cinematic. No generic wellness language. Use words like: protocol, session, phase, load, volume, discipline.",
+        messages:[{role:'user',content:prompt}]
+      })
+    });
+    if(!resp.ok)return null;
+    const data=await resp.json();
+    return data.content?.[0]?.text||null;
+  }catch(e){return null;}
+}
+
+async function refreshAICoach(){
+  const now=Date.now();
+  if(aiCoachCache.msg&&now-aiCoachCache.ts<AI_CACHE_TTL)return aiCoachCache.msg;
+  const key=dbGet('df7-claude-key');
+  if(!key)return null;
+  const h=buildWorkoutHistory();
+  const cur=WEEKS[aW]?.days[aD];
+  const contextParts=[
+    `Today is ${new Date().toLocaleDateString('en-US',{weekday:'long'})}`,
+    `Current: Week ${aW+1}, ${cur?.label||'Rest'}`,
+    `Sessions completed: ${h.total}`,
+    `Streak: ${h.streak} days`,
+    `Days since last workout: ${h.daysSinceLast}`,
+    `Recent types (last 7d): Push×${h.recentTypes.push||0} Pull×${h.recentTypes.pull||0} Legs×${h.recentTypes.legs||0} Cardio×${h.recentTypes.cardio||0}`,
+  ];
+  const prompt=`Training context: ${contextParts.join('. ')}. Give me one sharp coaching insight for today's session.`;
+  const msg=await getAICoachMessage(prompt);
+  if(msg){aiCoachCache={msg,ts:now};}
+  return msg;
+}
+
+// ── NOTIFICATIONS ──
+async function requestNotificationPermission(){
+  if(!('Notification' in window))return;
+  if(Notification.permission==='default'){
+    const h=buildWorkoutHistory();
+    if(h.total<1)return;
+    const perm=await Notification.requestPermission();
+    dbSet('df7-notif-perm',perm);
+  }
+}
+
+function checkMissedWorkoutNotification(){
+  if(!('Notification' in window))return;
+  if(Notification.permission!=='granted')return;
+  const h=buildWorkoutHistory();
+  if(h.total===0)return;
+  if(h.daysSinceLast<2)return;
+  const today=new Date().toISOString().split('T')[0];
+  const lastNotif=dbGet('df7-last-notif');
+  if(lastNotif===today)return;
+  dbSet('df7-last-notif',today);
+  const messages=[
+    `${h.daysSinceLast} days offline. The bar doesn't wait. Get back under it.`,
+    `Discipline gap: ${h.daysSinceLast} days. One session resets everything.`,
+    `${h.daysSinceLast} days dark. Your protocol demands consistency.`,
+  ];
+  const msg=messages[Math.floor(Math.random()*messages.length)];
+  new Notification("Dom's Fit Plan — Coach Alert",{
+    body:msg,
+    icon:'/fit_update/icon-192.png',
+    badge:'/fit_update/icon-192.png',
+    tag:'missed-workout',
+  });
+}
+
+function scheduleReminderNotification(){
+  if(!('Notification' in window))return;
+  if(Notification.permission!=='granted')return;
+  const reminderTimeVal=dbGet('df7-rem-time')||'08:00';
+  const [rh,rm]=reminderTimeVal.split(':').map(Number);
+  const now=new Date();
+  const next=new Date(now);
+  next.setHours(rh,rm,0,0);
+  if(next<=now)next.setDate(next.getDate()+1);
+  const msUntil=next-now;
+  clearTimeout(window._reminderTimeout);
+  window._reminderTimeout=setTimeout(()=>{
+    checkMissedWorkoutNotification();
+    scheduleReminderNotification();
+  },msUntil);
+}
+
 // ── INIT — boot from IndexedDB then render ──
 async function boot(){
  await openDB();
@@ -2886,6 +3181,8 @@ async function boot(){
  updateCfgDisplay();
  initReminders();
  renderHome();
+ checkMissedWorkoutNotification();
+ requestNotificationPermission().then(()=>scheduleReminderNotification());
 }
 boot();
 </script>
