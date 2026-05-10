@@ -303,21 +303,6 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
 .wstrip-today{border-color:var(--border-bright);background:var(--surface2);}
 .wstrip-today .wstrip-lbl{color:var(--text);}
 .wstrip-future .wstrip-lbl{opacity:0.35;}
-/* APPLE HEALTH WIDGET */
-.health-widget{margin:0 16px 14px;background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:16px 18px;}
-.health-widget-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
-.health-widget-title{display:flex;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text);}
-.health-connected-dot{width:7px;height:7px;border-radius:50%;background:#00c896;box-shadow:0 0 8px #00c896;animation:pulse 2s infinite;}
-.health-widget-link{font-size:10px;color:var(--muted);font-weight:600;text-decoration:none;cursor:pointer;}
-.health-rings-row{display:flex;align-items:center;gap:14px;}
-.health-ring-stats{flex:1;display:flex;flex-direction:column;gap:8px;}
-.health-ring-stat{display:flex;align-items:center;gap:8px;}
-.health-ring-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
-.health-ring-label{font-size:11px;color:var(--muted);}
-.health-ring-value{font-size:11px;font-weight:700;color:var(--text);margin-left:auto;}
-.health-import-area{text-align:center;padding:8px 0;}
-.health-import-btn{padding:10px 20px;border-radius:12px;border:1px solid var(--border-bright);background:var(--surface2);color:var(--text);font-size:12px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:8px;}
-.health-import-note{font-size:10px;color:var(--muted);margin-top:8px;line-height:1.5;}
 
 /* WSTRIP DATE NUMBER */
 .wstrip-date{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;color:var(--text2);line-height:1;}
@@ -706,7 +691,6 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
  <div id="weekStrip"></div>
  <div id="todayWorkoutCard"></div>
  <div id="activityWidgets"></div>
- <div id="healthWidget"></div>
  <div id="coachCard"></div>
  <div id="missedWorkoutBanner" style="display:none;"></div>
 
@@ -2463,8 +2447,7 @@ function renderActivityWidgets(){
  const daysPct=Math.min(weekDays/daysGoal,1);
  // Readiness score
  const h=buildWorkoutHistory();
- const healthHrv=parseFloat(dbGet('df7-hrv')||'0');
- const healthSleep=parseFloat(dbGet('df7-sleep')||'0');
+
  let score=75;
  if(h.daysSinceLast===0)score=82;
  else if(h.daysSinceLast===1)score=90;
@@ -2474,13 +2457,7 @@ function renderActivityWidgets(){
  if(h.streak>=5)score=Math.min(score+8,99);
  if(h.streak>=3)score=Math.min(score+4,99);
  if(weekDays>=5)score=Math.max(score-10,50);
- // Boost with real HRV data (>50ms = good recovery)
- if(healthHrv>=60)score=Math.min(score+10,99);
- else if(healthHrv>=45)score=Math.min(score+5,99);
- else if(healthHrv>0&&healthHrv<30)score=Math.max(score-8,40);
- // Sleep quality adjustment
- if(healthSleep>=8)score=Math.min(score+5,99);
- else if(healthSleep>0&&healthSleep<6)score=Math.max(score-8,40);
+
  const rLabel=score>=90?'EXCELLENT':score>=80?'PUSH HARD':score>=65?'MODERATE':'RECOVER';
  const rColor=score>=90?'#00c896':score>=80?'#e6eb00':score>=65?'#ff9035':'#ff5c35';
  el.innerHTML=`<div class="home-widgets">
@@ -2659,171 +2636,6 @@ function renderOutdoorRecent(){
 }
 
 
-// ── APPLE HEALTH IMPORT ──────────────────────────────────────────────────────
-const HEALTH_KEY='df7-health-data';
-
-function renderHealthWidget(){
- const el=document.getElementById('healthWidget');
- if(!el)return;
- const raw=dbGet(HEALTH_KEY);
- const data=raw?JSON.parse(raw):null;
- if(!data){
-  el.innerHTML=`<div class="health-widget">
-   <div class="health-widget-header">
-    <div class="health-widget-title">
-     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ff5c35" stroke-width="2" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-     Apple Fitness
-    </div>
-    <span class="health-widget-link" onclick="importHealthData()">Import →</span>
-   </div>
-   <div class="health-import-area">
-    <button class="health-import-btn" onclick="importHealthData()">
-     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17,8 12,3 7,8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-     Import Activity Data
-    </button>
-    <div class="health-import-note">Export from iPhone: <b>Fitness app</b> or <b>Health app</b> → profile → Export All Health Data. Open the ZIP and import export.xml — syncs your Move rings, steps, HRV &amp; sleep.</div>
-   </div>
-  </div>`;
-  return;
- }
- // Show real data
- const today=new Date().toISOString().split('T')[0];
- const isToday=data.lastSyncDate===today||data.lastSyncDate>=(new Date(Date.now()-86400000*2)).toISOString().split('T')[0];
- el.innerHTML=`<div class="health-widget">
-  <div class="health-widget-header">
-   <div class="health-widget-title">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ff5c35" stroke-width="2" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-    <div class="health-connected-dot"></div>Apple Fitness
-   </div>
-   <span class="health-widget-link" onclick="importHealthData()">Update →</span>
-  </div>
-  <div class="health-rings-row">
-   <canvas id="healthRingsCanvas" width="90" height="90"></canvas>
-   <div class="health-ring-stats">
-    <div class="health-ring-stat">
-     <div class="health-ring-dot" style="background:#ff5c35;box-shadow:0 0 6px #ff5c3560;"></div>
-     <span class="health-ring-label">Move</span>
-     <span class="health-ring-value">${Math.round(data.activeCal)} cal</span>
-    </div>
-    <div class="health-ring-stat">
-     <div class="health-ring-dot" style="background:#00c896;box-shadow:0 0 6px #00c89660;"></div>
-     <span class="health-ring-label">Exercise</span>
-     <span class="health-ring-value">${data.exerciseMin} min</span>
-    </div>
-    <div class="health-ring-stat">
-     <div class="health-ring-dot" style="background:#28b8e8;box-shadow:0 0 6px #28b8e860;"></div>
-     <span class="health-ring-label">Steps</span>
-     <span class="health-ring-value">${(data.steps/1000).toFixed(1)}k</span>
-    </div>
-    ${data.hrv>0?`<div class="health-ring-stat">
-     <div class="health-ring-dot" style="background:#9858e8;box-shadow:0 0 6px #9858e860;"></div>
-     <span class="health-ring-label">HRV</span>
-     <span class="health-ring-value">${Math.round(data.hrv)} ms</span>
-    </div>`:''}
-   </div>
-  </div>
-  ${data.lastSyncDate?`<div style="font-size:10px;color:var(--muted);margin-top:10px;text-align:right;">Synced ${data.lastSyncDate}</div>`:''}
- </div>`;
- // Draw health rings
- setTimeout(()=>{
-  const c=document.getElementById('healthRingsCanvas');
-  if(!c)return;
-  const ctx=c.getContext('2d');
-  const cx=45,cy=45;
-  const calGoal=500,minGoal=60,stepsGoal=10000;
-  const rings=[
-   {pct:Math.min(data.activeCal/calGoal,1),color:'#ff5c35',track:'#ff5c3520',r:40},
-   {pct:Math.min(data.exerciseMin/minGoal,1),color:'#00c896',track:'#00c89620',r:30},
-   {pct:Math.min(data.steps/stepsGoal,1),color:'#28b8e8',track:'#28b8e820',r:20},
-  ];
-  ctx.clearRect(0,0,90,90);
-  rings.forEach(({pct,color,track,r})=>{
-   ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.strokeStyle=track;ctx.lineWidth=6;ctx.lineCap='round';ctx.stroke();
-   if(pct>0){ctx.beginPath();ctx.arc(cx,cy,r,-Math.PI/2,-Math.PI/2+Math.PI*2*pct);ctx.strokeStyle=color;ctx.lineWidth=6;ctx.lineCap='round';ctx.stroke();}
-  });
- },50);
-}
-
-function importHealthData(){
- const input=document.createElement('input');
- input.type='file';
- input.accept='.xml,.zip';
- input.onchange=async e=>{
-  const file=e.target.files[0];
-  if(!file)return;
-  try{
-   let text='';
-   if(file.name.endsWith('.zip')){
-    alert('Please open the ZIP file and import the export.xml file directly.');
-    return;
-   }
-   text=await file.text();
-   const parsed=parseHealthXML(text);
-   if(!parsed){alert('Could not read activity data. Select export.xml from your Apple Health/Fitness export ZIP.');return;}
-   dbSet(HEALTH_KEY,JSON.stringify(parsed));
-   renderHealthWidget();
-   // Update readiness with HRV if available
-   if(parsed.hrv>0){dbSet('df7-hrv',parsed.hrv);}
-   if(parsed.sleepHrs>0){dbSet('df7-sleep',parsed.sleepHrs);}
-   renderActivityWidgets();
-   alert('✅ Apple Fitness data synced! '+parsed.days+' days of data synced.');
-  }catch(err){alert('❌ Could not parse health data: '+err.message);}
- };
- input.click();
-}
-
-function parseHealthXML(xmlText){
- const parser=new DOMParser();
- const doc=parser.parseFromString(xmlText,'text/xml');
- if(doc.querySelector('parsererror'))return null;
- const today=new Date();
- const cutoff=new Date(today);cutoff.setDate(today.getDate()-30);
- const cutoffStr=cutoff.toISOString().split('T')[0];
- let activeCal=0,steps=0,hrv=0,hrvCount=0,sleepMin=0,exerciseMin=0,days=0;
- const calDates=new Set();
- doc.querySelectorAll('Record').forEach(r=>{
-  const type=r.getAttribute('type')||'';
-  const start=r.getAttribute('startDate')||'';
-  const dateStr=start.slice(0,10);
-  if(dateStr<cutoffStr)return;
-  const val=parseFloat(r.getAttribute('value')||'0');
-  if(type==='HKQuantityTypeIdentifierActiveEnergyBurned'){activeCal+=val;calDates.add(dateStr);}
-  else if(type==='HKQuantityTypeIdentifierStepCount'){steps+=val;}
-  else if(type==='HKQuantityTypeIdentifierHeartRateVariabilitySDNN'){hrv+=val;hrvCount++;}
-  else if(type==='HKCategoryTypeIdentifierSleepAnalysis'){
-   const v=r.getAttribute('value')||'';
-   if(v.includes('Asleep')||v.includes('InBed')){
-    const endDate=r.getAttribute('endDate')||'';
-    if(start&&endDate){
-     const diffMs=new Date(endDate)-new Date(start);
-     sleepMin+=diffMs/60000;
-    }
-   }
-  }
- });
- // Workouts for exercise minutes
- doc.querySelectorAll('Workout').forEach(w=>{
-  const start=w.getAttribute('startDate')||'';
-  if(start.slice(0,10)<cutoffStr)return;
-  const dur=parseFloat(w.getAttribute('duration')||'0');
-  const unit=w.getAttribute('durationUnit')||'min';
-  exerciseMin+=unit==='min'?dur:dur/60;
- });
- days=calDates.size;
- const dailyCal=days>0?activeCal/days:0;
- const dailySteps=days>0?steps/days:0;
- const avgHrv=hrvCount>0?hrv/hrvCount:0;
- const avgSleepHrs=days>0?(sleepMin/days)/60:0;
- return{
-  activeCal:Math.round(dailyCal),
-  steps:Math.round(dailySteps),
-  exerciseMin:Math.round(days>0?exerciseMin/days:0),
-  hrv:Math.round(avgHrv),
-  sleepHrs:Math.round(avgSleepHrs*10)/10,
-  days,
-  lastSyncDate:today.toISOString().split('T')[0]
- };
-}
 
 
 function renderHome(){
@@ -2890,7 +2702,6 @@ function renderHome(){
  renderWeekStrip();
  renderTodayCard();
  renderActivityWidgets();
- renderHealthWidget();
  renderCoachCard();
  // Missed workout in-app alert
  const mwEl=document.getElementById('missedWorkoutBanner');
