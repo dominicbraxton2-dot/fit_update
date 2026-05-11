@@ -1473,7 +1473,7 @@ const WORKOUT_TYPE_IMGS={
 };
 function getWorkoutHero(type){
   const src=WORKOUT_TYPE_IMGS[type]||WORKOUT_TYPE_IMGS.rest;
-  return `<img src="${src}" alt="${type}" style="width:100%;height:260px;object-fit:cover;object-position:center 20%;display:block;" loading="lazy"/>`;
+  return `<img src="${src}" alt="${type}" style="width:100%;height:auto;display:block;" loading="lazy"/>`;
 }
 const WORKOUT_IMGS=[];// kept for compatibility, heroes now type-based
 const DAY_ICONS=[];// kept for compatibility, TYPE_ICONS used instead
@@ -2598,7 +2598,7 @@ function renderTodayCard(){
  const ts=TYPE[day.type]||TYPE.push;
  const stats=calcWorkoutStats(aW,aD);
  const heroSrc=WORKOUT_TYPE_IMGS[WEEKS[aW].days[aD].type]||WORKOUT_TYPE_IMGS.rest;
-const img=`<div class="today-card-img"><img src="${heroSrc}" alt="" loading="lazy" style="width:100%;height:180px;object-fit:cover;object-position:center 20%;display:block;"/></div>`;
+const img=`<div class="today-card-img"><img src="${heroSrc}" alt="" loading="lazy" style="width:100%;height:auto;display:block;"/></div>`;
  const dp=dayProg(aW,aD);
  const done=dp===1;
  const muscles=[...new Set(WEEKS[aW].days[aD].exercises.flatMap(ex=>MUSCLE_MAP[ex.name]||[]).map(m=>MUSCLE_NAMES[m]).filter(Boolean))].slice(0,4);
