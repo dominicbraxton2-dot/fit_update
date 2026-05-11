@@ -312,7 +312,7 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
 
 /* TODAY WORKOUT CARD */
 .today-card{margin:0 16px 14px;border-radius:24px;overflow:hidden;position:relative;background:var(--surface);border:1px solid var(--border-bright);box-shadow:0 4px 32px rgba(0,0,0,0.5);}
-.today-card-img{width:100%;height:190px;object-fit:cover;object-position:center;display:block;}
+.today-card-img{width:100%;max-height:200px;object-fit:contain;object-position:center;display:block;background:#0d1117;}
 .today-card-overlay{position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(to bottom,transparent 30%,rgba(0,0,0,0.85) 100%);pointer-events:none;}
 .today-card-badge{position:absolute;top:14px;left:14px;background:rgba(0,0,0,0.6);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.15);border-radius:100px;padding:4px 12px;font-size:9px;letter-spacing:3px;color:#fff;text-transform:uppercase;font-weight:700;}
 .today-card-body{padding:14px 16px 16px;}
@@ -710,6 +710,12 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
 /* ── 8-TAB NAV ── */
 .nav-bar{gap:0;}
 .nav-btn{font-size:6px!important;padding:6px 2px 4px!important;}
+
+/* ── EXERCISE DB GIF ── */
+.ex-gif-wrap{margin:0 16px 12px;border-radius:14px;overflow:hidden;background:#0d1117;text-align:center;max-height:200px;display:flex;align-items:center;justify-content:center;}
+.ex-gif-wrap img{max-width:100%;max-height:200px;object-fit:contain;display:block;}
+.ex-gif-btn{display:inline-flex;align-items:center;gap:6px;font-size:10px;letter-spacing:2px;color:var(--muted);background:none;border:1px solid var(--border);border-radius:8px;padding:4px 10px;cursor:pointer;margin:0 16px 10px;}
+.ex-gif-btn:active{background:var(--surface2);}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
 </head>
@@ -791,7 +797,7 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
  </div>
  <div class="day-strip" id="dayStrip"></div>
  <div class="w-prog-bar"><div class="w-prog-fill" id="progFill"></div></div>
- <div id="workoutPhoto" style="margin:12px 16px 0;border-radius:20px;overflow:hidden;display:none;"><img id="workoutPhotoImg" src="" style="width:100%;height:220px;object-fit:cover;object-position:top;display:block;" alt=""/></div>
+ <div id="workoutPhoto" style="margin:12px 16px 0;border-radius:20px;overflow:hidden;display:none;"><img id="workoutPhotoImg" src="" style="width:100%;max-height:260px;object-fit:contain;object-position:center;display:block;background:#0d1117;" alt=""/></div>
  <div id="dayNoteCard" class="day-note-card">
   <div class="note-label">Coach's Note</div>
   <div class="note-text" id="dayNoteText"></div>
@@ -972,6 +978,16 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
    <button onclick="testClaudeKey()" style="flex:1;padding:10px;border-radius:12px;border:1px solid var(--border-bright);background:var(--surface2);color:var(--text);font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:1px;cursor:pointer;">TEST</button>
   </div>
   <div id="claudeKeyStatus" style="font-size:11px;margin-top:8px;color:var(--muted);"></div>
+ </div>
+ <div class="cfg-card" style="margin:12px 16px 0;">
+  <div class="cfg-title">EXERCISE GIFS — EXERCISEDB</div>
+  <div style="font-size:11px;color:var(--muted);margin-bottom:12px;line-height:1.5;">Free RapidAPI key unlocks animated GIFs for every exercise. Get one free at rapidapi.com/justin-WFnsXH_t6/api/exercisedb</div>
+  <input id="rapidApiKeyInput" type="password" placeholder="Your RapidAPI key..." style="width:100%;background:var(--surface2);border:1px solid var(--border-bright);border-radius:12px;color:var(--text);font-size:13px;padding:10px 14px;outline:none;margin-bottom:10px;"/>
+  <div style="display:flex;gap:8px;">
+   <button onclick="saveRapidKey()" style="flex:1;padding:10px;border-radius:12px;border:none;background:linear-gradient(135deg,#e8ff00,#b8ff00);color:#000;font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:1px;cursor:pointer;">SAVE KEY</button>
+   <button onclick="clearExGifCache()" style="flex:1;padding:10px;border-radius:12px;border:1px solid var(--border-bright);background:var(--surface2);color:var(--text);font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:1px;cursor:pointer;">CLEAR CACHE</button>
+  </div>
+  <div id="rapidKeyStatus" style="font-size:11px;margin-top:8px;color:var(--muted);"></div>
  </div>
 </div>
 
@@ -1237,6 +1253,11 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
 <div id="completionOverlay" style="display:none;position:fixed;inset:0;background:#00000095;backdrop-filter:blur(12px);z-index:500;align-items:center;justify-content:center;padding:20px;" onclick="closeCompletion()"></div>
 
 <script>
+function localDateStr(d){
+  const t=d||new Date();
+  return t.getFullYear()+'-'+String(t.getMonth()+1).padStart(2,'0')+'-'+String(t.getDate()).padStart(2,'0');
+}
+
 const ICONS={
   home:`<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5L10 3l7 6.5V17a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M8 18v-5h4v5"/></svg>`,
   workout:`<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="8" width="3" height="5" rx="1"/><rect x="16" y="8" width="3" height="5" rx="1"/><rect x="4" y="9.5" width="2" height="2" rx="0.5"/><rect x="14" y="9.5" width="2" height="2" rx="0.5"/><line x1="6" y1="10.5" x2="14" y2="10.5"/></svg>`,
@@ -2236,7 +2257,7 @@ function exportData(){
  const url=URL.createObjectURL(blob);
  const a=document.createElement('a');
  a.href=url;
- a.download=`domfit-backup-${new Date().toISOString().split('T')[0]}.json`;
+ a.download=`domfit-backup-${localDateStr()}.json`;
  a.click();
  URL.revokeObjectURL(url);
 }
@@ -2341,7 +2362,7 @@ function navTo(id){
  if(id==='analytics'){renderAnalytics();setTimeout(populateProgressPicker,50);}
  if(id==='nutrition')renderNutrition();
  if(id==='musclemap'){renderMuscleMap();setMuscleDay(muscleMapMode);}
- if(id==='timer'){const ki=document.getElementById('claudeKeyInput');if(ki){const k=dbGet('df7-claude-key');if(k)ki.value=k;}}
+ if(id==='timer'){const ki=document.getElementById('claudeKeyInput');if(ki){const k=dbGet('df7-claude-key');if(k)ki.value=k;}const ri=document.getElementById('rapidApiKeyInput');if(ri){const rk=dbGet('df7-rapidapi-key');if(rk)ri.value=rk;}}
  window.scrollTo(0,0);
 }
 function goHome(){navTo('home');}
@@ -2357,7 +2378,7 @@ function getPhase(wi){return PHASES.find(p=>p.weeks.includes(wi));}
 
 function renderWeekStrip(){
  const today=new Date();
- const todayStr=today.toISOString().split('T')[0];
+ const todayStr=todaylocalDateStr(new Date());
  const completedDates=new Set();
  WEEKS.forEach((wk,wi)=>wk.days.forEach((_,di)=>{const d=getWDone(wi,di);if(d)completedDates.add(d);}));
  const dow=today.getDay();
@@ -2414,7 +2435,7 @@ function getSuggestedWeight(exName){
 }
 
 function buildWorkoutHistory(){
-  const today=new Date().toISOString().split('T')[0];
+  const today=localDateStr();
   const completedDates={};
   const recentTypes={};
   let lastDate=null;
@@ -2526,7 +2547,7 @@ function renderActivityWidgets(){
  if(!el)return;
  // Calculate weekly stats
  const today=new Date();
- const todayStr=today.toISOString().split('T')[0];
+ const todayStr=todaylocalDateStr(new Date());
  let weekCal=0,weekMin=0,weekDays=0;
  const weekStart=new Date(today);weekStart.setDate(today.getDate()-today.getDay());
  WEEKS.forEach((wk,wi)=>wk.days.forEach((day,di)=>{
@@ -2707,7 +2728,7 @@ function toggleOutdoorSession(){
    const dist=getTotalDist();
    const elapsed=Math.floor((Date.now()-outdoorStartTime)/1000);
    const sessions=JSON.parse(dbGet(OUTDOOR_SESSIONS_KEY)||'[]');
-   sessions.unshift({mode:outdoorMode,dist:dist.toFixed(2),dur:elapsed,date:new Date().toISOString().split('T')[0]});
+   sessions.unshift({mode:outdoorMode,dist:dist.toFixed(2),dur:elapsed,date:localDateStr()});
    dbSet(OUTDOOR_SESSIONS_KEY,JSON.stringify(sessions.slice(0,20)));
    renderOutdoorRecent();
   }
@@ -2785,7 +2806,7 @@ function renderHome(){
  // Quick Actions bar
  const qa=document.getElementById('quickActions');
  if(qa){
-  const today=new Date().toISOString().split('T')[0];
+  const today=localDateStr();
   const allD={};WEEKS.forEach((wk,wi)=>wk.days.forEach((_,di)=>{const d=getWDone(wi,di);if(d)allD[d]=true;}));
   const str=calcStreak(allD,today);
   qa.innerHTML=`<div class="qa-bar">
@@ -2825,7 +2846,7 @@ function renderWorkout(){
 
  // Auto-mark day complete with today's date
  if(pct>=50 && !getWDone(aW,aD)){
-  setWDone(aW,aD,new Date().toISOString().split('T')[0]);
+  setWDone(aW,aD,localDateStr());
  }
 
  document.getElementById('wdLabel').textContent=`Week ${aW+1} · Day ${aD+1}`;
@@ -2923,6 +2944,8 @@ function renderWorkout(){
      </div>
     </div>
    </div>
+   <button class="ex-gif-btn" onclick="toggleExGif(${ei},'${ex.name.replace(/'/g,\"\\'\")}')">▶ SHOW FORM GIF</button>
+   <div class="ex-gif-wrap" id="exgif-${ei}" style="display:none;margin:0 16px 12px;"></div>
    <div class="sets-area">${sHtml}</div>
   </div>`;
  }).join('');
@@ -2966,9 +2989,9 @@ function finishWorkout(){
   const day=WEEKS[aW].days[aD];
   const pct=dayProg(aW,aD);
   if(pct===0){return;}
-  setWDone(aW,aD,new Date().toISOString().split('T')[0]);
+  setWDone(aW,aD,localDateStr());
   // Log progression entries for all exercises with weight data
-  const today2=new Date().toISOString().split('T')[0];
+  const today2=localDateStr();
   day.exercises.forEach((ex,ei)=>{
     let maxW=0;
     for(let si=0;si<ex.sets;si++){
@@ -3070,7 +3093,7 @@ function renderCalendar(){
  const firstDay=new Date(calYear,calMonth,1).getDay();
  const daysInMonth=new Date(calYear,calMonth+1,0).getDate();
  const today=new Date();
- const todayStr=today.toISOString().split('T')[0];
+ const todayStr=todaylocalDateStr(new Date());
  document.getElementById('calMonthLabel').textContent=`${MONTH_NAMES[calMonth].toUpperCase()} ${calYear}`;
 
  // Build a map of date -> workout info from program start
@@ -3524,7 +3547,7 @@ function renderAnalytics(){
   return;
  }
  // Stats row — 6 tiles in 3x2 grid
- const today=new Date().toISOString().split('T')[0];
+ const today=localDateStr();
  const allDates={};
  WEEKS.forEach((wk,wi)=>wk.days.forEach((_,di)=>{const d=getWDone(wi,di);if(d)allDates[d]=true;}));
  const streak=calcStreak(allDates,today);
@@ -3610,7 +3633,7 @@ function renderAnalytics(){
  const bwHistory=getBodyWeightHistory();
  const bwEl=document.getElementById('bodyWeightSection');
  if(bwEl){
-   const today3=new Date().toISOString().split('T')[0];
+   const today3=localDateStr();
    const savedToday=dbGet(bwKey(today3))||'';
    if(bwHistory.length===0){
      bwEl.innerHTML=`<div style="font-size:9px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;font-weight:700;margin-bottom:12px;">BODY WEIGHT</div>
@@ -3710,7 +3733,7 @@ function getMusclesForDay(wi,di){
 
 function getMusclesForRange(mode){
  const muscles=new Set();
- const todayStr=new Date().toISOString().split('T')[0];
+ const todayStr=localDateStr();
  if(mode==='today'){
   WEEKS.forEach((wk,wi)=>wk.days.forEach((_,di)=>{
    if(getWDone(wi,di)===todayStr) getMusclesForDay(wi,di).forEach(m=>muscles.add(m));
@@ -3825,7 +3848,7 @@ function logBWToday(){
   if(!input)return;
   const w=parseFloat(input.value);
   if(isNaN(w)||w<50||w>500){alert('Enter a valid weight (50–500 lbs).');return;}
-  const today=new Date().toISOString().split('T')[0];
+  const today=localDateStr();
   logBodyWeight(w,today);
   renderAnalytics();
 }
@@ -3947,7 +3970,7 @@ function checkMissedWorkoutNotification(){
   const h=buildWorkoutHistory();
   if(h.total===0)return;
   if(h.daysSinceLast<2)return;
-  const today=new Date().toISOString().split('T')[0];
+  const today=localDateStr();
   const lastNotif=dbGet('df7-last-notif');
   if(lastNotif===today)return;
   dbSet('df7-last-notif',today);
@@ -4167,6 +4190,58 @@ function renderNutrition(){
      <div class="food-logged-kcal">${e.kcal} kcal</div>
      <button class="food-logged-del" onclick="deleteFoodLog(${i})">✕</button>
     </div>`).join('');
+}
+
+
+// ── EXERCISEDB GIF INTEGRATION ──
+function saveRapidKey(){
+  const k=(document.getElementById('rapidApiKeyInput').value||'').trim();
+  if(!k){document.getElementById('rapidKeyStatus').textContent='Paste your key first.';return;}
+  dbSet('df7-rapidapi-key',k);
+  document.getElementById('rapidKeyStatus').textContent='Saved! GIFs will load on your next workout.';
+  setTimeout(()=>{document.getElementById('rapidKeyStatus').textContent='';},3000);
+}
+function clearExGifCache(){
+  const keys=Object.keys(localStorage).filter(k=>k.startsWith('df7-exgif-'));
+  keys.forEach(k=>localStorage.removeItem(k));
+  dbSet('df7-exgif-cache',{});
+  document.getElementById('rapidKeyStatus').textContent=`Cleared ${keys.length} cached GIFs.`;
+  setTimeout(()=>{document.getElementById('rapidKeyStatus').textContent='';},2500);
+}
+async function fetchExGif(exName){
+  const apiKey=dbGet('df7-rapidapi-key');
+  if(!apiKey) return null;
+  const cacheKey='df7-exgif-'+exName.toLowerCase().replace(/[^a-z0-9]/g,'-');
+  const cached=dbGet(cacheKey);
+  if(cached) return cached;
+  try{
+    const slug=encodeURIComponent(exName.toLowerCase());
+    const r=await fetch(`https://exercisedb.p.rapidapi.com/exercises/name/${slug}?limit=1`,{
+      headers:{'X-RapidAPI-Key':apiKey,'X-RapidAPI-Host':'exercisedb.p.rapidapi.com'}
+    });
+    if(!r.ok) return null;
+    const data=await r.json();
+    const gif=(data[0]&&data[0].gifUrl)||null;
+    if(gif) dbSet(cacheKey,gif);
+    return gif;
+  }catch{return null;}
+}
+function toggleExGif(ei, exName){
+  const wrap=document.getElementById('exgif-'+ei);
+  if(!wrap) return;
+  if(wrap.style.display==='block'){wrap.style.display='none';return;}
+  if(wrap.dataset.loaded==='1'){wrap.style.display='block';return;}
+  wrap.style.display='block';
+  wrap.innerHTML='<div style="padding:20px;color:var(--muted);font-size:12px;">Loading GIF…</div>';
+  fetchExGif(exName).then(url=>{
+    if(url){
+      wrap.innerHTML=`<img src="${url}" alt="${exName}" loading="lazy"/>`;
+      wrap.dataset.loaded='1';
+    } else {
+      wrap.innerHTML='<div style="padding:12px;color:var(--muted);font-size:11px;">No GIF found. Add your RapidAPI key in Timer tab to enable.</div>';
+      setTimeout(()=>{wrap.style.display='none';},3000);
+    }
+  });
 }
 
 async function boot(){
