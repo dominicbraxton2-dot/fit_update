@@ -1472,11 +1472,9 @@ const WORKOUT_TYPE_IMGS={
   rest:   '1FF470AF-B82D-4A05-B87C-EB0FAF1F83D4.png',   // couch recover  1402×1122
 };
 // Portrait shots need top-anchoring so the subject isn't cropped out
-const WORKOUT_IMG_POS={push:'center center',pull:'center 30%',legs:'center 25%',cardio:'center 20%',rest:'center center'};
 function getWorkoutHero(type){
   const src=WORKOUT_TYPE_IMGS[type]||WORKOUT_TYPE_IMGS.rest;
-  const pos=WORKOUT_IMG_POS[type]||'center center';
-  return `<img src="${src}" alt="${type}" style="width:100%;height:260px;object-fit:cover;object-position:${pos};display:block;" loading="lazy"/>`;
+  return `<img src="${src}" alt="${type}" style="width:100%;height:auto;max-height:320px;object-fit:cover;object-position:center top;display:block;" loading="lazy"/>`;
 }
 const WORKOUT_IMGS=[];// kept for compatibility, heroes now type-based
 const DAY_ICONS=[];// kept for compatibility, TYPE_ICONS used instead
@@ -2601,8 +2599,7 @@ function renderTodayCard(){
  const ts=TYPE[day.type]||TYPE.push;
  const stats=calcWorkoutStats(aW,aD);
  const heroSrc=WORKOUT_TYPE_IMGS[WEEKS[aW].days[aD].type]||WORKOUT_TYPE_IMGS.rest;
-const heroPos=WORKOUT_IMG_POS[WEEKS[aW].days[aD].type]||'center center';
-const img=`<div class="today-card-img"><img src="${heroSrc}" alt="" loading="lazy" style="width:100%;height:200px;object-fit:cover;object-position:${heroPos};display:block;"/></div>`;
+const img=`<div class="today-card-img"><img src="${heroSrc}" alt="" loading="lazy" style="width:100%;height:auto;max-height:240px;object-fit:cover;object-position:center top;display:block;"/></div>`;
  const dp=dayProg(aW,aD);
  const done=dp===1;
  const muscles=[...new Set(WEEKS[aW].days[aD].exercises.flatMap(ex=>MUSCLE_MAP[ex.name]||[]).map(m=>MUSCLE_NAMES[m]).filter(Boolean))].slice(0,4);
