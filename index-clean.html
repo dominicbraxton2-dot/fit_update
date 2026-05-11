@@ -1463,18 +1463,17 @@ const TYPE_ICONS={
 
 // Day-of-week icons: 0=Mon, 1=Tue, 2=Wed, 3=Thu, 4=Fri, 5=Sat, 6=Sun
 
-// ── WORKOUT HERO IMAGES (high-res PNGs from repo) ──
+// ── WORKOUT HERO IMAGES (16:9 PNGs) ──
 const WORKOUT_TYPE_IMGS={
-  push:   'A423BF6A-B845-4EFF-8CB2-D91ECF74F2D6.png',   // bench press   1402×1122
-  pull:   'CEBF1236-EB12-4A66-8058-54EB35CA421D.png',   // lat pulldown  1402×1122
-  legs:   '34F01AD2-8CA9-4624-84CD-BB2868891D0C.png',   // barbell squat 1122×1402
-  cardio: 'A0DDE676-64BC-46A5-A441-9BD81ABBDBC7.png',   // treadmill run 1122×1402
-  rest:   '1FF470AF-B82D-4A05-B87C-EB0FAF1F83D4.png',   // couch recover  1402×1122
+  push:   'DEB4570E-A5F1-45F1-9C23-9D4314ECF7A1.png',
+  pull:   '6940A5D0-8FD6-4A4C-B81A-3FEF7E475F87.png',
+  legs:   '8F13E32F-E851-4760-BB0B-D3F7516C1679.png',
+  cardio: 'DE929183-18EE-4090-BB0D-0F715923F98C.png',
+  rest:   'BE009D44-278F-457E-BA72-6AFC95405B14.png',
 };
-// Portrait shots need top-anchoring so the subject isn't cropped out
 function getWorkoutHero(type){
   const src=WORKOUT_TYPE_IMGS[type]||WORKOUT_TYPE_IMGS.rest;
-  return `<img src="${src}" alt="${type}" style="width:100%;height:auto;max-height:320px;object-fit:cover;object-position:center top;display:block;" loading="lazy"/>`;
+  return `<img src="${src}" alt="${type}" style="width:100%;height:auto;display:block;" loading="lazy"/>`;
 }
 const WORKOUT_IMGS=[];// kept for compatibility, heroes now type-based
 const DAY_ICONS=[];// kept for compatibility, TYPE_ICONS used instead
@@ -2599,7 +2598,7 @@ function renderTodayCard(){
  const ts=TYPE[day.type]||TYPE.push;
  const stats=calcWorkoutStats(aW,aD);
  const heroSrc=WORKOUT_TYPE_IMGS[WEEKS[aW].days[aD].type]||WORKOUT_TYPE_IMGS.rest;
-const img=`<div class="today-card-img"><img src="${heroSrc}" alt="" loading="lazy" style="width:100%;height:auto;max-height:240px;object-fit:cover;object-position:center top;display:block;"/></div>`;
+const img=`<div class="today-card-img"><img src="${heroSrc}" alt="" loading="lazy" style="width:100%;height:auto;display:block;"/></div>`;
  const dp=dayProg(aW,aD);
  const done=dp===1;
  const muscles=[...new Set(WEEKS[aW].days[aD].exercises.flatMap(ex=>MUSCLE_MAP[ex.name]||[]).map(m=>MUSCLE_NAMES[m]).filter(Boolean))].slice(0,4);
