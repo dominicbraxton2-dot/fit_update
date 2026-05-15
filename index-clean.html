@@ -2282,6 +2282,7 @@ function navTo(id){
  if(id==='history')renderHistory();
  if(id==='analytics')renderAnalytics();
  if(id==='musclemap'){renderMuscleMap();setMuscleDay(muscleMapMode);}
+ if(id==='nutrition')renderNutrition();
  if(id==='timer'){const ki=document.getElementById('claudeKeyInput');if(ki){const k=dbGet('df7-claude-key');if(k)ki.value=k;}}
  window.scrollTo(0,0);
 }
@@ -3121,6 +3122,99 @@ function savePREdit(){
  if(notes)dbSet(prNotesKey(_prEditName),notes); else dbDel(prNotesKey(_prEditName));
  closePREdit();
  renderPRs();
+}
+
+
+// ── NUTRITION ──
+let nutDate=''; // YYYY-MM-DD, local timezone
+
+function nutLocalToday(){
+ const d=new Date();
+ return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+}
+function nutKey(date){return`df7-nut-${date}`;}
+function nutGoalKey(){return'df7-nut-goal';}
+function getNutLog(date){try{return JSON.parse(dbGet(nutKey(date))||'[]');}catch{return[];}}
+function setNutLog(date,arr){dbSet(nutKey(date),JSON.stringify(arr));}
+function getNutGoal(){return parseInt(dbGet(nutGoalKey()),10)||1800;}
+function setNutGoal(g){dbSet(nutGoalKey(),String(g));}
+
+function nutTotals(log){
+ return log.reduce((a,e)=>({cal:a.cal+(+e.cal||0),protein:a.protein+(+e.protein||0),carbs:a.carbs+(+e.carbs||0),fat:a.fat+(+e.fat||0)}),{cal:0,protein:0,carbs:0,fat:0});
+}
+
+function renderNutrition(){
+ if(!nutDate)nutDate=nutLocalToday();
+ const log=getNutLog(nutDate);
+ const tot=nutTotals(log);
+ const goal=getNutGoal();
+
+ // Date label
+ const [y,m,d]=nutDate.split('-').map(Number);
+ const dn=new Date(y,m-1,d);
+ const todayStr=nutLocalToday();
+ const lbl=nutDate===todayStr?'Today':dn.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
+ const el=document.getElementById('nutDateLbl');if(el)el.textContent=lbl;
+
+ // Calorie ring
+ const CIRC=251.2;
+ const pct=Math.min(tot.cal/goal,1);
+ const ring=document.getElementById('nutCalRing');
+ if(ring)ring.style.strokeDashoffset=String(CIRC*(1-pct));
+ const ringColor=tot.cal>goal?'#ff5c35':'var(--yellow)';
+ if(ring)ring.style.stroke=ringColor;
+ const numEl=document.getElementById('nutCalNum');if(numEl)numEl.textContent=tot.cal;
+ const goalEl=document.getElementById('nutCalGoalLbl');if(goalEl)goalEl.textContent=`Goal: ${goal} kcal`;
+
+ // Macro bars (protein goal: 180g, carbs: 180g, fat: 60g for 1800 cal)
+ const macroGoals={protein:180,carbs:180,fat:60};
+ ['protein','carbs','fat'].forEach(k=>{
+  const bar=document.getElementById('nut'+k.charAt(0).toUpperCase()+k.slice(1)+'Bar');
+  const val=document.getElementById('nut'+k.charAt(0).toUpperCase()+k.slice(1)+'Val');
+  if(bar)bar.style.width=Math.min(tot[k]/macroGoals[k]*100,100)+'%';
+  if(val)val.textContent=tot[k]+'g';
+ });
+
+ // Food list
+ const listEl=document.getElementById('nutFoodList');
+ if(!listEl)return;
+ if(log.length===0){
+  listEl.innerHTML='<div class="nut-empty">No food logged yet.<br/>Tap "Log Food with AI" to get started.</div>';
+  return;
+ }
+ listEl.innerHTML=log.map((entry,i)=>`
+  <div class="nut-food-card">
+   <div style="flex:1;min-width:0;">
+    <div class="nut-food-name">${entry.name}</div>
+    <div class="nut-food-macros">${entry.protein}g protein · ${entry.carbs}g carbs · ${entry.fat}g fat${entry.time?' · '+entry.time:''}</div>
+   </div>
+   <div class="nut-food-cal">${entry.cal}</div>
+   <button class="nut-food-del" onclick="nutDeleteEntry(${i})" aria-label="Delete">✕</button>
+  </div>`).join('');
+}
+
+function nutPrevDay(){
+ const [y,m,d]=nutDate.split('-').map(Number);
+ const prev=new Date(y,m-1,d-1);
+ nutDate=`${prev.getFullYear()}-${String(prev.getMonth()+1).padStart(2,'0')}-${String(prev.getDate()).padStart(2,'0')}`;
+ renderNutrition();
+}
+function nutNextDay(){
+ const [y,m,d]=nutDate.split('-').map(Number);
+ const next=new Date(y,m-1,d+1);
+ nutDate=`${next.getFullYear()}-${String(next.getMonth()+1).padStart(2,'0')}-${String(next.getDate()).padStart(2,'0')}`;
+ renderNutrition();
+}
+function nutDeleteEntry(i){
+ const log=getNutLog(nutDate);
+ log.splice(i,1);
+ setNutLog(nutDate,log);
+ renderNutrition();
+}
+function nutEditGoal(){
+ const g=prompt('Daily calorie goal (kcal):',getNutGoal());
+ const n=parseInt(g,10);
+ if(!isNaN(n)&&n>0){setNutGoal(n);renderNutrition();}
 }
 
 function renderPRs(filter=''){
