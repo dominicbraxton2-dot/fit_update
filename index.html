@@ -2321,7 +2321,11 @@ function renderWeekStrip(){
   const done=completedDates.has(ds);
   const isToday=ds===todayStr;
   const isFuture=ds>todayStr;
-  return `<div class="wstrip-day${done?' wstrip-done':''}${isToday?' wstrip-today':''}${isFuture?' wstrip-future':''}">
+  const wdi=(i+6)%7;
+  const clickable=!isFuture&&wdi<WEEKS[aW].days.length;
+  return `<div class="wstrip-day${done?' wstrip-done':''}${isToday?' wstrip-today':''}${isFuture?' wstrip-future':''}"
+   ${clickable?`onclick="openDay(${aW},${wdi})" style="cursor:pointer;" tabindex="0"`:''}
+   >
    <div class="wstrip-lbl">${lbl}</div>
    <div class="wstrip-date">${d.getDate()}</div>
    <div class="wstrip-dot">${done?'<svg width="14" height="14" viewBox="0 0 14 14"><circle cx="7" cy="7" r="6" fill="#e8ff00" opacity="0.15"/><path d="M4 7l2 2 4-4" stroke="#e8ff00" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>':isToday?'<div class="wstrip-today-dot"></div>':''}</div>
@@ -3357,7 +3361,7 @@ function renderPRs(filter=''){
    <div class="pr-val" style="display:flex;align-items:center;gap:8px;">
     ${pr>0?`<div><div class="pr-lbs" style="color:${ts.color}">${pr}</div><div class="pr-lbs-label">lbs</div></div>`
     :`<div class="pr-empty">No PR yet</div>`}
-    <button onclick="openPREdit('${ex.name.replace(/'/g,"\'")}')" style="flex-shrink:0;background:none;border:1px solid var(--border-bright);border-radius:8px;color:var(--muted);width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:14px;" title="Edit PR">✏️</button>
+    <button onclick="openPREdit('${ex.name.replace(/'/g,"\'")}')" style="flex-shrink:0;background:none;border:1px solid var(--border-bright);border-radius:8px;color:var(--muted);width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:14px;" title="Edit PR"><img src="https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/B7F32667-5BA9-44C7-9A05-0D277957D799.png" style="width:100%;height:100%;object-fit:cover;border-radius:6px;" alt="edit"/></button>
    </div>
   </div>`;
  }).join('')+(anyPR?'':`<div class="empty-state"><div class="es-icon" style="display:flex;align-items:center;justify-content:center;">${ICONS.trophy.replace('width="20" height="20"','width="36" height="36"')}</div><div class="es-title">NO PRs YET</div><div class="es-sub">Log heavy sets and your personal records will save automatically.</div></div>`);
