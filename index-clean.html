@@ -198,6 +198,14 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .pr-lbs{font-family:'Bebas Neue',sans-serif;font-size:32px;line-height:1;}
 .pr-lbs-label{font-size:10px;color:var(--muted);}
 .pr-empty{font-size:12px;color:var(--muted);font-style:italic;}
+.pr-edit-modal{position:fixed;inset:0;z-index:500;display:flex;align-items:flex-end;justify-content:center;background:rgba(0,0,0,0.7);backdrop-filter:blur(4px);}
+.pr-edit-sheet{background:var(--surface);border-radius:24px 24px 0 0;padding:24px 20px 40px;width:100%;max-width:430px;border-top:1px solid var(--border-bright);}
+.pr-edit-title{font-family:'Montserrat',sans-serif;font-size:15px;font-weight:800;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:16px;}
+.pr-edit-field{margin-bottom:12px;}
+.pr-edit-label{font-size:10px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;font-weight:600;margin-bottom:4px;}
+.pr-edit-input{width:100%;background:var(--surface2);border:1px solid var(--border-bright);border-radius:10px;color:var(--text);font-size:14px;padding:10px 12px;outline:none;box-sizing:border-box;}
+.pr-edit-row{display:flex;gap:10px;margin-top:16px;}
+
 .pr-clear-btn{margin:0 16px 12px;width:calc(100%-32px);padding:12px;border-radius:14px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:12px;font-weight:500;}
 
 /* ── TIMER ── */
@@ -719,6 +727,18 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
   <div class="tip"><span>🧂</span><span>Zero processed food, zero alcohol — they park fat on your organs</span></div>
   <div class="tip"><span>😴</span><span>8+ hrs sleep — cortisol from bad sleep stores fat around the gut</span></div>
  </div>
+
+ <!-- NUTRITION PLACEHOLDER -->
+ <div style="margin:0 16px 12px;background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:18px;opacity:0.65;">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
+   <span style="font-size:22px;">🥗</span>
+   <div>
+    <div style="font-size:13px;font-weight:700;color:var(--text);">Nutrition Tracker</div>
+    <div style="font-size:10px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;font-weight:600;">Coming Soon</div>
+   </div>
+  </div>
+  <div style="font-size:12px;color:var(--muted);font-weight:300;line-height:1.5;">Future update: take a food photo and use AI to estimate calories and macros.</div>
+ </div>
  <!-- BACKUP -->
  <div style="margin:0 16px 200px;background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:18px;">
   <div style="font-size:10px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-bottom:4px;">Data Backup</div>
@@ -738,9 +758,13 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
    Home
   </button>
-  <div class="w-meta">
-   <div class="w-breadcrumb" id="wdLabel"></div>
-   <div class="w-title" id="dayTitle"></div>
+  <div class="w-meta" style="display:flex;align-items:center;gap:6px;flex:1;overflow:hidden;">
+   <button onclick="prevDay()" style="flex-shrink:0;background:none;border:1px solid var(--border-bright);border-radius:8px;color:var(--muted);width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:14px;" aria-label="Previous day">&#8592;</button>
+   <div style="flex:1;overflow:hidden;min-width:0;">
+    <div class="w-breadcrumb" id="wdLabel"></div>
+    <div class="w-title" id="dayTitle"></div>
+   </div>
+   <button onclick="nextDay()" style="flex-shrink:0;background:none;border:1px solid var(--border-bright);border-radius:8px;color:var(--muted);width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:14px;" aria-label="Next day">&#8594;</button>
   </div>
   <div class="w-pct-block">
    <div class="w-pct-num" id="pctNum">0%</div>
@@ -1309,7 +1333,7 @@ const WEEKS=[
   ]},
   {day:5,label:"Hamstrings + Abs",icon:"🔥",type:"abs",note:"Hamstrings are often the most undertrained muscle. Make them a priority today. Big hamstrings balance the quads and protect your knees — plus calves need hit twice a week to grow.",exercises:[
    {name:"Romanian Deadlift",sets:4,reps:"10",weight:"35 lbs DBs",timer:false},
-   {name:"Nordic Curl (hyperextension bench)",sets:4,reps:"5",weight:"Bodyweight (assisted ok)",timer:false},
+   {name:"Leg Curl Machine",sets:4,reps:"5",weight:"Bodyweight (assisted ok)",timer:false},
    {name:"Glute Bridge w/ Barbell",sets:3,reps:"15",weight:"Moderate",timer:false},
    {name:"Stiff-Leg Deadlift",sets:3,reps:"10",weight:"Moderate",timer:false},
    {name:"Standing Calf Raise",sets:4,reps:"20",weight:"BW + 60 lbs",timer:false},
@@ -1376,7 +1400,7 @@ const WEEKS=[
   ]},
   {day:5,label:"Hamstrings + Abs",icon:"🔥",type:"abs",note:"RDLs with 60 lb DBs today. Feel the hamstring stretch at the bottom. Calves need twice-weekly hits to grow — both standing and seated today. Finish with abs to shred the core and kill visceral fat.",exercises:[
    {name:"Romanian Deadlift",sets:4,reps:"8",weight:"60 lbs DBs",timer:false},
-   {name:"Nordic Curl (hyperextension bench)",sets:4,reps:"5",weight:"Bodyweight (assisted ok)",timer:false},
+   {name:"Leg Curl Machine",sets:4,reps:"5",weight:"Bodyweight (assisted ok)",timer:false},
    {name:"Hip Thrust w/ Barbell",sets:4,reps:"12",weight:"Moderate",timer:false},
    {name:"Stiff-Leg Deadlift",sets:3,reps:"10",weight:"Moderate",timer:false},
    {name:"Standing Calf Raise",sets:4,reps:"20",weight:"BW + 60 lbs",timer:false},
@@ -1412,7 +1436,7 @@ const WEEKS=[
   {day:2,label:"Legs — Full Superset Day",icon:"🦵",type:"legs",note:"Your legs will be screaming. That's exactly the point. Push through it. Quads, hamstrings, and calves all hit today — calves need standing and seated hits to grow both heads.",exercises:[
    {name:"Barbell Squat + Jump Squat",sets:4,reps:"8+10",weight:"Heavy + BW [SUPERSET]",timer:false},
    {name:"Barbell Hack Squat",sets:4,reps:"15",weight:"Moderate",timer:false},
-   {name:"Leg Extension + Nordic Curl (hyperextension bench)",sets:4,reps:"12+5",weight:"Machine + BW [SUPERSET]",timer:false},
+   {name:"Leg Extension + Leg Curl Machine",sets:4,reps:"12+5",weight:"Machine + BW [SUPERSET]",timer:false},
    {name:"Bulgarian Split Squat",sets:3,reps:"12 each",weight:"35 lbs DBs",timer:false},
    {name:"Standing Calf Raise",sets:4,reps:"20",weight:"BW + 60 lbs",timer:false},
    {name:"Seated Calf Raise",sets:4,reps:"20",weight:"35 lbs on knees",timer:false},
@@ -1499,7 +1523,7 @@ const WEEKS=[
   ]},
   {day:5,label:"Peak Hamstrings + Abs",icon:"🔥",type:"abs",note:"Heaviest RDL of the month. Leave absolutely nothing in the tank. Calves hit with standing and seated for full development. Three dedicated ab exercises at the end to shred the core and attack visceral fat.",exercises:[
    {name:"Romanian Deadlift",sets:5,reps:"6",weight:"Heaviest of month",timer:false},
-   {name:"Nordic Curl (hyperextension bench)",sets:4,reps:"6",weight:"Bodyweight",timer:false},
+   {name:"Leg Curl Machine",sets:4,reps:"6",weight:"Bodyweight",timer:false},
    {name:"Hip Thrust",sets:4,reps:"12",weight:"Moderate-heavy barbell",timer:false},
    {name:"Stiff-Leg Deadlift",sets:3,reps:"8",weight:"Heavy",timer:false},
    {name:"Standing Calf Raise",sets:4,reps:"20",weight:"BW + 60 lbs",timer:false},
@@ -1561,9 +1585,9 @@ const WEEKS=[
   ]},
   {day:5,label:"Hamstrings + Abs",icon:"🔥",type:"abs",note:"Hip thrusts are the king of glute activation. Drive through the heels. Hit standing and seated calves for full calf development — frequency is what makes calves grow. Three ab movements at the end attack visceral fat.",exercises:[
    {name:"Romanian Deadlift",sets:4,reps:"12",weight:"50 lbs DBs",timer:false},
-   {name:"Nordic Curl (hyperextension bench)",sets:4,reps:"6",weight:"Bodyweight (assisted ok)",timer:false},
+   {name:"Leg Curl Machine",sets:4,reps:"6",weight:"Bodyweight (assisted ok)",timer:false},
    {name:"Hip Thrust",sets:4,reps:"12",weight:"135 lbs barbell",timer:false},
-   {name:"Nordic Curl (hyperextension bench)",sets:3,reps:"5",weight:"Bodyweight (assisted ok)",timer:false},
+   {name:"Leg Curl Machine",sets:3,reps:"5",weight:"Bodyweight (assisted ok)",timer:false},
    {name:"Standing Calf Raise",sets:4,reps:"20",weight:"BW + 60 lbs",timer:false},
    {name:"Seated Calf Raise",sets:4,reps:"20",weight:"35 lbs",timer:false},
    {name:"Ab Wheel Rollout",sets:4,reps:"12",weight:"Bodyweight",timer:false},
@@ -1624,11 +1648,11 @@ const WEEKS=[
    {name:"Hanging Knee Raise",sets:3,reps:"15",weight:"Bodyweight",timer:false},
    {name:"Plank",sets:3,reps:"45 sec",weight:"—",timer:true},
   ]},
-  {day:5,label:"Hamstrings + Abs",icon:"🔥",type:"abs",note:"Nordic curl attempt today — even partial reps are great hamstring builders. Hit both standing and seated calves for full lower leg development. Three ab movements at the end to shred the core and attack visceral fat.",exercises:[
+  {day:5,label:"Hamstrings + Abs",icon:"🔥",type:"abs",note:"Leg curl machine attempt today — even partial reps are great hamstring builders. Hit both standing and seated calves for full lower leg development. Three ab movements at the end to shred the core and attack visceral fat.",exercises:[
    {name:"Romanian Deadlift",sets:5,reps:"10",weight:"55 lbs DBs",timer:false},
-   {name:"Nordic Curl (hyperextension bench)",sets:4,reps:"6",weight:"Bodyweight",timer:false},
+   {name:"Leg Curl Machine",sets:4,reps:"6",weight:"Bodyweight",timer:false},
    {name:"Hip Thrust",sets:5,reps:"12",weight:"155 lbs barbell",timer:false},
-   {name:"Nordic Curl (hyperextension bench)",sets:3,reps:"5",weight:"Bodyweight (assisted ok)",timer:false},
+   {name:"Leg Curl Machine",sets:3,reps:"5",weight:"Bodyweight (assisted ok)",timer:false},
    {name:"Standing Calf Raise",sets:4,reps:"20",weight:"BW + 60 lbs",timer:false},
    {name:"Seated Calf Raise",sets:4,reps:"20",weight:"40 lbs",timer:false},
    {name:"Hanging Leg Raise",sets:4,reps:"15",weight:"Bodyweight",timer:false},
@@ -1664,7 +1688,7 @@ const WEEKS=[
    {name:"Front Squat",sets:4,reps:"8",weight:"115 lbs [SUPERSET below]",timer:false},
    {name:"Barbell Hack Squat",sets:4,reps:"15",weight:"Moderate [SUPERSET w/ Front Squat]",timer:false},
    {name:"Leg Extension",sets:4,reps:"15",weight:"Machine [SUPERSET below]",timer:false},
-   {name:"Nordic Curl (hyperextension bench)",sets:4,reps:"6",weight:"Bodyweight [SUPERSET w/ Leg Extension]",timer:false},
+   {name:"Leg Curl Machine",sets:4,reps:"6",weight:"Bodyweight [SUPERSET w/ Leg Extension]",timer:false},
    {name:"Walking Lunges",sets:3,reps:"12 each",weight:"35 lbs DBs",timer:false},
    {name:"Standing Calf Raise",sets:4,reps:"20",weight:"BW + 60 lbs",timer:false},
    {name:"Seated Calf Raise",sets:4,reps:"20",weight:"45 lbs",timer:false},
@@ -1690,9 +1714,9 @@ const WEEKS=[
   ]},
   {day:5,label:"Hamstrings + Abs",icon:"🔥",type:"abs",note:"Heaviest hip thrust of Phase 2. Drive the hips up explosively, control the descent. Standing and seated calves both hit today — frequency is the key to bigger calves. Three ab movements at the end attack visceral fat directly.",exercises:[
    {name:"Romanian Deadlift",sets:5,reps:"10",weight:"60 lbs DBs",timer:false},
-   {name:"Nordic Curl (hyperextension bench)",sets:4,reps:"6",weight:"Bodyweight [SUPERSET below]",timer:false},
+   {name:"Leg Curl Machine",sets:4,reps:"6",weight:"Bodyweight [SUPERSET below]",timer:false},
    {name:"Hip Thrust",sets:5,reps:"12",weight:"165 lbs barbell [SUPERSET w/ Curl]",timer:false},
-   {name:"Nordic Curl (hyperextension bench)",sets:3,reps:"6",weight:"Bodyweight",timer:false},
+   {name:"Leg Curl Machine",sets:3,reps:"6",weight:"Bodyweight",timer:false},
    {name:"Standing Calf Raise",sets:4,reps:"20",weight:"BW + 60 lbs",timer:false},
    {name:"Seated Calf Raise",sets:4,reps:"20",weight:"45 lbs",timer:false},
    {name:"Ab Wheel Rollout",sets:4,reps:"12",weight:"Bodyweight",timer:false},
@@ -1757,9 +1781,9 @@ const WEEKS=[
   ]},
   {day:5,label:"Peak Hamstrings + Abs",icon:"🔥",type:"abs",note:"Heaviest hamstring session of Phase 2. RDL heavy — feel the hamstrings load at the bottom. Standing and seated calves at full volume. Three ab movements at the end to shred the core and attack visceral fat.",exercises:[
    {name:"Romanian Deadlift",sets:5,reps:"8",weight:"65 lbs DBs",timer:false},
-   {name:"Nordic Curl (hyperextension bench)",sets:5,reps:"6",weight:"Bodyweight",timer:false},
+   {name:"Leg Curl Machine",sets:5,reps:"6",weight:"Bodyweight",timer:false},
    {name:"Hip Thrust",sets:5,reps:"10",weight:"175 lbs barbell",timer:false},
-   {name:"Nordic Curl (hyperextension bench)",sets:4,reps:"5",weight:"Bodyweight",timer:false},
+   {name:"Leg Curl Machine",sets:4,reps:"5",weight:"Bodyweight",timer:false},
    {name:"Standing Calf Raise",sets:4,reps:"20",weight:"BW + 60 lbs",timer:false},
    {name:"Seated Calf Raise",sets:4,reps:"20",weight:"50 lbs",timer:false},
    {name:"Ab Wheel Rollout",sets:4,reps:"12",weight:"Bodyweight",timer:false},
@@ -1821,7 +1845,7 @@ const WEEKS=[
   ]},
   {day:5,label:"Hamstrings + Abs",icon:"🔥",type:"abs",note:"Heavy RDL is the foundation of posterior chain strength. Control every inch of the descent. Standing and seated calves both hit today — high frequency is the only way to build bigger calves. Three ab movements at the end attack visceral fat.",exercises:[
    {name:"Romanian Deadlift",sets:5,reps:"8",weight:"185 lbs barbell",timer:false},
-   {name:"Nordic Curl (hyperextension bench)",sets:4,reps:"6",weight:"Bodyweight",timer:false},
+   {name:"Leg Curl Machine",sets:4,reps:"6",weight:"Bodyweight",timer:false},
    {name:"Hip Thrust",sets:4,reps:"10",weight:"185 lbs barbell",timer:false},
    {name:"Standing Calf Raise",sets:4,reps:"20",weight:"BW + 60 lbs",timer:false},
    {name:"Seated Calf Raise",sets:4,reps:"15",weight:"50 lbs",timer:false},
@@ -1881,11 +1905,11 @@ const WEEKS=[
    {name:"Hanging Knee Raise",sets:3,reps:"15",weight:"Bodyweight",timer:false},
    {name:"Plank",sets:3,reps:"45 sec",weight:"—",timer:true},
   ]},
-  {day:5,label:"Hamstrings + Abs",icon:"🔥",type:"abs",note:"Heavy hamstring session. Nordic curl keeps the posterior chain flexible and strong. Both standing and seated calves hit for full lower leg development. Three ab movements to attack visceral fat.",exercises:[
+  {day:5,label:"Hamstrings + Abs",icon:"🔥",type:"abs",note:"Heavy hamstring session. Leg curl machine keeps the posterior chain flexible and strong. Both standing and seated calves hit for full lower leg development. Three ab movements to attack visceral fat.",exercises:[
    {name:"Romanian Deadlift",sets:5,reps:"6",weight:"200 lbs barbell",timer:false},
-   {name:"Nordic Curl (hyperextension bench)",sets:4,reps:"6",weight:"Bodyweight",timer:false},
+   {name:"Leg Curl Machine",sets:4,reps:"6",weight:"Bodyweight",timer:false},
    {name:"Hip Thrust",sets:5,reps:"10",weight:"200 lbs barbell",timer:false},
-   {name:"Nordic Curl (hyperextension bench)",sets:3,reps:"6",weight:"Bodyweight",timer:false},
+   {name:"Leg Curl Machine",sets:3,reps:"6",weight:"Bodyweight",timer:false},
    {name:"Standing Calf Raise",sets:4,reps:"20",weight:"BW + 60 lbs",timer:false},
    {name:"Seated Calf Raise",sets:4,reps:"15",weight:"55 lbs",timer:false},
    {name:"Ab Wheel Rollout",sets:4,reps:"15",weight:"Bodyweight",timer:false},
@@ -1948,9 +1972,9 @@ const WEEKS=[
   ]},
   {day:5,label:"Peak Hamstrings + Abs",icon:"🔥",type:"abs",note:"Peak posterior chain strength. Every movement at max intensity. This is what 11 weeks of work feels like. Both calves hit today — gastrocnemius and soleus need high frequency to grow. Three ab movements to attack visceral fat.",exercises:[
    {name:"Romanian Deadlift",sets:5,reps:"5",weight:"215 lbs barbell",timer:false},
-   {name:"Nordic Curl (hyperextension bench)",sets:4,reps:"6",weight:"Bodyweight",timer:false},
+   {name:"Leg Curl Machine",sets:4,reps:"6",weight:"Bodyweight",timer:false},
    {name:"Hip Thrust",sets:5,reps:"8",weight:"215 lbs barbell",timer:false},
-   {name:"Nordic Curl (hyperextension bench)",sets:4,reps:"6",weight:"Bodyweight",timer:false},
+   {name:"Leg Curl Machine",sets:4,reps:"6",weight:"Bodyweight",timer:false},
    {name:"Standing Calf Raise",sets:4,reps:"20",weight:"BW + 60 lbs",timer:false},
    {name:"Seated Calf Raise",sets:4,reps:"15",weight:"60 lbs",timer:false},
    {name:"Ab Wheel Rollout",sets:5,reps:"12",weight:"Bodyweight",timer:false},
@@ -2013,9 +2037,9 @@ const WEEKS=[
   ]},
   {day:5,label:"Final Hamstrings + Abs",icon:"🔥",type:"abs",note:"Final posterior chain session. Heavy RDL PR attempt, then hit standing and seated calves — the last of 24 calf sessions across this program. Three ab movements to finish off the visceral fat. Leave nothing undone.",exercises:[
    {name:"Romanian Deadlift",sets:1,reps:"5/3/2/1/1",weight:"Pyramid to max",timer:false},
-   {name:"Nordic Curl (hyperextension bench)",sets:4,reps:"6",weight:"Bodyweight",timer:false},
+   {name:"Leg Curl Machine",sets:4,reps:"6",weight:"Bodyweight",timer:false},
    {name:"Hip Thrust",sets:4,reps:"10",weight:"Heaviest of program",timer:false},
-   {name:"Nordic Curl (hyperextension bench)",sets:4,reps:"6",weight:"Bodyweight",timer:false},
+   {name:"Leg Curl Machine",sets:4,reps:"6",weight:"Bodyweight",timer:false},
    {name:"Standing Calf Raise",sets:4,reps:"20",weight:"BW + 60 lbs",timer:false},
    {name:"Seated Calf Raise",sets:4,reps:"20",weight:"60 lbs",timer:false},
    {name:"Ab Wheel Rollout",sets:5,reps:"12",weight:"Bodyweight",timer:false},
@@ -2715,7 +2739,14 @@ function renderWorkout(){
   setWDone(aW,aD,new Date().toISOString().split('T')[0]);
  }
 
- document.getElementById('wdLabel').textContent=`Week ${aW+1} · Day ${aD+1}`;
+ const _ld=new Date();_ld.setHours(0,0,0,0);
+ const _dayOffset=(aW*7)+aD;
+ const _today=new Date();_today.setHours(0,0,0,0);
+ const _dow=_today.getDay();
+ const _weekStart=new Date(_today);_weekStart.setDate(_today.getDate()-(_dow===0?6:_dow-1));
+ const _targetDate=new Date(_weekStart);_targetDate.setDate(_weekStart.getDate()+(aW*7)+aD);
+ const _dateStr=_targetDate.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
+ document.getElementById('wdLabel').textContent=`Week ${aW+1} · Day ${aD+1} · ${_dateStr}`;
  const wPhoto=document.getElementById('workoutPhoto');
  const wPhotoImg=document.getElementById('workoutPhotoImg');
  if(wPhoto&&wPhotoImg&&WORKOUT_IMGS[day.type]){
@@ -2847,6 +2878,14 @@ function toggleSD(ei,si,btn){
  renderWorkout();
 }
 function toggleED(ei){sED(aW,aD,ei,!gED(aW,aD,ei));renderWorkout();}
+function prevDay(){
+ if(aD>0){aD--;} else if(aW>0){aW--;aD=WEEKS[aW].days.length-1;} else{return;}
+ renderWorkout();window.scrollTo(0,0);
+}
+function nextDay(){
+ if(aD<WEEKS[aW].days.length-1){aD++;} else if(aW<WEEKS.length-1){aW++;aD=0;} else{return;}
+ renderWorkout();window.scrollTo(0,0);
+}
 function switchDay(d){aD=d;renderWorkout();window.scrollTo(0,0);}
 
 function finishWorkout(){
@@ -3022,6 +3061,38 @@ function getAllExercises(){
  return all;
 }
 
+
+let _prEditName='';
+function prRepsKey(n){return`df7-pr-reps-${n.replace(/\s+/g,'_')}`;}
+function prDateKey(n){return`df7-pr-date-${n.replace(/\s+/g,'_')}`;}
+function prNotesKey(n){return`df7-pr-notes-${n.replace(/\s+/g,'_')}`;}
+function getPRMeta(n){return{reps:dbGet(prRepsKey(n))||'',date:dbGet(prDateKey(n))||'',notes:dbGet(prNotesKey(n))||''};}
+function openPREdit(name){
+ _prEditName=name;
+ const pr=getPR(name);
+ const meta=getPRMeta(name);
+ document.getElementById('prEditName').textContent=name;
+ document.getElementById('prEditWeight').value=pr||'';
+ document.getElementById('prEditReps').value=meta.reps;
+ document.getElementById('prEditDate').value=meta.date;
+ document.getElementById('prEditNotes').value=meta.notes;
+ document.getElementById('prEditModal').style.display='flex';
+}
+function closePREdit(){document.getElementById('prEditModal').style.display='none';}
+function savePREdit(){
+ const w=parseFloat(document.getElementById('prEditWeight').value);
+ const reps=document.getElementById('prEditReps').value.trim();
+ const date=document.getElementById('prEditDate').value;
+ const notes=document.getElementById('prEditNotes').value.trim();
+ if(isNaN(w)||w<=0){alert('Enter a valid weight.');return;}
+ setPR(_prEditName,w);
+ if(reps)dbSet(prRepsKey(_prEditName),reps); else dbDel(prRepsKey(_prEditName));
+ if(date)dbSet(prDateKey(_prEditName),date); else dbDel(prDateKey(_prEditName));
+ if(notes)dbSet(prNotesKey(_prEditName),notes); else dbDel(prNotesKey(_prEditName));
+ closePREdit();
+ renderPRs();
+}
+
 function renderPRs(filter=''){
  const exercises=getAllExercises().filter(e=>!filter||e.name.toLowerCase().includes(filter.toLowerCase()));
  const hasPR=exercises.filter(e=>getPR(e.name)>0);
@@ -3032,14 +3103,18 @@ function renderPRs(filter=''){
  document.getElementById('prList').innerHTML=sorted.map(ex=>{
   const pr=getPR(ex.name);
   const ts=TYPE[ex.type];
+  const meta=getPRMeta(ex.name);
+  const metaStr=pr>0?[meta.reps?meta.reps+' reps':'',meta.date?new Date(meta.date+'T12:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}):'',meta.notes||''].filter(Boolean).join(' · '):'';
   return `<div class="pr-card${pr>0?' has-pr':''}" style="${pr>0?'border-color:'+ts.color+'33;':''}">
-   <div>
+   <div style="flex:1;min-width:0;">
     <div class="pr-ex-name">${ex.name}</div>
     <div class="pr-ex-type" style="color:${ts.color}">${ex.type}</div>
+    ${metaStr?`<div style="font-size:10px;color:var(--muted);margin-top:3px;">${metaStr}</div>`:''}
    </div>
-   <div class="pr-val">
-    ${pr>0?`<div class="pr-lbs" style="color:${ts.color}">${pr}</div><div class="pr-lbs-label">lbs</div>`
+   <div class="pr-val" style="display:flex;align-items:center;gap:8px;">
+    ${pr>0?`<div><div class="pr-lbs" style="color:${ts.color}">${pr}</div><div class="pr-lbs-label">lbs</div></div>`
     :`<div class="pr-empty">No PR yet</div>`}
+    <button onclick="openPREdit('${ex.name.replace(/'/g,"\'")}')" style="flex-shrink:0;background:none;border:1px solid var(--border-bright);border-radius:8px;color:var(--muted);width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:14px;" title="Edit PR">✏️</button>
    </div>
   </div>`;
  }).join('')+(anyPR?'':`<div class="empty-state"><div class="es-icon" style="display:flex;align-items:center;justify-content:center;">${ICONS.trophy.replace('width="20" height="20"','width="36" height="36"')}</div><div class="es-title">NO PRs YET</div><div class="es-sub">Log heavy sets and your personal records will save automatically.</div></div>`);
@@ -3246,8 +3321,8 @@ const MUSCLE_MAP={
  "Preacher Curl (DB)":["fm-lbicep","fm-rbicep"],
  // Phase 2 Legs Ham
  "Glute Kickback Machine":["bm-glutes"],
- "Nordic Curl":["bm-lham","bm-rham"],
- "Nordic Curl (hyperextension bench)":["bm-lham","bm-rham"],
+ "Leg Curl Machine":["bm-lham","bm-rham"],
+ "Leg Curl Machine":["bm-lham","bm-rham"],
  "Lying DB Leg Curl":["bm-lham","bm-rham"],
  "Band Terminal Knee Extension":["fm-lquad","fm-rquad"],
  "Sissy Squat":["fm-lquad","fm-rquad"],
@@ -3786,7 +3861,7 @@ async function getAICoachMessage(prompt){
       body:JSON.stringify({
         model:'claude-haiku-4-5-20251001',
         max_tokens:120,
-        system:"You are Dom's elite personal trainer. Dom: 35yo male, home gym (barbell, bench, GMWD chest press, leg curl/extension machine, treadmill, EZ curl bar, dumbbells, kettlebell, weighted vest). Goals: bigger quads/hamstrings/calves, shredded abs, bigger chest, eliminate visceral fat. Respond in 1-2 punchy sentences. Direct, intense, cinematic. No generic wellness language. Use words like: protocol, session, phase, load, volume, discipline.",
+        system:"You are Dom's elite personal trainer. Dom: 35yo male, home gym (barbell, bench, GMWD chest press, leg curl/extension machine, treadmill, EZ curl bar, dumbbells, kettlebell, weighted vest, pull-up bar). Goals: bigger quads/hamstrings/calves, shredded abs, bigger chest, eliminate visceral fat. Respond in 1-2 punchy sentences. Direct, intense, cinematic. No generic wellness language. Use words like: protocol, session, phase, load, volume, discipline.",
         messages:[{role:'user',content:prompt}]
       })
     });
@@ -3887,5 +3962,31 @@ async function boot(){
 }
 boot();
 </script>
+
+<div id="prEditModal" class="pr-edit-modal" style="display:none;" onclick="if(event.target===this)closePREdit()">
+ <div class="pr-edit-sheet">
+  <div class="pr-edit-title" id="prEditName"></div>
+  <div class="pr-edit-field">
+   <div class="pr-edit-label">Weight (lbs)</div>
+   <input class="pr-edit-input" type="number" id="prEditWeight" placeholder="e.g. 185" min="0" step="2.5"/>
+  </div>
+  <div class="pr-edit-field">
+   <div class="pr-edit-label">Reps</div>
+   <input class="pr-edit-input" type="number" id="prEditReps" placeholder="e.g. 5" min="1" step="1"/>
+  </div>
+  <div class="pr-edit-field">
+   <div class="pr-edit-label">Date</div>
+   <input class="pr-edit-input" type="date" id="prEditDate"/>
+  </div>
+  <div class="pr-edit-field">
+   <div class="pr-edit-label">Notes</div>
+   <input class="pr-edit-input" type="text" id="prEditNotes" placeholder="e.g. paused at bottom, PR attempt"/>
+  </div>
+  <div class="pr-edit-row">
+   <button onclick="closePREdit()" style="flex:1;padding:13px;border-radius:12px;border:1px solid var(--border-bright);background:var(--surface2);color:var(--text);font-size:13px;font-weight:600;">Cancel</button>
+   <button onclick="savePREdit()" style="flex:2;padding:13px;border-radius:12px;border:none;background:var(--yellow);color:#000;font-size:13px;font-weight:800;">Save PR</button>
+  </div>
+ </div>
+</div>
 </body>
 </html>
