@@ -198,6 +198,14 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .pr-lbs{font-family:'Bebas Neue',sans-serif;font-size:32px;line-height:1;}
 .pr-lbs-label{font-size:10px;color:var(--muted);}
 .pr-empty{font-size:12px;color:var(--muted);font-style:italic;}
+.pr-edit-modal{position:fixed;inset:0;z-index:500;display:flex;align-items:flex-end;justify-content:center;background:rgba(0,0,0,0.7);backdrop-filter:blur(4px);}
+.pr-edit-sheet{background:var(--surface);border-radius:24px 24px 0 0;padding:24px 20px 40px;width:100%;max-width:430px;border-top:1px solid var(--border-bright);}
+.pr-edit-title{font-family:'Montserrat',sans-serif;font-size:15px;font-weight:800;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:16px;}
+.pr-edit-field{margin-bottom:12px;}
+.pr-edit-label{font-size:10px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;font-weight:600;margin-bottom:4px;}
+.pr-edit-input{width:100%;background:var(--surface2);border:1px solid var(--border-bright);border-radius:10px;color:var(--text);font-size:14px;padding:10px 12px;outline:none;box-sizing:border-box;}
+.pr-edit-row{display:flex;gap:10px;margin-top:16px;}
+
 .pr-clear-btn{margin:0 16px 12px;width:calc(100%-32px);padding:12px;border-radius:14px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:12px;font-weight:500;}
 
 /* ── TIMER ── */
@@ -3053,6 +3061,38 @@ function getAllExercises(){
  return all;
 }
 
+
+let _prEditName='';
+function prRepsKey(n){return`df7-pr-reps-${n.replace(/\s+/g,'_')}`;}
+function prDateKey(n){return`df7-pr-date-${n.replace(/\s+/g,'_')}`;}
+function prNotesKey(n){return`df7-pr-notes-${n.replace(/\s+/g,'_')}`;}
+function getPRMeta(n){return{reps:dbGet(prRepsKey(n))||'',date:dbGet(prDateKey(n))||'',notes:dbGet(prNotesKey(n))||''};}
+function openPREdit(name){
+ _prEditName=name;
+ const pr=getPR(name);
+ const meta=getPRMeta(name);
+ document.getElementById('prEditName').textContent=name;
+ document.getElementById('prEditWeight').value=pr||'';
+ document.getElementById('prEditReps').value=meta.reps;
+ document.getElementById('prEditDate').value=meta.date;
+ document.getElementById('prEditNotes').value=meta.notes;
+ document.getElementById('prEditModal').style.display='flex';
+}
+function closePREdit(){document.getElementById('prEditModal').style.display='none';}
+function savePREdit(){
+ const w=parseFloat(document.getElementById('prEditWeight').value);
+ const reps=document.getElementById('prEditReps').value.trim();
+ const date=document.getElementById('prEditDate').value;
+ const notes=document.getElementById('prEditNotes').value.trim();
+ if(isNaN(w)||w<=0){alert('Enter a valid weight.');return;}
+ setPR(_prEditName,w);
+ if(reps)dbSet(prRepsKey(_prEditName),reps); else dbDel(prRepsKey(_prEditName));
+ if(date)dbSet(prDateKey(_prEditName),date); else dbDel(prDateKey(_prEditName));
+ if(notes)dbSet(prNotesKey(_prEditName),notes); else dbDel(prNotesKey(_prEditName));
+ closePREdit();
+ renderPRs();
+}
+
 function renderPRs(filter=''){
  const exercises=getAllExercises().filter(e=>!filter||e.name.toLowerCase().includes(filter.toLowerCase()));
  const hasPR=exercises.filter(e=>getPR(e.name)>0);
@@ -3063,14 +3103,18 @@ function renderPRs(filter=''){
  document.getElementById('prList').innerHTML=sorted.map(ex=>{
   const pr=getPR(ex.name);
   const ts=TYPE[ex.type];
+  const meta=getPRMeta(ex.name);
+  const metaStr=pr>0?[meta.reps?meta.reps+' reps':'',meta.date?new Date(meta.date+'T12:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}):'',meta.notes||''].filter(Boolean).join(' · '):'';
   return `<div class="pr-card${pr>0?' has-pr':''}" style="${pr>0?'border-color:'+ts.color+'33;':''}">
-   <div>
+   <div style="flex:1;min-width:0;">
     <div class="pr-ex-name">${ex.name}</div>
     <div class="pr-ex-type" style="color:${ts.color}">${ex.type}</div>
+    ${metaStr?`<div style="font-size:10px;color:var(--muted);margin-top:3px;">${metaStr}</div>`:''}
    </div>
-   <div class="pr-val">
-    ${pr>0?`<div class="pr-lbs" style="color:${ts.color}">${pr}</div><div class="pr-lbs-label">lbs</div>`
+   <div class="pr-val" style="display:flex;align-items:center;gap:8px;">
+    ${pr>0?`<div><div class="pr-lbs" style="color:${ts.color}">${pr}</div><div class="pr-lbs-label">lbs</div></div>`
     :`<div class="pr-empty">No PR yet</div>`}
+    <button onclick="openPREdit('${ex.name.replace(/'/g,"\'")}')" style="flex-shrink:0;background:none;border:1px solid var(--border-bright);border-radius:8px;color:var(--muted);width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:14px;" title="Edit PR">✏️</button>
    </div>
   </div>`;
  }).join('')+(anyPR?'':`<div class="empty-state"><div class="es-icon" style="display:flex;align-items:center;justify-content:center;">${ICONS.trophy.replace('width="20" height="20"','width="36" height="36"')}</div><div class="es-title">NO PRs YET</div><div class="es-sub">Log heavy sets and your personal records will save automatically.</div></div>`);
@@ -3918,5 +3962,31 @@ async function boot(){
 }
 boot();
 </script>
+
+<div id="prEditModal" class="pr-edit-modal" style="display:none;" onclick="if(event.target===this)closePREdit()">
+ <div class="pr-edit-sheet">
+  <div class="pr-edit-title" id="prEditName"></div>
+  <div class="pr-edit-field">
+   <div class="pr-edit-label">Weight (lbs)</div>
+   <input class="pr-edit-input" type="number" id="prEditWeight" placeholder="e.g. 185" min="0" step="2.5"/>
+  </div>
+  <div class="pr-edit-field">
+   <div class="pr-edit-label">Reps</div>
+   <input class="pr-edit-input" type="number" id="prEditReps" placeholder="e.g. 5" min="1" step="1"/>
+  </div>
+  <div class="pr-edit-field">
+   <div class="pr-edit-label">Date</div>
+   <input class="pr-edit-input" type="date" id="prEditDate"/>
+  </div>
+  <div class="pr-edit-field">
+   <div class="pr-edit-label">Notes</div>
+   <input class="pr-edit-input" type="text" id="prEditNotes" placeholder="e.g. paused at bottom, PR attempt"/>
+  </div>
+  <div class="pr-edit-row">
+   <button onclick="closePREdit()" style="flex:1;padding:13px;border-radius:12px;border:1px solid var(--border-bright);background:var(--surface2);color:var(--text);font-size:13px;font-weight:600;">Cancel</button>
+   <button onclick="savePREdit()" style="flex:2;padding:13px;border-radius:12px;border:none;background:var(--yellow);color:#000;font-size:13px;font-weight:800;">Save PR</button>
+  </div>
+ </div>
+</div>
 </body>
 </html>
