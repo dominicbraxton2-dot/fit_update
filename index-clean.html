@@ -3193,6 +3193,121 @@ function renderNutrition(){
   </div>`).join('');
 }
 
+
+function nutPickPhoto(){
+ const key=dbGet('df7-claude-key');
+ if(!key){
+  alert('Add your Claude API key in the Timer tab first.');
+  return;
+ }
+ document.getElementById('nutPhotoInput').click();
+}
+
+async function nutPhotoChosen(input){
+ if(!input.files||!input.files[0])return;
+ const file=input.files[0];
+ input.value=''; // reset so same photo can be chosen again
+
+ // Show loading state on button
+ const btn=document.querySelector('.nut-log-btn');
+ const origHtml=btn.innerHTML;
+ btn.innerHTML='<span style="opacity:0.7">Analyzing photo...</span>';
+ btn.disabled=true;
+
+ try{
+  // Read file as base64
+  const b64=await new Promise((res,rej)=>{
+   const r=new FileReader();
+   r.onload=e=>res(e.target.result.split(',')[1]);
+   r.onerror=rej;
+   r.readAsDataURL(file);
+  });
+  const mime=file.type||'image/jpeg';
+
+  // Call Claude vision API
+  const key=dbGet('df7-claude-key');
+  const resp=await fetch('https://api.anthropic.com/v1/messages',{
+   method:'POST',
+   headers:{
+    'x-api-key':key,
+    'anthropic-version':'2023-06-01',
+    'content-type':'application/json',
+    'anthropic-dangerous-direct-browser-access':'true'
+   },
+   body:JSON.stringify({
+    model:'claude-haiku-4-5-20251001',
+    max_tokens:200,
+    messages:[{role:'user',content:[
+     {type:'image',source:{type:'base64',media_type:mime,data:b64}},
+     {type:'text',text:'Identify this food or meal. Estimate nutrition for the visible portion. Reply ONLY with valid JSON — no extra text: {"name":"...","cal":0,"protein":0,"carbs":0,"fat":0}'}
+    ]}]
+   })
+  });
+
+  if(!resp.ok){
+   const err=await resp.text();
+   throw new Error('API error: '+resp.status+' '+err.slice(0,120));
+  }
+  const data=await resp.json();
+  const raw=data.content?.[0]?.text||'{}';
+
+  // Parse JSON — strip any markdown code fences if present
+  const clean=raw.replace(/```json?/gi,'').replace(/```/g,'').trim();
+  let parsed;
+  try{parsed=JSON.parse(clean);}catch{
+   // Try to extract JSON from the response
+   const m=clean.match(/\{[\s\S]*\}/);
+   parsed=m?JSON.parse(m[0]):{name:'Unknown food',cal:0,protein:0,carbs:0,fat:0};
+  }
+
+  // Show confirm sheet
+  const imgUrl=URL.createObjectURL(file);
+  document.getElementById('nutConfirmImg').src=imgUrl;
+  document.getElementById('nutConfirmName').textContent=parsed.name||'Food';
+  document.getElementById('nutConfirmCal').textContent=parsed.cal||0;
+  document.getElementById('nutConfirmPro').textContent=parsed.protein||0;
+  document.getElementById('nutConfirmCarb').textContent=parsed.carbs||0;
+  document.getElementById('nutConfirmFat').textContent=parsed.fat||0;
+  // Pre-fill edit fields
+  document.getElementById('nutEditName').value=parsed.name||'';
+  document.getElementById('nutEditCal').value=parsed.cal||'';
+  document.getElementById('nutEditPro').value=parsed.protein||'';
+  document.getElementById('nutEditCarb').value=parsed.carbs||'';
+  document.getElementById('nutEditFat').value=parsed.fat||'';
+  document.getElementById('nutConfirmOverlay').style.display='flex';
+
+ }catch(e){
+  alert('Could not analyze photo: '+e.message);
+ }finally{
+  btn.innerHTML=origHtml;
+  btn.disabled=false;
+ }
+}
+
+function nutCancelConfirm(){
+ document.getElementById('nutConfirmOverlay').style.display='none';
+ // Revoke object URL to free memory
+ const img=document.getElementById('nutConfirmImg');
+ if(img.src.startsWith('blob:'))URL.revokeObjectURL(img.src);
+ img.src='';
+}
+
+function nutConfirmLog(){
+ const name=document.getElementById('nutEditName').value.trim()||'Food';
+ const cal=parseInt(document.getElementById('nutEditCal').value,10)||0;
+ const protein=parseInt(document.getElementById('nutEditPro').value,10)||0;
+ const carbs=parseInt(document.getElementById('nutEditCarb').value,10)||0;
+ const fat=parseInt(document.getElementById('nutEditFat').value,10)||0;
+ const now=new Date();
+ const time=now.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});
+ const entry={id:Date.now(),name,cal,protein,carbs,fat,time};
+ const log=getNutLog(nutDate);
+ log.push(entry);
+ setNutLog(nutDate,log);
+ nutCancelConfirm();
+ renderNutrition();
+}
+
 function nutPrevDay(){
  const [y,m,d]=nutDate.split('-').map(Number);
  const prev=new Date(y,m-1,d-1);
