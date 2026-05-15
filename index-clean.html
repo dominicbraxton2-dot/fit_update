@@ -750,9 +750,13 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
    Home
   </button>
-  <div class="w-meta">
-   <div class="w-breadcrumb" id="wdLabel"></div>
-   <div class="w-title" id="dayTitle"></div>
+  <div class="w-meta" style="display:flex;align-items:center;gap:6px;flex:1;overflow:hidden;">
+   <button onclick="prevDay()" style="flex-shrink:0;background:none;border:1px solid var(--border-bright);border-radius:8px;color:var(--muted);width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:14px;" aria-label="Previous day">&#8592;</button>
+   <div style="flex:1;overflow:hidden;min-width:0;">
+    <div class="w-breadcrumb" id="wdLabel"></div>
+    <div class="w-title" id="dayTitle"></div>
+   </div>
+   <button onclick="nextDay()" style="flex-shrink:0;background:none;border:1px solid var(--border-bright);border-radius:8px;color:var(--muted);width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:14px;" aria-label="Next day">&#8594;</button>
   </div>
   <div class="w-pct-block">
    <div class="w-pct-num" id="pctNum">0%</div>
@@ -2727,7 +2731,14 @@ function renderWorkout(){
   setWDone(aW,aD,new Date().toISOString().split('T')[0]);
  }
 
- document.getElementById('wdLabel').textContent=`Week ${aW+1} · Day ${aD+1}`;
+ const _ld=new Date();_ld.setHours(0,0,0,0);
+ const _dayOffset=(aW*7)+aD;
+ const _today=new Date();_today.setHours(0,0,0,0);
+ const _dow=_today.getDay();
+ const _weekStart=new Date(_today);_weekStart.setDate(_today.getDate()-(_dow===0?6:_dow-1));
+ const _targetDate=new Date(_weekStart);_targetDate.setDate(_weekStart.getDate()+(aW*7)+aD);
+ const _dateStr=_targetDate.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
+ document.getElementById('wdLabel').textContent=`Week ${aW+1} · Day ${aD+1} · ${_dateStr}`;
  const wPhoto=document.getElementById('workoutPhoto');
  const wPhotoImg=document.getElementById('workoutPhotoImg');
  if(wPhoto&&wPhotoImg&&WORKOUT_IMGS[day.type]){
@@ -2859,6 +2870,14 @@ function toggleSD(ei,si,btn){
  renderWorkout();
 }
 function toggleED(ei){sED(aW,aD,ei,!gED(aW,aD,ei));renderWorkout();}
+function prevDay(){
+ if(aD>0){aD--;} else if(aW>0){aW--;aD=WEEKS[aW].days.length-1;} else{return;}
+ renderWorkout();window.scrollTo(0,0);
+}
+function nextDay(){
+ if(aD<WEEKS[aW].days.length-1){aD++;} else if(aW<WEEKS.length-1){aW++;aD=0;} else{return;}
+ renderWorkout();window.scrollTo(0,0);
+}
 function switchDay(d){aD=d;renderWorkout();window.scrollTo(0,0);}
 
 function finishWorkout(){
