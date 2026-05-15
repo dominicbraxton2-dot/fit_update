@@ -210,6 +210,45 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 
 /* ── TIMER ── */
 .timer-screen{padding-bottom:90px;}
+.nut-screen{padding-bottom:90px;}
+.nut-header{padding:52px 20px 16px;border-bottom:1px solid var(--border);}
+.nut-header h2{font-family:'Montserrat',sans-serif;font-size:28px;font-weight:900;letter-spacing:-0.5px;text-transform:uppercase;margin-bottom:2px;}
+.nut-date-row{display:flex;align-items:center;gap:10px;margin-top:8px;}
+.nut-date-lbl{flex:1;text-align:center;font-size:13px;font-weight:600;color:var(--text);}
+.nut-date-btn{background:none;border:1px solid var(--border-bright);border-radius:8px;color:var(--muted);width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:15px;}
+.nut-ring-wrap{display:flex;align-items:center;justify-content:center;gap:24px;margin:20px 20px 0;}
+.nut-ring-svg{flex-shrink:0;}
+.nut-ring-info{display:flex;flex-direction:column;gap:6px;flex:1;}
+.nut-macro-row{display:flex;align-items:center;gap:8px;}
+.nut-macro-lbl{font-size:11px;color:var(--muted);font-weight:600;width:52px;}
+.nut-macro-track{flex:1;height:5px;background:var(--border);border-radius:3px;overflow:hidden;}
+.nut-macro-fill{height:100%;border-radius:3px;transition:width 0.4s;}
+.nut-macro-val{font-size:11px;color:var(--text);font-weight:600;width:36px;text-align:right;}
+.nut-goal-row{display:flex;align-items:center;justify-content:center;gap:6px;margin:6px 20px 0;font-size:11px;color:var(--muted);}
+.nut-log-btn{display:flex;align-items:center;justify-content:center;gap:10px;margin:16px 20px 0;width:calc(100% - 40px);padding:15px;border-radius:16px;border:none;background:var(--yellow);color:#000;font-family:'Montserrat',sans-serif;font-size:14px;font-weight:800;letter-spacing:0.5px;text-transform:uppercase;cursor:pointer;}
+[data-theme="light"] .nut-log-btn{background:#c8a800;color:#fff;}
+.nut-food-list{margin:16px 20px 0;}
+.nut-food-card{display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:12px 14px;margin-bottom:8px;}
+.nut-food-name{font-size:13px;font-weight:600;flex:1;}
+.nut-food-cal{font-family:'Bebas Neue',sans-serif;font-size:22px;line-height:1;color:var(--yellow);}
+[data-theme="light"] .nut-food-cal{color:#b89800;}
+.nut-food-macros{font-size:10px;color:var(--muted);margin-top:1px;}
+.nut-food-del{background:none;border:none;color:var(--muted);font-size:16px;padding:4px;cursor:pointer;flex-shrink:0;}
+.nut-empty{text-align:center;padding:40px 20px;color:var(--muted);font-size:13px;}
+.nut-confirm-overlay{position:fixed;inset:0;z-index:500;display:flex;align-items:flex-end;justify-content:center;background:rgba(0,0,0,0.7);backdrop-filter:blur(4px);}
+.nut-confirm-sheet{background:var(--surface);border-radius:24px 24px 0 0;padding:24px 20px 40px;width:100%;max-width:430px;border-top:1px solid var(--border-bright);}
+.nut-confirm-title{font-family:'Montserrat',sans-serif;font-size:14px;font-weight:800;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:16px;color:var(--muted);}
+.nut-confirm-name{font-family:'Montserrat',sans-serif;font-size:22px;font-weight:900;margin-bottom:6px;}
+.nut-confirm-macros{display:flex;gap:12px;margin-bottom:20px;}
+.nut-confirm-macro{flex:1;background:var(--surface2);border-radius:12px;padding:10px;text-align:center;}
+.nut-confirm-macro-val{font-family:'Bebas Neue',sans-serif;font-size:26px;line-height:1;color:var(--yellow);}
+[data-theme="light"] .nut-confirm-macro-val{color:#b89800;}
+.nut-confirm-macro-lbl{font-size:9px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;font-weight:600;}
+.nut-confirm-img{width:100%;border-radius:14px;object-fit:cover;margin-bottom:14px;max-height:180px;}
+.nut-confirm-edit{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;}
+.nut-confirm-edit input{flex:1;min-width:60px;background:var(--surface2);border:1px solid var(--border-bright);border-radius:9px;color:var(--text);font-size:13px;padding:8px 10px;outline:none;}
+.nut-confirm-btns{display:flex;gap:10px;}
+
 .timer-header{padding:48px 24px 20px;}
 .timer-header h2{font-family:'Bebas Neue',sans-serif;font-size:48px;letter-spacing:2px;line-height:1;}
 .timer-header .th-sub{font-size:12px;color:var(--muted);margin-top:4px;}
@@ -728,17 +767,6 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
   <div class="tip"><span>😴</span><span>8+ hrs sleep — cortisol from bad sleep stores fat around the gut</span></div>
  </div>
 
- <!-- NUTRITION PLACEHOLDER -->
- <div style="margin:0 16px 12px;background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:18px;opacity:0.65;">
-  <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
-   <span style="font-size:22px;">🥗</span>
-   <div>
-    <div style="font-size:13px;font-weight:700;color:var(--text);">Nutrition Tracker</div>
-    <div style="font-size:10px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;font-weight:600;">Coming Soon</div>
-   </div>
-  </div>
-  <div style="font-size:12px;color:var(--muted);font-weight:300;line-height:1.5;">Future update: take a food photo and use AI to estimate calories and macros.</div>
- </div>
  <!-- BACKUP -->
  <div style="margin:0 16px 200px;background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:18px;">
   <div style="font-size:10px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-bottom:4px;">Data Backup</div>
@@ -1143,6 +1171,7 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
  <button class="nav-btn" id="nav-analytics" onclick="navTo('analytics')"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="11" width="3" height="7" rx="1"/><rect x="8.5" y="7" width="3" height="11" rx="1"/><rect x="15" y="3" width="3" height="15" rx="1"/></svg></span>Stats</button>
  <button class="nav-btn" id="nav-musclemap" onclick="navTo('musclemap')"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="3" r="2.2"/><path d="M10 5.2 L10 7"/><path d="M6.5 7.5 Q10 6.5 13.5 7.5 L14 13 L12.5 17 L10 18 L7.5 17 L6 13 Z"/><path d="M6.5 7.5 L4.5 13"/><path d="M13.5 7.5 L15.5 13"/><path d="M7.5 17 L7 20"/><path d="M12.5 17 L13 20"/><circle cx="8.2" cy="10" r="1" fill="currentColor" fill-opacity="0.5" stroke="none"/><circle cx="11.8" cy="10" r="1" fill="currentColor" fill-opacity="0.5" stroke="none"/><circle cx="10" cy="13.5" r="1" fill="currentColor" fill-opacity="0.5" stroke="none"/></svg></span>Muscles</button>
  <button class="nav-btn" id="nav-prs" onclick="navTo('prs')"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8M5 3c0 5 2.5 7.5 5 7.5S15 8 15 3"/><path d="M4 3H2v2c0 1.5 1 3 3 3.5"/><path d="M16 3h2v2c0 1.5-1 3-3 3.5"/><line x1="10" y1="10.5" x2="10" y2="14"/><path d="M7 14h6"/><rect x="6.5" y="14" width="7" height="2.5" rx="1"/></svg></span>PRs</button>
+ <button class="nav-btn" id="nav-nutrition" onclick="navTo('nutrition')"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h14M3 7c0-1.1.9-2 2-2h10a2 2 0 012 2M3 7l1.5 9a2 2 0 002 1.5h7a2 2 0 002-1.5L17 7"/><path d="M8 2v3M12 2v3"/></svg></span>Nutrition</button>
  <button class="nav-btn" id="nav-timer" onclick="navTo('timer')"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="11" r="7.5"/><polyline points="10,7.5 10,11 12.5,13"/><line x1="8.5" y1="2" x2="11.5" y2="2"/></svg></span>Timer</button>
 </div>
 
@@ -1156,6 +1185,7 @@ const ICONS={
   stats:`<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="11" width="3" height="7" rx="1"/><rect x="8.5" y="7" width="3" height="11" rx="1"/><rect x="15" y="3" width="3" height="15" rx="1"/></svg>`,
   muscles:`<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="3" r="2.2"/><path d="M10 5.2 L10 7"/><path d="M6.5 7.5 Q10 6.5 13.5 7.5 L14 13 L12.5 17 L10 18 L7.5 17 L6 13 Z"/><path d="M6.5 7.5 L4.5 13"/><path d="M13.5 7.5 L15.5 13"/><path d="M7.5 17 L7 20"/><path d="M12.5 17 L13 20"/><circle cx="8.2" cy="10" r="1" fill="currentColor" fill-opacity="0.5" stroke="none"/><circle cx="11.8" cy="10" r="1" fill="currentColor" fill-opacity="0.5" stroke="none"/><circle cx="10" cy="13.5" r="1" fill="currentColor" fill-opacity="0.5" stroke="none"/></svg>`,
   trophy:`<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8M5 3c0 5 2.5 7.5 5 7.5S15 8 15 3"/><path d="M4 3H2v2c0 1.5 1 3 3 3.5"/><path d="M16 3h2v2c0 1.5-1 3-3 3.5"/><line x1="10" y1="10.5" x2="10" y2="14"/><path d="M7 14h6"/><rect x="6.5" y="14" width="7" height="2.5" rx="1"/></svg>`,
+  nutrition:`<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h14M3 7c0-1.1.9-2 2-2h10a2 2 0 012 2M3 7l1.5 9a2 2 0 002 1.5h7a2 2 0 002-1.5L17 7"/><path d="M8 2v3M12 2v3"/></svg>`,
   timer:`<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="11" r="7.5"/><polyline points="10,7.5 10,11 12.5,13"/><line x1="8.5" y1="2" x2="11.5" y2="2"/><line x1="10" y1="2" x2="10" y2="3.5"/></svg>`,
   flame:`<svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2c0 4-4 5-4 9a4 4 0 008 0c0-4-4-7-4-9z"/><path d="M10 14a1.5 1.5 0 010-3"/></svg>`,
   lightning:`<svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="13,2 7,11 10,11 7,18 15,8 11,8 13,2"/></svg>`,
@@ -3985,6 +4015,70 @@ boot();
   <div class="pr-edit-row">
    <button onclick="closePREdit()" style="flex:1;padding:13px;border-radius:12px;border:1px solid var(--border-bright);background:var(--surface2);color:var(--text);font-size:13px;font-weight:600;">Cancel</button>
    <button onclick="savePREdit()" style="flex:2;padding:13px;border-radius:12px;border:none;background:var(--yellow);color:#000;font-size:13px;font-weight:800;">Save PR</button>
+  </div>
+ </div>
+</div>
+
+<div id="nutrition" class="screen nut-screen">
+ <div class="nut-header">
+  <div style="font-size:10px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;font-weight:600;margin-bottom:4px;">Daily Fuel</div>
+  <h2>Nutrition</h2>
+  <div class="nut-date-row">
+   <button class="nut-date-btn" onclick="nutPrevDay()">&#8592;</button>
+   <div class="nut-date-lbl" id="nutDateLbl"></div>
+   <button class="nut-date-btn" onclick="nutNextDay()">&#8594;</button>
+  </div>
+ </div>
+ <div class="nut-ring-wrap">
+  <svg class="nut-ring-svg" width="100" height="100" viewBox="0 0 100 100">
+   <circle cx="50" cy="50" r="40" fill="none" stroke="var(--border)" stroke-width="10"/>
+   <circle id="nutCalRing" cx="50" cy="50" r="40" fill="none" stroke="var(--yellow)" stroke-width="10"
+    stroke-dasharray="251.2" stroke-dashoffset="251.2" stroke-linecap="round"
+    transform="rotate(-90 50 50)" style="transition:stroke-dashoffset 0.5s;"/>
+   <text x="50" y="46" text-anchor="middle" fill="var(--text)" font-family="Bebas Neue,sans-serif" font-size="18" id="nutCalNum">0</text>
+   <text x="50" y="58" text-anchor="middle" fill="var(--muted)" font-family="DM Sans,sans-serif" font-size="7" font-weight="600" letter-spacing="1">KCAL</text>
+  </svg>
+  <div class="nut-ring-info">
+   <div class="nut-macro-row"><span class="nut-macro-lbl">Protein</span><div class="nut-macro-track"><div id="nutProteinBar" class="nut-macro-fill" style="width:0%;background:#ff5c35;"></div></div><span class="nut-macro-val" id="nutProteinVal">0g</span></div>
+   <div class="nut-macro-row"><span class="nut-macro-lbl">Carbs</span><div class="nut-macro-track"><div id="nutCarbsBar" class="nut-macro-fill" style="width:0%;background:#28b8e8;"></div></div><span class="nut-macro-val" id="nutCarbsVal">0g</span></div>
+   <div class="nut-macro-row"><span class="nut-macro-lbl">Fat</span><div class="nut-macro-track"><div id="nutFatBar" class="nut-macro-fill" style="width:0%;background:#9858e8;"></div></div><span class="nut-macro-val" id="nutFatVal">0g</span></div>
+  </div>
+ </div>
+ <div class="nut-goal-row">
+  <span id="nutCalGoalLbl">Goal: 1800 kcal</span>
+  <button onclick="nutEditGoal()" style="background:none;border:none;font-size:11px;color:var(--muted);text-decoration:underline;cursor:pointer;padding:0;">edit</button>
+ </div>
+ <button class="nut-log-btn" onclick="nutPickPhoto()">
+  <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="3.5"/><path d="M2 8.5V15a2 2 0 002 2h12a2 2 0 002-2V8.5a2 2 0 00-2-2h-1.5L13 4H7L5.5 6.5H4a2 2 0 00-2 2z"/></svg>
+  Log Food with AI
+ </button>
+ <input type="file" id="nutPhotoInput" accept="image/*" capture="environment" style="display:none" onchange="nutPhotoChosen(this)"/>
+ <div class="nut-food-list" id="nutFoodList"></div>
+</div>
+
+<!-- NUTRITION CONFIRM SHEET -->
+<div id="nutConfirmOverlay" class="nut-confirm-overlay" style="display:none;" onclick="if(event.target===this)nutCancelConfirm()">
+ <div class="nut-confirm-sheet">
+  <div class="nut-confirm-title">AI Estimate — confirm or adjust</div>
+  <img id="nutConfirmImg" class="nut-confirm-img" src="" alt="food photo"/>
+  <div class="nut-confirm-name" id="nutConfirmName"></div>
+  <div class="nut-confirm-macros">
+   <div class="nut-confirm-macro"><div class="nut-confirm-macro-val" id="nutConfirmCal">0</div><div class="nut-confirm-macro-lbl">Kcal</div></div>
+   <div class="nut-confirm-macro"><div class="nut-confirm-macro-val" id="nutConfirmPro">0</div><div class="nut-confirm-macro-lbl">Protein g</div></div>
+   <div class="nut-confirm-macro"><div class="nut-confirm-macro-val" id="nutConfirmCarb">0</div><div class="nut-confirm-macro-lbl">Carbs g</div></div>
+   <div class="nut-confirm-macro"><div class="nut-confirm-macro-val" id="nutConfirmFat">0</div><div class="nut-confirm-macro-lbl">Fat g</div></div>
+  </div>
+  <div class="nut-confirm-title" style="margin-top:4px;">Edit values if needed:</div>
+  <div class="nut-confirm-edit">
+   <input type="text" id="nutEditName" placeholder="Food name"/>
+   <input type="number" id="nutEditCal" placeholder="Kcal" min="0" style="min-width:55px;max-width:70px;"/>
+   <input type="number" id="nutEditPro" placeholder="Pro g" min="0" style="min-width:50px;max-width:65px;"/>
+   <input type="number" id="nutEditCarb" placeholder="Carb g" min="0" style="min-width:55px;max-width:65px;"/>
+   <input type="number" id="nutEditFat" placeholder="Fat g" min="0" style="min-width:50px;max-width:60px;"/>
+  </div>
+  <div class="nut-confirm-btns">
+   <button onclick="nutCancelConfirm()" style="flex:1;padding:13px;border-radius:12px;border:1px solid var(--border-bright);background:var(--surface2);color:var(--text);font-size:13px;font-weight:600;">Cancel</button>
+   <button onclick="nutConfirmLog()" style="flex:2;padding:13px;border-radius:12px;border:none;background:var(--yellow);color:#000;font-size:13px;font-weight:800;">Log This Meal</button>
   </div>
  </div>
 </div>
