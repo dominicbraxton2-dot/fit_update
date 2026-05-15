@@ -983,6 +983,16 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
   </div>
   <div id="claudeKeyStatus" style="font-size:11px;margin-top:8px;color:var(--muted);"></div>
  </div>
+ <div class="cfg-card" style="margin:12px 16px 0;">
+  <div class="cfg-title">NUTRITION AI — GEMINI API (FREE)</div>
+  <div style="font-size:11px;color:var(--muted);margin-bottom:12px;line-height:1.5;">Free API key at <strong style="color:var(--text);">aistudio.google.com</strong> — no credit card needed. Used only for food photo analysis in the Nutrition tab.</div>
+  <input id="geminiKeyInput" type="password" placeholder="AIza..." style="width:100%;background:var(--surface2);border:1px solid var(--border-bright);border-radius:12px;color:var(--text);font-size:13px;padding:10px 14px;outline:none;margin-bottom:10px;"/>
+  <div style="display:flex;gap:8px;">
+   <button onclick="saveGeminiKey()" style="flex:1;padding:10px;border-radius:12px;border:none;background:linear-gradient(135deg,#28b8e8,#1a90c8);color:#fff;font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:1px;cursor:pointer;">SAVE KEY</button>
+   <button onclick="testGeminiKey()" style="flex:1;padding:10px;border-radius:12px;border:1px solid var(--border-bright);background:var(--surface2);color:var(--text);font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:1px;cursor:pointer;">TEST</button>
+  </div>
+  <div id="geminiKeyStatus" style="font-size:11px;margin-top:8px;color:var(--muted);"></div>
+ </div>
 </div>
 
 <!-- REST TOAST -->
@@ -2283,7 +2293,7 @@ function navTo(id){
  if(id==='analytics')renderAnalytics();
  if(id==='musclemap'){renderMuscleMap();setMuscleDay(muscleMapMode);}
  if(id==='nutrition')renderNutrition();
- if(id==='timer'){const ki=document.getElementById('claudeKeyInput');if(ki){const k=dbGet('df7-claude-key');if(k)ki.value=k;}}
+ if(id==='timer'){const ki=document.getElementById('claudeKeyInput');if(ki){const k=dbGet('df7-claude-key');if(k)ki.value=k;}const gi=document.getElementById('geminiKeyInput');if(gi){const gk=dbGet('df7-gemini-key');if(gk)gi.value=gk;}}
  window.scrollTo(0,0);
 }
 function goHome(){navTo('home');}
@@ -3195,9 +3205,9 @@ function renderNutrition(){
 
 
 function nutPickPhoto(){
- const key=dbGet('df7-claude-key');
+ const key=dbGet('df7-gemini-key');
  if(!key){
-  alert('Add your Claude API key in the Timer tab first.');
+  alert('Add your free Gemini API key in the Timer tab first.\nGet one free at aistudio.google.com');
   return;
  }
  document.getElementById('nutPhotoInput').click();
@@ -3225,22 +3235,16 @@ async function nutPhotoChosen(input){
   const mime=file.type||'image/jpeg';
 
   // Call Claude vision API
-  const key=dbGet('df7-claude-key');
-  const resp=await fetch('https://api.anthropic.com/v1/messages',{
+  const key=dbGet('df7-gemini-key');
+  const resp=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${key}`,{
    method:'POST',
-   headers:{
-    'x-api-key':key,
-    'anthropic-version':'2023-06-01',
-    'content-type':'application/json',
-    'anthropic-dangerous-direct-browser-access':'true'
-   },
+   headers:{'content-type':'application/json'},
    body:JSON.stringify({
-    model:'claude-haiku-4-5-20251001',
-    max_tokens:200,
-    messages:[{role:'user',content:[
-     {type:'image',source:{type:'base64',media_type:mime,data:b64}},
-     {type:'text',text:'Identify this food or meal. Estimate nutrition for the visible portion. Reply ONLY with valid JSON — no extra text: {"name":"...","cal":0,"protein":0,"carbs":0,"fat":0}'}
-    ]}]
+    contents:[{parts:[
+     {inline_data:{mime_type:mime,data:b64}},
+     {text:'Identify this food or meal. Estimate nutrition for the visible portion. Reply ONLY with valid JSON — no extra text: {"name":"...","cal":0,"protein":0,"carbs":0,"fat":0}'}
+    ]}],
+    generationConfig:{maxOutputTokens:200,temperature:0.1}
    })
   });
 
@@ -3249,7 +3253,7 @@ async function nutPhotoChosen(input){
    throw new Error('API error: '+resp.status+' '+err.slice(0,120));
   }
   const data=await resp.json();
-  const raw=data.content?.[0]?.text||'{}';
+  const raw=data.candidates?.[0]?.content?.parts?.[0]?.text||'{}';
 
   // Parse JSON — strip any markdown code fences if present
   const clean=raw.replace(/```json?/gi,'').replace(/```/g,'').trim();
@@ -4077,6 +4081,34 @@ function saveClaudeKey(){
   aiCoachCache={msg:null,ts:0};
 }
 
+
+function saveGeminiKey(){
+  const input=document.getElementById('geminiKeyInput');
+  const key=input.value.trim();
+  if(!key.startsWith('AIza')){
+    document.getElementById('geminiKeyStatus').textContent='❌ Invalid key. Should start with AIza';
+    return;
+  }
+  dbSet('df7-gemini-key',key);
+  document.getElementById('geminiKeyStatus').textContent='✅ Key saved.';
+}
+async function testGeminiKey(){
+  const statusEl=document.getElementById('geminiKeyStatus');
+  statusEl.textContent='Testing...';
+  const key=dbGet('df7-gemini-key');
+  if(!key){statusEl.textContent='❌ No key saved.';return;}
+  try{
+    const resp=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${key}`,{
+      method:'POST',
+      headers:{'content-type':'application/json'},
+      body:JSON.stringify({contents:[{parts:[{text:'Say "Connected" and nothing else.'}]}],generationConfig:{maxOutputTokens:20}})
+    });
+    if(!resp.ok){statusEl.textContent='❌ Error '+resp.status;return;}
+    const d=await resp.json();
+    const txt=d.candidates?.[0]?.content?.parts?.[0]?.text||'';
+    statusEl.textContent=txt?'✅ Connected: '+txt.slice(0,60):'❌ Unexpected response';
+  }catch(e){statusEl.textContent='❌ '+e.message;}
+}
 async function testClaudeKey(){
   const statusEl=document.getElementById('claudeKeyStatus');
   statusEl.textContent='Testing...';
