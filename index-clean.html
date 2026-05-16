@@ -85,9 +85,12 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 
 /* ── HOME COMPACT HEADER ── */
 .home-hdr{display:flex;align-items:flex-start;justify-content:space-between;padding:max(52px,calc(env(safe-area-inset-top) + 16px)) 20px 12px;}
-.home-hdr-logo{font-family:'Montserrat',sans-serif;font-size:18px;font-weight:900;letter-spacing:-0.3px;text-transform:uppercase;line-height:1;}
-.home-hdr-logo .acc{background:linear-gradient(135deg,#ff6b00,#ff9b40);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.home-hdr-date{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-top:5px;}
+.home-hdr-logo{display:flex;align-items:center;gap:10px;line-height:1;}
+.home-hdr-logo-bar{width:3px;height:32px;border-radius:2px;background:linear-gradient(to bottom,#ff6b00,#ff4800);flex-shrink:0;box-shadow:0 0 8px rgba(255,107,0,0.6);}
+.home-hdr-logo-text{display:flex;flex-direction:column;gap:1px;}
+.home-hdr-logo-strength{font-family:'Montserrat',sans-serif;font-size:20px;font-weight:900;letter-spacing:3px;text-transform:uppercase;color:var(--text);line-height:1;}
+.home-hdr-logo-identity{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:800;letter-spacing:6px;text-transform:uppercase;line-height:1;background:linear-gradient(135deg,#ff6b00,#ff9b40);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 6px rgba(255,107,0,0.45));}
+.home-hdr-date{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-top:6px;}
 .home-hdr-right{display:flex;align-items:center;gap:8px;}
 
 /* ── HOME SECTION HEADERS ── */
@@ -812,7 +815,13 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
  <!-- Compact Header -->
  <div class="home-hdr">
   <div>
-   <div class="home-hdr-logo">STRENGTH <span class="acc">IDENTITY</span></div>
+   <div class="home-hdr-logo">
+    <div class="home-hdr-logo-bar"></div>
+    <div class="home-hdr-logo-text">
+     <div class="home-hdr-logo-strength">STRENGTH</div>
+     <div class="home-hdr-logo-identity">IDENTITY</div>
+    </div>
+   </div>
    <div class="home-hdr-date" id="homeDateStr"></div>
   </div>
   <div class="home-hdr-right">
