@@ -365,6 +365,11 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .nut-confirm-edit{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;}
 .nut-confirm-edit input{flex:1;min-width:60px;background:var(--surface2);border:1px solid var(--border-bright);border-radius:9px;color:var(--text);font-size:13px;padding:8px 10px;outline:none;}
 .nut-confirm-btns{display:flex;gap:10px;}
+.nut-picker-overlay{position:fixed;inset:0;z-index:500;display:flex;align-items:flex-end;justify-content:center;background:rgba(0,0,0,0.7);backdrop-filter:blur(4px);}
+.nut-picker-sheet{background:var(--surface);border-radius:24px 24px 0 0;padding:24px 20px max(28px,calc(env(safe-area-inset-bottom)+20px));width:100%;max-width:430px;border-top:1px solid var(--border-bright);}
+.nut-picker-title{font-family:'Montserrat',sans-serif;font-size:14px;font-weight:800;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:16px;color:var(--muted);text-align:center;}
+.nut-picker-btn{display:flex;align-items:center;gap:12px;width:100%;padding:16px;margin-bottom:10px;border-radius:14px;border:1px solid var(--border-bright);background:var(--surface2);color:var(--text);font-family:'Montserrat',sans-serif;font-size:15px;font-weight:700;cursor:pointer;}
+.nut-picker-cancel{width:100%;padding:14px;border-radius:14px;border:none;background:var(--surface3);color:var(--muted);font-family:'Montserrat',sans-serif;font-size:14px;font-weight:700;cursor:pointer;margin-top:4px;}
 
 .timer-header{padding:max(48px,calc(env(safe-area-inset-top) + 16px)) 24px 20px;}
 .timer-header h2{font-family:'Bebas Neue',sans-serif;font-size:48px;letter-spacing:2px;line-height:1;}
@@ -3500,7 +3505,30 @@ function nutPickPhoto(){
   alert('Add your free Gemini API key in the Timer tab first.\nGet one free at aistudio.google.com');
   return;
  }
- document.getElementById('nutPhotoInput').click();
+ document.getElementById('nutPickerSheet').style.display='flex';
+}
+function nutClosePicker(){
+ document.getElementById('nutPickerSheet').style.display='none';
+}
+function nutOpenCamera(){
+ nutClosePicker();
+ try{
+  console.log('[NutAI] Opening camera input');
+  document.getElementById('nutCameraInput').click();
+ }catch(e){
+  console.error('[NutAI] Camera open failed:',e);
+  // Fall back to gallery picker
+  document.getElementById('nutPhotoInput').click();
+ }
+}
+function nutOpenGallery(){
+ nutClosePicker();
+ try{
+  console.log('[NutAI] Opening gallery input');
+  document.getElementById('nutPhotoInput').click();
+ }catch(e){
+  console.error('[NutAI] Gallery open failed:',e);
+ }
 }
 
 async function nutPhotoChosen(input){
@@ -3524,9 +3552,10 @@ async function nutPhotoChosen(input){
   });
   const mime=file.type||'image/jpeg';
 
-  // Call Claude vision API
+  // Call Gemini vision API
   const key=dbGet('df7-gemini-key');
-  const resp=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${key}`,{
+  console.log('[NutAI] Sending image to Gemini, mime:',mime,'size:',b64.length,'chars');
+  const resp=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${key}`,{
    method:'POST',
    headers:{'content-type':'application/json'},
    body:JSON.stringify({
@@ -3537,10 +3566,13 @@ async function nutPhotoChosen(input){
     generationConfig:{maxOutputTokens:200,temperature:0.1}
    })
   });
+  console.log('[NutAI] Gemini response status:',resp.status);
 
   if(!resp.ok){
    const err=await resp.text();
-   throw new Error('API error: '+resp.status+' '+err.slice(0,120));
+   console.error('[NutAI] Gemini error body:',err);
+   let msg;try{msg=JSON.parse(err).error?.message;}catch{msg=null;}
+   throw new Error('Gemini '+resp.status+': '+(msg||err).slice(0,120));
   }
   const data=await resp.json();
   const raw=data.candidates?.[0]?.content?.parts?.[0]?.text||'{}';
@@ -4388,16 +4420,25 @@ async function testGeminiKey(){
   const key=dbGet('df7-gemini-key');
   if(!key){statusEl.textContent='❌ No key saved.';return;}
   try{
-    const resp=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${key}`,{
+    console.log('[GeminiTest] Testing key with gemini-2.0-flash');
+    const resp=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${key}`,{
       method:'POST',
       headers:{'content-type':'application/json'},
       body:JSON.stringify({contents:[{parts:[{text:'Say "Connected" and nothing else.'}]}],generationConfig:{maxOutputTokens:20}})
     });
-    if(!resp.ok){statusEl.textContent='❌ Error '+resp.status;return;}
+    console.log('[GeminiTest] Response status:',resp.status);
+    if(!resp.ok){
+      const errBody=await resp.text();
+      console.error('[GeminiTest] Error body:',errBody);
+      let msg;try{msg=JSON.parse(errBody).error?.message;}catch{msg=errBody;}
+      statusEl.textContent='❌ Error '+resp.status+': '+(msg||'').slice(0,80);
+      return;
+    }
     const d=await resp.json();
     const txt=d.candidates?.[0]?.content?.parts?.[0]?.text||'';
+    console.log('[GeminiTest] Success, reply:',txt);
     statusEl.textContent=txt?'✅ Connected: '+txt.slice(0,60):'❌ Unexpected response';
-  }catch(e){statusEl.textContent='❌ '+e.message;}
+  }catch(e){console.error('[GeminiTest] Fetch error:',e);statusEl.textContent='❌ '+e.message;}
 }
 async function testClaudeKey(){
   const statusEl=document.getElementById('claudeKeyStatus');
@@ -4583,8 +4624,25 @@ boot();
   <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="3.5"/><path d="M2 8.5V15a2 2 0 002 2h12a2 2 0 002-2V8.5a2 2 0 00-2-2h-1.5L13 4H7L5.5 6.5H4a2 2 0 00-2 2z"/></svg>
   Log Food with AI
  </button>
- <input type="file" id="nutPhotoInput" accept="image/*" capture="environment" style="display:none" onchange="nutPhotoChosen(this)"/>
+ <input type="file" id="nutPhotoInput" accept="image/*" style="display:none" onchange="nutPhotoChosen(this)"/>
+ <input type="file" id="nutCameraInput" accept="image/*" capture="environment" style="display:none" onchange="nutPhotoChosen(this)"/>
  <div class="nut-food-list" id="nutFoodList"></div>
+</div>
+
+<!-- NUTRITION PHOTO PICKER SHEET -->
+<div id="nutPickerSheet" class="nut-picker-overlay" style="display:none;" onclick="if(event.target===this)nutClosePicker()">
+ <div class="nut-picker-sheet">
+  <div class="nut-picker-title">Log Food with AI</div>
+  <button class="nut-picker-btn" onclick="nutOpenCamera()">
+   <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="3.5"/><path d="M2 8.5V15a2 2 0 002 2h12a2 2 0 002-2V8.5a2 2 0 00-2-2h-1.5L13 4H7L5.5 6.5H4a2 2 0 00-2 2z"/></svg>
+   Take Photo
+  </button>
+  <button class="nut-picker-btn" onclick="nutOpenGallery()">
+   <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="16" height="12" rx="2"/><circle cx="7" cy="9" r="1.5"/><path d="M2 14l4-4 3 3 3-4 4 5"/></svg>
+   Choose from Library
+  </button>
+  <button class="nut-picker-cancel" onclick="nutClosePicker()">Cancel</button>
+ </div>
 </div>
 
 <!-- NUTRITION CONFIRM SHEET -->
