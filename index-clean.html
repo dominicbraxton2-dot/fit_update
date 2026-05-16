@@ -86,10 +86,8 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 /* ── HOME COMPACT HEADER ── */
 .home-hdr{display:flex;align-items:flex-start;justify-content:space-between;padding:max(52px,calc(env(safe-area-inset-top) + 16px)) 20px 12px;}
 @keyframes brandFadeIn{0%{opacity:0;transform:translateY(-4px)}100%{opacity:1;transform:none}}
-.home-brand{width:100%;max-width:240px;margin-bottom:4px;animation:brandFadeIn 0.55s cubic-bezier(0.22,1,0.36,1) 0.05s both;}
+.home-brand{width:100%;max-width:280px;margin-bottom:4px;animation:brandFadeIn 0.55s cubic-bezier(0.22,1,0.36,1) 0.05s both;}
 .home-brand img{width:100%;height:auto;display:block;object-fit:contain;-webkit-user-drag:none;user-select:none;}
-.home-brand-fallback{display:none;font-family:'Montserrat',sans-serif;font-size:18px;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:var(--text);}
-.home-brand img.errored+.home-brand-fallback{display:block;}
 .home-hdr-date{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-top:6px;}
 .home-hdr-right{display:flex;align-items:center;gap:8px;}
 
@@ -888,8 +886,7 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
  <div class="home-hdr">
   <div>
    <div class="home-brand">
-    <img id="siLogo" src="https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/F8CDDECC-EE72-438E-84EB-843915277B91.png" alt="Strength Identity" draggable="false" onerror="this.style.display='none';document.getElementById('siFallback').style.display='block'"/>
-    <span id="siFallback" class="home-brand-fallback">STRENGTH IDENTITY</span>
+    <img src="https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/193A0199-5B5F-436A-804A-E17F37436FE1.png" alt="Strength Identity" draggable="false" onerror="this.style.display='none'"/>
    </div>
    <div class="home-hdr-date" id="homeDateStr"></div>
   </div>
@@ -2406,13 +2403,9 @@ function weekProg(w){let d=0,t=0;WEEKS[w].days.forEach((day,di)=>day.exercises.f
 
 // ── THEME ──
 let darkMode=true; // set after DB loads
-const SI_LOGO_DARK='https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/F8CDDECC-EE72-438E-84EB-843915277B91.png';
-const SI_LOGO_LIGHT='https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/424F91F8-D20C-4E04-B3F9-A43343C76E80.png';
 function applyTheme(){
  document.documentElement.setAttribute('data-theme',darkMode?'dark':'light');
  document.getElementById('themeBtn').textContent=darkMode?'🌙':'☀️';
- const logo=document.getElementById('siLogo');
- if(logo)logo.src=darkMode?SI_LOGO_DARK:SI_LOGO_LIGHT;
  dbSet('df7-theme',darkMode?'dark':'light');
 }
 function toggleTheme(){darkMode=!darkMode;applyTheme();}
