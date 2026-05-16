@@ -1053,7 +1053,8 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
  <!-- BODY WEIGHT -->
  <div id="bodyWeightSection" style="padding:0 16px 20px;"></div>
  <!-- HEATMAP -->
- <div id="heatmapSection" style="margin:0 16px 20px;background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:18px;"></div>
+ <div id="heatmapSection" style="margin:0 16px 14px;background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:18px;"></div>
+ <div id="streakSection" style="margin:0 16px 20px;"></div>
 </div>
 
 <!-- MUSCLE MAP SCREEN -->
@@ -2584,7 +2585,27 @@ function renderSmartWidgets(){
   <button onclick="navTo('timer')" style="padding:14px 8px;border-radius:14px;border:1px solid var(--border-bright);background:var(--surface);color:var(--text);font-size:11px;font-weight:700;letter-spacing:0.5px;cursor:pointer;text-transform:uppercase;line-height:1.4;">Open<br/>Timer</button>
  </div>`;
 
- el.innerHTML=missionHtml+prHtml+consistHtml+mFocusHtml+qaHtml;
+ // 0. Discipline Streak (home)
+ const dCur=getCurrentStreak(),dLong=getLongestStreak(),dMsg=getStreakMessage(dCur);
+ const dGlow=dCur>0?'rgba(230,235,0,0.5)':'rgba(80,80,80,0.15)';
+ const dNumColor=dCur>0?'#e6eb00':'var(--muted)';
+ const streakHtml=`<div style="${card}position:relative;overflow:hidden;">
+  <div style="position:absolute;top:-50px;right:-50px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,${dGlow} 0%,transparent 70%);pointer-events:none;"></div>
+  <div style="${lbl}display:flex;align-items:center;gap:6px;"><svg width="12" height="12" viewBox="0 0 20 20" fill="none" stroke="var(--yellow)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="13,2 7,11 10,11 7,18 15,8 11,8 13,2"/></svg>Discipline Streak</div>
+  <div style="display:flex;align-items:flex-end;gap:8px;margin-bottom:6px;">
+   <div style="font-family:'Bebas Neue',sans-serif;font-size:56px;line-height:1;color:${dNumColor};text-shadow:0 0 22px ${dGlow};letter-spacing:-1px;">${dCur}</div>
+   <div style="padding-bottom:8px;">
+    <div style="font-size:12px;font-weight:700;color:var(--text);text-transform:uppercase;letter-spacing:0.5px;">${dCur===1?'Day':'Days'} Discipline Streak</div>
+    <div style="font-size:10px;color:var(--muted);">Best: ${dLong} day${dLong!==1?'s':''}</div>
+   </div>
+  </div>
+  <div style="height:2px;background:var(--surface2);border-radius:2px;margin-bottom:10px;overflow:hidden;">
+   <div style="height:100%;width:${dLong>0?Math.min(Math.round(dCur/dLong*100),100):0}%;background:linear-gradient(90deg,#ff5c35,var(--yellow));border-radius:2px;"></div>
+  </div>
+  <div style="font-size:12px;color:var(--muted);font-style:italic;">${dMsg}</div>
+ </div>`;
+
+ el.innerHTML=streakHtml+missionHtml+prHtml+consistHtml+mFocusHtml+qaHtml;
 }
 
 function renderTodayCard(){
@@ -3235,6 +3256,75 @@ function calcStreak(completedDates,todayStr){
 
 function calPrev(){calMonth--;if(calMonth<0){calMonth=11;calYear--;}renderCalendar();}
 function calNext(){calMonth++;if(calMonth>11){calMonth=0;calYear++;}renderCalendar();}
+
+// ── STREAK HELPERS ───────────────────────────────────────────────────────────
+function _buildAllDates(){
+ const d={};WEEKS.forEach((wk,wi)=>wk.days.forEach((_,di)=>{const v=getWDone(wi,di);if(v)d[v]=true;}));return d;
+}
+function getCurrentStreak(){
+ const today=new Date();today.setHours(0,0,0,0);
+ const ts=`${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
+ return calcStreak(_buildAllDates(),ts);
+}
+function getLongestStreak(){
+ const dates=Object.keys(_buildAllDates()).sort();
+ if(!dates.length)return 0;
+ let longest=1,cur=1;
+ for(let i=1;i<dates.length;i++){
+  const prev=new Date(dates[i-1]+'T12:00'),curr=new Date(dates[i]+'T12:00');
+  if(Math.round((curr-prev)/86400000)===1){cur++;if(cur>longest)longest=cur;}else{cur=1;}
+ }
+ return longest;
+}
+function getWeeklyCompletionRate(){
+ const today=new Date();today.setHours(0,0,0,0);
+ const dow=today.getDay();
+ const wkStart=new Date(today);wkStart.setDate(today.getDate()-(dow===0?6:dow-1));
+ let done=0;
+ WEEKS.forEach((wk,wi)=>wk.days.forEach((day,di)=>{
+  if(day.type==='rest')return;
+  const ds=getWDone(wi,di);if(!ds)return;
+  const d=new Date(ds+'T12:00');if(d>=wkStart&&d<=today)done++;
+ }));
+ const planned=WEEKS[aW].days.filter(d=>d.type!=='rest').length;
+ return{done,planned,rate:planned>0?Math.min(Math.round(done/planned*100),100):0};
+}
+function getStreakMessage(streak){
+ if(streak===0)return'Start logging workouts to build your streak.';
+ if(streak>=30)return'Elite consistency.';
+ if(streak>=14)return'Discipline forming.';
+ if(streak>=7)return'Locked in.';
+ if(streak>=3)return'Momentum building.';
+ return'Keep showing up.';
+}
+function renderStreakCard(){
+ const el=document.getElementById('streakSection');
+ if(!el)return;
+ const cur=getCurrentStreak(),longest=getLongestStreak(),wk=getWeeklyCompletionRate();
+ const msg=getStreakMessage(cur);
+ const glowColor=cur>0?'rgba(230,235,0,0.55)':'rgba(100,100,100,0.2)';
+ const numColor=cur>0?'#e6eb00':'var(--muted)';
+ el.innerHTML=`<div style="background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:20px;position:relative;overflow:hidden;">
+  <div style="position:absolute;top:-40px;right:-40px;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,${glowColor} 0%,transparent 70%);pointer-events:none;"></div>
+  <div style="font-size:9px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:6px;">
+   <svg width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="var(--yellow)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="13,2 7,11 10,11 7,18 15,8 11,8 13,2"/></svg>Consistency
+  </div>
+  <div style="display:flex;align-items:flex-end;gap:8px;margin-bottom:4px;">
+   <div style="font-family:'Bebas Neue',sans-serif;font-size:64px;line-height:1;color:${numColor};text-shadow:0 0 24px ${glowColor};letter-spacing:-1px;">${cur}</div>
+   <div style="padding-bottom:10px;">
+    <div style="font-size:11px;font-weight:700;color:var(--text);letter-spacing:0.5px;text-transform:uppercase;">Day Streak</div>
+    <div style="font-size:10px;color:var(--muted);">Best: ${longest} days</div>
+   </div>
+  </div>
+  <div style="height:2px;background:var(--surface2);border-radius:2px;margin-bottom:12px;overflow:hidden;">
+   <div style="height:100%;width:${longest>0?Math.min(Math.round(cur/longest*100),100):0}%;background:linear-gradient(90deg,#ff5c35,var(--yellow));border-radius:2px;transition:width 0.6s cubic-bezier(0.4,0,0.2,1);"></div>
+  </div>
+  <div style="display:flex;justify-content:space-between;align-items:center;">
+   <div style="font-size:12px;color:var(--muted);font-style:italic;">${msg}</div>
+   <div style="font-size:11px;font-weight:700;color:var(--text2);">${wk.done}/${wk.planned} <span style="color:var(--muted);font-weight:400;">this week</span></div>
+  </div>
+ </div>`;
+}
 
 // ── PR TRACKER ──
 function getAllExercises(){
@@ -3997,6 +4087,7 @@ function renderAnalytics(){
    }
  }
  renderHeatmap();
+ renderStreakCard();
  animateCounters();
 }
 
