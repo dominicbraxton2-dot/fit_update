@@ -2203,10 +2203,14 @@ function importData(){
   try{
    const text=await file.text();
    const parsed=JSON.parse(text);
-   if(!parsed.cache)throw new Error('Invalid backup file');
-   // Clear existing then write all
+   if(!parsed.cache||typeof parsed.cache!=='object')throw new Error('Invalid backup file');
+   // Only restore keys that match known app prefixes — reject anything else
+   const ALLOWED=/^df7-/;
+   const entries=Object.entries(parsed.cache).filter(([k,v])=>ALLOWED.test(k)&&typeof v==='string'&&v.length<50000);
+   if(entries.length===0)throw new Error('No valid data found in backup');
+   // Clear existing then write validated entries only
    Object.keys(memCache).forEach(k=>dbDel(k));
-   Object.entries(parsed.cache).forEach(([k,v])=>dbSet(k,v));
+   entries.forEach(([k,v])=>dbSet(k,v));
    alert('✅ Backup restored! Reloading...');
    location.reload();
   }catch(err){alert('❌ Could not restore backup. Make sure it\'s a valid Dom\'s Fit Plan file.');}
