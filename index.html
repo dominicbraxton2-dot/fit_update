@@ -803,6 +803,7 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
  </div>
  <div class="day-strip" id="dayStrip"></div>
  <div class="w-prog-bar"><div class="w-prog-fill" id="progFill"></div></div>
+ <div id="programHeader"></div>
  <div id="workoutPhoto" style="margin:12px 16px 0;border-radius:20px;overflow:hidden;display:none;"><img id="workoutPhotoImg" src="" style="width:100%;height:220px;object-fit:cover;object-position:top;display:block;" alt=""/></div>
  <div id="dayNoteCard" class="day-note-card">
   <div class="note-label">Coach's Note</div>
@@ -2361,6 +2362,24 @@ function calcWorkoutStats(wi,di){
  return{exercises:day.exercises.length,sets:totalSets,estMin,estCal};
 }
 
+function getEquipmentList(wi,di){
+ const day=WEEKS[wi].days[di];
+ const eq=new Set();
+ day.exercises.forEach(ex=>{
+  const n=ex.name.toLowerCase();
+  if(/barbell|deadlift/.test(n))eq.add('Barbell');
+  if(/\bdb\b|dumbbell/.test(n))eq.add('Dumbbells');
+  if(/cable/.test(n))eq.add('Cable');
+  if(/machine|leg press|leg extension|leg curl|lat pulldown/.test(n))eq.add('Machine');
+  if(/pull-up|pull up|chin-up|chin up|hanging leg/.test(n))eq.add('Pull-up Bar');
+  if(/incline walk|treadmill/.test(n))eq.add('Treadmill');
+  if(/ab wheel/.test(n))eq.add('Ab Wheel');
+  if(/band|resistance/.test(n))eq.add('Bands');
+ });
+ if(!eq.size)eq.add('Bodyweight');
+ return[...eq].slice(0,4);
+}
+
 function getSuggestedWeight(exName){
  for(let wi2=aW;wi2>=0;wi2--){
   const wk=WEEKS[wi2];
@@ -2585,6 +2604,40 @@ function renderSmartWidgets(){
   <button onclick="navTo('timer')" style="padding:14px 8px;border-radius:14px;border:1px solid var(--border-bright);background:var(--surface);color:var(--text);font-size:11px;font-weight:700;letter-spacing:0.5px;cursor:pointer;text-transform:uppercase;line-height:1.4;">Open<br/>Timer</button>
  </div>`;
 
+ // Training Plan card
+ const tPhase=getPhase(aW);
+ const planHtml=`<div style="${card}">
+  <div style="${lbl}display:flex;align-items:center;gap:6px;"><svg width="12" height="12" viewBox="0 0 20 20" fill="none" stroke="var(--yellow)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="14" height="14" rx="2"/><line x1="7" y1="8" x2="13" y2="8"/><line x1="7" y1="12" x2="11" y2="12"/></svg>Training Plan</div>
+  <div style="font-size:16px;font-weight:700;color:var(--text);margin-bottom:3px;">12-Week Strength Program</div>
+  <div style="font-size:12px;color:var(--muted);margin-bottom:12px;">Follow the plan, log your sets, and progress week by week.</div>
+  <div style="display:flex;gap:8px;">
+   <div style="flex-shrink:0;background:var(--surface2);border-radius:10px;padding:10px 14px;text-align:center;">
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:${tPhase?tPhase.color:'var(--yellow)'};line-height:1;">${aW+1}</div>
+    <div style="font-size:9px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;">Week</div>
+   </div>
+   <div style="flex:1;background:var(--surface2);border-radius:10px;padding:10px 12px;">
+    <div style="font-size:10px;color:${tPhase?tPhase.color:'var(--yellow)'};font-weight:700;letter-spacing:0.5px;margin-bottom:3px;">${tPhase?tPhase.label:'Program'}</div>
+    <div style="font-size:12px;color:var(--text);font-weight:600;">${WEEKS[aW].theme}</div>
+   </div>
+  </div>
+ </div>`;
+
+ // Weekly split card
+ const DOW_LABELS=['MON','TUE','WED','THU','FRI','SAT','SUN'];
+ const weekSplitHtml=`<div style="${card}">
+  <div style="${lbl}">Week ${aW+1} Split</div>
+  <div style="display:flex;flex-direction:column;gap:7px;">
+   ${WEEKS[aW].days.map((d,di)=>{
+    const ts2=TYPE[d.type]||TYPE.rest;const done=!!getWDone(aW,di);
+    return `<div style="display:flex;align-items:center;gap:10px;">
+     <div style="font-size:9px;font-weight:700;letter-spacing:1px;color:var(--muted);min-width:28px;">${DOW_LABELS[di]||'D'+(di+1)}</div>
+     <div style="flex:1;font-size:12px;color:${done?'var(--muted)':'var(--text)'};${done?'text-decoration:line-through;':''}">${d.label}</div>
+     <div style="width:8px;height:8px;border-radius:50%;background:${done?ts2.color:ts2.color+'44'};flex-shrink:0;${done?'box-shadow:0 0 5px '+ts2.color+'80;':''}"></div>
+    </div>`;
+   }).join('')}
+  </div>
+ </div>`;
+
  // 0. Discipline Streak (home)
  const dCur=getCurrentStreak(),dLong=getLongestStreak(),dMsg=getStreakMessage(dCur);
  const dGlow=dCur>0?'rgba(230,235,0,0.5)':'rgba(80,80,80,0.15)';
@@ -2605,7 +2658,7 @@ function renderSmartWidgets(){
   <div style="font-size:12px;color:var(--muted);font-style:italic;">${dMsg}</div>
  </div>`;
 
- el.innerHTML=streakHtml+missionHtml+prHtml+consistHtml+mFocusHtml+qaHtml;
+ el.innerHTML=planHtml+streakHtml+weekSplitHtml+missionHtml+prHtml+consistHtml+mFocusHtml+qaHtml;
 }
 
 function renderTodayCard(){
@@ -2977,6 +3030,25 @@ function renderWorkout(){
  const workoutCoachEl=document.getElementById('workoutCoach');
  if(workoutCoachEl)workoutCoachEl.innerHTML=`<div class="w-coach-strip"><span class="w-coach-icon">${wCoach.icon}</span><span class="w-coach-text">${wCoach.msg}</span></div>`;
 
+ // Program header card
+ const progEl=document.getElementById('programHeader');
+ if(progEl){
+  const phase=getPhase(aW);
+  const equip=getEquipmentList(aW,aD);
+  const equipStr=equip.join(' · ');
+  progEl.innerHTML=`<div style="margin:10px 16px 0;background:var(--surface);border:1px solid ${c}25;border-left:3px solid ${c};border-radius:16px;padding:14px 16px;display:flex;justify-content:space-between;align-items:flex-start;gap:12px;">
+   <div style="min-width:0;flex:1;">
+    <div style="font-size:9px;letter-spacing:3px;color:${c}88;text-transform:uppercase;font-weight:700;margin-bottom:5px;">${phase?phase.label:'Strength Program'}</div>
+    <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px;">${WEEKS[aW].theme}</div>
+    <div style="font-size:11px;color:var(--muted);">${equipStr}</div>
+   </div>
+   <div style="text-align:right;flex-shrink:0;">
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:${c};line-height:1;">${stats.estMin}</div>
+    <div style="font-size:9px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;">min</div>
+   </div>
+  </div>`;
+ }
+
  document.getElementById('dayStrip').innerHTML=wk.days.map((d,di)=>{
   const ts2=TYPE[d.type],dp=dayProg(aW,di),isA=di===aD;
   return `<button class="ds-btn" onclick="switchDay(${di})"
@@ -2990,8 +3062,9 @@ function renderWorkout(){
   const isDone=gED(aW,aD,ei);
   const pr=getPR(ex.name);
   const suggested=getSuggestedWeight(ex.name);
-  const prBadge=pr>0?`<div class="ex-pr-badge">🏆 PR: ${pr} lbs</div>`:'';
-  const suggestedBadge=suggested>0&&suggested!==pr?`<div class="ex-pr-badge suggested-badge">↑ Last: ${suggested} lbs</div>`:'';
+  const prBadge=pr>0?`<div class="ex-pr-badge">PR: ${pr} lbs</div>`:'';
+  const suggestedBadge=suggested>0&&suggested!==pr?`<div class="ex-pr-badge suggested-badge">Last: ${suggested} lbs</div>`:'';
+  const primaryMuscles=[...new Set((MUSCLE_MAP[ex.name]||[]).map(m=>MUSCLE_NAMES[m]).filter(Boolean))].slice(0,2).join(', ');
   const prog=getProgressionInsight(ex.name);
   const progBadge=prog?`<div class="prog-badge prog-${prog.type}">${prog.type==='increase'?ICONS.arrowUp:ICONS.arrowRight} ${prog.msg}</div>`:'';
   // Sparkline
@@ -3027,21 +3100,23 @@ function renderWorkout(){
    </div>`;
   }
   const timerBtn=ex.timer?`<button class="timer-shortcut" onclick="openTimerFrom('${ex.name.replace(/'/g,'')}')"
-   style="border-color:${c}55;color:${c};">⏱</button>`:'';
+   style="border-color:${c}55;color:${c};"><svg width="12" height="12" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10" cy="11" r="7.5"/><polyline points="10,7.5 10,11 12.5,13"/><line x1="8.5" y1="2" x2="11.5" y2="2"/></svg></button>`:'';
+  const editBtn=`<button onclick="openPREdit('${ex.name.replace(/'/g,"\\'")}');event.stopPropagation();" style="width:28px;height:28px;border-radius:8px;border:1px solid var(--border-bright);background:none;padding:0;overflow:hidden;cursor:pointer;flex-shrink:0;" title="Edit PR"><img src="https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/B7F32667-5BA9-44C7-9A05-0D277957D799.png" style="width:100%;height:100%;object-fit:cover;border-radius:6px;" alt="edit"/></button>`;
   return `<div class="ex-card${isDone?' done':''}" style="--c:${c};--glow:${ts.glow};${isDone?'border-color:'+c+'35;background:'+ts.dim+';box-shadow:0 6px 40px '+ts.glow+';':''}">
    <div class="ex-card-header">
     <div class="ex-info">
      <div class="ex-name" style="${isDone?'color:'+c+'55;':''}">${ex.name}</div>
-     <div class="ex-rec">${ex.reps} reps · ${ex.weight}</div>
+     ${primaryMuscles?`<div style="font-size:10px;color:${c}88;margin-bottom:2px;font-weight:500;">${primaryMuscles}</div>`:''}
+     <div class="ex-rec">${ex.sets}×${ex.reps} · ${ex.weight}</div>
      ${prBadge}${suggestedBadge}${progBadge}${sparkHtml}
     </div>
     <div class="ex-actions">
      <div class="ex-sets-tag" style="color:${c}66">${ex.sets} sets</div>
      <div class="ex-row-btns">
-      ${timerBtn}
+      ${editBtn}${timerBtn}
       <button class="ex-check" onclick="toggleED(${ei})"
        style="${isDone?'background:'+c+';border-color:'+c+';':'border-color:'+c+'28;color:'+c+';'}">
-       ${isDone?'✓':''}
+       ${isDone?ICONS.check:''}
       </button>
      </div>
     </div>
@@ -3130,6 +3205,11 @@ function finishWorkout(){
   const h=buildWorkoutHistory();
   const coach=getCoachInsight();
   const estCal=Math.round(totalSets*2.5*(day.type==='legs'?11:day.type==='cardio'?10:9));
+  const progressionTip=prsHit.length>0
+   ?'Next time: increase weight if all reps felt controlled and strong.'
+   :totalSets>=10
+    ?'Repeat this weight next session — focus on cleaner reps.'
+    :'Deload if soreness or fatigue is high before next session.';
   const overlay=document.getElementById('completionOverlay');
   if(!overlay)return;
   overlay.innerHTML=`<div class="completion-card" onclick="event.stopPropagation()">
@@ -3147,6 +3227,7 @@ function finishWorkout(){
     ${muscles.length?`<div class="comp-muscles">${muscles.map(m=>`<span class="comp-muscle-tag" style="border-color:${ts.color}40;color:${ts.color}">${m}</span>`).join('')}</div>`:''}
     ${h.streak>1?`<div class="comp-streak" style="display:flex;align-items:center;justify-content:center;gap:6px;">${ICONS.flame} ${h.streak}-Session Streak</div>`:''}
     <div class="comp-coach" style="display:flex;align-items:flex-start;gap:8px;">${coach.icon} "${coach.msg}"</div>
+    <div style="margin:8px 0 0;padding:10px 14px;background:rgba(230,235,0,0.07);border:1px solid rgba(230,235,0,0.18);border-radius:12px;font-size:11px;color:var(--muted);line-height:1.5;font-style:italic;">${progressionTip}</div>
     <div class="comp-actions">
       <button class="comp-btn-primary" onclick="closeCompletion()">DONE</button>
       <button class="comp-btn-secondary" onclick="shareWorkoutText();closeCompletion()">SHARE</button>
