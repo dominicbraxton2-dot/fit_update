@@ -93,6 +93,13 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .home-hdr-date{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-top:6px;}
 .home-hdr-right{display:flex;align-items:center;gap:8px;}
 
+/* ── HOME CAROUSEL STAGGER ── */
+.home-carousel-card{animation:cardReveal 0.42s cubic-bezier(0.22,1,0.36,1) both;}
+.home-carousel-card:nth-child(1){animation-delay:0.04s}
+.home-carousel-card:nth-child(2){animation-delay:0.12s}
+.home-carousel-card:nth-child(3){animation-delay:0.20s}
+.home-carousel-card:nth-child(4){animation-delay:0.28s}
+
 /* ── HOME SECTION HEADERS ── */
 .hm-section-hdr{display:flex;align-items:center;justify-content:space-between;padding:0 20px;margin:14px 0 10px;}
 .hm-section-lbl{font-size:9px;letter-spacing:3px;color:var(--text2);text-transform:uppercase;font-weight:700;}
@@ -617,13 +624,41 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
 @keyframes pulseGlow{0%,100%{box-shadow:0 0 0 0 transparent}50%{box-shadow:0 0 20px 4px var(--yellow)}}
 @keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
 @keyframes scaleIn{from{opacity:0;transform:scale(0.9)}to{opacity:1;transform:scale(1)}}
-.completion-card{animation:scaleIn 0.3s cubic-bezier(0.34,1.56,0.64,1);}
+/* Premium additions */
+@keyframes compCardIn{0%{opacity:0;transform:translateY(52px) scale(0.93)}100%{opacity:1;transform:none}}
+@keyframes overlayOut{to{opacity:0}}
+@keyframes prGlow{0%{box-shadow:0 0 0 0 rgba(255,107,0,0.6)}60%{box-shadow:0 0 0 18px rgba(255,107,0,0)}100%{box-shadow:0 0 0 0 rgba(255,107,0,0)}}
+@keyframes rowFlash{0%{background:rgba(255,107,0,0)}25%{background:rgba(255,107,0,0.13)}100%{background:transparent}}
+@keyframes navTap{0%{transform:scale(1)}35%{transform:scale(0.78)}80%{transform:scale(1.08)}100%{transform:scale(1)}}
+@keyframes prToastIn{0%{opacity:0;transform:translateX(-50%) scale(0.85) translateY(8px)}65%{transform:translateX(-50%) scale(1.03) translateY(-2px)}100%{opacity:1;transform:translateX(-50%) scale(1) translateY(0)}}
+/* Completion card — spring entry with slight delay so backdrop renders first */
+.completion-card{animation:compCardIn 0.46s cubic-bezier(0.22,1,0.36,1) 0.06s both;}
+.comp-stat{animation:countUp 0.38s cubic-bezier(0.22,1,0.36,1) both;}
+.comp-stat:nth-child(1){animation-delay:0.18s}
+.comp-stat:nth-child(2){animation-delay:0.24s}
+.comp-stat:nth-child(3){animation-delay:0.30s}
+.comp-stat:nth-child(4){animation-delay:0.36s}
+/* Exercise card */
 .coach-card{animation:slideUp 0.3s ease;}
 .ex-card{transition:transform 0.15s,box-shadow 0.2s;}
 .ex-card:active{transform:scale(0.99);}
 .wk-card{transition:transform 0.2s,box-shadow 0.3s,border-color 0.3s;}
 .qa-btn.qa-primary:active{transform:scale(0.97);filter:brightness(1.05);}
-.ex-card.done{transition:all 0.3s;}
+.ex-card.done{transition:box-shadow 0.4s ease,border-color 0.4s ease;}
+/* CTA button press — deeper sink + faster rise */
+.hc-cta{transition:transform 0.12s cubic-bezier(0.34,1.56,0.64,1),box-shadow 0.15s;}
+.hc-cta:active{transform:scale(0.94);box-shadow:0 1px 6px rgba(255,107,0,0.2);}
+.comp-btn-primary{transition:transform 0.12s cubic-bezier(0.34,1.56,0.64,1),filter 0.15s;}
+.comp-btn-primary:active{transform:scale(0.95);filter:brightness(1.08);}
+/* Set row flash on complete */
+.set-row-flash{animation:rowFlash 0.55s ease both;}
+/* PR glow on set checkbox */
+.pr-hit-glow{animation:prGlow 0.7s ease both;}
+/* Nav tap spring */
+.nav-icon-tapped{animation:navTap 0.3s cubic-bezier(0.34,1.56,0.64,1);}
+/* PR toast */
+#prToast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%);z-index:600;pointer-events:none;white-space:nowrap;}
+.pr-toast-inner{background:linear-gradient(135deg,#ff6b00,#ff4800);color:#fff;padding:10px 20px;border-radius:100px;font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:1.5px;box-shadow:0 8px 32px rgba(255,107,0,0.5);animation:prToastIn 0.4s cubic-bezier(0.22,1,0.36,1) both;}
 /* SPARKLINE */
 .ex-sparkline{display:flex;align-items:center;margin-top:4px;padding:4px 0;}
 /* MISSED WORKOUT BANNER */
@@ -806,6 +841,7 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
 /* Completion overlay scan line */
 #completionOverlay{position:relative;}
 #completionOverlay::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--yellow),transparent);animation:scanLine 2s linear infinite;pointer-events:none;z-index:1;}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0.01ms!important;animation-delay:0.01ms!important;transition-duration:0.01ms!important;}}
 </style>
 </head>
 <body>
@@ -2284,7 +2320,18 @@ function checkPR(w,d,ei,val){
  if(!num||isNaN(num))return;
  const exName=WEEKS[w].days[d].exercises[ei].name;
  const cur=getPR(exName);
- if(num>cur)setPR(exName,num);
+ if(num>cur){setPR(exName,num);showPRToast(exName,num);}
+}
+function showPRToast(name,weight){
+ const t=document.getElementById('prToast');
+ if(!t)return;
+ t.innerHTML=`<div class="pr-toast-inner">🏆 PR — ${name}: ${weight}lbs</div>`;
+ clearTimeout(t._hide);
+ t._hide=setTimeout(()=>{
+  const inner=t.querySelector('.pr-toast-inner');
+  if(inner){inner.style.animation='prToastIn 0.25s ease reverse both';setTimeout(()=>{t.innerHTML='';},250);}
+ },2200);
+ if(navigator.vibrate)navigator.vibrate([10,60,20]);
 }
 
 // ── EXPORT / IMPORT BACKUP ──
@@ -2394,7 +2441,8 @@ function navTo(id){
  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
  document.getElementById(id).classList.add('active');
  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
- const nb=document.getElementById('nav-'+id);if(nb)nb.classList.add('active');
+ const nb=document.getElementById('nav-'+id);
+ if(nb){nb.classList.add('active');const icon=nb.querySelector('.nav-icon');if(icon){icon.classList.add('nav-icon-tapped');setTimeout(()=>icon.classList.remove('nav-icon-tapped'),300);}}
  if(id==='home')renderHome();
  if(id==='workout')renderWorkout();
  if(id==='calendar')renderCalendar();
@@ -3448,8 +3496,10 @@ function finishWorkout(){
   renderWorkout();
 }
 function closeCompletion(){
-  const o=document.getElementById('completionOverlay');
-  if(o)o.style.display='none';
+ const o=document.getElementById('completionOverlay');
+ if(!o)return;
+ o.style.animation='overlayOut 0.2s ease both';
+ setTimeout(()=>{o.style.display='none';o.style.animation='';},200);
 }
 
 // ── REST TIMER (inline) ──
@@ -4558,5 +4608,6 @@ boot();
  </div>
 </div>
 
+<div id="prToast"></div>
 </body>
 </html>
