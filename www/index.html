@@ -104,7 +104,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .hm-see-all{font-size:9px;letter-spacing:2px;color:#ff6b00;text-transform:uppercase;font-weight:700;background:none;border:none;cursor:pointer;padding:4px 0;}
 
 /* ── HOME CAROUSEL ── */
-.home-carousel{display:flex;overflow-x:auto;overflow-y:visible;gap:14px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:28px 20px 18px;scrollbar-width:none;}
+.home-carousel{display:flex;overflow-x:auto;overflow-y:hidden;gap:14px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:28px 20px 18px;scrollbar-width:none;touch-action:pan-x;overscroll-behavior-x:contain;overscroll-behavior-y:none;}
 .home-carousel::-webkit-scrollbar{display:none;}
 .home-carousel-card{
  flex:0 0 86%;scroll-snap-align:start;border-radius:24px;padding:20px;
@@ -118,6 +118,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
  position:relative;
  padding-top:32px;
  margin-top:-32px;
+ align-self:flex-start;
 }
 .home-carousel-card.hc-hero{
  padding:0;
