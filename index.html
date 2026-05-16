@@ -12,13 +12,21 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@700;800;900&family=JetBrains+Mono:wght@600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <style>
 /* ── THEME VARS ── */
-[data-theme="dark"],[data-theme="light"]{
+[data-theme="dark"]{
  --bg:#080808;--surface:rgba(14,14,14,0.94);--surface2:#101010;--surface3:#181818;
  --border:rgba(255,107,0,0.07);--border-bright:rgba(255,255,255,0.11);
  --text:#f2f2f2;--text2:#909098;--muted:#4a4a52;
  --card-shadow:0 16px 56px rgba(0,0,0,0.92);
  --glass:rgba(10,10,10,0.82);--glass-blur:blur(28px);
  --noise-opacity:0.2;
+}
+[data-theme="light"]{
+ --bg:#f0f0f3;--surface:rgba(255,255,255,0.97);--surface2:#e8e8ec;--surface3:#dcdce0;
+ --border:rgba(0,0,0,0.07);--border-bright:rgba(0,0,0,0.14);
+ --text:#0a0a0a;--text2:#505058;--muted:#909098;
+ --card-shadow:0 4px 24px rgba(0,0,0,0.10);
+ --glass:rgba(255,255,255,0.88);--glass-blur:blur(28px);
+ --noise-opacity:0.04;
 }
 :root{
  --push:#ff5c35;--legs:#00c896;--cardio:#28b8e8;--pull:#9858e8;--rest:#6b7fa3;
