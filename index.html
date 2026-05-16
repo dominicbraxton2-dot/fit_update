@@ -740,6 +740,7 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
  <div id="todayWorkoutCard"></div>
  <div id="activityWidgets"></div>
  <div id="coachCard"></div>
+ <div id="smartWidgets"></div>
  <div id="missedWorkoutBanner" style="display:none;"></div>
 
  <!-- WORKOUT REMINDERS -->
@@ -2458,6 +2459,134 @@ async function renderCoachCard(){
   }
 }
 
+// ── SMART HOME WIDGETS ───────────────────────────────────────────────────────
+function getTodaysWorkoutSummary(){
+ const day=WEEKS[aW]&&WEEKS[aW].days[aD];
+ if(!day)return null;
+ const stats=calcWorkoutStats(aW,aD);
+ return{label:day.label,type:day.type,exercises:stats.exercises,estMin:stats.estMin,done:dayProg(aW,aD)===1,isRest:day.type==='rest'};
+}
+
+function getNextPRTarget(){
+ const withPR=getAllExercises().filter(e=>getPR(e.name)>0);
+ if(!withPR.length)return null;
+ let best=withPR[0],bestDate='';
+ withPR.forEach(e=>{const d=dbGet(prDateKey(e.name));if(d&&d>bestDate){bestDate=d;best=e;}});
+ const cur=getPR(best.name);
+ const inc=cur>=100?5:cur>=45?2.5:1;
+ return{name:best.name,type:best.type,current:cur,next:cur+inc};
+}
+
+function getWeeklyConsistency(){
+ const today=new Date();today.setHours(0,0,0,0);
+ const dow=today.getDay();
+ const wkStart=new Date(today);wkStart.setDate(today.getDate()-(dow===0?6:dow-1));
+ let done=0;
+ WEEKS.forEach((wk,wi)=>wk.days.forEach((day,di)=>{
+  if(day.type==='rest')return;
+  const ds=getWDone(wi,di);if(!ds)return;
+  const d=new Date(ds+'T12:00');
+  if(d>=wkStart&&d<=today)done++;
+ }));
+ const planned=WEEKS[aW].days.filter(d=>d.type!=='rest').length;
+ const mottos=['Stay locked in.','Consistency beats perfection.','Keep the chain going.','Make every session count.','Push through — it compounds.'];
+ return{done,planned,motto:mottos[done%mottos.length]};
+}
+
+function getMuscleFocus(){
+ const today=new Date();today.setHours(0,0,0,0);
+ const dow=today.getDay();
+ const wkStart=new Date(today);wkStart.setDate(today.getDate()-(dow===0?6:dow-1));
+ const vol={};
+ WEEKS.forEach((wk,wi)=>wk.days.forEach((day,di)=>{
+  const ds=getWDone(wi,di);if(!ds)return;
+  const d=new Date(ds+'T12:00');if(d<wkStart||d>today)return;
+  day.exercises.forEach(ex=>{
+   const groups=[...new Set((MUSCLE_MAP[ex.name]||[]).map(m=>MUSCLE_NAMES[m]).filter(Boolean))];
+   groups.forEach(g=>{vol[g]=(vol[g]||0)+ex.sets;});
+  });
+ }));
+ const entries=Object.entries(vol).sort((a,b)=>b[1]-a[1]);
+ if(entries.length<2)return null;
+ return{most:entries[0][0],least:entries[entries.length-1][0]};
+}
+
+function renderSmartWidgets(){
+ const el=document.getElementById('smartWidgets');
+ if(!el)return;
+ const mission=getTodaysWorkoutSummary();
+ const prTarget=getNextPRTarget();
+ const consist=getWeeklyConsistency();
+ const mFocus=getMuscleFocus();
+
+ const card=`background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:16px;margin:0 16px 12px;`;
+ const lbl=`font-size:9px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;font-weight:700;margin-bottom:10px;`;
+ const big=`font-size:17px;font-weight:700;color:var(--text);margin-bottom:4px;`;
+ const sub=`font-size:12px;color:var(--muted);`;
+
+ // 1. Today's Mission
+ const ts=mission?TYPE[mission.type]||TYPE.rest:TYPE.rest;
+ const missionHtml=!mission?'':mission.isRest?
+  `<div style="${card}"><div style="${lbl}">Today's Mission</div><div style="${big}color:#6b7fa3;">Recovery Day</div><div style="${sub}">Rest, hydrate, and prepare for tomorrow.</div></div>`:
+  `<div style="${card}"><div style="${lbl}">Today's Mission</div>
+   <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;">
+    <div style="flex:1;min-width:0;">
+     <div style="${big}color:${ts.color};">${mission.label}</div>
+     <div style="${sub}">${mission.exercises} exercises · ~${mission.estMin} min</div>
+    </div>
+    <button onclick="openDay(${aW},${aD})" style="flex-shrink:0;padding:8px 14px;border-radius:12px;border:none;background:${mission.done?'var(--surface2)':'linear-gradient(135deg,'+ts.color+','+ts.color+'bb)'};color:${mission.done?ts.color:'#fff'};${mission.done?'border:1px solid '+ts.color+'40;':''}font-size:12px;font-weight:800;cursor:pointer;">${mission.done?'DONE ✓':'START'}</button>
+   </div></div>`;
+
+ // 2. Next PR Target
+ const prHtml=prTarget?
+  `<div style="${card}"><div style="${lbl}">Next PR Target</div>
+   <div style="${big}">${prTarget.name}</div>
+   <div style="${sub}">Current: <span style="color:var(--text);font-weight:600;">${prTarget.current} lb</span></div>
+   <div style="margin-top:8px;font-size:13px;font-weight:800;color:var(--yellow);">→ Next Target: ${prTarget.next} lb</div></div>`:
+  `<div style="${card}"><div style="${lbl}">Next PR Target</div>
+   <div style="${big}color:var(--muted);">No PR data yet</div>
+   <div style="${sub}">Log workouts to unlock targets.</div></div>`;
+
+ // 3. Weekly Consistency
+ const pct=consist.planned>0?Math.min(Math.round(consist.done/consist.planned*100),100):0;
+ const consistHtml=`<div style="${card}"><div style="${lbl}">Weekly Consistency</div>
+  <div style="display:flex;align-items:flex-end;gap:6px;margin-bottom:8px;">
+   <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;line-height:1;color:var(--yellow);">${consist.done}</div>
+   <div style="font-size:13px;color:var(--muted);padding-bottom:5px;">/ ${consist.planned} sessions</div>
+  </div>
+  <div style="height:4px;background:var(--surface2);border-radius:2px;margin-bottom:8px;overflow:hidden;">
+   <div style="height:100%;width:${pct}%;background:linear-gradient(90deg,#ff5c35,var(--yellow));border-radius:2px;"></div>
+  </div>
+  <div style="${sub}font-style:italic;">${consist.motto}</div></div>`;
+
+ // 4. Muscle Focus
+ const mFocusHtml=mFocus?
+  `<div style="${card}"><div style="${lbl}">Muscle Focus</div>
+   <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;">
+    <div style="background:var(--surface2);border-radius:12px;padding:10px;">
+     <div style="font-size:9px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;">Most Trained</div>
+     <div style="font-size:13px;font-weight:700;color:#00c896;">${mFocus.most}</div>
+    </div>
+    <div style="background:var(--surface2);border-radius:12px;padding:10px;">
+     <div style="font-size:9px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;">Least Trained</div>
+     <div style="font-size:13px;font-weight:700;color:#ff5c35;">${mFocus.least}</div>
+    </div>
+   </div>
+   <div style="${sub}">Consider training ${mFocus.least.toLowerCase()} next.</div></div>`:
+  `<div style="${card}"><div style="${lbl}">Muscle Focus</div>
+   <div style="${sub}color:var(--text2);margin-bottom:4px;">Not enough muscle data yet.</div>
+   <div style="${sub}">Complete workouts to unlock focus insights.</div></div>`;
+
+ // 5. Quick Actions Row
+ const qaHtml=`<div style="margin:0 16px 14px;display:grid;grid-template-columns:repeat(3,1fr);gap:8px;">
+  <button onclick="openDay(${aW},${aD})" style="padding:14px 8px;border-radius:14px;border:none;background:var(--yellow);color:#000;font-size:11px;font-weight:800;letter-spacing:0.5px;cursor:pointer;text-transform:uppercase;line-height:1.4;">Start<br/>Workout</button>
+  <button onclick="navTo('prs')" style="padding:14px 8px;border-radius:14px;border:1px solid var(--border-bright);background:var(--surface);color:var(--text);font-size:11px;font-weight:700;letter-spacing:0.5px;cursor:pointer;text-transform:uppercase;line-height:1.4;">Log<br/>PR</button>
+  <button onclick="navTo('timer')" style="padding:14px 8px;border-radius:14px;border:1px solid var(--border-bright);background:var(--surface);color:var(--text);font-size:11px;font-weight:700;letter-spacing:0.5px;cursor:pointer;text-transform:uppercase;line-height:1.4;">Open<br/>Timer</button>
+ </div>`;
+
+ el.innerHTML=missionHtml+prHtml+consistHtml+mFocusHtml+qaHtml;
+}
+
 function renderTodayCard(){
  const el=document.getElementById('todayWorkoutCard');
  if(!el)return;
@@ -2765,6 +2894,7 @@ function renderHome(){
  renderTodayCard();
  renderActivityWidgets();
  renderCoachCard();
+ renderSmartWidgets();
  // Missed workout in-app alert
  const mwEl=document.getElementById('missedWorkoutBanner');
  if(mwEl){
