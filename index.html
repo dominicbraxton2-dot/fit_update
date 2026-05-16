@@ -886,8 +886,8 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
  <div class="home-hdr">
   <div>
    <div class="home-brand">
-    <img src="https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/C16411D2-A326-489A-9BEC-5F9B617C35A2.png" alt="Strength Identity" draggable="false" onerror="this.classList.add('errored');this.style.display='none';this.nextElementSibling.style.display='block'"/>
-    <span class="home-brand-fallback">STRENGTH IDENTITY</span>
+    <img id="siLogo" src="https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/F8CDDECC-EE72-438E-84EB-843915277B91.png" alt="Strength Identity" draggable="false" onerror="this.style.display='none';document.getElementById('siFallback').style.display='block'"/>
+    <span id="siFallback" class="home-brand-fallback">STRENGTH IDENTITY</span>
    </div>
    <div class="home-hdr-date" id="homeDateStr"></div>
   </div>
@@ -2404,9 +2404,13 @@ function weekProg(w){let d=0,t=0;WEEKS[w].days.forEach((day,di)=>day.exercises.f
 
 // ── THEME ──
 let darkMode=true; // set after DB loads
+const SI_LOGO_DARK='https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/F8CDDECC-EE72-438E-84EB-843915277B91.png';
+const SI_LOGO_LIGHT='https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/424F91F8-D20C-4E04-B3F9-A43343C76E80.png';
 function applyTheme(){
  document.documentElement.setAttribute('data-theme',darkMode?'dark':'light');
  document.getElementById('themeBtn').textContent=darkMode?'🌙':'☀️';
+ const logo=document.getElementById('siLogo');
+ if(logo)logo.src=darkMode?SI_LOGO_DARK:SI_LOGO_LIGHT;
  dbSet('df7-theme',darkMode?'dark':'light');
 }
 function toggleTheme(){darkMode=!darkMode;applyTheme();}
