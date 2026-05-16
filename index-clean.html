@@ -1051,6 +1051,8 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
  </div>
  <!-- BODY WEIGHT -->
  <div id="bodyWeightSection" style="padding:0 16px 20px;"></div>
+ <!-- HEATMAP -->
+ <div id="heatmapSection" style="margin:0 16px 20px;background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:18px;"></div>
 </div>
 
 <!-- MUSCLE MAP SCREEN -->
@@ -3864,7 +3866,77 @@ function renderAnalytics(){
        </div>`;
    }
  }
+ renderHeatmap();
  animateCounters();
+}
+
+function renderHeatmap(){
+ const el=document.getElementById('heatmapSection');
+ if(!el)return;
+
+ // Build date → workout info from completed sessions
+ const wmap={};
+ WEEKS.forEach((wk,wi)=>{
+  wk.days.forEach((day,di)=>{
+   const ds=getWDone(wi,di);
+   if(!ds)return;
+   wmap[ds]={label:day.label,type:day.type,exercises:day.exercises.length,sets:day.exercises.reduce((s,ex)=>s+ex.sets,0)};
+  });
+ });
+
+ // 12-week window ending today, starting on a Monday (local time)
+ const today=new Date();today.setHours(0,0,0,0);
+ function lDate(d){return`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;}
+ const dow=today.getDay();
+ const startDate=new Date(today);startDate.setDate(today.getDate()-(dow===0?6:dow-1)-11*7);
+
+ const weeks=[];
+ for(let wi=0;wi<12;wi++){
+  const days=[];
+  for(let di=0;di<7;di++){
+   const d=new Date(startDate);d.setDate(startDate.getDate()+wi*7+di);
+   days.push({ds:lDate(d),d,isFuture:d>today,workout:wmap[lDate(d)]||null});
+  }
+  weeks.push(days);
+ }
+
+ const maxSets=Math.max(...weeks.flat().map(c=>c.workout?.sets||0),1);
+ const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+ let lastM=-1;
+ const mlabels=weeks.map(days=>{const m=days[0].d.getMonth();if(m!==lastM){lastM=m;return months[m];}return '';});
+
+ el.innerHTML=`
+  <div style="font-size:10px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-bottom:4px;">Workout Heatmap</div>
+  <div style="font-size:11px;color:var(--muted);margin-bottom:12px;">Your training consistency by day</div>
+  <div style="display:flex;gap:3px;overflow:hidden;">
+   ${weeks.map((days,wi)=>`<div style="flex:1;display:flex;flex-direction:column;gap:3px;">
+    <div style="font-size:8px;color:var(--muted);height:12px;line-height:12px;overflow:hidden;">${mlabels[wi]}</div>
+    ${days.map(({ds,isFuture,workout})=>{
+     const op=workout?Math.max(0.18,workout.sets/maxSets):0;
+     const bg=workout?`rgba(230,235,0,${op})`:isFuture?'rgba(255,255,255,0.02)':'rgba(255,255,255,0.06)';
+     const glow=workout?`box-shadow:0 0 ${Math.round(op*6)}px rgba(230,235,0,${op*0.5});`:'';
+     const dAttr=workout?`data-d="${ds}" data-l="${workout.label.replace(/['"<>&]/g,'')}" data-t="${workout.type}" data-e="${workout.exercises}" data-s="${workout.sets}"`:`data-d="${ds}"`;
+     return`<div ${dAttr} onclick="hmTap(this)" style="aspect-ratio:1;border-radius:3px;background:${bg};${glow}${workout?'cursor:pointer;':''}"></div>`;
+    }).join('')}
+   </div>`).join('')}
+  </div>
+  <div style="display:flex;align-items:center;gap:5px;justify-content:flex-end;margin-top:8px;">
+   <span style="font-size:9px;color:var(--muted);">Less</span>
+   ${[0.08,0.22,0.45,0.7,1].map(op=>`<div style="width:10px;height:10px;border-radius:2px;background:rgba(230,235,0,${op});flex-shrink:0;"></div>`).join('')}
+   <span style="font-size:9px;color:var(--muted);">More</span>
+  </div>
+  <div id="hmTip" style="display:none;margin-top:10px;padding:10px 12px;background:var(--surface2);border:1px solid var(--border-bright);border-radius:12px;"></div>
+ `;
+}
+
+function hmTap(el){
+ const tip=document.getElementById('hmTip');
+ if(!tip)return;
+ if(!el.dataset.l){tip.style.display='none';return;}
+ const ts=TYPE[el.dataset.t]||TYPE.rest;
+ const dateDisplay=new Date(el.dataset.d+'T12:00').toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric'});
+ tip.style.display='block';
+ tip.innerHTML=`<div style="font-size:10px;color:var(--muted);margin-bottom:3px;">${dateDisplay}</div><div style="font-weight:600;color:${ts.color};margin-bottom:2px;">${el.dataset.l}</div><div style="font-size:11px;color:var(--muted);">${el.dataset.e} exercises \xB7 ${el.dataset.s} sets</div>`;
 }
 
 function animateCounters(){
