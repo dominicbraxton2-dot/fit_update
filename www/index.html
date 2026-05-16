@@ -70,6 +70,49 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .home-hero .tagline{font-family:'JetBrains Mono','DM Sans',monospace;font-size:10px;color:var(--muted);font-weight:600;letter-spacing:2px;text-transform:uppercase;}
 .theme-btn{width:38px;height:38px;border-radius:12px;border:1px solid var(--border-bright);background:var(--surface);color:var(--text);font-size:18px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:4px;}
 
+/* ── HOME COMPACT HEADER ── */
+.home-hdr{display:flex;align-items:flex-start;justify-content:space-between;padding:52px 20px 14px;}
+.home-hdr-logo{font-family:'Montserrat','Bebas Neue',sans-serif;font-size:20px;font-weight:900;letter-spacing:-0.5px;text-transform:uppercase;line-height:1;}
+.home-hdr-logo .acc{background:linear-gradient(135deg,var(--yellow),#b8be00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.home-hdr-date{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-top:5px;}
+.home-hdr-right{display:flex;align-items:center;gap:8px;}
+
+/* ── HOME SECTION HEADERS ── */
+.hm-section-hdr{display:flex;align-items:center;justify-content:space-between;padding:0 20px;margin:10px 0 8px;}
+.hm-section-lbl{font-size:9px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;font-weight:700;}
+.hm-see-all{font-size:9px;letter-spacing:2px;color:var(--yellow);text-transform:uppercase;font-weight:700;background:none;border:none;cursor:pointer;padding:4px 0;}
+[data-theme="light"] .hm-see-all{color:#b89800;}
+
+/* ── HOME CAROUSEL ── */
+.home-carousel{display:flex;overflow-x:auto;gap:12px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:0 20px 16px;scrollbar-width:none;}
+.home-carousel::-webkit-scrollbar{display:none;}
+.home-carousel-card{flex:0 0 84%;scroll-snap-align:start;background:var(--glass);backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);border:1px solid var(--border-bright);border-radius:24px;padding:20px;display:flex;flex-direction:column;position:relative;overflow:hidden;min-height:200px;}
+.hc-eyebrow{font-size:9px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;font-weight:700;margin-bottom:6px;}
+.hc-title{font-family:'Montserrat','Bebas Neue',sans-serif;font-size:24px;font-weight:900;letter-spacing:-0.5px;text-transform:uppercase;line-height:1.1;margin-bottom:4px;}
+.hc-sub{font-size:12px;color:var(--muted);font-weight:500;margin-bottom:10px;}
+.hc-stats-row{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--muted);font-weight:600;margin-bottom:14px;flex-wrap:wrap;}
+.hc-desc{font-size:11px;color:var(--muted);line-height:1.5;margin-top:4px;}
+.hc-cta{width:100%;padding:13px;border-radius:14px;border:none;font-family:'Montserrat',sans-serif;font-size:12px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;margin-top:auto;transition:transform 0.15s;}
+.hc-cta:active{transform:scale(0.97);}
+.hc-week-dots{display:flex;gap:4px;margin:8px 0 14px;}
+.hc-dot{display:flex;flex-direction:column;align-items:center;gap:3px;flex:1;}
+.hc-dot-lbl{font-size:8px;font-weight:600;letter-spacing:1px;color:var(--muted);text-transform:uppercase;}
+.hc-dot-circle{width:20px;height:20px;border-radius:50%;background:var(--surface3);border:1px solid var(--border);}
+.hc-dot.done .hc-dot-circle{background:#e8ff00;border-color:#e8ff00;}
+.hc-dot.done .hc-dot-lbl{color:var(--text);}
+.hc-dot.today .hc-dot-circle{border-color:var(--border-bright);background:var(--surface2);}
+.hc-dot.today .hc-dot-lbl{color:var(--text2);}
+.hc-dot.future .hc-dot-circle{opacity:0.3;}
+.hc-dot.future .hc-dot-lbl{opacity:0.3;}
+.hc-rbar{height:4px;background:var(--surface3);border-radius:4px;overflow:hidden;margin:8px 0 6px;}
+
+/* ── QUICK ACTION PILLS ── */
+.qa-pills{display:flex;gap:8px;padding:0 20px 14px;overflow-x:auto;scrollbar-width:none;}
+.qa-pills::-webkit-scrollbar{display:none;}
+.qa-pill{display:inline-flex;align-items:center;gap:6px;padding:10px 16px;border-radius:100px;border:1px solid var(--border-bright);background:var(--surface);color:var(--text);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;white-space:nowrap;transition:transform 0.15s;flex-shrink:0;}
+.qa-pill.qa-primary{background:var(--yellow);color:#000;border-color:var(--yellow);}
+.qa-pill:active{transform:scale(0.95);}
+
 /* REMINDER STRIP */
 .reminder-strip{margin:0 16px 12px;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:14px 16px;}
 .reminder-strip-title{font-size:10px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-bottom:10px;}
@@ -723,27 +766,45 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
 
 <!-- HOME -->
 <div id="home" class="screen active">
- <div class="home-hero">
-  <div class="hero-top">
-   <div>
-    <div class="hero-badge"><span class="dot"></span>12-Week Program</div>
-   </div>
+ <!-- Compact Header -->
+ <div class="home-hdr">
+  <div>
+   <div class="home-hdr-logo">STRENGTH <span class="acc">IDENTITY</span></div>
+   <div class="home-hdr-date" id="homeDateStr"></div>
+  </div>
+  <div class="home-hdr-right">
+   <div id="homeStreakChip"></div>
    <button class="theme-btn" onclick="toggleTheme()" id="themeBtn">🌙</button>
   </div>
-  <h1>STRENGTH<br/><span class="acc">IDENTITY</span></h1>
-  <p class="tagline">Big Chest · Massive Legs · Shredded Abs · Kill The Visceral Fat</p>
-
  </div>
 
- <div id="quickActions"></div>
- <div id="weekStrip"></div>
- <div id="todayWorkoutCard"></div>
- <div id="activityWidgets"></div>
- <div id="coachCard"></div>
- <div id="smartWidgets"></div>
  <div id="missedWorkoutBanner" style="display:none;"></div>
 
- <!-- WORKOUT REMINDERS -->
+ <!-- Today's Plan Carousel -->
+ <div class="hm-section-hdr"><span class="hm-section-lbl">TODAY'S PLAN</span></div>
+ <div id="homeCarousel" class="home-carousel"></div>
+
+ <!-- Quick Actions -->
+ <div id="quickActions"></div>
+
+ <!-- This Week -->
+ <div class="hm-section-hdr">
+  <span class="hm-section-lbl">THIS WEEK</span>
+  <button class="hm-see-all" onclick="navTo('stats')">STATS</button>
+ </div>
+ <div id="weekStrip"></div>
+
+ <!-- Coach -->
+ <div id="coachCard"></div>
+
+ <!-- 12-Week Program (collapsed by default) -->
+ <div class="hm-section-hdr" style="margin-top:4px;">
+  <span class="hm-section-lbl">12-WEEK PROGRAM</span>
+  <button class="hm-see-all" id="weekCardsToggle" onclick="toggleWeekCards()">SEE ALL</button>
+ </div>
+ <div class="week-cards" id="weekCards" style="display:none;"></div>
+
+ <!-- Workout Reminders -->
  <div class="reminder-strip">
   <div class="reminder-strip-title">Workout Reminders</div>
   <div class="reminder-row">
@@ -756,28 +817,35 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
     <button class="toggle-sw off" id="reminderToggle" onclick="toggleReminder()"></button>
    </div>
   </div>
-  <div style="font-size:11px;color:var(--muted);margin-top:6px;">⚠️ After saving, allow notifications when prompted. Works best when app is added to your home screen.</div>
+  <div style="font-size:11px;color:var(--muted);margin-top:6px;">After saving, allow notifications when prompted. Works best when added to home screen.</div>
  </div>
 
- <div class="week-cards" id="weekCards"></div>
- <div class="tips-section">
-  <div class="tips-label">Program Guidelines</div>
-  <div class="tip"><span>🔥</span><span>Target 500 cal deficit daily — walk + weights = visceral fat's worst enemy</span></div>
-  <div class="tip"><span>🥩</span><span>1g protein per lb bodyweight — keeps muscle while cutting fat</span></div>
-  <div class="tip"><span>💧</span><span>4L water daily — flushes sodium, kills bloat instantly</span></div>
-  <div class="tip"><span>🧂</span><span>Zero processed food, zero alcohol — they park fat on your organs</span></div>
-  <div class="tip"><span>😴</span><span>8+ hrs sleep — cortisol from bad sleep stores fat around the gut</span></div>
+ <!-- Program Guidelines (collapsed) -->
+ <div class="hm-section-hdr">
+  <span class="hm-section-lbl">PROGRAM GUIDELINES</span>
+  <button class="hm-see-all" onclick="toggleTips()">SHOW</button>
+ </div>
+ <div class="tips-section" id="tipsSection" style="display:none;">
+  <div class="tip"><span>Target 500 cal deficit daily — walk + weights = visceral fat's worst enemy</span></div>
+  <div class="tip"><span>1g protein per lb bodyweight — keeps muscle while cutting fat</span></div>
+  <div class="tip"><span>4L water daily — flushes sodium, kills bloat instantly</span></div>
+  <div class="tip"><span>Zero processed food, zero alcohol — they park fat on your organs</span></div>
+  <div class="tip"><span>8+ hrs sleep — cortisol from bad sleep stores fat around the gut</span></div>
  </div>
 
- <!-- BACKUP -->
- <div style="margin:0 16px 200px;background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:18px;">
+ <!-- Data Backup -->
+ <div style="margin:0 16px 120px;background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:18px;">
   <div style="font-size:10px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-bottom:4px;">Data Backup</div>
-  <div style="font-size:12px;color:var(--muted);margin-bottom:14px;font-weight:300;">Your data is saved in IndexedDB — much more persistent than before. Use backups as an extra safety net.</div>
+  <div style="font-size:12px;color:var(--muted);margin-bottom:14px;font-weight:300;">Your data is saved in IndexedDB. Use backups as an extra safety net.</div>
   <div style="display:flex;gap:10px;">
-   <button onclick="exportData()" style="flex:1;padding:12px;border-radius:12px;border:1px solid var(--border-bright);background:var(--yellow);color:#000;font-size:13px;font-weight:700;">⬇️ Export Backup</button>
-   <button onclick="importData()" style="flex:1;padding:12px;border-radius:12px;border:1px solid var(--border-bright);background:var(--surface2);color:var(--text);font-size:13px;font-weight:600;">⬆️ Restore Backup</button>
+   <button onclick="exportData()" style="flex:1;padding:12px;border-radius:12px;border:1px solid var(--border-bright);background:var(--yellow);color:#000;font-size:13px;font-weight:700;">Export Backup</button>
+   <button onclick="importData()" style="flex:1;padding:12px;border-radius:12px;border:1px solid var(--border-bright);background:var(--surface2);color:var(--text);font-size:13px;font-weight:600;">Restore Backup</button>
   </div>
  </div>
+
+ <!-- Hidden holders for compat -->
+ <div id="todayWorkoutCard" style="display:none;"></div>
+ <div id="activityWidgets" style="display:none;"></div>
 
 </div>
 
@@ -803,7 +871,6 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
  </div>
  <div class="day-strip" id="dayStrip"></div>
  <div class="w-prog-bar"><div class="w-prog-fill" id="progFill"></div></div>
- <div id="programHeader"></div>
  <div id="workoutPhoto" style="margin:12px 16px 0;border-radius:20px;overflow:hidden;display:none;"><img id="workoutPhotoImg" src="" style="width:100%;height:220px;object-fit:cover;object-position:top;display:block;" alt=""/></div>
  <div id="dayNoteCard" class="day-note-card">
   <div class="note-label">Coach's Note</div>
@@ -1053,9 +1120,6 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
  </div>
  <!-- BODY WEIGHT -->
  <div id="bodyWeightSection" style="padding:0 16px 20px;"></div>
- <!-- HEATMAP -->
- <div id="heatmapSection" style="margin:0 16px 14px;background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:18px;"></div>
- <div id="streakSection" style="margin:0 16px 20px;"></div>
 </div>
 
 <!-- MUSCLE MAP SCREEN -->
@@ -2362,24 +2426,6 @@ function calcWorkoutStats(wi,di){
  return{exercises:day.exercises.length,sets:totalSets,estMin,estCal};
 }
 
-function getEquipmentList(wi,di){
- const day=WEEKS[wi].days[di];
- const eq=new Set();
- day.exercises.forEach(ex=>{
-  const n=ex.name.toLowerCase();
-  if(/barbell|deadlift/.test(n))eq.add('Barbell');
-  if(/\bdb\b|dumbbell/.test(n))eq.add('Dumbbells');
-  if(/cable/.test(n))eq.add('Cable');
-  if(/machine|leg press|leg extension|leg curl|lat pulldown/.test(n))eq.add('Machine');
-  if(/pull-up|pull up|chin-up|chin up|hanging leg/.test(n))eq.add('Pull-up Bar');
-  if(/incline walk|treadmill/.test(n))eq.add('Treadmill');
-  if(/ab wheel/.test(n))eq.add('Ab Wheel');
-  if(/band|resistance/.test(n))eq.add('Bands');
- });
- if(!eq.size)eq.add('Bodyweight');
- return[...eq].slice(0,4);
-}
-
 function getSuggestedWeight(exName){
  for(let wi2=aW;wi2>=0;wi2--){
   const wk=WEEKS[wi2];
@@ -2477,188 +2523,6 @@ async function renderCoachCard(){
     }
     if(loadEl)loadEl.remove();
   }
-}
-
-// ── SMART HOME WIDGETS ───────────────────────────────────────────────────────
-function getTodaysWorkoutSummary(){
- const day=WEEKS[aW]&&WEEKS[aW].days[aD];
- if(!day)return null;
- const stats=calcWorkoutStats(aW,aD);
- return{label:day.label,type:day.type,exercises:stats.exercises,estMin:stats.estMin,done:dayProg(aW,aD)===1,isRest:day.type==='rest'};
-}
-
-function getNextPRTarget(){
- const withPR=getAllExercises().filter(e=>getPR(e.name)>0);
- if(!withPR.length)return null;
- let best=withPR[0],bestDate='';
- withPR.forEach(e=>{const d=dbGet(prDateKey(e.name));if(d&&d>bestDate){bestDate=d;best=e;}});
- const cur=getPR(best.name);
- const inc=cur>=100?5:cur>=45?2.5:1;
- return{name:best.name,type:best.type,current:cur,next:cur+inc};
-}
-
-function getWeeklyConsistency(){
- const today=new Date();today.setHours(0,0,0,0);
- const dow=today.getDay();
- const wkStart=new Date(today);wkStart.setDate(today.getDate()-(dow===0?6:dow-1));
- let done=0;
- WEEKS.forEach((wk,wi)=>wk.days.forEach((day,di)=>{
-  if(day.type==='rest')return;
-  const ds=getWDone(wi,di);if(!ds)return;
-  const d=new Date(ds+'T12:00');
-  if(d>=wkStart&&d<=today)done++;
- }));
- const planned=WEEKS[aW].days.filter(d=>d.type!=='rest').length;
- const mottos=['Stay locked in.','Consistency beats perfection.','Keep the chain going.','Make every session count.','Push through — it compounds.'];
- return{done,planned,motto:mottos[done%mottos.length]};
-}
-
-function getMuscleFocus(){
- const today=new Date();today.setHours(0,0,0,0);
- const dow=today.getDay();
- const wkStart=new Date(today);wkStart.setDate(today.getDate()-(dow===0?6:dow-1));
- const vol={};
- WEEKS.forEach((wk,wi)=>wk.days.forEach((day,di)=>{
-  const ds=getWDone(wi,di);if(!ds)return;
-  const d=new Date(ds+'T12:00');if(d<wkStart||d>today)return;
-  day.exercises.forEach(ex=>{
-   const groups=[...new Set((MUSCLE_MAP[ex.name]||[]).map(m=>MUSCLE_NAMES[m]).filter(Boolean))];
-   groups.forEach(g=>{vol[g]=(vol[g]||0)+ex.sets;});
-  });
- }));
- const entries=Object.entries(vol).sort((a,b)=>b[1]-a[1]);
- if(entries.length<2)return null;
- return{most:entries[0][0],least:entries[entries.length-1][0]};
-}
-
-function renderSmartWidgets(){
- const el=document.getElementById('smartWidgets');
- if(!el)return;
- const mission=getTodaysWorkoutSummary();
- const prTarget=getNextPRTarget();
- const consist=getWeeklyConsistency();
- const mFocus=getMuscleFocus();
-
- const card=`background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:16px;margin:0 16px 12px;`;
- const lbl=`font-size:9px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;font-weight:700;margin-bottom:10px;`;
- const big=`font-size:17px;font-weight:700;color:var(--text);margin-bottom:4px;`;
- const sub=`font-size:12px;color:var(--muted);`;
-
- // 1. Today's Mission
- const ts=mission?TYPE[mission.type]||TYPE.rest:TYPE.rest;
- const missionHtml=!mission?'':mission.isRest?
-  `<div style="${card}"><div style="${lbl}">Today's Mission</div><div style="${big}color:#6b7fa3;">Recovery Day</div><div style="${sub}">Rest, hydrate, and prepare for tomorrow.</div></div>`:
-  `<div style="${card}"><div style="${lbl}">Today's Mission</div>
-   <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;">
-    <div style="flex:1;min-width:0;">
-     <div style="${big}color:${ts.color};">${mission.label}</div>
-     <div style="${sub}">${mission.exercises} exercises · ~${mission.estMin} min</div>
-    </div>
-    <button onclick="openDay(${aW},${aD})" style="flex-shrink:0;padding:8px 14px;border-radius:12px;border:none;background:${mission.done?'var(--surface2)':'linear-gradient(135deg,'+ts.color+','+ts.color+'bb)'};color:${mission.done?ts.color:'#fff'};${mission.done?'border:1px solid '+ts.color+'40;':''}font-size:12px;font-weight:800;cursor:pointer;">${mission.done?'DONE ✓':'START'}</button>
-   </div></div>`;
-
- // 2. Next PR Target
- const prHtml=prTarget?
-  `<div style="${card}"><div style="${lbl}">Next PR Target</div>
-   <div style="${big}">${prTarget.name}</div>
-   <div style="${sub}">Current: <span style="color:var(--text);font-weight:600;">${prTarget.current} lb</span></div>
-   <div style="margin-top:8px;font-size:13px;font-weight:800;color:var(--yellow);">→ Next Target: ${prTarget.next} lb</div></div>`:
-  `<div style="${card}"><div style="${lbl}">Next PR Target</div>
-   <div style="${big}color:var(--muted);">No PR data yet</div>
-   <div style="${sub}">Log workouts to unlock targets.</div></div>`;
-
- // 3. Weekly Consistency
- const pct=consist.planned>0?Math.min(Math.round(consist.done/consist.planned*100),100):0;
- const consistHtml=`<div style="${card}"><div style="${lbl}">Weekly Consistency</div>
-  <div style="display:flex;align-items:flex-end;gap:6px;margin-bottom:8px;">
-   <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;line-height:1;color:var(--yellow);">${consist.done}</div>
-   <div style="font-size:13px;color:var(--muted);padding-bottom:5px;">/ ${consist.planned} sessions</div>
-  </div>
-  <div style="height:4px;background:var(--surface2);border-radius:2px;margin-bottom:8px;overflow:hidden;">
-   <div style="height:100%;width:${pct}%;background:linear-gradient(90deg,#ff5c35,var(--yellow));border-radius:2px;"></div>
-  </div>
-  <div style="${sub}font-style:italic;">${consist.motto}</div></div>`;
-
- // 4. Muscle Focus
- const mFocusHtml=mFocus?
-  `<div style="${card}"><div style="${lbl}">Muscle Focus</div>
-   <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;">
-    <div style="background:var(--surface2);border-radius:12px;padding:10px;">
-     <div style="font-size:9px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;">Most Trained</div>
-     <div style="font-size:13px;font-weight:700;color:#00c896;">${mFocus.most}</div>
-    </div>
-    <div style="background:var(--surface2);border-radius:12px;padding:10px;">
-     <div style="font-size:9px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;">Least Trained</div>
-     <div style="font-size:13px;font-weight:700;color:#ff5c35;">${mFocus.least}</div>
-    </div>
-   </div>
-   <div style="${sub}">Consider training ${mFocus.least.toLowerCase()} next.</div></div>`:
-  `<div style="${card}"><div style="${lbl}">Muscle Focus</div>
-   <div style="${sub}color:var(--text2);margin-bottom:4px;">Not enough muscle data yet.</div>
-   <div style="${sub}">Complete workouts to unlock focus insights.</div></div>`;
-
- // 5. Quick Actions Row
- const qaHtml=`<div style="margin:0 16px 14px;display:grid;grid-template-columns:repeat(3,1fr);gap:8px;">
-  <button onclick="openDay(${aW},${aD})" style="padding:14px 8px;border-radius:14px;border:none;background:var(--yellow);color:#000;font-size:11px;font-weight:800;letter-spacing:0.5px;cursor:pointer;text-transform:uppercase;line-height:1.4;">Start<br/>Workout</button>
-  <button onclick="navTo('prs')" style="padding:14px 8px;border-radius:14px;border:1px solid var(--border-bright);background:var(--surface);color:var(--text);font-size:11px;font-weight:700;letter-spacing:0.5px;cursor:pointer;text-transform:uppercase;line-height:1.4;">Log<br/>PR</button>
-  <button onclick="navTo('timer')" style="padding:14px 8px;border-radius:14px;border:1px solid var(--border-bright);background:var(--surface);color:var(--text);font-size:11px;font-weight:700;letter-spacing:0.5px;cursor:pointer;text-transform:uppercase;line-height:1.4;">Open<br/>Timer</button>
- </div>`;
-
- // Training Plan card
- const tPhase=getPhase(aW);
- const planHtml=`<div style="${card}">
-  <div style="${lbl}display:flex;align-items:center;gap:6px;"><svg width="12" height="12" viewBox="0 0 20 20" fill="none" stroke="var(--yellow)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="14" height="14" rx="2"/><line x1="7" y1="8" x2="13" y2="8"/><line x1="7" y1="12" x2="11" y2="12"/></svg>Training Plan</div>
-  <div style="font-size:16px;font-weight:700;color:var(--text);margin-bottom:3px;">12-Week Strength Program</div>
-  <div style="font-size:12px;color:var(--muted);margin-bottom:12px;">Follow the plan, log your sets, and progress week by week.</div>
-  <div style="display:flex;gap:8px;">
-   <div style="flex-shrink:0;background:var(--surface2);border-radius:10px;padding:10px 14px;text-align:center;">
-    <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:${tPhase?tPhase.color:'var(--yellow)'};line-height:1;">${aW+1}</div>
-    <div style="font-size:9px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;">Week</div>
-   </div>
-   <div style="flex:1;background:var(--surface2);border-radius:10px;padding:10px 12px;">
-    <div style="font-size:10px;color:${tPhase?tPhase.color:'var(--yellow)'};font-weight:700;letter-spacing:0.5px;margin-bottom:3px;">${tPhase?tPhase.label:'Program'}</div>
-    <div style="font-size:12px;color:var(--text);font-weight:600;">${WEEKS[aW].theme}</div>
-   </div>
-  </div>
- </div>`;
-
- // Weekly split card
- const DOW_LABELS=['MON','TUE','WED','THU','FRI','SAT','SUN'];
- const weekSplitHtml=`<div style="${card}">
-  <div style="${lbl}">Week ${aW+1} Split</div>
-  <div style="display:flex;flex-direction:column;gap:7px;">
-   ${WEEKS[aW].days.map((d,di)=>{
-    const ts2=TYPE[d.type]||TYPE.rest;const done=!!getWDone(aW,di);
-    return `<div style="display:flex;align-items:center;gap:10px;">
-     <div style="font-size:9px;font-weight:700;letter-spacing:1px;color:var(--muted);min-width:28px;">${DOW_LABELS[di]||'D'+(di+1)}</div>
-     <div style="flex:1;font-size:12px;color:${done?'var(--muted)':'var(--text)'};${done?'text-decoration:line-through;':''}">${d.label}</div>
-     <div style="width:8px;height:8px;border-radius:50%;background:${done?ts2.color:ts2.color+'44'};flex-shrink:0;${done?'box-shadow:0 0 5px '+ts2.color+'80;':''}"></div>
-    </div>`;
-   }).join('')}
-  </div>
- </div>`;
-
- // 0. Discipline Streak (home)
- const dCur=getCurrentStreak(),dLong=getLongestStreak(),dMsg=getStreakMessage(dCur);
- const dGlow=dCur>0?'rgba(230,235,0,0.5)':'rgba(80,80,80,0.15)';
- const dNumColor=dCur>0?'#e6eb00':'var(--muted)';
- const streakHtml=`<div style="${card}position:relative;overflow:hidden;">
-  <div style="position:absolute;top:-50px;right:-50px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,${dGlow} 0%,transparent 70%);pointer-events:none;"></div>
-  <div style="${lbl}display:flex;align-items:center;gap:6px;"><svg width="12" height="12" viewBox="0 0 20 20" fill="none" stroke="var(--yellow)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="13,2 7,11 10,11 7,18 15,8 11,8 13,2"/></svg>Discipline Streak</div>
-  <div style="display:flex;align-items:flex-end;gap:8px;margin-bottom:6px;">
-   <div style="font-family:'Bebas Neue',sans-serif;font-size:56px;line-height:1;color:${dNumColor};text-shadow:0 0 22px ${dGlow};letter-spacing:-1px;">${dCur}</div>
-   <div style="padding-bottom:8px;">
-    <div style="font-size:12px;font-weight:700;color:var(--text);text-transform:uppercase;letter-spacing:0.5px;">${dCur===1?'Day':'Days'} Discipline Streak</div>
-    <div style="font-size:10px;color:var(--muted);">Best: ${dLong} day${dLong!==1?'s':''}</div>
-   </div>
-  </div>
-  <div style="height:2px;background:var(--surface2);border-radius:2px;margin-bottom:10px;overflow:hidden;">
-   <div style="height:100%;width:${dLong>0?Math.min(Math.round(dCur/dLong*100),100):0}%;background:linear-gradient(90deg,#ff5c35,var(--yellow));border-radius:2px;"></div>
-  </div>
-  <div style="font-size:12px;color:var(--muted);font-style:italic;">${dMsg}</div>
- </div>`;
-
- el.innerHTML=planHtml+streakHtml+weekSplitHtml+missionHtml+prHtml+consistHtml+mFocusHtml+qaHtml;
 }
 
 function renderTodayCard(){
@@ -2950,25 +2814,28 @@ function renderHome(){
   if(existing)existing.remove();
   if(anyHistory){const dot=document.createElement('span');dot.className='nav-dot';histBtn.appendChild(dot);}
  }
- // Quick Actions bar
+ // Header date + streak chip
+ const today=new Date().toISOString().split('T')[0];
+ const allD={};WEEKS.forEach((wk,wi)=>wk.days.forEach((_,di)=>{const d=getWDone(wi,di);if(d)allD[d]=true;}));
+ const str=calcStreak(allD,today);
+ const homeDateEl=document.getElementById('homeDateStr');
+ if(homeDateEl){const n=new Date();homeDateEl.textContent=n.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'}).toUpperCase();}
+ const homeStreakEl=document.getElementById('homeStreakChip');
+ if(homeStreakEl){homeStreakEl.innerHTML=str>0?`<div style="display:inline-flex;align-items:center;gap:4px;background:var(--surface2);border:1px solid var(--border-bright);border-radius:100px;padding:5px 12px;font-size:11px;font-weight:700;">${ICONS.flame} ${str}</div>`:'';}
+ // Quick Actions as pills
  const qa=document.getElementById('quickActions');
  if(qa){
-  const today=new Date().toISOString().split('T')[0];
-  const allD={};WEEKS.forEach((wk,wi)=>wk.days.forEach((_,di)=>{const d=getWDone(wi,di);if(d)allD[d]=true;}));
-  const str=calcStreak(allD,today);
-  qa.innerHTML=`<div class="qa-bar">
-    <button class="qa-btn qa-primary" onclick="openDay(${aW},${aD})"><span class="qa-icon">${ICONS.lightning}</span><span>START SESSION</span></button>
-    <button class="qa-btn" onclick="navTo('prs')"><span class="qa-icon">${ICONS.trophy}</span><span>PRs</span></button>
-    <button class="qa-btn" onclick="navTo('timer')"><span class="qa-icon">${ICONS.timer}</span><span>TIMER</span></button>
-    <button class="qa-btn" onclick="navTo('outdoor')"><span class="qa-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="4" r="2"/><path d="M15 8l-3 2-2 4-4 3"/><path d="M12 10l3 4 2 5"/></svg></span><span>RUN</span></button>
-    ${str>0?`<div class="qa-streak">${ICONS.flame} ${str}</div>`:''}
+  qa.innerHTML=`<div class="qa-pills">
+    <button class="qa-pill qa-primary" onclick="openDay(${aW},${aD})">${ICONS.lightning}<span>START</span></button>
+    <button class="qa-pill" onclick="navTo('prs')">${ICONS.trophy}<span>LOG PR</span></button>
+    <button class="qa-pill" onclick="navTo('timer')">${ICONS.timer}<span>TIMER</span></button>
+    <button class="qa-pill" onclick="navTo('stats')">${ICONS.stats}<span>STATS</span></button>
+    <button class="qa-pill" onclick="navTo('outdoor')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="4" r="2"/><path d="M15 8l-3 2-2 4-4 3"/><path d="M12 10l3 4 2 5"/></svg><span>RUN</span></button>
   </div>`;
  }
+ renderHomeCarousel();
  renderWeekStrip();
- renderTodayCard();
- renderActivityWidgets();
  renderCoachCard();
- renderSmartWidgets();
  // Missed workout in-app alert
  const mwEl=document.getElementById('missedWorkoutBanner');
  if(mwEl){
@@ -2984,6 +2851,125 @@ function renderHome(){
      mwEl.style.display='none';
    }
  }
+}
+
+// ── HOME CAROUSEL ──
+function renderHomeCarousel(){
+ const el=document.getElementById('homeCarousel');
+ if(!el)return;
+ const day=WEEKS[aW]&&WEEKS[aW].days[aD];
+ const ts=day?(TYPE[day.type]||TYPE.push):TYPE.push;
+ const c=ts.color;
+ const stats=day?calcWorkoutStats(aW,aD):null;
+ const dp=dayProg(aW,aD);
+ const done=dp===1;
+ const muscles=day?[...new Set(WEEKS[aW].days[aD].exercises.flatMap(ex=>MUSCLE_MAP[ex.name]||[]).map(m=>MUSCLE_NAMES[m]).filter(Boolean))].slice(0,3):[];
+
+ // Card 1: Today's Workout
+ const workoutCard=day?`
+  <div class="home-carousel-card" style="border-color:${c}44;background:linear-gradient(145deg,var(--surface),${c}0a);">
+   <div class="hc-eyebrow">${done?'COMPLETED':'TODAY'}</div>
+   <div class="hc-title" style="color:${c}">${day.label}</div>
+   <div class="hc-sub">${muscles.join(' · ')||ts.label}</div>
+   <div class="hc-stats-row">
+    <span>${stats.exercises} exercises</span><span style="color:var(--border-bright)">·</span>
+    <span>${stats.estMin}–${stats.estMin+15} min</span><span style="color:var(--border-bright)">·</span>
+    <span>~${stats.estCal} cal</span>
+   </div>
+   <button class="hc-cta" style="${done?'background:var(--surface2);color:'+c+';border:1px solid '+c+'30;':'background:'+c+';color:#000;'}" onclick="openDay(${aW},${aD})">
+    ${done?'REVIEW SESSION':'START WORKOUT'}
+   </button>
+  </div>`:'' ;
+
+ // Card 2: Weekly Consistency
+ const todayStr=new Date().toISOString().split('T')[0];
+ const completedDates=new Set();
+ WEEKS.forEach((wk,wi)=>wk.days.forEach((_,di)=>{const d=getWDone(wi,di);if(d)completedDates.add(d);}));
+ const now=new Date();
+ const dow=now.getDay();
+ const sun=new Date(now);sun.setDate(now.getDate()-dow);
+ const DAY_LABELS=['Su','Mo','Tu','We','Th','Fr','Sa'];
+ let weekDone=0,weekTotal=0;
+ const weekDots=DAY_LABELS.map((lbl,i)=>{
+  const d=new Date(sun);d.setDate(sun.getDate()+i);
+  const ds=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+  const isDone=completedDates.has(ds);
+  const isToday=ds===todayStr;
+  const isFuture=ds>todayStr;
+  if(!isFuture)weekTotal++;
+  if(isDone)weekDone++;
+  const cls='hc-dot'+(isDone?' done':isToday?' today':isFuture?' future':'');
+  return `<div class="${cls}"><div class="hc-dot-lbl">${lbl}</div><div class="hc-dot-circle"></div></div>`;
+ }).join('');
+ const str2=calcStreak(Object.fromEntries([...completedDates].map(d=>[d,true])),todayStr);
+ const consistCard=`
+  <div class="home-carousel-card">
+   <div class="hc-eyebrow">THIS WEEK</div>
+   <div class="hc-title">${weekDone}<span style="font-size:14px;font-weight:500;color:var(--muted);"> / ${weekTotal} days</span></div>
+   <div class="hc-sub" style="${str2>0?'color:#e8ff00;':''}">${str2>0?str2+'-day streak active':'Start your streak today'}</div>
+   <div class="hc-week-dots">${weekDots}</div>
+   <button class="hc-cta" style="background:var(--surface2);color:var(--text);border:1px solid var(--border-bright);" onclick="navTo('stats')">VIEW STATS</button>
+  </div>`;
+
+ // Card 3: Readiness
+ const h=buildWorkoutHistory();
+ let score=75;
+ if(h.daysSinceLast===0)score=82;
+ else if(h.daysSinceLast===1)score=90;
+ else if(h.daysSinceLast===2)score=95;
+ else if(h.daysSinceLast===3)score=78;
+ else if(h.daysSinceLast>=4)score=65;
+ if(h.streak>=5)score=Math.min(score+8,99);
+ if(h.streak>=3)score=Math.min(score+4,99);
+ const rLabel=score>=90?'EXCELLENT':score>=80?'PUSH HARD':score>=65?'MODERATE':'RECOVER';
+ const rColor=score>=90?'#00c896':score>=80?'#e6eb00':score>=65?'#ff9035':'#ff5c35';
+ const readyCard=`
+  <div class="home-carousel-card">
+   <div class="hc-eyebrow">READINESS</div>
+   <div class="hc-title" style="color:${rColor};font-size:40px;">${h.total===0?'—':score}</div>
+   <div class="hc-sub" style="color:${rColor}">${h.total===0?'LOG A WORKOUT':rLabel}</div>
+   <div class="hc-rbar"><div style="width:${h.total===0?0:score}%;height:100%;background:${rColor};border-radius:4px;transition:width 0.6s;"></div></div>
+   <div class="hc-desc">${h.total===0?'Complete a session to get your readiness score.':h.daysSinceLast<=1?'Primed for high performance.':h.daysSinceLast<=3?'Push at 80% effort today.':'Ease back in — warm up properly.'}</div>
+  </div>`;
+
+ // Card 4: Next PR Target (best PR exercise from today's workout)
+ let prCard='';
+ if(day){
+  let bestEx=null,bestPR=0;
+  day.exercises.forEach(ex=>{const pr=getPR(ex.name);if(pr>bestPR){bestPR=pr;bestEx=ex;}});
+  if(bestEx){
+   const inc=/barbell|deadlift|squat/i.test(bestEx.name)?5:/\bdb\b|dumbbell/i.test(bestEx.name)?2.5:5;
+   const nextW=bestPR>0?bestPR+inc:null;
+   const exLabel=bestEx.name.length>20?bestEx.name.slice(0,20)+'…':bestEx.name;
+   prCard=`
+    <div class="home-carousel-card">
+     <div class="hc-eyebrow">NEXT PR TARGET</div>
+     <div class="hc-title" style="font-size:18px;">${exLabel}</div>
+     <div class="hc-sub">${bestPR>0?'Current PR: '+bestPR+' lbs':'No PR logged yet'}</div>
+     ${nextW?`<div style="font-size:36px;font-weight:900;color:#e8ff00;letter-spacing:-1px;margin:4px 0;">${nextW} <span style="font-size:14px;font-weight:500;color:var(--muted);">lbs</span></div>`:''}
+     <div class="hc-desc" style="margin-bottom:12px;">${bestPR>0?'+'+inc+' lbs from your current record':'Log your first set to track progress'}</div>
+     <button class="hc-cta" style="background:var(--surface2);color:var(--text);border:1px solid var(--border-bright);" onclick="navTo('prs')">LOG PR</button>
+    </div>`;
+  }
+ }
+
+ el.innerHTML=workoutCard+consistCard+readyCard+prCard;
+}
+
+function toggleWeekCards(){
+ const el=document.getElementById('weekCards');
+ const btn=document.getElementById('weekCardsToggle');
+ if(!el)return;
+ const isHidden=el.style.display==='none';
+ el.style.display=isHidden?'':'none';
+ if(btn)btn.textContent=isHidden?'COLLAPSE':'SEE ALL';
+}
+
+function toggleTips(){
+ const el=document.getElementById('tipsSection');
+ if(!el)return;
+ const isHidden=el.style.display==='none';
+ el.style.display=isHidden?'':'none';
 }
 
 // ── WORKOUT ──
@@ -3030,25 +3016,6 @@ function renderWorkout(){
  const workoutCoachEl=document.getElementById('workoutCoach');
  if(workoutCoachEl)workoutCoachEl.innerHTML=`<div class="w-coach-strip"><span class="w-coach-icon">${wCoach.icon}</span><span class="w-coach-text">${wCoach.msg}</span></div>`;
 
- // Program header card
- const progEl=document.getElementById('programHeader');
- if(progEl){
-  const phase=getPhase(aW);
-  const equip=getEquipmentList(aW,aD);
-  const equipStr=equip.join(' · ');
-  progEl.innerHTML=`<div style="margin:10px 16px 0;background:var(--surface);border:1px solid ${c}25;border-left:3px solid ${c};border-radius:16px;padding:14px 16px;display:flex;justify-content:space-between;align-items:flex-start;gap:12px;">
-   <div style="min-width:0;flex:1;">
-    <div style="font-size:9px;letter-spacing:3px;color:${c}88;text-transform:uppercase;font-weight:700;margin-bottom:5px;">${phase?phase.label:'Strength Program'}</div>
-    <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px;">${WEEKS[aW].theme}</div>
-    <div style="font-size:11px;color:var(--muted);">${equipStr}</div>
-   </div>
-   <div style="text-align:right;flex-shrink:0;">
-    <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:${c};line-height:1;">${stats.estMin}</div>
-    <div style="font-size:9px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;">min</div>
-   </div>
-  </div>`;
- }
-
  document.getElementById('dayStrip').innerHTML=wk.days.map((d,di)=>{
   const ts2=TYPE[d.type],dp=dayProg(aW,di),isA=di===aD;
   return `<button class="ds-btn" onclick="switchDay(${di})"
@@ -3062,9 +3029,8 @@ function renderWorkout(){
   const isDone=gED(aW,aD,ei);
   const pr=getPR(ex.name);
   const suggested=getSuggestedWeight(ex.name);
-  const prBadge=pr>0?`<div class="ex-pr-badge">PR: ${pr} lbs</div>`:'';
-  const suggestedBadge=suggested>0&&suggested!==pr?`<div class="ex-pr-badge suggested-badge">Last: ${suggested} lbs</div>`:'';
-  const primaryMuscles=[...new Set((MUSCLE_MAP[ex.name]||[]).map(m=>MUSCLE_NAMES[m]).filter(Boolean))].slice(0,2).join(', ');
+  const prBadge=pr>0?`<div class="ex-pr-badge">🏆 PR: ${pr} lbs</div>`:'';
+  const suggestedBadge=suggested>0&&suggested!==pr?`<div class="ex-pr-badge suggested-badge">↑ Last: ${suggested} lbs</div>`:'';
   const prog=getProgressionInsight(ex.name);
   const progBadge=prog?`<div class="prog-badge prog-${prog.type}">${prog.type==='increase'?ICONS.arrowUp:ICONS.arrowRight} ${prog.msg}</div>`:'';
   // Sparkline
@@ -3100,23 +3066,21 @@ function renderWorkout(){
    </div>`;
   }
   const timerBtn=ex.timer?`<button class="timer-shortcut" onclick="openTimerFrom('${ex.name.replace(/'/g,'')}')"
-   style="border-color:${c}55;color:${c};"><svg width="12" height="12" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10" cy="11" r="7.5"/><polyline points="10,7.5 10,11 12.5,13"/><line x1="8.5" y1="2" x2="11.5" y2="2"/></svg></button>`:'';
-  const editBtn=`<button onclick="openPREdit('${ex.name.replace(/'/g,"\\'")}');event.stopPropagation();" style="width:28px;height:28px;border-radius:8px;border:1px solid var(--border-bright);background:none;padding:0;overflow:hidden;cursor:pointer;flex-shrink:0;" title="Edit PR"><img src="https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/B7F32667-5BA9-44C7-9A05-0D277957D799.png" style="width:100%;height:100%;object-fit:cover;border-radius:6px;" alt="edit"/></button>`;
+   style="border-color:${c}55;color:${c};">⏱</button>`:'';
   return `<div class="ex-card${isDone?' done':''}" style="--c:${c};--glow:${ts.glow};${isDone?'border-color:'+c+'35;background:'+ts.dim+';box-shadow:0 6px 40px '+ts.glow+';':''}">
    <div class="ex-card-header">
     <div class="ex-info">
      <div class="ex-name" style="${isDone?'color:'+c+'55;':''}">${ex.name}</div>
-     ${primaryMuscles?`<div style="font-size:10px;color:${c}88;margin-bottom:2px;font-weight:500;">${primaryMuscles}</div>`:''}
-     <div class="ex-rec">${ex.sets}×${ex.reps} · ${ex.weight}</div>
+     <div class="ex-rec">${ex.reps} reps · ${ex.weight}</div>
      ${prBadge}${suggestedBadge}${progBadge}${sparkHtml}
     </div>
     <div class="ex-actions">
      <div class="ex-sets-tag" style="color:${c}66">${ex.sets} sets</div>
      <div class="ex-row-btns">
-      ${editBtn}${timerBtn}
+      ${timerBtn}
       <button class="ex-check" onclick="toggleED(${ei})"
        style="${isDone?'background:'+c+';border-color:'+c+';':'border-color:'+c+'28;color:'+c+';'}">
-       ${isDone?ICONS.check:''}
+       ${isDone?'✓':''}
       </button>
      </div>
     </div>
@@ -3205,11 +3169,6 @@ function finishWorkout(){
   const h=buildWorkoutHistory();
   const coach=getCoachInsight();
   const estCal=Math.round(totalSets*2.5*(day.type==='legs'?11:day.type==='cardio'?10:9));
-  const progressionTip=prsHit.length>0
-   ?'Next time: increase weight if all reps felt controlled and strong.'
-   :totalSets>=10
-    ?'Repeat this weight next session — focus on cleaner reps.'
-    :'Deload if soreness or fatigue is high before next session.';
   const overlay=document.getElementById('completionOverlay');
   if(!overlay)return;
   overlay.innerHTML=`<div class="completion-card" onclick="event.stopPropagation()">
@@ -3227,7 +3186,6 @@ function finishWorkout(){
     ${muscles.length?`<div class="comp-muscles">${muscles.map(m=>`<span class="comp-muscle-tag" style="border-color:${ts.color}40;color:${ts.color}">${m}</span>`).join('')}</div>`:''}
     ${h.streak>1?`<div class="comp-streak" style="display:flex;align-items:center;justify-content:center;gap:6px;">${ICONS.flame} ${h.streak}-Session Streak</div>`:''}
     <div class="comp-coach" style="display:flex;align-items:flex-start;gap:8px;">${coach.icon} "${coach.msg}"</div>
-    <div style="margin:8px 0 0;padding:10px 14px;background:rgba(230,235,0,0.07);border:1px solid rgba(230,235,0,0.18);border-radius:12px;font-size:11px;color:var(--muted);line-height:1.5;font-style:italic;">${progressionTip}</div>
     <div class="comp-actions">
       <button class="comp-btn-primary" onclick="closeCompletion()">DONE</button>
       <button class="comp-btn-secondary" onclick="shareWorkoutText();closeCompletion()">SHARE</button>
@@ -3337,75 +3295,6 @@ function calcStreak(completedDates,todayStr){
 
 function calPrev(){calMonth--;if(calMonth<0){calMonth=11;calYear--;}renderCalendar();}
 function calNext(){calMonth++;if(calMonth>11){calMonth=0;calYear++;}renderCalendar();}
-
-// ── STREAK HELPERS ───────────────────────────────────────────────────────────
-function _buildAllDates(){
- const d={};WEEKS.forEach((wk,wi)=>wk.days.forEach((_,di)=>{const v=getWDone(wi,di);if(v)d[v]=true;}));return d;
-}
-function getCurrentStreak(){
- const today=new Date();today.setHours(0,0,0,0);
- const ts=`${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
- return calcStreak(_buildAllDates(),ts);
-}
-function getLongestStreak(){
- const dates=Object.keys(_buildAllDates()).sort();
- if(!dates.length)return 0;
- let longest=1,cur=1;
- for(let i=1;i<dates.length;i++){
-  const prev=new Date(dates[i-1]+'T12:00'),curr=new Date(dates[i]+'T12:00');
-  if(Math.round((curr-prev)/86400000)===1){cur++;if(cur>longest)longest=cur;}else{cur=1;}
- }
- return longest;
-}
-function getWeeklyCompletionRate(){
- const today=new Date();today.setHours(0,0,0,0);
- const dow=today.getDay();
- const wkStart=new Date(today);wkStart.setDate(today.getDate()-(dow===0?6:dow-1));
- let done=0;
- WEEKS.forEach((wk,wi)=>wk.days.forEach((day,di)=>{
-  if(day.type==='rest')return;
-  const ds=getWDone(wi,di);if(!ds)return;
-  const d=new Date(ds+'T12:00');if(d>=wkStart&&d<=today)done++;
- }));
- const planned=WEEKS[aW].days.filter(d=>d.type!=='rest').length;
- return{done,planned,rate:planned>0?Math.min(Math.round(done/planned*100),100):0};
-}
-function getStreakMessage(streak){
- if(streak===0)return'Start logging workouts to build your streak.';
- if(streak>=30)return'Elite consistency.';
- if(streak>=14)return'Discipline forming.';
- if(streak>=7)return'Locked in.';
- if(streak>=3)return'Momentum building.';
- return'Keep showing up.';
-}
-function renderStreakCard(){
- const el=document.getElementById('streakSection');
- if(!el)return;
- const cur=getCurrentStreak(),longest=getLongestStreak(),wk=getWeeklyCompletionRate();
- const msg=getStreakMessage(cur);
- const glowColor=cur>0?'rgba(230,235,0,0.55)':'rgba(100,100,100,0.2)';
- const numColor=cur>0?'#e6eb00':'var(--muted)';
- el.innerHTML=`<div style="background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:20px;position:relative;overflow:hidden;">
-  <div style="position:absolute;top:-40px;right:-40px;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,${glowColor} 0%,transparent 70%);pointer-events:none;"></div>
-  <div style="font-size:9px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:6px;">
-   <svg width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="var(--yellow)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="13,2 7,11 10,11 7,18 15,8 11,8 13,2"/></svg>Consistency
-  </div>
-  <div style="display:flex;align-items:flex-end;gap:8px;margin-bottom:4px;">
-   <div style="font-family:'Bebas Neue',sans-serif;font-size:64px;line-height:1;color:${numColor};text-shadow:0 0 24px ${glowColor};letter-spacing:-1px;">${cur}</div>
-   <div style="padding-bottom:10px;">
-    <div style="font-size:11px;font-weight:700;color:var(--text);letter-spacing:0.5px;text-transform:uppercase;">Day Streak</div>
-    <div style="font-size:10px;color:var(--muted);">Best: ${longest} days</div>
-   </div>
-  </div>
-  <div style="height:2px;background:var(--surface2);border-radius:2px;margin-bottom:12px;overflow:hidden;">
-   <div style="height:100%;width:${longest>0?Math.min(Math.round(cur/longest*100),100):0}%;background:linear-gradient(90deg,#ff5c35,var(--yellow));border-radius:2px;transition:width 0.6s cubic-bezier(0.4,0,0.2,1);"></div>
-  </div>
-  <div style="display:flex;justify-content:space-between;align-items:center;">
-   <div style="font-size:12px;color:var(--muted);font-style:italic;">${msg}</div>
-   <div style="font-size:11px;font-weight:700;color:var(--text2);">${wk.done}/${wk.planned} <span style="color:var(--muted);font-weight:400;">this week</span></div>
-  </div>
- </div>`;
-}
 
 // ── PR TRACKER ──
 function getAllExercises(){
@@ -4167,78 +4056,7 @@ function renderAnalytics(){
        </div>`;
    }
  }
- renderHeatmap();
- renderStreakCard();
  animateCounters();
-}
-
-function renderHeatmap(){
- const el=document.getElementById('heatmapSection');
- if(!el)return;
-
- // Build date → workout info from completed sessions
- const wmap={};
- WEEKS.forEach((wk,wi)=>{
-  wk.days.forEach((day,di)=>{
-   const ds=getWDone(wi,di);
-   if(!ds)return;
-   wmap[ds]={label:day.label,type:day.type,exercises:day.exercises.length,sets:day.exercises.reduce((s,ex)=>s+ex.sets,0)};
-  });
- });
-
- // 12-week window ending today, starting on a Monday (local time)
- const today=new Date();today.setHours(0,0,0,0);
- function lDate(d){return`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;}
- const dow=today.getDay();
- const startDate=new Date(today);startDate.setDate(today.getDate()-(dow===0?6:dow-1)-11*7);
-
- const weeks=[];
- for(let wi=0;wi<12;wi++){
-  const days=[];
-  for(let di=0;di<7;di++){
-   const d=new Date(startDate);d.setDate(startDate.getDate()+wi*7+di);
-   days.push({ds:lDate(d),d,isFuture:d>today,workout:wmap[lDate(d)]||null});
-  }
-  weeks.push(days);
- }
-
- const maxSets=Math.max(...weeks.flat().map(c=>c.workout?.sets||0),1);
- const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
- let lastM=-1;
- const mlabels=weeks.map(days=>{const m=days[0].d.getMonth();if(m!==lastM){lastM=m;return months[m];}return '';});
-
- el.innerHTML=`
-  <div style="font-size:10px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-bottom:4px;">Workout Heatmap</div>
-  <div style="font-size:11px;color:var(--muted);margin-bottom:12px;">Your training consistency by day</div>
-  <div style="display:flex;gap:3px;overflow:hidden;">
-   ${weeks.map((days,wi)=>`<div style="flex:1;display:flex;flex-direction:column;gap:3px;">
-    <div style="font-size:8px;color:var(--muted);height:12px;line-height:12px;overflow:hidden;">${mlabels[wi]}</div>
-    ${days.map(({ds,isFuture,workout})=>{
-     const op=workout?Math.max(0.18,workout.sets/maxSets):0;
-     const bg=workout?`rgba(230,235,0,${op})`:isFuture?'rgba(255,255,255,0.02)':'rgba(255,255,255,0.06)';
-     const glow=workout?`box-shadow:0 0 ${Math.round(op*6)}px rgba(230,235,0,${op*0.5});`:'';
-     const dAttr=workout?`data-d="${ds}" data-l="${workout.label.replace(/['"<>&]/g,'')}" data-t="${workout.type}" data-e="${workout.exercises}" data-s="${workout.sets}"`:`data-d="${ds}"`;
-     return`<div ${dAttr} onclick="hmTap(this)" style="aspect-ratio:1;border-radius:3px;background:${bg};${glow}${workout?'cursor:pointer;':''}"></div>`;
-    }).join('')}
-   </div>`).join('')}
-  </div>
-  <div style="display:flex;align-items:center;gap:5px;justify-content:flex-end;margin-top:8px;">
-   <span style="font-size:9px;color:var(--muted);">Less</span>
-   ${[0.08,0.22,0.45,0.7,1].map(op=>`<div style="width:10px;height:10px;border-radius:2px;background:rgba(230,235,0,${op});flex-shrink:0;"></div>`).join('')}
-   <span style="font-size:9px;color:var(--muted);">More</span>
-  </div>
-  <div id="hmTip" style="display:none;margin-top:10px;padding:10px 12px;background:var(--surface2);border:1px solid var(--border-bright);border-radius:12px;"></div>
- `;
-}
-
-function hmTap(el){
- const tip=document.getElementById('hmTip');
- if(!tip)return;
- if(!el.dataset.l){tip.style.display='none';return;}
- const ts=TYPE[el.dataset.t]||TYPE.rest;
- const dateDisplay=new Date(el.dataset.d+'T12:00').toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric'});
- tip.style.display='block';
- tip.innerHTML=`<div style="font-size:10px;color:var(--muted);margin-bottom:3px;">${dateDisplay}</div><div style="font-weight:600;color:${ts.color};margin-bottom:2px;">${el.dataset.l}</div><div style="font-size:11px;color:var(--muted);">${el.dataset.e} exercises \xB7 ${el.dataset.s} sets</div>`;
 }
 
 function animateCounters(){
