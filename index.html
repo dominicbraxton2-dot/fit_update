@@ -1333,6 +1333,8 @@ const WORKOUT_IMGS={
  abs:'https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/65A0C9AB-D266-4131-8FA5-008E50DF0972.png',
 }
 
+
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
 const WEEKS=[
  {week:1,theme:"Foundation & Volume",days:[
   {day:1,label:"Chest & Triceps",icon:"💪",type:"push",note:"Full range of motion on every rep. Control the negative — 3 seconds down. Big chest is built on volume — flat, incline, isolation, and lower-chest all hit today.",exercises:[
@@ -3199,8 +3201,8 @@ function renderNutrition(){
  listEl.innerHTML=log.map((entry,i)=>`
   <div class="nut-food-card">
    <div style="flex:1;min-width:0;">
-    <div class="nut-food-name">${entry.name}</div>
-    <div class="nut-food-macros">${entry.protein}g protein · ${entry.carbs}g carbs · ${entry.fat}g fat${entry.time?' · '+entry.time:''}</div>
+    <div class="nut-food-name">${esc(entry.name)}</div>
+    <div class="nut-food-macros">${entry.protein}g protein · ${entry.carbs}g carbs · ${entry.fat}g fat${entry.time?' · '+esc(entry.time):''}</div>
    </div>
    <div class="nut-food-cal">${entry.cal}</div>
    <button class="nut-food-del" onclick="nutDeleteEntry(${i})" aria-label="Delete">✕</button>
@@ -3351,7 +3353,7 @@ function renderPRs(filter=''){
   const pr=getPR(ex.name);
   const ts=TYPE[ex.type];
   const meta=getPRMeta(ex.name);
-  const metaStr=pr>0?[meta.reps?meta.reps+' reps':'',meta.date?new Date(meta.date+'T12:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}):'',meta.notes||''].filter(Boolean).join(' · '):'';
+  const metaStr=pr>0?[meta.reps?meta.reps+' reps':'',meta.date?new Date(meta.date+'T12:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}):'',meta.notes?esc(meta.notes):''].filter(Boolean).join(' · '):'';
   return `<div class="pr-card${pr>0?' has-pr':''}" style="${pr>0?'border-color:'+ts.color+'33;':''}">
    <div style="flex:1;min-width:0;">
     <div class="pr-ex-name">${ex.name}</div>
