@@ -1,0 +1,12 @@
+{
+  "appId": "com.dominicbraxton.fitnessapp",
+  "appName": "Strength Identity",
+  "webDir": "www",
+  "server": {
+    "androidScheme": "https"
+  },
+  "ios": {
+    "scheme": "App",
+    "allowNavigation": ["raw.githubusercontent.com", "generativelanguage.googleapis.com", "api.anthropic.com"]
+  }
+}
