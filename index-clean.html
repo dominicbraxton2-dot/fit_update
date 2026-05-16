@@ -129,25 +129,24 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
  flex:none;width:100%;scroll-snap-align:none;
 }
 .hc-hero-char{
- position:absolute;right:-2px;bottom:0;
- /* height relative to wrap (which includes 28px padding-top headroom) */
- height:calc(100% + 16px);width:auto;max-width:62%;
- object-fit:contain;object-position:right bottom;
- pointer-events:none;z-index:4;
- filter:drop-shadow(-10px 0 28px rgba(0,0,0,0.95)) drop-shadow(0 -8px 20px rgba(0,0,0,0.7));
+ position:absolute;right:-4%;top:-10%;
+ height:118%;width:auto;max-width:62%;
+ object-fit:contain;object-position:right top;
+ pointer-events:none;z-index:3;
+ filter:drop-shadow(-10px 0 28px rgba(0,0,0,0.95)) drop-shadow(0 8px 20px rgba(0,0,0,0.7));
 }
 .hc-hero-overlay{
  position:absolute;inset:0;z-index:2;border-radius:24px;overflow:hidden;
  background:
-  linear-gradient(to right,rgba(8,8,8,0.98) 28%,rgba(8,8,8,0.76) 54%,rgba(8,8,8,0.08) 80%),
-  linear-gradient(to top,rgba(8,8,8,0.65) 0%,transparent 45%);
+  linear-gradient(to right,rgba(8,8,8,0.98) 30%,rgba(8,8,8,0.82) 52%,rgba(8,8,8,0.15) 80%),
+  linear-gradient(to top,rgba(8,8,8,0.96) 0%,rgba(8,8,8,0.6) 30%,transparent 55%);
 }
 /* clip the card background itself to its rounded rect */
 .home-carousel-card.hc-hero::before{
  content:'';position:absolute;inset:0;border-radius:24px;
  background:#0a0a0a;z-index:0;
 }
-.hc-hero-body{position:relative;z-index:3;padding:20px;display:flex;flex-direction:column;height:100%;max-width:68%;}
+.hc-hero-body{position:relative;z-index:6;padding:20px;display:flex;flex-direction:column;height:100%;max-width:68%;}
 .hc-hero-badge{
  display:inline-flex;align-items:center;gap:6px;
  background:rgba(255,107,0,0.18);border:1px solid rgba(255,107,0,0.4);
