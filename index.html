@@ -96,17 +96,25 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
  background:var(--surface2);border:1px solid rgba(255,255,255,0.07);
  box-shadow:0 8px 40px rgba(0,0,0,0.6);
 }
-/* Hero card with workout image */
+/* Hero card */
 .home-carousel-card.hc-hero{
  padding:0;border:none;
- background-size:cover;background-position:center;background-repeat:no-repeat;
+ background:#0a0a0a;
  min-height:240px;
 }
-.hc-hero-overlay{
- position:absolute;inset:0;
- background:linear-gradient(to top,rgba(0,0,0,0.92) 0%,rgba(0,0,0,0.45) 55%,rgba(0,0,0,0.1) 100%);
+.hc-hero-char{
+ position:absolute;right:0;bottom:0;
+ height:108%;width:auto;max-width:62%;
+ object-fit:contain;object-position:right bottom;
+ pointer-events:none;z-index:1;
 }
-.hc-hero-body{position:relative;z-index:2;padding:20px;display:flex;flex-direction:column;height:100%;}
+.hc-hero-overlay{
+ position:absolute;inset:0;z-index:2;
+ background:
+  linear-gradient(to right,rgba(8,8,8,0.98) 28%,rgba(8,8,8,0.72) 52%,rgba(8,8,8,0.1) 80%),
+  linear-gradient(to top,rgba(8,8,8,0.6) 0%,transparent 45%);
+}
+.hc-hero-body{position:relative;z-index:3;padding:20px;display:flex;flex-direction:column;height:100%;max-width:68%;}
 .hc-hero-badge{
  display:inline-flex;align-items:center;gap:6px;
  background:rgba(255,107,0,0.18);border:1px solid rgba(255,107,0,0.4);
@@ -3051,9 +3059,9 @@ function renderHomeCarousel(){
  const muscles=day?[...new Set(WEEKS[aW].days[aD].exercises.flatMap(ex=>MUSCLE_MAP[ex.name]||[]).map(m=>MUSCLE_NAMES[m]).filter(Boolean))].slice(0,3):[];
 
  // Card 1: Cinematic hero — Today's Workout with full image overlay
- const heroImg=WORKOUT_IMGS&&WORKOUT_IMGS[day&&day.type]?WORKOUT_IMGS[day.type]:'';
  const workoutCard=day?`
-  <div class="home-carousel-card hc-hero" style="${heroImg?'background-image:url('+heroImg+');':('background:linear-gradient(145deg,'+c+'22,#080808)')}">
+  <div class="home-carousel-card hc-hero">
+   <img class="hc-hero-char" src="/images/home-hero-character.png" alt="" draggable="false" onerror="this.style.display='none'"/>
    <div class="hc-hero-overlay"></div>
    <div class="hc-hero-body">
     <div class="hc-hero-badge">${done?'COMPLETED':'TODAY · WEEK '+(aW+1)}</div>
