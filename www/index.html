@@ -94,11 +94,11 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .home-hdr-right{display:flex;align-items:center;gap:8px;}
 
 /* ── HOME CAROUSEL STAGGER ── */
-.home-carousel-card{animation:cardReveal 0.42s cubic-bezier(0.22,1,0.36,1) both;}
-.home-carousel-card:nth-child(1){animation-delay:0.04s}
-.home-carousel-card:nth-child(2){animation-delay:0.12s}
-.home-carousel-card:nth-child(3){animation-delay:0.20s}
-.home-carousel-card:nth-child(4){animation-delay:0.28s}
+.home-carousel-card,.hc-hero-wrap{animation:cardReveal 0.42s cubic-bezier(0.22,1,0.36,1) both;}
+.home-carousel-card:nth-child(1),.hc-hero-wrap:nth-child(1){animation-delay:0.04s}
+.home-carousel-card:nth-child(2),.hc-hero-wrap:nth-child(2){animation-delay:0.12s}
+.home-carousel-card:nth-child(3),.hc-hero-wrap:nth-child(3){animation-delay:0.20s}
+.home-carousel-card:nth-child(4),.hc-hero-wrap:nth-child(4){animation-delay:0.28s}
 
 /* ── HOME SECTION HEADERS ── */
 .hm-section-hdr{display:flex;align-items:center;justify-content:space-between;padding:0 20px;margin:14px 0 10px;}
@@ -106,7 +106,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .hm-see-all{font-size:9px;letter-spacing:2px;color:#ff6b00;text-transform:uppercase;font-weight:700;background:none;border:none;cursor:pointer;padding:4px 0;}
 
 /* ── HOME CAROUSEL ── */
-.home-carousel{display:flex;overflow-x:auto;gap:14px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:0 20px 18px;scrollbar-width:none;}
+.home-carousel{display:flex;overflow-x:auto;overflow-y:visible;gap:14px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:28px 20px 18px;scrollbar-width:none;}
 .home-carousel::-webkit-scrollbar{display:none;}
 .home-carousel-card{
  flex:0 0 86%;scroll-snap-align:start;border-radius:24px;padding:20px;
@@ -115,22 +115,37 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
  box-shadow:0 8px 40px rgba(0,0,0,0.6);
 }
 /* Hero card */
+.hc-hero-wrap{
+ flex:0 0 86%;scroll-snap-align:start;
+ position:relative;
+ padding-top:28px; /* headroom for character overflow above card */
+ margin-top:-28px; /* compensate so card still aligns with siblings */
+}
 .home-carousel-card.hc-hero{
- padding:0;border:none;
+ padding:0;border:none;overflow:visible;
  background:#0a0a0a;
  min-height:240px;
+ /* reset inherited card sizing — wrap handles snap/flex */
+ flex:none;width:100%;scroll-snap-align:none;
 }
 .hc-hero-char{
- position:absolute;right:0;bottom:0;
- height:108%;width:auto;max-width:62%;
+ position:absolute;right:-2px;bottom:0;
+ /* height relative to wrap (which includes 28px padding-top headroom) */
+ height:calc(100% + 16px);width:auto;max-width:62%;
  object-fit:contain;object-position:right bottom;
- pointer-events:none;z-index:1;
+ pointer-events:none;z-index:4;
+ filter:drop-shadow(-10px 0 28px rgba(0,0,0,0.95)) drop-shadow(0 -8px 20px rgba(0,0,0,0.7));
 }
 .hc-hero-overlay{
- position:absolute;inset:0;z-index:2;
+ position:absolute;inset:0;z-index:2;border-radius:24px;overflow:hidden;
  background:
-  linear-gradient(to right,rgba(8,8,8,0.98) 28%,rgba(8,8,8,0.72) 52%,rgba(8,8,8,0.1) 80%),
-  linear-gradient(to top,rgba(8,8,8,0.6) 0%,transparent 45%);
+  linear-gradient(to right,rgba(8,8,8,0.98) 28%,rgba(8,8,8,0.76) 54%,rgba(8,8,8,0.08) 80%),
+  linear-gradient(to top,rgba(8,8,8,0.65) 0%,transparent 45%);
+}
+/* clip the card background itself to its rounded rect */
+.home-carousel-card.hc-hero::before{
+ content:'';position:absolute;inset:0;border-radius:24px;
+ background:#0a0a0a;z-index:0;
 }
 .hc-hero-body{position:relative;z-index:3;padding:20px;display:flex;flex-direction:column;height:100%;max-width:68%;}
 .hc-hero-badge{
@@ -3124,26 +3139,28 @@ function renderHomeCarousel(){
 
  // Card 1: Cinematic hero — Today's Workout with full image overlay
  const workoutCard=day?`
-  <div class="home-carousel-card hc-hero">
-   <img class="hc-hero-char" src="https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/167A1F8C-7CAB-4E4F-B885-6851E020A18A.png" alt="" draggable="false" onerror="this.style.display='none'"/>
-   <div class="hc-hero-overlay"></div>
-   <div class="hc-hero-body">
-    <div class="hc-hero-badge">${done?'COMPLETED':'TODAY · WEEK '+(aW+1)}</div>
-    <div style="margin-top:auto;">
-     <div style="font-size:9px;letter-spacing:3px;color:rgba(255,255,255,0.4);text-transform:uppercase;font-weight:700;margin-bottom:8px;">${ts.label}</div>
-     <div class="hc-title">${day.label}</div>
-     <div style="display:flex;align-items:center;gap:10px;margin:8px 0 16px;font-size:11px;color:rgba(255,255,255,0.45);font-weight:600;">
-      <span>${stats.exercises} exercises</span>
-      <span style="color:rgba(255,107,0,0.5)">·</span>
-      <span>~${stats.estMin} min</span>
-      <span style="color:rgba(255,107,0,0.5)">·</span>
-      <span>~${stats.estCal} cal</span>
+  <div class="hc-hero-wrap">
+   <div class="home-carousel-card hc-hero">
+    <div class="hc-hero-overlay"></div>
+    <div class="hc-hero-body">
+     <div class="hc-hero-badge">${done?'COMPLETED':'TODAY · WEEK '+(aW+1)}</div>
+     <div style="margin-top:auto;">
+      <div style="font-size:9px;letter-spacing:3px;color:rgba(255,255,255,0.4);text-transform:uppercase;font-weight:700;margin-bottom:8px;">${ts.label}</div>
+      <div class="hc-title">${day.label}</div>
+      <div style="display:flex;align-items:center;gap:10px;margin:8px 0 16px;font-size:11px;color:rgba(255,255,255,0.45);font-weight:600;">
+       <span>${stats.exercises} exercises</span>
+       <span style="color:rgba(255,107,0,0.5)">·</span>
+       <span>~${stats.estMin} min</span>
+       <span style="color:rgba(255,107,0,0.5)">·</span>
+       <span>~${stats.estCal} cal</span>
+      </div>
+      <button class="hc-cta" onclick="openDay(${aW},${aD})">
+       ${done?'REVIEW SESSION':'START WORKOUT'}
+      </button>
      </div>
-     <button class="hc-cta" onclick="openDay(${aW},${aD})">
-      ${done?'REVIEW SESSION':'START WORKOUT'}
-     </button>
     </div>
    </div>
+   <img class="hc-hero-char" src="https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/167A1F8C-7CAB-4E4F-B885-6851E020A18A.png" alt="" draggable="false" onerror="this.style.display='none'"/>
   </div>`:'' ;
 
  // Card 2: Weekly Consistency
