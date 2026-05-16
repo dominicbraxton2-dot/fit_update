@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'unsafe-inline'; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' https://raw.githubusercontent.com blob: data:; connect-src https://api.anthropic.com https://generativelanguage.googleapis.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self';"/>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'unsafe-inline'; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' https://raw.githubusercontent.com blob: data:; frame-ancestors 'none'; base-uri 'self'; form-action 'self';"/>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
@@ -539,14 +539,6 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
 [data-theme="light"] .prog-increase{background:#00a87815;border-color:#00a87840;color:#00a878;}
 [data-theme="light"] .prog-hold{background:#cc550015;border-color:#cc550040;color:#b89800;}
 
-/* COACH CARD */
-.coach-card{margin:0 16px 14px;background:linear-gradient(135deg,var(--surface),var(--surface2));border:1px solid var(--border-bright);border-radius:20px;padding:18px 20px;position:relative;overflow:hidden;}
-[data-theme="dark"] .coach-card::before{content:'';position:absolute;top:-40px;right:-40px;width:120px;height:120px;background:radial-gradient(circle,#ff6b0008,transparent 70%);pointer-events:none;}
-.coach-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
-.coach-label{font-size:9px;letter-spacing:4px;color:var(--muted);text-transform:uppercase;font-weight:700;}
-.coach-icon{display:flex;align-items:center;}
-.coach-msg{font-size:14px;font-weight:500;line-height:1.5;color:var(--text);font-style:italic;}
-.coach-balance{margin-top:10px;font-size:11px;color:#ff5c35;font-weight:600;padding-top:10px;border-top:1px solid var(--border);}
 
 /* WORKOUT COACH STRIP */
 .w-coach-strip{display:flex;align-items:flex-start;gap:10px;margin:10px 16px 0;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:12px 14px;}
@@ -829,8 +821,6 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
  </div>
  <div id="weekStrip"></div>
 
- <!-- Coach -->
- <div id="coachCard"></div>
 
  <!-- 12-Week Program (collapsed by default) -->
  <div class="hm-section-hdr" style="margin-top:4px;">
@@ -1077,16 +1067,6 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
    <div class="pr-label2">Rounds</div>
    <div class="sets-progress" id="setsPips"></div>
   </div>
- </div>
- <div class="cfg-card" style="margin:12px 16px 0;">
-  <div class="cfg-title">AI COACH — CLAUDE API</div>
-  <div style="font-size:11px;color:var(--muted);margin-bottom:12px;line-height:1.5;">Paste your Anthropic API key. Stored only on this device. Uses Claude Haiku (very low cost).</div>
-  <input id="claudeKeyInput" type="password" placeholder="sk-ant-..." style="width:100%;background:var(--surface2);border:1px solid var(--border-bright);border-radius:12px;color:var(--text);font-size:13px;padding:10px 14px;outline:none;margin-bottom:10px;"/>
-  <div style="display:flex;gap:8px;">
-   <button onclick="saveClaudeKey()" style="flex:1;padding:10px;border-radius:12px;border:none;background:linear-gradient(135deg,#ff6b00,#ff5200);color:#000;font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:1px;cursor:pointer;">SAVE KEY</button>
-   <button onclick="testClaudeKey()" style="flex:1;padding:10px;border-radius:12px;border:1px solid var(--border-bright);background:var(--surface2);color:var(--text);font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:1px;cursor:pointer;">TEST</button>
-  </div>
-  <div id="claudeKeyStatus" style="font-size:11px;margin-top:8px;color:var(--muted);"></div>
  </div>
 </div>
 
@@ -2392,7 +2372,6 @@ function navTo(id){
  if(id==='history')renderHistory();
  if(id==='analytics')renderAnalytics();
  if(id==='musclemap'){renderMuscleMap();setMuscleDay(muscleMapMode);}
- if(id==='timer'){const ki=document.getElementById('claudeKeyInput');if(ki){const k=dbGet('df7-claude-key');if(k)ki.value=k;}}
  window.scrollTo(0,0);
 }
 function goHome(){navTo('home');}
@@ -2523,30 +2502,6 @@ function getMuscleBalanceInsight(){
   return msgs.length?msgs[0]:null;
 }
 
-async function renderCoachCard(){
-  const el=document.getElementById('coachCard');
-  if(!el)return;
-  const insight=getCoachInsight();
-  const balance=getMuscleBalanceInsight();
-  // Show rule-based immediately
-  el.innerHTML=`<div class="coach-card">
-    <div class="coach-header"><span class="coach-label">COACH</span><span class="coach-icon">${insight.icon}</span></div>
-    <div class="coach-msg" id="coachMsgText">"${insight.msg}"</div>
-    ${balance?`<div class="coach-balance">${balance}</div>`:''}
-    ${dbGet('df7-claude-key')?'<div id="aiCoachLoading" style="font-size:10px;color:var(--muted);margin-top:8px;letter-spacing:1px;">⚡ AI COACH LOADING...</div>':''}
-  </div>`;
-  // Then try AI upgrade asynchronously
-  if(dbGet('df7-claude-key')){
-    const aiMsg=await refreshAICoach();
-    const msgEl=document.getElementById('coachMsgText');
-    const loadEl=document.getElementById('aiCoachLoading');
-    if(aiMsg&&msgEl){
-      msgEl.textContent=`"${aiMsg}"`;
-      msgEl.style.color='var(--text)';
-    }
-    if(loadEl)loadEl.remove();
-  }
-}
 
 function renderTodayCard(){
  const el=document.getElementById('todayWorkoutCard');
@@ -2858,7 +2813,6 @@ function renderHome(){
  }
  renderHomeCarousel();
  renderWeekStrip();
- renderCoachCard();
  // Missed workout in-app alert
  const mwEl=document.getElementById('missedWorkoutBanner');
  if(mwEl){
@@ -4104,77 +4058,6 @@ function getProgressionHistory(exName){
   return entries;
 }
 
-// ── CLAUDE AI COACH ──
-let aiCoachCache={msg:null,ts:0};
-const AI_CACHE_TTL=1800000; // 30 min
-
-function saveClaudeKey(){
-  const input=document.getElementById('claudeKeyInput');
-  if(!input)return;
-  const key=input.value.trim();
-  if(!key.startsWith('sk-ant-')){
-    document.getElementById('claudeKeyStatus').textContent='❌ Invalid key format. Should start with sk-ant-';
-    return;
-  }
-  dbSet('df7-claude-key',key);
-  document.getElementById('claudeKeyStatus').textContent='✅ Key saved.';
-  aiCoachCache={msg:null,ts:0};
-}
-
-
-async function testClaudeKey(){
-  const statusEl=document.getElementById('claudeKeyStatus');
-  statusEl.textContent='Testing...';
-  const result=await getAICoachMessage('Testing connection. Reply with: Connected.');
-  if(result){statusEl.textContent='✅ Connected: '+result.slice(0,60);}
-  else{statusEl.textContent='❌ Failed. Check key and try again.';}
-}
-
-async function getAICoachMessage(prompt){
-  const key=dbGet('df7-claude-key');
-  if(!key)return null;
-  try{
-    const resp=await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',
-      headers:{
-        'x-api-key':key,
-        'anthropic-version':'2023-06-01',
-        'content-type':'application/json',
-        'anthropic-dangerous-direct-browser-access':'true'
-      },
-      body:JSON.stringify({
-        model:'claude-haiku-4-5-20251001',
-        max_tokens:120,
-        system:"You are Dom's elite personal trainer. Dom: 35yo male, home gym (barbell, bench, GMWD chest press, leg curl/extension machine, treadmill, EZ curl bar, dumbbells, kettlebell, weighted vest, pull-up bar). Goals: bigger quads/hamstrings/calves, shredded abs, bigger chest, eliminate visceral fat. Respond in 1-2 punchy sentences. Direct, intense, cinematic. No generic wellness language. Use words like: protocol, session, phase, load, volume, discipline.",
-        messages:[{role:'user',content:prompt}]
-      })
-    });
-    if(!resp.ok)return null;
-    const data=await resp.json();
-    return data.content?.[0]?.text||null;
-  }catch(e){return null;}
-}
-
-async function refreshAICoach(){
-  const now=Date.now();
-  if(aiCoachCache.msg&&now-aiCoachCache.ts<AI_CACHE_TTL)return aiCoachCache.msg;
-  const key=dbGet('df7-claude-key');
-  if(!key)return null;
-  const h=buildWorkoutHistory();
-  const cur=WEEKS[aW]?.days[aD];
-  const contextParts=[
-    `Today is ${new Date().toLocaleDateString('en-US',{weekday:'long'})}`,
-    `Current: Week ${aW+1}, ${cur?.label||'Rest'}`,
-    `Sessions completed: ${h.total}`,
-    `Streak: ${h.streak} days`,
-    `Days since last workout: ${h.daysSinceLast}`,
-    `Recent types (last 7d): Push×${h.recentTypes.push||0} Pull×${h.recentTypes.pull||0} Legs×${h.recentTypes.legs||0} Cardio×${h.recentTypes.cardio||0}`,
-  ];
-  const prompt=`Training context: ${contextParts.join('. ')}. Give me one sharp coaching insight for today's session.`;
-  const msg=await getAICoachMessage(prompt);
-  if(msg){aiCoachCache={msg,ts:now};}
-  return msg;
-}
 
 // ── NOTIFICATIONS ──
 async function requestNotificationPermission(){
