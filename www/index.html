@@ -86,8 +86,8 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 /* ── HOME COMPACT HEADER ── */
 .home-hdr{display:flex;align-items:flex-start;justify-content:space-between;padding:max(52px,calc(env(safe-area-inset-top) + 16px)) 20px 12px;}
 @keyframes brandFadeIn{0%{opacity:0;transform:translateY(-4px)}100%{opacity:1;transform:none}}
-.home-brand{display:flex;align-items:center;line-height:1;animation:brandFadeIn 0.55s cubic-bezier(0.22,1,0.36,1) 0.05s both;}
-.home-brand img{height:36px;width:auto;max-width:220px;object-fit:contain;object-position:left center;display:block;-webkit-user-drag:none;user-select:none;}
+.home-brand{width:100%;max-width:240px;margin-bottom:4px;animation:brandFadeIn 0.55s cubic-bezier(0.22,1,0.36,1) 0.05s both;}
+.home-brand img{width:100%;height:auto;display:block;object-fit:contain;-webkit-user-drag:none;user-select:none;}
 .home-brand-fallback{display:none;font-family:'Montserrat',sans-serif;font-size:18px;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:var(--text);}
 .home-brand img.errored+.home-brand-fallback{display:block;}
 .home-hdr-date{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-top:6px;}
@@ -886,7 +886,7 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
  <div class="home-hdr">
   <div>
    <div class="home-brand">
-    <img src="images/strength-identity-brand.png" alt="Strength Identity" draggable="false" onerror="this.classList.add('errored');this.style.display='none';this.nextElementSibling.style.display='block'"/>
+    <img src="https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/C16411D2-A326-489A-9BEC-5F9B617C35A2.png" alt="Strength Identity" draggable="false" onerror="this.classList.add('errored');this.style.display='none';this.nextElementSibling.style.display='block'"/>
     <span class="home-brand-fallback">STRENGTH IDENTITY</span>
    </div>
    <div class="home-hdr-date" id="homeDateStr"></div>
