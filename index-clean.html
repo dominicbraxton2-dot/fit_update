@@ -1027,6 +1027,25 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
 .nutr-save-btn{flex:2;padding:14px;border-radius:14px;border:none;background:var(--yellow);color:#000;font-size:13px;font-weight:800;cursor:pointer;}
 [data-theme="light"] .nutr-save-btn{background:#cc5500;color:#fff;}
 .nutr-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.65);z-index:598;backdrop-filter:blur(4px);display:none;}
+.nutr-autofill-row{display:flex;gap:8px;margin-bottom:10px;}
+.nutr-autofill-btn{flex:1;padding:10px;border-radius:11px;border:1px solid rgba(255,107,0,0.4);background:rgba(255,107,0,0.1);color:#ff6b00;font-size:12px;font-weight:700;cursor:pointer;letter-spacing:0.3px;}
+.nutr-fav-list-btn{padding:10px 14px;border-radius:11px;border:1px solid var(--border-bright);background:var(--surface2);color:var(--text2);font-size:12px;font-weight:700;cursor:pointer;}
+.nutr-match-preview{background:rgba(255,107,0,0.06);border:1px solid rgba(255,107,0,0.2);border-radius:12px;padding:10px 12px;margin-bottom:10px;}
+.nutr-match-name{font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px;}
+.nutr-match-conf{display:inline-block;padding:2px 8px;border-radius:100px;font-size:10px;font-weight:700;margin-top:4px;letter-spacing:0.3px;}
+.nutr-match-conf.exact{background:rgba(0,200,150,0.15);color:#00c896;}
+.nutr-match-conf.close{background:rgba(255,149,0,0.15);color:#ff9500;}
+.nutr-match-conf.none{background:rgba(255,59,48,0.1);color:#ff3b30;}
+.nutr-fav-save-btn{padding:8px 18px;border-radius:100px;border:1px solid var(--border-bright);background:transparent;color:var(--muted);font-size:11px;font-weight:600;cursor:pointer;transition:all 0.15s;}
+.nutr-fav-save-btn.saved{color:#ff6b00;border-color:rgba(255,107,0,0.4);}
+.nutr-favs-list{background:var(--surface2);border:1px solid var(--border-bright);border-radius:14px;overflow:hidden;margin-bottom:10px;}
+.nutr-fav-item{display:flex;align-items:center;gap:10px;padding:11px 14px;border-bottom:1px solid var(--border);cursor:pointer;transition:background 0.15s;}
+.nutr-fav-item:last-child{border-bottom:none;}
+.nutr-fav-item:active{background:var(--surface);}
+.nutr-fav-item-info{flex:1;min-width:0;}
+.nutr-fav-item-name{font-size:13px;font-weight:600;}
+.nutr-fav-item-macros{font-size:10px;color:var(--muted);margin-top:2px;}
+.nutr-fav-del{width:26px;height:26px;border-radius:7px;border:1px solid rgba(255,59,48,0.2);background:transparent;color:rgba(255,59,48,0.7);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 
 /* ── RECOVERY MODE ── */
 .rec-screen{padding-top:env(safe-area-inset-top);padding-bottom:100px;}
@@ -1729,7 +1748,13 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
 <div class="nutr-sheet" id="nutrFoodSheet">
  <div class="nutr-sheet-title" id="nutrSheetTitle">Add Food</div>
  <div class="nutr-field-label" style="margin-bottom:5px;">Food name</div>
- <input class="nutr-text-input" id="nutrName" type="text" placeholder="e.g. Chicken breast, rice, banana" style="margin-bottom:12px;"/>
+ <input class="nutr-text-input" id="nutrName" type="text" placeholder="e.g. 2 eggs, 6 oz chicken, 1 cup rice" oninput="nutrClearMatch()" style="margin-bottom:8px;"/>
+ <div class="nutr-autofill-row">
+  <button class="nutr-autofill-btn" onclick="nutrAutofill()">⚡ Autofill</button>
+  <button class="nutr-fav-list-btn" onclick="nutrToggleFavList()">★ Favs</button>
+ </div>
+ <div id="nutrMatchPreview" class="nutr-match-preview" style="display:none;"></div>
+ <div id="nutrFavsList" style="display:none;"></div>
  <div class="nutr-macro-grid">
   <div class="nutr-macro-cell">
    <div class="nutr-field-label">Calories</div>
@@ -1758,6 +1783,9 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
  <div class="nutr-sheet-btns">
   <button class="nutr-cancel-btn" onclick="closeNutrSheet()">Cancel</button>
   <button class="nutr-save-btn" id="nutrSaveBtn" onclick="saveFoodEntry()">Add Food</button>
+ </div>
+ <div style="text-align:center;margin-top:10px;">
+  <button class="nutr-fav-save-btn" id="nutrFavSaveBtn" onclick="nutrSaveAsFavorite()">☆ Save as Favorite</button>
  </div>
 </div>
 <div class="nutr-backdrop" id="nutrGoalsBackdrop" onclick="closeGoalsSheet()" style="z-index:598;"></div>
@@ -5520,6 +5548,9 @@ function _nutrResetSheet(meal,e){
  document.querySelectorAll('#nutrMealPills .nutr-meal-pill').forEach(b=>{
   b.classList.toggle('sel',b.dataset.meal===(e?e.meal:meal));
  });
+ const mp=document.getElementById('nutrMatchPreview');if(mp){mp.style.display='none';mp.innerHTML='';}
+ const fl=document.getElementById('nutrFavsList');if(fl)fl.style.display='none';
+ const fsb=document.getElementById('nutrFavSaveBtn');if(fsb){fsb.textContent='☆ Save as Favorite';fsb.className='nutr-fav-save-btn';}
  document.getElementById('nutrBackdrop').style.display='block';
  document.getElementById('nutrFoodSheet').style.display='block';
  setTimeout(()=>{const n=document.getElementById('nutrName');if(n)n.focus();},150);
@@ -5532,6 +5563,8 @@ function closeNutrSheet(){
  document.getElementById('nutrBackdrop').style.display='none';
  document.getElementById('nutrFoodSheet').style.display='none';
  nutrEditId=null;
+ const mp=document.getElementById('nutrMatchPreview');if(mp){mp.style.display='none';mp.innerHTML='';}
+ const fl=document.getElementById('nutrFavsList');if(fl)fl.style.display='none';
 }
 function saveFoodEntry(){
  const name=(document.getElementById('nutrName').value||'').trim();
@@ -5578,6 +5611,267 @@ function saveGoals(){
  });
  closeGoalsSheet();
  renderNutrition();
+}
+
+// ── NUTRITION AUTOFILL DATABASE ──
+const NUTR_FAVS_KEY='si-nutr-favs';
+function nutrGetFavs(){try{return JSON.parse(localStorage.getItem(NUTR_FAVS_KEY)||'[]');}catch(e){return[];}}
+function nutrSaveFavs(arr){try{localStorage.setItem(NUTR_FAVS_KEY,JSON.stringify(arr));}catch(e){}}
+
+const NUTR_DB=[
+ // ── EGGS ──
+ {name:'Egg',aliases:['egg','eggs','large egg','whole egg','fried egg','boiled egg'],servingSize:1,servingUnit:'egg',calories:70,protein:6,carbs:0.5,fat:5},
+ {name:'Egg White',aliases:['egg white','egg whites','white'],servingSize:1,servingUnit:'egg white',calories:17,protein:4,carbs:0,fat:0},
+ {name:'Scrambled Eggs',aliases:['scrambled eggs','scrambled egg'],servingSize:2,servingUnit:'eggs',calories:180,protein:12,carbs:2,fat:13},
+ // ── POULTRY ──
+ {name:'Chicken Breast',aliases:['chicken','chicken breast','grilled chicken','baked chicken','chicken breast cooked'],servingSize:4,servingUnit:'oz',calories:185,protein:35,carbs:0,fat:4},
+ {name:'Chicken Thigh',aliases:['chicken thigh','chicken thighs','dark chicken'],servingSize:4,servingUnit:'oz',calories:209,protein:26,carbs:0,fat:11},
+ {name:'Turkey Breast',aliases:['turkey','turkey breast','sliced turkey','deli turkey'],servingSize:4,servingUnit:'oz',calories:153,protein:34,carbs:0,fat:1},
+ {name:'Ground Turkey',aliases:['ground turkey','turkey meat'],servingSize:4,servingUnit:'oz',calories:170,protein:23,carbs:0,fat:9},
+ // ── BEEF & PORK ──
+ {name:'Ground Beef 80/20',aliases:['ground beef','hamburger','burger meat','beef','ground beef 80','80/20'],servingSize:4,servingUnit:'oz',calories:287,protein:19,carbs:0,fat:23},
+ {name:'Ground Beef 93/7',aliases:['lean ground beef','ground beef 93','93/7','lean beef'],servingSize:4,servingUnit:'oz',calories:195,protein:24,carbs:0,fat:10},
+ {name:'Steak',aliases:['steak','ribeye','sirloin','strip steak','beef steak','new york strip'],servingSize:4,servingUnit:'oz',calories:310,protein:24,carbs:0,fat:24},
+ {name:'Pork Chop',aliases:['pork chop','pork','pork loin'],servingSize:4,servingUnit:'oz',calories:185,protein:26,carbs:0,fat:8},
+ {name:'Bacon',aliases:['bacon','cooked bacon'],servingSize:2,servingUnit:'slice',calories:86,protein:6,carbs:0,fat:7},
+ {name:'Beef Jerky',aliases:['jerky','beef jerky'],servingSize:1,servingUnit:'oz',calories:116,protein:9,carbs:3,fat:7},
+ // ── FISH & SEAFOOD ──
+ {name:'Salmon',aliases:['salmon','grilled salmon','baked salmon','atlantic salmon'],servingSize:4,servingUnit:'oz',calories:233,protein:25,carbs:0,fat:14},
+ {name:'Canned Tuna',aliases:['tuna','canned tuna','tuna fish','chunk tuna'],servingSize:3,servingUnit:'oz',calories:100,protein:22,carbs:0,fat:1},
+ {name:'Tilapia',aliases:['tilapia','baked tilapia'],servingSize:4,servingUnit:'oz',calories:145,protein:30,carbs:0,fat:3},
+ {name:'Shrimp',aliases:['shrimp','cooked shrimp','grilled shrimp'],servingSize:4,servingUnit:'oz',calories:112,protein:23,carbs:1,fat:1},
+ {name:'Cod',aliases:['cod','baked cod'],servingSize:4,servingUnit:'oz',calories:105,protein:23,carbs:0,fat:1},
+ // ── DAIRY & EGGS BASED ──
+ {name:'Greek Yogurt',aliases:['greek yogurt','plain greek yogurt','nonfat greek yogurt','yogurt'],servingSize:1,servingUnit:'cup',calories:150,protein:20,carbs:12,fat:3},
+ {name:'Cottage Cheese',aliases:['cottage cheese','low fat cottage cheese'],servingSize:1,servingUnit:'cup',calories:180,protein:25,carbs:8,fat:5},
+ {name:'Whole Milk',aliases:['milk','whole milk','full fat milk'],servingSize:1,servingUnit:'cup',calories:149,protein:8,carbs:12,fat:8},
+ {name:'Skim Milk',aliases:['skim milk','nonfat milk','1% milk','2% milk'],servingSize:1,servingUnit:'cup',calories:83,protein:8,carbs:12,fat:0},
+ {name:'Cheddar Cheese',aliases:['cheddar','cheddar cheese','cheese'],servingSize:1,servingUnit:'oz',calories:113,protein:7,carbs:0,fat:9},
+ {name:'Mozzarella',aliases:['mozzarella','mozzarella cheese','part skim mozzarella'],servingSize:1,servingUnit:'oz',calories:85,protein:6,carbs:1,fat:6},
+ {name:'Butter',aliases:['butter'],servingSize:1,servingUnit:'tbsp',calories:102,protein:0,carbs:0,fat:12},
+ {name:'Cream Cheese',aliases:['cream cheese'],servingSize:1,servingUnit:'tbsp',calories:51,protein:1,carbs:1,fat:5},
+ // ── PROTEIN SUPPLEMENTS ──
+ {name:'Whey Protein',aliases:['whey','whey protein','protein powder','protein shake','scoop protein','scoop whey'],servingSize:1,servingUnit:'scoop',calories:120,protein:25,carbs:3,fat:2},
+ {name:'Casein Protein',aliases:['casein','casein protein','slow protein'],servingSize:1,servingUnit:'scoop',calories:110,protein:24,carbs:3,fat:1},
+ {name:'Protein Bar',aliases:['protein bar','quest bar','bar'],servingSize:1,servingUnit:'bar',calories:200,protein:20,carbs:20,fat:8},
+ // ── GRAINS & STARCHES ──
+ {name:'White Rice',aliases:['rice','white rice','cooked rice','jasmine rice','basmati rice'],servingSize:1,servingUnit:'cup',calories:206,protein:4,carbs:45,fat:0},
+ {name:'Brown Rice',aliases:['brown rice'],servingSize:1,servingUnit:'cup',calories:215,protein:5,carbs:45,fat:2},
+ {name:'Oats',aliases:['oats','oatmeal','rolled oats','quick oats','oat'],servingSize:0.5,servingUnit:'cup',calories:150,protein:5,carbs:27,fat:3},
+ {name:'Pasta',aliases:['pasta','spaghetti','penne','noodles','cooked pasta'],servingSize:1,servingUnit:'cup',calories:220,protein:8,carbs:43,fat:1},
+ {name:'White Bread',aliases:['bread','white bread','sandwich bread'],servingSize:1,servingUnit:'slice',calories:79,protein:3,carbs:15,fat:1},
+ {name:'Whole Wheat Bread',aliases:['whole wheat bread','wheat bread','whole grain bread'],servingSize:1,servingUnit:'slice',calories:81,protein:4,carbs:14,fat:1},
+ {name:'Flour Tortilla',aliases:['tortilla','flour tortilla','wrap'],servingSize:1,servingUnit:'tortilla',calories:146,protein:4,carbs:25,fat:4},
+ {name:'Corn Tortilla',aliases:['corn tortilla','taco shell'],servingSize:1,servingUnit:'tortilla',calories:52,protein:1,carbs:11,fat:1},
+ {name:'Bagel',aliases:['bagel','plain bagel'],servingSize:1,servingUnit:'bagel',calories:270,protein:11,carbs:53,fat:2},
+ {name:'Quinoa',aliases:['quinoa','cooked quinoa'],servingSize:1,servingUnit:'cup',calories:222,protein:8,carbs:39,fat:4},
+ {name:'Pita Bread',aliases:['pita','pita bread'],servingSize:1,servingUnit:'pita',calories:165,protein:5,carbs:33,fat:1},
+ {name:'Rice Cakes',aliases:['rice cake','rice cakes'],servingSize:1,servingUnit:'cake',calories:35,protein:1,carbs:7,fat:0},
+ // ── POTATOES ──
+ {name:'White Potato',aliases:['potato','baked potato','white potato','russet potato','potatoes'],servingSize:1,servingUnit:'potato',calories:163,protein:4,carbs:37,fat:0},
+ {name:'Sweet Potato',aliases:['sweet potato','yam','sweet potatoes'],servingSize:1,servingUnit:'potato',calories:103,protein:2,carbs:24,fat:0},
+ // ── LEGUMES ──
+ {name:'Black Beans',aliases:['black beans','black bean'],servingSize:1,servingUnit:'cup',calories:227,protein:15,carbs:41,fat:1},
+ {name:'Chickpeas',aliases:['chickpeas','garbanzo beans','chick peas'],servingSize:1,servingUnit:'cup',calories:269,protein:15,carbs:45,fat:4},
+ {name:'Lentils',aliases:['lentils','lentil','red lentils'],servingSize:1,servingUnit:'cup',calories:230,protein:18,carbs:40,fat:1},
+ {name:'Edamame',aliases:['edamame','soybeans'],servingSize:1,servingUnit:'cup',calories:188,protein:17,carbs:14,fat:8},
+ // ── FRUITS ──
+ {name:'Banana',aliases:['banana','bananas'],servingSize:1,servingUnit:'banana',calories:105,protein:1,carbs:27,fat:0},
+ {name:'Apple',aliases:['apple','apples'],servingSize:1,servingUnit:'apple',calories:95,protein:0,carbs:25,fat:0},
+ {name:'Orange',aliases:['orange','oranges'],servingSize:1,servingUnit:'orange',calories:62,protein:1,carbs:15,fat:0},
+ {name:'Blueberries',aliases:['blueberries','blueberry'],servingSize:1,servingUnit:'cup',calories:84,protein:1,carbs:21,fat:0},
+ {name:'Strawberries',aliases:['strawberries','strawberry'],servingSize:1,servingUnit:'cup',calories:49,protein:1,carbs:12,fat:0},
+ {name:'Grapes',aliases:['grapes','grape'],servingSize:1,servingUnit:'cup',calories:104,protein:1,carbs:27,fat:0},
+ {name:'Mango',aliases:['mango','mangoes'],servingSize:1,servingUnit:'cup',calories:99,protein:1,carbs:25,fat:0},
+ {name:'Pineapple',aliases:['pineapple'],servingSize:1,servingUnit:'cup',calories:82,protein:1,carbs:22,fat:0},
+ {name:'Watermelon',aliases:['watermelon'],servingSize:1,servingUnit:'cup',calories:46,protein:1,carbs:11,fat:0},
+ {name:'Peach',aliases:['peach','peaches'],servingSize:1,servingUnit:'peach',calories:59,protein:1,carbs:14,fat:0},
+ {name:'Mixed Berries',aliases:['berries','mixed berries','frozen berries'],servingSize:1,servingUnit:'cup',calories:70,protein:1,carbs:17,fat:0},
+ // ── VEGETABLES ──
+ {name:'Broccoli',aliases:['broccoli','steamed broccoli'],servingSize:1,servingUnit:'cup',calories:55,protein:4,carbs:11,fat:1},
+ {name:'Spinach',aliases:['spinach','baby spinach'],servingSize:1,servingUnit:'cup',calories:7,protein:1,carbs:1,fat:0},
+ {name:'Kale',aliases:['kale'],servingSize:1,servingUnit:'cup',calories:33,protein:3,carbs:6,fat:1},
+ {name:'Cauliflower',aliases:['cauliflower'],servingSize:1,servingUnit:'cup',calories:25,protein:2,carbs:5,fat:0},
+ {name:'Avocado',aliases:['avocado','avocados'],servingSize:1,servingUnit:'avocado',calories:234,protein:3,carbs:12,fat:21},
+ {name:'Carrot',aliases:['carrot','carrots'],servingSize:1,servingUnit:'carrot',calories:25,protein:1,carbs:6,fat:0},
+ {name:'Bell Pepper',aliases:['bell pepper','bell peppers','pepper'],servingSize:1,servingUnit:'pepper',calories:31,protein:1,carbs:7,fat:0},
+ {name:'Tomato',aliases:['tomato','tomatoes'],servingSize:1,servingUnit:'tomato',calories:22,protein:1,carbs:5,fat:0},
+ {name:'Cucumber',aliases:['cucumber'],servingSize:1,servingUnit:'cup',calories:16,protein:1,carbs:4,fat:0},
+ {name:'Green Beans',aliases:['green beans','string beans'],servingSize:1,servingUnit:'cup',calories:31,protein:2,carbs:7,fat:0},
+ {name:'Asparagus',aliases:['asparagus'],servingSize:1,servingUnit:'cup',calories:27,protein:3,carbs:5,fat:0},
+ {name:'Zucchini',aliases:['zucchini','courgette'],servingSize:1,servingUnit:'cup',calories:20,protein:1,carbs:4,fat:0},
+ {name:'Corn',aliases:['corn','sweet corn'],servingSize:1,servingUnit:'cup',calories:132,protein:5,carbs:29,fat:2},
+ {name:'Peas',aliases:['peas','green peas'],servingSize:1,servingUnit:'cup',calories:117,protein:8,carbs:21,fat:1},
+ {name:'Mixed Salad',aliases:['salad','mixed greens','lettuce','mixed salad','greens'],servingSize:1,servingUnit:'cup',calories:10,protein:1,carbs:2,fat:0},
+ // ── NUTS, SEEDS & FATS ──
+ {name:'Peanut Butter',aliases:['peanut butter','pb','natural peanut butter'],servingSize:1,servingUnit:'tbsp',calories:94,protein:4,carbs:3,fat:8},
+ {name:'Almond Butter',aliases:['almond butter'],servingSize:1,servingUnit:'tbsp',calories:98,protein:3,carbs:3,fat:9},
+ {name:'Almonds',aliases:['almonds','almond'],servingSize:1,servingUnit:'oz',calories:164,protein:6,carbs:6,fat:14},
+ {name:'Walnuts',aliases:['walnuts','walnut'],servingSize:1,servingUnit:'oz',calories:185,protein:4,carbs:4,fat:18},
+ {name:'Cashews',aliases:['cashews','cashew'],servingSize:1,servingUnit:'oz',calories:157,protein:5,carbs:9,fat:12},
+ {name:'Peanuts',aliases:['peanuts','peanut'],servingSize:1,servingUnit:'oz',calories:161,protein:7,carbs:5,fat:14},
+ {name:'Olive Oil',aliases:['olive oil','oil'],servingSize:1,servingUnit:'tbsp',calories:119,protein:0,carbs:0,fat:14},
+ {name:'Coconut Oil',aliases:['coconut oil'],servingSize:1,servingUnit:'tbsp',calories:117,protein:0,carbs:0,fat:14},
+ {name:'Chia Seeds',aliases:['chia','chia seeds'],servingSize:1,servingUnit:'tbsp',calories:58,protein:2,carbs:5,fat:4},
+ {name:'Sunflower Seeds',aliases:['sunflower seeds','sunflower seed'],servingSize:1,servingUnit:'oz',calories:165,protein:5,carbs:7,fat:14},
+ // ── CONDIMENTS & MISC ──
+ {name:'Honey',aliases:['honey'],servingSize:1,servingUnit:'tbsp',calories:64,protein:0,carbs:17,fat:0},
+ {name:'Mayonnaise',aliases:['mayo','mayonnaise'],servingSize:1,servingUnit:'tbsp',calories:94,protein:0,carbs:0,fat:10},
+ {name:'Ketchup',aliases:['ketchup','catsup'],servingSize:1,servingUnit:'tbsp',calories:17,protein:0,carbs:4,fat:0},
+ {name:'Ranch Dressing',aliases:['ranch','ranch dressing'],servingSize:2,servingUnit:'tbsp',calories:145,protein:1,carbs:2,fat:15},
+ {name:'Soy Sauce',aliases:['soy sauce','soy'],servingSize:1,servingUnit:'tbsp',calories:10,protein:1,carbs:1,fat:0},
+ {name:'Granola',aliases:['granola'],servingSize:0.25,servingUnit:'cup',calories:150,protein:4,carbs:24,fat:8},
+ {name:'Orange Juice',aliases:['orange juice','oj'],servingSize:1,servingUnit:'cup',calories:112,protein:2,carbs:26,fat:0},
+ {name:'Chocolate Milk',aliases:['chocolate milk','choc milk'],servingSize:1,servingUnit:'cup',calories:208,protein:8,carbs:32,fat:8},
+ // ── TOFU & PLANT PROTEIN ──
+ {name:'Tofu',aliases:['tofu','firm tofu','silken tofu'],servingSize:3,servingUnit:'oz',calories:70,protein:8,carbs:2,fat:4},
+ {name:'Tempeh',aliases:['tempeh'],servingSize:3,servingUnit:'oz',calories:160,protein:15,carbs:8,fat:9},
+ // ── FAST FOOD ──
+ {name:'Big Mac',aliases:['big mac','mcdonalds big mac'],servingSize:1,servingUnit:'burger',calories:550,protein:25,carbs:45,fat:30},
+ {name:'Chick-fil-A Sandwich',aliases:['chick fil a','chickfila','chick-fil-a','chicken sandwich','chick fil a sandwich'],servingSize:1,servingUnit:'sandwich',calories:440,protein:28,carbs:40,fat:19},
+ {name:'Chipotle Chicken Bowl',aliases:['chipotle','chipotle bowl','chipotle chicken'],servingSize:1,servingUnit:'bowl',calories:665,protein:51,carbs:51,fat:24},
+ {name:'Subway Turkey 6 inch',aliases:['subway','subway turkey','turkey sub'],servingSize:1,servingUnit:'sub',calories:280,protein:18,carbs:46,fat:4},
+];
+
+function nutrNormUnit(u){
+ if(!u)return null;
+ u=String(u).toLowerCase().replace(/s$/,'');
+ const M={oz:'oz',ounce:'oz',cup:'cup',c:'cup',tbsp:'tbsp',tablespoon:'tbsp',tbs:'tbsp',tsp:'tsp',teaspoon:'tsp',scoop:'scoop',gram:'g',g:'g',lb:'lb',pound:'lb',lbs:'lb',slice:'slice',piece:'piece',serving:'serving',bar:'bar',bottle:'bottle'};
+ return M[u]||u;
+}
+function nutrParseInput(text){
+ text=(text||'').trim().toLowerCase();
+ if(!text)return{qty:1,unit:null,food:''};
+ const UPAT='oz|ounces?|cups?|tbsp|tablespoons?|tbs|tsps?|teaspoons?|scoops?|grams?|lbs?|pounds?|slices?|pieces?|servings?|bars?|bottles?';
+ const m1=text.match(new RegExp('^(\\d+(?:\\.\\d+)?)\\s+('+UPAT+')\\b\\s+(.+)$','i'));
+ if(m1)return{qty:parseFloat(m1[1]),unit:nutrNormUnit(m1[2]),food:m1[3].replace(/^(medium|large|small)\s+/i,'').trim()};
+ const m2=text.match(/^(\d+(?:\.\d+)?)\s+(.+)$/);
+ if(m2)return{qty:parseFloat(m2[1]),unit:null,food:m2[2].replace(/^(medium|large|small)\s+/i,'').trim()};
+ return{qty:1,unit:null,food:text.replace(/^(medium|large|small)\s+/i,'').trim()};
+}
+function nutrCalcScale(qty,unit,item){
+ const dbU=nutrNormUnit(item.servingUnit);
+ const sz=item.servingSize||1;
+ if(!unit)return qty/sz;
+ if(unit===dbU)return qty/sz;
+ if(unit==='oz'&&dbU==='g')return(qty*28.35)/sz;
+ if(unit==='g'&&dbU==='oz')return qty/(sz*28.35);
+ if(unit==='lb'&&dbU==='oz')return(qty*16)/sz;
+ if(unit==='lb'&&dbU==='g')return(qty*453.6)/sz;
+ if(unit==='oz'&&dbU==='lb')return qty/(sz*16);
+ return qty/sz;
+}
+function nutrFindMatch(parsed){
+ const{qty,unit,food}=parsed;
+ if(!food)return null;
+ // Favorites first
+ const favs=nutrGetFavs();
+ for(var fi=0;fi<favs.length;fi++){
+  const fn=favs[fi].name.toLowerCase();
+  if(fn===food||food.indexOf(fn)>=0||fn.indexOf(food)>=0){
+   return{item:favs[fi],scale:qty,confidence:'exact',source:'favorite'};
+  }
+ }
+ // DB search
+ var best=null,bestScore=0,bestConf='none';
+ for(var i=0;i<NUTR_DB.length;i++){
+  const item=NUTR_DB[i];
+  for(var j=0;j<item.aliases.length;j++){
+   const a=item.aliases[j].toLowerCase();
+   var score=0,conf='none';
+   if(a===food){score=100;conf='exact';}
+   else if(food===a){score=100;conf='exact';}
+   else if(food.indexOf(a)>=0&&a.length>2){score=75;conf='close';}
+   else if(a.indexOf(food)>=0&&food.length>2){score=65;conf='close';}
+   else{
+    const fw=food.split(' ');const aw=a.split(' ');
+    var ov=0;for(var k=0;k<fw.length;k++){if(fw[k].length>2&&aw.indexOf(fw[k])>=0)ov++;}
+    if(ov>0){score=30+ov*15;conf='close';}
+   }
+   if(score>bestScore){bestScore=score;best=item;bestConf=conf;}
+  }
+ }
+ if(!best||bestScore<25)return{item:null,scale:0,confidence:'none',source:'none'};
+ return{item:best,scale:nutrCalcScale(qty,unit,best),confidence:bestConf,source:'db'};
+}
+function nutrAutofill(){
+ const raw=(document.getElementById('nutrName').value||'').trim();
+ if(!raw){document.getElementById('nutrName').focus();return;}
+ const parsed=nutrParseInput(raw);
+ const result=nutrFindMatch(parsed);
+ const preview=document.getElementById('nutrMatchPreview');
+ if(!preview)return;
+ if(!result||!result.item){
+  preview.innerHTML='<div style="font-size:12px;color:var(--muted);">No local match found. Enter manually.</div>';
+  preview.style.display='block';
+  return;
+ }
+ const{item,scale,confidence,source}=result;
+ const cal=Math.round(item.calories*scale);
+ const pro=Math.round(item.protein*scale*10)/10;
+ const carb=Math.round(item.carbs*scale*10)/10;
+ const fat=Math.round(item.fat*scale*10)/10;
+ document.getElementById('nutrCal').value=cal;
+ document.getElementById('nutrPro').value=pro;
+ document.getElementById('nutrCarb').value=carb;
+ document.getElementById('nutrFat').value=fat;
+ const sc=Math.round(scale*100)/100;
+ const servLbl=sc===1?'1 serving':(sc+' \xd7 '+item.servingSize+(item.servingUnit!=='each'?' '+item.servingUnit:''));
+ const confLbl=confidence==='exact'?'Exact match':confidence==='close'?'Close match':'Manual needed';
+ const srcMark=source==='favorite'?' ★':'';
+ preview.innerHTML='<div class="nutr-match-name">Matched: '+item.name+srcMark+'</div>'+'<div style="font-size:11px;color:var(--muted);margin-bottom:4px;">'+servLbl+' \xb7 '+cal+' cal</div>'+'<span class="nutr-match-conf '+confidence+'">'+confLbl+'</span>';
+ preview.style.display='block';
+ try{navigator.vibrate&&navigator.vibrate(30);}catch(e){}
+}
+function nutrClearMatch(){
+ const p=document.getElementById('nutrMatchPreview');if(p){p.style.display='none';p.innerHTML='';}
+ const fl=document.getElementById('nutrFavsList');if(fl)fl.style.display='none';
+}
+function nutrToggleFavList(){
+ const fl=document.getElementById('nutrFavsList');
+ if(!fl)return;
+ if(fl.style.display!=='none'){fl.style.display='none';return;}
+ nutrRenderFavsList(fl);
+ fl.style.display='block';
+}
+function nutrRenderFavsList(fl){
+ const favs=nutrGetFavs();
+ if(!favs.length){fl.innerHTML='<div style="padding:12px;font-size:12px;color:var(--muted);text-align:center;">No favorites yet. Autofill a food and tap ☆ Save.</div>';return;}
+ var html='<div class="nutr-favs-list">';
+ for(var i=0;i<favs.length;i++){
+  var f=favs[i];
+  html+='<div class="nutr-fav-item" onclick="nutrLoadFav('+i+')">'+'<div class="nutr-fav-item-info"><div class="nutr-fav-item-name">'+f.name+'</div><div class="nutr-fav-item-macros">'+Math.round(f.calories)+' cal \xb7 P:'+Math.round(f.protein||0)+'g C:'+Math.round(f.carbs||0)+'g F:'+Math.round(f.fat||0)+'g</div></div>'+'<button class="nutr-fav-del" onclick="event.stopPropagation();nutrDelFav('+i+')" title="Remove"><svg width="11" height="11" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="4" y1="4" x2="16" y2="16"/><line x1="16" y1="4" x2="4" y2="16"/></svg></button>'+'</div>';
+ }
+ html+='</div>';fl.innerHTML=html;
+}
+function nutrLoadFav(i){
+ const f=nutrGetFavs()[i];if(!f)return;
+ document.getElementById('nutrName').value=f.name;
+ document.getElementById('nutrCal').value=Math.round(f.calories);
+ document.getElementById('nutrPro').value=f.protein;
+ document.getElementById('nutrCarb').value=f.carbs;
+ document.getElementById('nutrFat').value=f.fat;
+ const fl=document.getElementById('nutrFavsList');if(fl)fl.style.display='none';
+ const p=document.getElementById('nutrMatchPreview');
+ if(p){p.innerHTML='<div class="nutr-match-name">★ '+f.name+'</div><span class="nutr-match-conf exact">Favorite</span>';p.style.display='block';}
+}
+function nutrDelFav(i){
+ const favs=nutrGetFavs();favs.splice(i,1);nutrSaveFavs(favs);
+ const fl=document.getElementById('nutrFavsList');if(fl)nutrRenderFavsList(fl);
+}
+function nutrSaveAsFavorite(){
+ const name=(document.getElementById('nutrName').value||'').trim();if(!name)return;
+ const cal=parseFloat(document.getElementById('nutrCal').value)||0;
+ const pro=parseFloat(document.getElementById('nutrPro').value)||0;
+ const carb=parseFloat(document.getElementById('nutrCarb').value)||0;
+ const fat=parseFloat(document.getElementById('nutrFat').value)||0;
+ const favs=nutrGetFavs();
+ const idx=favs.findIndex(function(f){return f.name.toLowerCase()===name.toLowerCase();});
+ const entry={name,calories:cal,protein:pro,carbs:carb,fat};
+ if(idx>=0)favs[idx]=entry;else favs.unshift(entry);
+ nutrSaveFavs(favs);
+ const btn=document.getElementById('nutrFavSaveBtn');
+ if(btn){btn.textContent='★ Saved!';btn.className='nutr-fav-save-btn saved';setTimeout(function(){btn.textContent='☆ Save as Favorite';btn.className='nutr-fav-save-btn';},1500);}
 }
 
 // ── RECOVERY MODE ──
