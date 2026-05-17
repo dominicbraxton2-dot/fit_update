@@ -1027,6 +1027,80 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
 .nutr-save-btn{flex:2;padding:14px;border-radius:14px;border:none;background:var(--yellow);color:#000;font-size:13px;font-weight:800;cursor:pointer;}
 [data-theme="light"] .nutr-save-btn{background:#cc5500;color:#fff;}
 .nutr-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.65);z-index:598;backdrop-filter:blur(4px);display:none;}
+
+/* ── RECOVERY MODE ── */
+.rec-screen{padding-top:env(safe-area-inset-top);padding-bottom:100px;}
+.rec-header{padding:28px 20px 12px;}
+.rec-header h2{font-family:'Bebas Neue',sans-serif;font-size:48px;letter-spacing:2px;line-height:1;}
+.rec-sub{font-size:12px;color:var(--muted);margin-top:4px;}
+.rec-tabs{display:flex;gap:6px;padding:0 16px 14px;overflow-x:auto;scrollbar-width:none;}
+.rec-tabs::-webkit-scrollbar{display:none;}
+.rec-tab{padding:9px 14px;border-radius:100px;border:1px solid var(--border-bright);background:var(--surface2);color:var(--text2);font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap;flex-shrink:0;transition:all 0.15s;}
+.rec-tab.sel{background:#ff6b00;border-color:#ff6b00;color:#fff;}
+.rec-quick-grid{display:flex;flex-direction:column;gap:10px;padding:0 16px;}
+.rec-quick-card{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:18px 20px;display:flex;align-items:center;gap:16px;cursor:pointer;transition:all 0.18s;}
+.rec-quick-card:active{transform:scale(0.97);background:var(--surface2);}
+.rec-quick-icon{font-size:24px;flex-shrink:0;width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:rgba(255,107,0,0.1);border-radius:12px;}
+.rec-quick-body{flex:1;}
+.rec-quick-name{font-family:'Montserrat',sans-serif;font-size:15px;font-weight:800;margin-bottom:3px;}
+.rec-quick-desc{font-size:11px;color:var(--muted);margin-bottom:5px;}
+.rec-quick-dur{font-size:10px;font-weight:700;color:#ff6b00;letter-spacing:0.5px;}
+.rec-breath-modes{display:flex;gap:8px;padding:0 16px 16px;overflow-x:auto;scrollbar-width:none;}
+.rec-breath-modes::-webkit-scrollbar{display:none;}
+.rec-breath-mode-btn{padding:9px 16px;border-radius:100px;border:1px solid var(--border-bright);background:var(--surface2);color:var(--text2);font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap;flex-shrink:0;transition:all 0.15s;}
+.rec-breath-mode-btn.sel{background:#ff6b00;border-color:#ff6b00;color:#fff;}
+.rec-breath-ring-wrap{display:flex;justify-content:center;align-items:center;padding:20px 0 10px;}
+.rec-breath-ring{width:180px;height:180px;border-radius:50%;background:rgba(255,107,0,0.08);border:3px solid rgba(255,107,0,0.25);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:transform 0.5s ease,box-shadow 0.5s ease;}
+.rec-breath-phase{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;color:#ff6b00;}
+.rec-breath-count{font-family:'Bebas Neue',sans-serif;font-size:44px;color:var(--text);}
+.rec-breath-cycles{font-size:11px;color:var(--muted);}
+.rec-breath-pattern{text-align:center;padding:0 16px 14px;font-size:12px;color:var(--muted);}
+.rec-breath-controls{display:flex;gap:10px;padding:0 16px 10px;}
+.rec-breath-ctrl-btn{flex:1;padding:13px;border-radius:14px;border:1px solid var(--border-bright);background:var(--surface2);color:var(--text);font-size:12px;font-weight:700;cursor:pointer;}
+.rec-breath-ctrl-btn.primary{background:#ff6b00;border-color:#ff6b00;color:#fff;flex:2;}
+.rec-breath-session{text-align:center;font-size:11px;color:var(--muted);padding-bottom:10px;}
+.rec-timer-presets{display:flex;gap:8px;padding:0 16px 14px;justify-content:center;}
+.rec-timer-preset{padding:10px 18px;border-radius:100px;border:1px solid var(--border-bright);background:var(--surface2);color:var(--text2);font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:1px;cursor:pointer;transition:all 0.15s;}
+.rec-timer-preset.sel{background:#ff6b00;border-color:#ff6b00;color:#fff;}
+.rec-timer-display{display:flex;flex-direction:column;align-items:center;padding:10px 0 10px;}
+.rec-timer-big{font-family:'Bebas Neue',sans-serif;font-size:88px;letter-spacing:4px;line-height:1;color:var(--text);transition:text-shadow 0.5s;}
+.rec-timer-glow{text-shadow:0 0 40px rgba(255,107,0,0.6);}
+.rec-timer-label{font-size:11px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-top:6px;}
+.rec-timer-controls{display:flex;gap:10px;padding:0 16px 12px;}
+.rec-timer-ctrl{flex:1;padding:14px;border-radius:14px;border:1px solid var(--border-bright);background:var(--surface2);color:var(--text);font-size:12px;font-weight:700;cursor:pointer;}
+.rec-timer-ctrl.primary{background:#ff6b00;border-color:#ff6b00;color:#fff;flex:2;}
+.rec-timer-toggles{display:flex;gap:10px;padding:0 16px 8px;}
+.rec-timer-toggle-row{display:flex;align-items:center;justify-content:space-between;flex:1;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:12px 14px;}
+.rec-timer-toggle-lbl{font-size:12px;font-weight:600;color:var(--text2);}
+.rec-night-screen{padding:0 16px;}
+.rec-night-step{background:rgba(255,107,0,0.05);border:1px solid rgba(255,107,0,0.15);border-radius:18px;padding:18px 20px;margin-bottom:10px;display:flex;align-items:flex-start;gap:14px;cursor:pointer;transition:all 0.2s;}
+.rec-night-step.active-step{background:rgba(255,107,0,0.14);border-color:#ff6b00;}
+.rec-night-step-num{font-family:'Bebas Neue',sans-serif;font-size:32px;color:#ff6b00;line-height:1;flex-shrink:0;width:32px;}
+.rec-night-step-body{flex:1;}
+.rec-night-step-name{font-family:'Montserrat',sans-serif;font-size:14px;font-weight:800;margin-bottom:3px;}
+.rec-night-step-desc{font-size:11px;color:var(--muted);}
+.rec-night-step-time{font-size:10px;color:#ff6b00;font-weight:700;margin-top:4px;letter-spacing:0.5px;}
+.rec-night-launch{width:100%;padding:16px;border-radius:16px;border:none;background:linear-gradient(135deg,#ff6b00,#ff9500);color:#fff;font-family:'Montserrat',sans-serif;font-size:14px;font-weight:800;cursor:pointer;margin-top:6px;margin-bottom:4px;}
+.rec-stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 16px 16px;}
+.rec-stats-card{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:20px 16px;text-align:center;}
+.rec-stats-num{font-family:'Bebas Neue',sans-serif;font-size:48px;color:#ff6b00;line-height:1;}
+.rec-stats-lbl{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-top:5px;}
+.rec-stats-reset{display:flex;justify-content:center;padding:0 16px 10px;}
+.rec-stats-reset-btn{padding:10px 20px;border-radius:100px;border:1px solid rgba(255,59,48,0.25);background:transparent;color:rgba(255,59,48,0.8);font-size:11px;font-weight:700;cursor:pointer;}
+.rec-ambient-grid{display:flex;flex-direction:column;gap:10px;padding:0 16px;}
+.rec-ambient-card{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:16px 18px;display:flex;align-items:center;gap:14px;cursor:pointer;transition:all 0.18s;}
+.rec-ambient-card.active{border-color:#ff6b00;background:rgba(255,107,0,0.07);}
+.rec-ambient-card:active{transform:scale(0.97);}
+.rec-ambient-icon{font-size:22px;width:40px;text-align:center;flex-shrink:0;}
+.rec-ambient-body{flex:1;}
+.rec-ambient-name{font-size:14px;font-weight:700;margin-bottom:2px;}
+.rec-ambient-desc{font-size:11px;color:var(--muted);}
+.rec-ambient-status{font-size:10px;color:#ff6b00;font-weight:700;flex-shrink:0;}
+.rec-session-overlay{position:fixed;inset:0;background:#000;z-index:700;display:none;flex-direction:column;align-items:center;justify-content:center;padding:40px;}
+.rec-session-title{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:2px;color:#ff6b00;margin-bottom:8px;text-align:center;}
+.rec-session-big{font-family:'Bebas Neue',sans-serif;font-size:100px;letter-spacing:4px;color:#fff;line-height:1;}
+.rec-session-desc{font-size:13px;color:rgba(255,255,255,0.5);text-align:center;margin-top:14px;max-width:260px;}
+.rec-session-stop{margin-top:44px;padding:14px 40px;border-radius:100px;border:1px solid rgba(255,255,255,0.2);background:transparent;color:rgba(255,255,255,0.7);font-size:14px;font-weight:700;cursor:pointer;}
 </style>
 </head>
 <body>
@@ -1573,6 +1647,23 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
  <div class="ach-grid" id="achGrid"></div>
 </div>
 
+<!-- RECOVERY MODE -->
+<div id="recovery" class="screen rec-screen">
+ <div class="rec-header">
+  <h2>RECOVERY<br/>MODE</h2>
+  <p class="rec-sub">Decompress. Recover. Recharge.</p>
+ </div>
+ <div class="rec-tabs" id="recTabs">
+  <button class="rec-tab sel" onclick="recTab('quick')">Quick</button>
+  <button class="rec-tab" onclick="recTab('breath')">Breathe</button>
+  <button class="rec-tab" onclick="recTab('timer')">Timer</button>
+  <button class="rec-tab" onclick="recTab('night')">Night Shift</button>
+  <button class="rec-tab" onclick="recTab('stats')">Stats</button>
+  <button class="rec-tab" onclick="recTab('ambient')">Ambient</button>
+ </div>
+ <div id="recContent"></div>
+</div>
+
 <!-- MORE HUB -->
 <div id="more" class="screen more-screen">
  <div class="more-header">
@@ -1617,6 +1708,16 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
    <div class="more-item-body">
     <div class="more-item-name">Achievements</div>
     <div class="more-item-desc">Badges earned through your training</div>
+   </div>
+   <div class="more-item-arrow"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="7,5 13,10 7,15"/></svg></div>
+  </div>
+  <div class="more-item" onclick="navTo('recovery')">
+   <div class="more-item-icon" style="background:rgba(255,107,0,0.14);">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ff6b00" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1010 10"/><path d="M12 6v6l4 2"/><path d="M22 2l-3 3m0-3l3 3"/></svg>
+   </div>
+   <div class="more-item-body">
+    <div class="more-item-name">Recovery Mode</div>
+    <div class="more-item-desc">Breathe, decompress, and recharge</div>
    </div>
    <div class="more-item-arrow"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="7,5 13,10 7,15"/></svg></div>
   </div>
@@ -2823,6 +2924,7 @@ function navTo(id){
  if(id==='nutrition')renderNutrition();
  if(id==='platecalc')renderPlateCalc();
  if(id==='achievements')renderAchievements();
+ if(id==='recovery')renderRecovery();
  if(id==='more'){}
  window.scrollTo(0,0);
 }
@@ -5478,6 +5580,329 @@ function saveGoals(){
  renderNutrition();
 }
 
+// ── RECOVERY MODE ──
+const REC_QUICK_MODES=[
+ {id:'post',icon:'⚡',name:'Post Workout Reset',desc:'Cool down your CNS after heavy training',dur:10},
+ {id:'night2',icon:'🌙',name:'Night Shift Wind Down',desc:'Low stimulation sequence for pre-sleep',dur:20},
+ {id:'focus',icon:'🎯',name:'Focus Recovery',desc:'Clear mental fatigue between sessions',dur:5},
+ {id:'sleep',icon:'💤',name:'Sleep Prep',desc:'Guided slow-down routine before bed',dur:15},
+ {id:'stretch',icon:'🔄',name:'Stretch & Breathe',desc:'Breathwork paired with passive stretching',dur:12},
+];
+const REC_BREATH_PATTERNS={
+ box:{name:'Box Breathing',phases:['INHALE','HOLD','EXHALE','HOLD'],times:[4,4,4,4],desc:'4-4-4-4 · Stress relief and focus'},
+ '478':{name:'4-7-8 Breathing',phases:['INHALE','HOLD','EXHALE'],times:[4,7,8],desc:'4-7-8 · Anxiety and sleep prep'},
+ slow:{name:'Slow Recovery',phases:['INHALE','EXHALE'],times:[5,6],desc:'5-6 · Post-workout recovery'}
+};
+const REC_NIGHT_STEPS=[
+ {n:1,name:'Hydrate',desc:'Drink 16–20 oz of water. Replace electrolytes lost during training.',time:'2 MIN'},
+ {n:2,name:'Passive Stretch',desc:'Full body passive stretch. No bouncing. Hold 30–60 seconds each position.',time:'5 MIN'},
+ {n:3,name:'Box Breathing',desc:'4 rounds of 4-4-4-4 box breathing. Let your heart rate settle.',time:'3 MIN'},
+ {n:4,name:'Sleep Prep',desc:'No screens. Dark room. 65–68°F. Set tomorrow\'s alarm now.',time:'10 MIN'},
+];
+const REC_AMBIENT_MODES=[
+ {id:'silent',icon:'🔇',name:'Silent',desc:'No audio. Full quiet.'},
+ {id:'brown',icon:'🎛️',name:'Brown Noise',desc:'Deep, steady rumble. Masks distractions.'},
+ {id:'rain',icon:'🌧️',name:'Rain',desc:'Filtered noise shaped like steady rainfall.'},
+ {id:'gym',icon:'🏋️',name:'Gym Lounge',desc:'Low ambient hum with slow pulse.'},
+ {id:'nightdrive',icon:'🚗',name:'Night Drive',desc:'Low road rumble. Focused and calm.'},
+ {id:'focus',icon:'📡',name:'Focus',desc:'Pink noise for concentration.'},
+];
+let recCurrentTab='quick';
+let recBreathRunning=false,recBreathPhase=0,recBreathCycles=0,recBreathMode='box',recBreathSessionSecs=0;
+let recBreathInterval=null,recBreathSessionInterval=null,recBreathTimeout=null;
+let recTimerRunning=false,recTimerRemaining=600,recTimerTotal=600,recTimerInterval=null;
+let recTimerSound=true,recTimerVibrate=true,recWakeLock=null;
+let recAmbientCtx=null,recAmbientSource=null,recAmbientActive=null;
+let recSessionInterval=null,recSessionRemaining=0;
+
+function recGetStats(){try{return Object.assign({sessions:0,minutes:0,streak:0,longestStreak:0,lastDate:''},JSON.parse(localStorage.getItem('si-rec-stats')||'{}'));}catch(e){return{sessions:0,minutes:0,streak:0,longestStreak:0,lastDate:''};}}
+function recSaveStats(s){try{localStorage.setItem('si-rec-stats',JSON.stringify(s));}catch(e){}}
+function recRecordSession(mins){
+ const s=recGetStats();
+ s.sessions=(s.sessions||0)+1;
+ s.minutes=(s.minutes||0)+Math.round(mins);
+ const today=new Date().toISOString().split('T')[0];
+ if(s.lastDate!==today){
+  const yesterday=new Date(Date.now()-864e5).toISOString().split('T')[0];
+  s.streak=(s.lastDate===yesterday)?(s.streak||0)+1:1;
+  if(s.streak>(s.longestStreak||0))s.longestStreak=s.streak;
+  s.lastDate=today;
+ }
+ recSaveStats(s);
+}
+function renderRecovery(){
+ recCurrentTab='quick';
+ const tabs=document.querySelectorAll('#recTabs .rec-tab');
+ tabs.forEach((t,i)=>t.classList.toggle('sel',i===0));
+ recRenderContent('quick');
+}
+function recTab(tab){
+ recCurrentTab=tab;
+ const tabMap=['quick','breath','timer','night','stats','ambient'];
+ const tabs=document.querySelectorAll('#recTabs .rec-tab');
+ tabs.forEach((t,i)=>t.classList.toggle('sel',tabMap[i]===tab));
+ recRenderContent(tab);
+}
+function recRenderContent(tab){
+ const el=document.getElementById('recContent');
+ if(!el)return;
+ if(tab==='quick')el.innerHTML=recHtmlQuick();
+ else if(tab==='breath')el.innerHTML=recHtmlBreath();
+ else if(tab==='timer')el.innerHTML=recHtmlTimer();
+ else if(tab==='night')el.innerHTML=recHtmlNight();
+ else if(tab==='stats')el.innerHTML=recHtmlStats();
+ else if(tab==='ambient')el.innerHTML=recHtmlAmbient();
+ if(tab==='breath')recSyncBreathUI();
+ if(tab==='timer')recSyncTimerUI();
+}
+function recHtmlQuick(){
+ return '<div class="rec-quick-grid">'+REC_QUICK_MODES.map(m=>'<div class="rec-quick-card" onclick="recLaunchQuick(\''+m.id+'\')">'+'<div class="rec-quick-icon">'+m.icon+'</div>'+'<div class="rec-quick-body">'+'<div class="rec-quick-name">'+m.name+'</div>'+'<div class="rec-quick-desc">'+m.desc+'</div>'+'<div class="rec-quick-dur">'+m.dur+' MIN</div>'+'</div></div>').join('')+'</div>';
+}
+function recLaunchQuick(id){
+ const mode=REC_QUICK_MODES.find(m=>m.id===id);
+ if(!mode)return;
+ recSessionRemaining=mode.dur*60;
+ const overlay=document.getElementById('recSessionOverlay');
+ if(!overlay)return;
+ document.getElementById('recSessionTitle').textContent=mode.name.toUpperCase();
+ document.getElementById('recSessionDesc').textContent=mode.desc;
+ overlay.style.display='flex';
+ clearInterval(recSessionInterval);
+ recUpdateSessionTimer();
+ const durMins=mode.dur;
+ recSessionInterval=setInterval(function(){
+  if(recSessionRemaining>0){recSessionRemaining--;recUpdateSessionTimer();}
+  else{stopRecSession(durMins);}
+ },1000);
+ try{navigator.vibrate&&navigator.vibrate(50);}catch(e){}
+}
+function recUpdateSessionTimer(){
+ const m=Math.floor(recSessionRemaining/60);
+ const s=recSessionRemaining%60;
+ const el=document.getElementById('recSessionTimer');
+ if(el)el.textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+}
+function stopRecSession(durMins){
+ clearInterval(recSessionInterval);
+ const overlay=document.getElementById('recSessionOverlay');
+ if(overlay)overlay.style.display='none';
+ if(durMins){const elapsed=Math.round((recSessionRemaining>=0?(durMins*60-recSessionRemaining):durMins*60)/60);recRecordSession(Math.max(1,elapsed));}
+}
+function recHtmlBreath(){
+ const saved=localStorage.getItem('si-rec-breath-mode')||'box';
+ recBreathMode=saved;
+ const p=REC_BREATH_PATTERNS[recBreathMode]||REC_BREATH_PATTERNS.box;
+ const modeKeys=Object.keys(REC_BREATH_PATTERNS);
+ const modeBtns=modeKeys.map(function(k){return '<button class="rec-breath-mode-btn'+(recBreathMode===k?' sel':'')+'" onclick="recSetBreathMode(\''+k+'\')">'+REC_BREATH_PATTERNS[k].name+'</button>';}).join('');
+ return '<div class="rec-breath-modes">'+modeBtns+'</div>'+'<div class="rec-breath-ring-wrap"><div class="rec-breath-ring" id="recBreathRing">'+'<div class="rec-breath-phase" id="recBreathPhaseLabel">READY</div>'+'<div class="rec-breath-count" id="recBreathCountLabel">-</div>'+'<div class="rec-breath-cycles" id="recBreathCyclesLabel">0 cycles</div>'+'</div></div>'+'<div class="rec-breath-pattern">'+p.desc+'</div>'+'<div class="rec-breath-controls"><button class="rec-breath-ctrl-btn" onclick="recBreathReset()">Reset</button><button class="rec-breath-ctrl-btn primary" id="recBreathStartBtn" onclick="recBreathToggle()">'+(recBreathRunning?'Pause':'Start')+'</button></div>'+'<div class="rec-breath-session" id="recBreathSession">Session: 0:00</div>';
+}
+function recSetBreathMode(mode){
+ recBreathMode=mode;
+ localStorage.setItem('si-rec-breath-mode',mode);
+ if(recBreathRunning){recBreathStop();}
+ recBreathPhase=0;recBreathCycles=0;
+ recRenderContent('breath');
+}
+function recBreathToggle(){if(recBreathRunning)recBreathPause();else recBreathStart();}
+function recBreathStart(){
+ recBreathRunning=true;
+ const btn=document.getElementById('recBreathStartBtn');
+ if(btn)btn.textContent='Pause';
+ if(!recBreathSessionInterval){
+  recBreathSessionSecs=0;
+  recBreathSessionInterval=setInterval(function(){recBreathSessionSecs++;recUpdateBreathSession();},1000);
+ }
+ recBreathStep();
+}
+function recBreathPause(){
+ recBreathRunning=false;
+ clearTimeout(recBreathTimeout);
+ const btn=document.getElementById('recBreathStartBtn');
+ if(btn)btn.textContent='Start';
+}
+function recBreathStop(){
+ recBreathRunning=false;
+ clearTimeout(recBreathTimeout);
+ clearInterval(recBreathSessionInterval);
+ recBreathSessionInterval=null;
+ recBreathSessionSecs=0;
+ recBreathPhase=0;recBreathCycles=0;
+}
+function recBreathReset(){recBreathStop();recRenderContent('breath');}
+function recBreathStep(){
+ if(!recBreathRunning)return;
+ const p=REC_BREATH_PATTERNS[recBreathMode]||REC_BREATH_PATTERNS.box;
+ const phaseLabel=p.phases[recBreathPhase];
+ const phaseDur=p.times[recBreathPhase];
+ const phaseEl=document.getElementById('recBreathPhaseLabel');
+ const cyclesEl=document.getElementById('recBreathCyclesLabel');
+ const ring=document.getElementById('recBreathRing');
+ if(phaseEl)phaseEl.textContent=phaseLabel;
+ if(cyclesEl)cyclesEl.textContent=recBreathCycles+' cycle'+(recBreathCycles!==1?'s':'');
+ if(ring){
+  if(phaseLabel==='INHALE'){ring.style.transform='scale(1.2)';ring.style.boxShadow='0 0 50px rgba(255,107,0,0.5)';}
+  else if(phaseLabel==='HOLD'){ring.style.transform='scale(1.2)';ring.style.boxShadow='0 0 60px rgba(255,107,0,0.7)';}
+  else{ring.style.transform='scale(1)';ring.style.boxShadow='none';}
+ }
+ try{navigator.vibrate&&navigator.vibrate(30);}catch(e){}
+ let count=phaseDur;
+ const countEl=document.getElementById('recBreathCountLabel');
+ if(countEl)countEl.textContent=count;
+ var tick=function(){
+  if(!recBreathRunning)return;
+  count--;
+  if(countEl)countEl.textContent=count>0?count:'';
+  if(count>0){recBreathTimeout=setTimeout(tick,1000);}
+  else{
+   recBreathPhase=(recBreathPhase+1)%p.phases.length;
+   if(recBreathPhase===0)recBreathCycles++;
+   recBreathTimeout=setTimeout(recBreathStep,200);
+  }
+ };
+ recBreathTimeout=setTimeout(tick,1000);
+}
+function recUpdateBreathSession(){
+ const el=document.getElementById('recBreathSession');
+ if(!el)return;
+ const m=Math.floor(recBreathSessionSecs/60);
+ const s=recBreathSessionSecs%60;
+ el.textContent='Session: '+m+':'+String(s).padStart(2,'0');
+}
+function recSyncBreathUI(){
+ const btn=document.getElementById('recBreathStartBtn');
+ if(btn)btn.textContent=recBreathRunning?'Pause':'Start';
+}
+function recFmtTime(secs){return String(Math.floor(secs/60)).padStart(2,'0')+':'+String(secs%60).padStart(2,'0');}
+function recHtmlTimer(){
+ const presets=[5,10,15,20];
+ const selMins=recTimerTotal/60;
+ const presetBtns=presets.map(function(m){return '<button class="rec-timer-preset'+(selMins===m?' sel':'')+'" onclick="recSetTimerPreset('+m+')">'+m+' min</button>';}).join('');
+ return '<div class="rec-timer-presets">'+presetBtns+'</div>'+'<div class="rec-timer-display"><div class="rec-timer-big'+(recTimerRunning?' rec-timer-glow':'')+'" id="recTimerDisplay">'+recFmtTime(recTimerRemaining)+'</div><div class="rec-timer-label">RECOVERY TIMER</div></div>'+'<div class="rec-timer-controls"><button class="rec-timer-ctrl" onclick="recTimerReset()">Reset</button><button class="rec-timer-ctrl primary" id="recTimerStartBtn" onclick="recTimerToggle()">'+(recTimerRunning?'Pause':'Start')+'</button></div>'+'<div class="rec-timer-toggles"><div class="rec-timer-toggle-row"><div class="rec-timer-toggle-lbl">Sound</div><button class="toggle-sw '+(recTimerSound?'on':'off')+'" id="recTimerSoundSw" onclick="recTimerSound=!recTimerSound;this.className=\'toggle-sw \'+(recTimerSound?\'on\':\'off\')"></button></div><div class="rec-timer-toggle-row"><div class="rec-timer-toggle-lbl">Vibrate</div><button class="toggle-sw '+(recTimerVibrate?'on':'off')+'" id="recTimerVibSw" onclick="recTimerVibrate=!recTimerVibrate;this.className=\'toggle-sw \'+(recTimerVibrate?\'on\':\'off\')"></button></div></div>';
+}
+function recSetTimerPreset(mins){
+ if(recTimerRunning)return;
+ recTimerTotal=mins*60;
+ recTimerRemaining=recTimerTotal;
+ recRenderContent('timer');
+}
+function recTimerToggle(){if(recTimerRunning)recTimerPause();else recTimerStart();}
+function recTimerStart(){
+ recTimerRunning=true;
+ const btn=document.getElementById('recTimerStartBtn');
+ if(btn)btn.textContent='Pause';
+ const display=document.getElementById('recTimerDisplay');
+ if(display)display.classList.add('rec-timer-glow');
+ if(navigator.wakeLock){navigator.wakeLock.request('screen').then(function(l){recWakeLock=l;}).catch(function(){});}
+ recTimerInterval=setInterval(function(){
+  if(recTimerRemaining>0){
+   recTimerRemaining--;
+   const d=document.getElementById('recTimerDisplay');
+   if(d)d.textContent=recFmtTime(recTimerRemaining);
+  } else {recTimerFinish();}
+ },1000);
+}
+function recTimerPause(){
+ recTimerRunning=false;
+ clearInterval(recTimerInterval);
+ const btn=document.getElementById('recTimerStartBtn');
+ if(btn)btn.textContent='Start';
+ const display=document.getElementById('recTimerDisplay');
+ if(display)display.classList.remove('rec-timer-glow');
+ if(recWakeLock){try{recWakeLock.release();}catch(e){}recWakeLock=null;}
+}
+function recTimerReset(){recTimerPause();recTimerRemaining=recTimerTotal;recRenderContent('timer');}
+function recTimerFinish(){
+ const mins=recTimerTotal/60;
+ recTimerPause();
+ recRecordSession(mins);
+ if(recTimerSound){try{const ac=new(window.AudioContext||window.webkitAudioContext)();const o=ac.createOscillator();const g=ac.createGain();o.connect(g);g.connect(ac.destination);o.frequency.value=440;g.gain.setValueAtTime(0.4,ac.currentTime);g.gain.exponentialRampToValueAtTime(0.001,ac.currentTime+1.5);o.start();o.stop(ac.currentTime+1.5);}catch(e){}}
+ if(recTimerVibrate){try{navigator.vibrate&&navigator.vibrate([300,100,300,100,300]);}catch(e){}}
+ recTimerRemaining=recTimerTotal;
+ const d=document.getElementById('recTimerDisplay');
+ if(d)d.textContent=recFmtTime(recTimerRemaining);
+}
+function recSyncTimerUI(){
+ const btn=document.getElementById('recTimerStartBtn');
+ if(btn)btn.textContent=recTimerRunning?'Pause':'Start';
+ const display=document.getElementById('recTimerDisplay');
+ if(display){display.textContent=recFmtTime(recTimerRemaining);if(recTimerRunning)display.classList.add('rec-timer-glow');}
+}
+function recHtmlNight(){
+ return '<div class="rec-night-screen">'+REC_NIGHT_STEPS.map(function(s){return '<div class="rec-night-step" id="recNightStep'+s.n+'" onclick="recNightStepToggle('+s.n+')">'+'<div class="rec-night-step-num">'+String(s.n).padStart(2,'0')+'</div>'+'<div class="rec-night-step-body"><div class="rec-night-step-name">'+s.name+'</div><div class="rec-night-step-desc">'+s.desc+'</div><div class="rec-night-step-time">'+s.time+'</div></div>'+'</div>';}).join('')+'<button class="rec-night-launch" onclick="recLaunchNightShift()">START NIGHT SHIFT SEQUENCE</button></div>';
+}
+function recNightStepToggle(n){const el=document.getElementById('recNightStep'+n);if(el)el.classList.toggle('active-step');}
+function recLaunchNightShift(){
+ recSessionRemaining=20*60;
+ const overlay=document.getElementById('recSessionOverlay');
+ if(!overlay)return;
+ document.getElementById('recSessionTitle').textContent='NIGHT SHIFT';
+ document.getElementById('recSessionDesc').textContent='Hydrate → Stretch → Breathe → Sleep';
+ overlay.style.display='flex';
+ clearInterval(recSessionInterval);
+ recUpdateSessionTimer();
+ recSessionInterval=setInterval(function(){
+  if(recSessionRemaining>0){recSessionRemaining--;recUpdateSessionTimer();}
+  else{stopRecSession(20);}
+ },1000);
+}
+function recHtmlStats(){
+ const s=recGetStats();
+ return '<div class="rec-stats-grid">'+'<div class="rec-stats-card"><div class="rec-stats-num">'+s.sessions+'</div><div class="rec-stats-lbl">Sessions</div></div>'+'<div class="rec-stats-card"><div class="rec-stats-num">'+s.minutes+'</div><div class="rec-stats-lbl">Minutes</div></div>'+'<div class="rec-stats-card"><div class="rec-stats-num">'+s.streak+'</div><div class="rec-stats-lbl">Day Streak</div></div>'+'<div class="rec-stats-card"><div class="rec-stats-num">'+s.longestStreak+'</div><div class="rec-stats-lbl">Best Streak</div></div>'+'</div>'+'<div class="rec-stats-reset"><button class="rec-stats-reset-btn" onclick="recResetStats()">Reset Stats</button></div>';
+}
+function recResetStats(){
+ if(!confirm('Reset all recovery stats?'))return;
+ recSaveStats({sessions:0,minutes:0,streak:0,longestStreak:0,lastDate:''});
+ recRenderContent('stats');
+}
+function recHtmlAmbient(){
+ return '<div class="rec-ambient-grid">'+REC_AMBIENT_MODES.map(function(m){return '<div class="rec-ambient-card'+(recAmbientActive===m.id?' active':'')+'" onclick="recSetAmbient(\''+m.id+'\')">'+'<div class="rec-ambient-icon">'+m.icon+'</div>'+'<div class="rec-ambient-body"><div class="rec-ambient-name">'+m.name+'</div><div class="rec-ambient-desc">'+m.desc+'</div></div>'+(recAmbientActive===m.id?'<div class="rec-ambient-status">PLAYING</div>':'')+'</div>';}).join('')+'</div>';
+}
+function recSetAmbient(id){
+ const wasActive=recAmbientActive;
+ recStopAmbient();
+ if(id==='silent'||id===wasActive){recAmbientActive=null;recRenderContent('ambient');return;}
+ recAmbientActive=id;
+ try{localStorage.setItem('si-rec-ambient',id);}catch(e){}
+ recStartAmbient(id);
+ recRenderContent('ambient');
+}
+function recStopAmbient(){
+ if(recAmbientSource){try{recAmbientSource.stop();}catch(e){}recAmbientSource=null;}
+ if(recAmbientCtx){try{recAmbientCtx.close();}catch(e){}recAmbientCtx=null;}
+}
+function recStartAmbient(id){
+ try{
+  var AudioCtx=window.AudioContext||window.webkitAudioContext;
+  if(!AudioCtx)return;
+  var ctx=new AudioCtx();
+  recAmbientCtx=ctx;
+  var bufSize=2*ctx.sampleRate;
+  var buf=ctx.createBuffer(1,bufSize,ctx.sampleRate);
+  var data=buf.getChannelData(0);
+  if(id==='focus'){
+   var b0=0,b1=0,b2=0,b3=0,b4=0,b5=0,b6=0;
+   for(var i=0;i<bufSize;i++){var w=Math.random()*2-1;b0=0.99886*b0+w*0.0555179;b1=0.99332*b1+w*0.0750759;b2=0.96900*b2+w*0.1538520;b3=0.86650*b3+w*0.3104856;b4=0.55000*b4+w*0.5329522;b5=-0.7616*b5-w*0.0168980;data[i]=(b0+b1+b2+b3+b4+b5+b6+w*0.5362)*0.11;b6=w*0.115926;}
+  } else {
+   var last=0;
+   for(var j=0;j<bufSize;j++){var ww=Math.random()*2-1;data[j]=(last+(0.02*ww))/1.02;last=data[j];data[j]*=3.5;}
+  }
+  var source=ctx.createBufferSource();
+  source.buffer=buf;source.loop=true;
+  var gain=ctx.createGain();
+  if(id==='rain'||id==='gym'||id==='nightdrive'){
+   var filter=ctx.createBiquadFilter();
+   filter.type=(id==='rain')?'bandpass':'lowpass';
+   filter.frequency.value=id==='nightdrive'?180:id==='gym'?400:1400;
+   filter.Q.value=0.7;
+   source.connect(filter);filter.connect(gain);
+  } else {source.connect(gain);}
+  gain.gain.value=id==='nightdrive'?0.12:id==='gym'?0.18:0.28;
+  gain.connect(ctx.destination);
+  source.start();
+  recAmbientSource=source;
+ }catch(e){}
+}
+
 // ── INIT — boot from IndexedDB then render ──
 async function boot(){
  await openDB();
@@ -5528,5 +5953,13 @@ boot();
 </div>
 
 <div id="prToast"></div>
+
+<!-- RECOVERY SESSION OVERLAY -->
+<div id="recSessionOverlay" class="rec-session-overlay">
+ <div class="rec-session-title" id="recSessionTitle"></div>
+ <div class="rec-session-big" id="recSessionTimer">--:--</div>
+ <div class="rec-session-desc" id="recSessionDesc"></div>
+ <button class="rec-session-stop" onclick="stopRecSession()">Stop Session</button>
+</div>
 </body>
 </html>
