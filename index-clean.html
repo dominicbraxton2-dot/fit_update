@@ -921,6 +921,10 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
 .plc-plates-left{display:flex;flex-direction:row-reverse;align-items:center;gap:3px;}
 .plc-plates-right{display:flex;flex-direction:row;align-items:center;gap:3px;}
 .plc-plate{border-radius:4px;border:1.5px solid rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;color:rgba(255,255,255,0.9);flex-shrink:0;}
+.plc-plate-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+.plc-plate-row:last-child{margin-bottom:0;}
+.plc-plate-pill{display:inline-block;padding:4px 10px;border-radius:100px;border:1px solid;font-size:13px;font-weight:800;letter-spacing:0.3px;min-width:52px;text-align:center;}
+.plc-plate-count{font-size:16px;font-weight:800;color:var(--text);}
 
 /* ── PROGRAM CALENDAR ENHANCED ── */
 .cal-dot-completed{background:#00c896;}
@@ -5257,46 +5261,65 @@ function calcPlates(){
   plcBarWeight=parseFloat(ci&&ci.value)||0;
  }
  try{localStorage.setItem('si-plc-target',document.getElementById('plcTarget').value||'');}catch(e){}
- try{localStorage.setItem('si-plc-bar',plcCustomBarMode?String(plcBarWeight):String(plcBarWeight));}catch(e){}
+ try{localStorage.setItem('si-plc-bar',String(plcBarWeight));}catch(e){}
 
  const resEl=document.getElementById('plcResultPlates');
  const totEl=document.getElementById('plcResultTotal');
  const visEl=document.getElementById('plcBarVis');
+ const titleEl=document.querySelector('#plcResult .plc-result-title');
  if(!resEl)return;
 
- if(target<=0){
-  resEl.textContent='Enter a weight above';totEl.textContent='';if(visEl)visEl.innerHTML='';return;
- }
+ const clear=(msg)=>{
+  if(titleEl)titleEl.textContent='Per Side';
+  resEl.innerHTML=`<span style="color:var(--muted)">${msg}</span>`;
+  totEl.textContent='';if(visEl)visEl.innerHTML='';
+ };
+
+ if(target<=0){clear('Enter a weight above');return;}
+ if(plcBarWeight<=0){clear('Enter a bar weight');return;}
  if(target<plcBarWeight){
-  resEl.textContent='Weight is less than bar';totEl.textContent='Bar: '+plcBarWeight+' lbs';if(visEl)visEl.innerHTML='';return;
+  if(titleEl)titleEl.textContent='Per Side';
+  resEl.innerHTML=`<span style="color:#ff5c35">Target must be ≥ bar (${plcBarWeight} lb)</span>`;
+  totEl.textContent='';if(visEl)visEl.innerHTML='';return;
  }
 
- let remaining=(target-plcBarWeight)/2;
+ const remaining=target-plcBarWeight;
+ if(remaining===0){
+  if(titleEl)titleEl.textContent='Load per side';
+  resEl.innerHTML='<span style="color:var(--muted)">Bar only — no plates needed</span>';
+  totEl.innerHTML=`<span style="color:#00c896">✓ Total: ${plcBarWeight} lb</span>`;
+  if(visEl)visEl.innerHTML='';
+  hap.selectionFeedback();return;
+ }
+
+ const perSideTarget=remaining/2;
+ let rem=perSideTarget;
  const used=[];
  PLC_PLATES.forEach(p=>{
-  const count=Math.floor(remaining/p);
-  remaining=Math.round((remaining-count*p)*100)/100;
-  if(count>0)used.push({p,count});
+  const count=Math.floor((rem+0.001)/p);
+  if(count>0){used.push({p,count});rem=Number((rem-count*p).toFixed(2));}
  });
 
- if(remaining>0.1){
-  resEl.textContent='Cannot make exact weight';
-  totEl.textContent='Off by '+remaining.toFixed(1)+' lbs per side';
-  if(visEl)visEl.innerHTML='';return;
- }
+ const loadedPerSide=used.reduce((s,{p,count})=>s+p*count,0);
+ const calcTotal=Number((plcBarWeight+loadedPerSide*2).toFixed(2));
+ const leftover=Number((perSideTarget-loadedPerSide).toFixed(2));
+ const exact=leftover<0.01;
+
+ if(titleEl)titleEl.textContent=exact?'Load per side':'Closest load per side';
 
  if(used.length===0){
-  resEl.innerHTML='<span style="color:var(--muted)">Bar only</span>';
-  totEl.textContent='Total: '+plcBarWeight+' lbs';
-  hap.selectionFeedback();
+  resEl.innerHTML='<span style="color:var(--muted)">Bar only — no plates needed</span>';
  } else {
-  resEl.innerHTML=used.map(({p,count})=>`<span>${count}×<strong>${p}</strong></span>`).join('<span style="color:var(--muted);margin:0 4px">·</span>');
-  const actualTotal=plcBarWeight+used.reduce((s,{p,count})=>s+p*count*2,0);
-  totEl.textContent='Total: '+actualTotal.toFixed(actualTotal%1===0?0:1)+' lbs';
-  hap.selectionFeedback();
+  resEl.innerHTML=used.map(({p,count})=>`<div class="plc-plate-row"><span class="plc-plate-pill" style="background:${PLC_PLATE_COLORS[p]}22;border-color:${PLC_PLATE_COLORS[p]}66;color:${PLC_PLATE_COLORS[p]}">${p} lb</span><span class="plc-plate-count">× ${count}</span></div>`).join('');
  }
 
- // Visual bar
+ if(exact){
+  totEl.innerHTML=`<span style="color:#00c896">✓ Total: ${calcTotal%1===0?calcTotal:calcTotal.toFixed(1)} lb</span>`;
+ } else {
+  totEl.innerHTML=`Calculated: ${calcTotal%1===0?calcTotal:calcTotal.toFixed(1)} lb &nbsp;·&nbsp; <span style="color:#ff9500">+${leftover.toFixed(2)} lb/side unmatched</span>`;
+ }
+ hap.selectionFeedback();
+
  if(visEl){
   const plateElements=used.map(({p,count})=>{
    const h=PLC_PLATE_H[p]||40;
