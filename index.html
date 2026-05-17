@@ -295,6 +295,11 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .ds-btn .ds-lbl{font-family:'JetBrains Mono',monospace;font-size:7px;letter-spacing:1px;text-transform:uppercase;}
 .w-prog-bar{height:2px;background:rgba(255,107,0,0.1);}
 .w-prog-fill{height:100%;transition:width 0.5s cubic-bezier(0.4,0,0.2,1);}
+@keyframes wSlideLeft{from{opacity:0;transform:translateX(22px)}to{opacity:1;transform:translateX(0)}}
+@keyframes wSlideRight{from{opacity:0;transform:translateX(-22px)}to{opacity:1;transform:translateX(0)}}
+.w-slide-left{animation:wSlideLeft 0.22s ease both;}
+.w-slide-right{animation:wSlideRight 0.22s ease both;}
+@media(prefers-reduced-motion:reduce){.w-slide-left,.w-slide-right{animation:none;}}
 .day-note-card{margin:12px 16px 0;border-radius:18px;padding:14px 16px;border:1px solid;position:relative;overflow:hidden;}
 .day-note-card::before{content:'';position:absolute;right:0;top:0;width:60px;height:100%;background:linear-gradient(to right,transparent,rgba(0,0,0,0.3));pointer-events:none;}
 .note-label{font-size:9px;letter-spacing:3px;text-transform:uppercase;margin-bottom:4px;font-weight:700;}
@@ -4035,14 +4040,41 @@ function toggleSD(ei,si,btn){
 }
 function toggleED(ei){sED(aW,aD,ei,!gED(aW,aD,ei));renderWorkout();}
 function prevDay(){
+ const prevAD=aD,prevAW=aW;
  if(aD>0){aD--;} else if(aW>0){aW--;aD=WEEKS[aW].days.length-1;} else{return;}
- renderWorkout();window.scrollTo(0,0);
+ if(aD!==prevAD||aW!==prevAW){hap.selectionFeedback();renderWorkout();wSlide('right');window.scrollTo(0,0);}
 }
 function nextDay(){
+ const prevAD=aD,prevAW=aW;
  if(aD<WEEKS[aW].days.length-1){aD++;} else if(aW<WEEKS.length-1){aW++;aD=0;} else{return;}
- renderWorkout();window.scrollTo(0,0);
+ if(aD!==prevAD||aW!==prevAW){hap.selectionFeedback();renderWorkout();wSlide('left');window.scrollTo(0,0);}
 }
-function switchDay(d){aD=d;renderWorkout();window.scrollTo(0,0);}
+function switchDay(d){
+ const dir=d>aD?'left':'right';
+ aD=d;hap.selectionFeedback();renderWorkout();wSlide(dir);window.scrollTo(0,0);
+}
+function wSlide(dir){
+ const el=document.getElementById('exerciseList');
+ if(!el)return;
+ el.classList.remove('w-slide-left','w-slide-right');
+ void el.offsetWidth;
+ el.classList.add(dir==='left'?'w-slide-left':'w-slide-right');
+ setTimeout(()=>el.classList.remove('w-slide-left','w-slide-right'),260);
+}
+function initWorkoutSwipe(){
+ const el=document.getElementById('workout');
+ if(!el||el._swipeInit)return;
+ el._swipeInit=true;
+ let sx=0,sy=0;
+ el.addEventListener('touchstart',e=>{sx=e.touches[0].clientX;sy=e.touches[0].clientY;},{passive:true});
+ el.addEventListener('touchend',e=>{
+  const dx=e.changedTouches[0].clientX-sx;
+  const dy=e.changedTouches[0].clientY-sy;
+  if(Math.abs(dx)>52&&Math.abs(dx)>Math.abs(dy)*1.5){
+   if(dx<0)nextDay();else prevDay();
+  }
+ },{passive:true});
+}
 
 function finishWorkout(){
   const day=WEEKS[aW].days[aD];
@@ -6586,6 +6618,7 @@ async function boot(){
  loadTimerPrefs();
  loadCalMarks();
  hap.init();
+ initWorkoutSwipe();
  renderHome();
  checkMissedWorkoutNotification();
  requestNotificationPermission().then(()=>scheduleReminderNotification());
