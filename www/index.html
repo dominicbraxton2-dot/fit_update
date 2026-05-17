@@ -973,6 +973,60 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
 .more-item-name{font-family:'Montserrat',sans-serif;font-size:16px;font-weight:800;letter-spacing:-0.3px;margin-bottom:3px;}
 .more-item-desc{font-size:12px;color:var(--muted);}
 .more-item-arrow{color:var(--muted);flex-shrink:0;}
+
+/* ── NUTRITION TRACKER ── */
+.nutrition-screen{padding-top:env(safe-area-inset-top);padding-bottom:100px;}
+.nutr-top{padding:28px 20px 8px;}
+.nutr-top h2{font-family:'Bebas Neue',sans-serif;font-size:48px;letter-spacing:2px;line-height:1;}
+.nutr-top-sub{font-size:12px;color:var(--muted);margin-top:4px;}
+.nutr-date-row{display:flex;align-items:center;gap:10px;padding:0 16px 14px;}
+.nutr-date-btn{width:36px;height:36px;border-radius:10px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-size:20px;display:flex;align-items:center;justify-content:center;flex-shrink:0;cursor:pointer;}
+.nutr-date-lbl{flex:1;text-align:center;font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;color:var(--text);}
+.nutr-cal-card{margin:0 16px 10px;background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:18px;}
+.nutr-cal-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px;}
+.nutr-cal-num{font-family:'Bebas Neue',sans-serif;font-size:54px;line-height:0.9;color:#ff6b00;}
+.nutr-cal-of{font-size:13px;color:var(--muted);margin-top:4px;}
+.nutr-cal-remaining{font-size:11px;color:var(--muted);margin-top:4px;}
+.nutr-goals-btn{display:inline-flex;align-items:center;gap:5px;padding:9px 13px;border-radius:11px;border:1px solid var(--border-bright);background:var(--surface2);color:var(--text2);font-size:11px;font-weight:700;cursor:pointer;flex-shrink:0;}
+.nutr-bar{height:8px;background:var(--surface3);border-radius:6px;overflow:hidden;}
+.nutr-bar-fill{height:100%;border-radius:6px;transition:width 0.4s cubic-bezier(0.4,0,0.2,1);}
+.nutr-macros-card{margin:0 16px 10px;background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:18px;display:flex;flex-direction:column;gap:14px;}
+.nutr-macro-row{display:flex;flex-direction:column;gap:5px;}
+.nutr-macro-lbl-row{display:flex;justify-content:space-between;align-items:baseline;}
+.nutr-macro-lbl{font-size:11px;font-weight:700;color:var(--text2);letter-spacing:1px;text-transform:uppercase;}
+.nutr-macro-val{font-size:11px;color:var(--muted);}
+.nutr-meal-section{margin:0 16px 10px;background:var(--surface);border:1px solid var(--border);border-radius:20px;overflow:hidden;}
+.nutr-meal-hdr{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;border-bottom:1px solid var(--border);}
+.nutr-meal-name{font-size:13px;font-weight:700;letter-spacing:0.3px;margin-bottom:2px;}
+.nutr-meal-sub{font-size:10px;color:var(--muted);}
+.nutr-add-btn{display:inline-flex;align-items:center;gap:5px;padding:8px 13px;border-radius:10px;border:1px solid rgba(255,107,0,0.3);background:rgba(255,107,0,0.08);color:#ff6b00;font-size:11px;font-weight:700;cursor:pointer;flex-shrink:0;}
+.nutr-entry{display:flex;align-items:center;gap:10px;padding:11px 16px;border-bottom:1px solid var(--border);}
+.nutr-entry:last-child{border-bottom:none;}
+.nutr-entry-info{flex:1;min-width:0;}
+.nutr-entry-name{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.nutr-entry-macros{font-size:10px;color:var(--muted);margin-top:2px;}
+.nutr-entry-actions{display:flex;gap:6px;flex-shrink:0;}
+.nutr-icon-btn{width:30px;height:30px;border-radius:8px;border:1px solid var(--border);background:var(--surface2);color:var(--text2);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;}
+.nutr-del-btn{border-color:rgba(255,59,48,0.25);color:#ff3b30;}
+.nutr-sheet{position:fixed;bottom:0;left:0;right:0;max-width:430px;margin:0 auto;background:var(--surface);border-radius:24px 24px 0 0;padding:22px 20px max(32px,env(safe-area-inset-bottom));z-index:599;border-top:1px solid var(--border-bright);display:none;max-height:90vh;overflow-y:auto;}
+.nutr-sheet-title{font-family:'Montserrat',sans-serif;font-size:15px;font-weight:800;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:16px;}
+.nutr-field-label{font-size:10px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;font-weight:700;margin-bottom:5px;}
+.nutr-text-input{width:100%;background:var(--surface2);border:1px solid var(--border-bright);border-radius:12px;color:var(--text);font-size:15px;padding:12px 14px;outline:none;box-sizing:border-box;}
+.nutr-text-input:focus{border-color:#ff6b00;}
+.nutr-num-input{width:100%;background:var(--surface2);border:1px solid var(--border-bright);border-radius:12px;color:var(--text);font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:1px;padding:10px 12px;outline:none;box-sizing:border-box;-moz-appearance:textfield;text-align:center;}
+.nutr-num-input:focus{border-color:#ff6b00;}
+.nutr-num-input::-webkit-outer-spin-button,.nutr-num-input::-webkit-inner-spin-button{-webkit-appearance:none;}
+.nutr-macro-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
+.nutr-macro-cell{display:flex;flex-direction:column;gap:5px;}
+.nutr-meal-pills{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:4px;}
+.nutr-meal-pill{padding:9px 14px;border-radius:100px;border:1px solid var(--border-bright);background:var(--surface2);color:var(--text2);font-size:12px;font-weight:700;cursor:pointer;transition:all 0.15s;}
+.nutr-meal-pill.sel{background:var(--yellow);border-color:var(--yellow);color:#000;}
+[data-theme="light"] .nutr-meal-pill.sel{background:#cc5500;border-color:#cc5500;color:#fff;}
+.nutr-sheet-btns{display:flex;gap:10px;margin-top:18px;}
+.nutr-cancel-btn{flex:1;padding:14px;border-radius:14px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:13px;font-weight:600;cursor:pointer;}
+.nutr-save-btn{flex:2;padding:14px;border-radius:14px;border:none;background:var(--yellow);color:#000;font-size:13px;font-weight:800;cursor:pointer;}
+[data-theme="light"] .nutr-save-btn{background:#cc5500;color:#fff;}
+.nutr-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.65);z-index:598;backdrop-filter:blur(4px);display:none;}
 </style>
 </head>
 <body>
@@ -1461,6 +1515,20 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
 </div>
 
 <!-- NAV -->
+<!-- NUTRITION TRACKER -->
+<div id="nutrition" class="screen nutrition-screen">
+ <div class="nutr-top">
+  <h2>NUTRITION</h2>
+  <p class="nutr-top-sub">Manual food &amp; macro tracker</p>
+ </div>
+ <div class="nutr-date-row">
+  <button class="nutr-date-btn" onclick="nutrPrevDay()">&#8249;</button>
+  <div class="nutr-date-lbl" id="nutrDateLabel">Today</div>
+  <button class="nutr-date-btn" onclick="nutrNextDay()">&#8250;</button>
+ </div>
+ <div id="nutrMain"></div>
+</div>
+
 <!-- PLATE CALCULATOR -->
 <div id="platecalc" class="screen platecalc-screen">
  <div class="plc-header">
@@ -1512,6 +1580,16 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
   <p class="more-sub">Extra features for your training</p>
  </div>
  <div class="more-list">
+  <div class="more-item" onclick="navTo('nutrition')">
+   <div class="more-item-icon" style="background:rgba(0,200,150,0.12);">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00c896" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h14M3 7c0-1.1.9-2 2-2h10a2 2 0 012 2M3 7l1.5 9a2 2 0 002 1.5h7a2 2 0 002-1.5L17 7"/><path d="M8 2v3M12 2v3"/></svg>
+   </div>
+   <div class="more-item-body">
+    <div class="more-item-name">Nutrition Tracker</div>
+    <div class="more-item-desc">Log meals and track daily macros</div>
+   </div>
+   <div class="more-item-arrow"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="7,5 13,10 7,15"/></svg></div>
+  </div>
   <div class="more-item" onclick="navTo('platecalc')">
    <div class="more-item-icon" style="background:rgba(255,107,0,0.14);">
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ff6b00" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="9" width="3" height="6" rx="1"/><rect x="19" y="9" width="3" height="6" rx="1"/><rect x="5" y="10" width="2" height="4" rx="0.5"/><rect x="17" y="10" width="2" height="4" rx="0.5"/><line x1="7" y1="12" x2="17" y2="12" stroke-width="2"/></svg>
@@ -1542,6 +1620,67 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
    </div>
    <div class="more-item-arrow"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="7,5 13,10 7,15"/></svg></div>
   </div>
+ </div>
+</div>
+
+<!-- NUTRITION SHEETS (shared backdrop + two bottom sheets) -->
+<div class="nutr-backdrop" id="nutrBackdrop" onclick="closeNutrSheet()"></div>
+<div class="nutr-sheet" id="nutrFoodSheet">
+ <div class="nutr-sheet-title" id="nutrSheetTitle">Add Food</div>
+ <div class="nutr-field-label" style="margin-bottom:5px;">Food name</div>
+ <input class="nutr-text-input" id="nutrName" type="text" placeholder="e.g. Chicken breast, rice, banana" style="margin-bottom:12px;"/>
+ <div class="nutr-macro-grid">
+  <div class="nutr-macro-cell">
+   <div class="nutr-field-label">Calories</div>
+   <input class="nutr-num-input" id="nutrCal" type="number" inputmode="decimal" placeholder="0"/>
+  </div>
+  <div class="nutr-macro-cell">
+   <div class="nutr-field-label">Protein (g)</div>
+   <input class="nutr-num-input" id="nutrPro" type="number" inputmode="decimal" placeholder="0"/>
+  </div>
+  <div class="nutr-macro-cell">
+   <div class="nutr-field-label">Carbs (g)</div>
+   <input class="nutr-num-input" id="nutrCarb" type="number" inputmode="decimal" placeholder="0"/>
+  </div>
+  <div class="nutr-macro-cell">
+   <div class="nutr-field-label">Fat (g)</div>
+   <input class="nutr-num-input" id="nutrFat" type="number" inputmode="decimal" placeholder="0"/>
+  </div>
+ </div>
+ <div class="nutr-field-label" style="margin-bottom:8px;">Meal</div>
+ <div class="nutr-meal-pills" id="nutrMealPills">
+  <button class="nutr-meal-pill sel" data-meal="breakfast" onclick="nutrPickMeal(this)">Breakfast</button>
+  <button class="nutr-meal-pill" data-meal="lunch" onclick="nutrPickMeal(this)">Lunch</button>
+  <button class="nutr-meal-pill" data-meal="dinner" onclick="nutrPickMeal(this)">Dinner</button>
+  <button class="nutr-meal-pill" data-meal="snack" onclick="nutrPickMeal(this)">Snack</button>
+ </div>
+ <div class="nutr-sheet-btns">
+  <button class="nutr-cancel-btn" onclick="closeNutrSheet()">Cancel</button>
+  <button class="nutr-save-btn" id="nutrSaveBtn" onclick="saveFoodEntry()">Add Food</button>
+ </div>
+</div>
+<div class="nutr-backdrop" id="nutrGoalsBackdrop" onclick="closeGoalsSheet()" style="z-index:598;"></div>
+<div class="nutr-sheet" id="nutrGoalsSheet" style="z-index:599;">
+ <div class="nutr-sheet-title">Daily Goals</div>
+ <div class="nutr-field-label" style="margin-bottom:5px;">Calories (kcal)</div>
+ <input class="nutr-num-input" id="goalCal" type="number" inputmode="decimal" placeholder="2000" style="margin-bottom:12px;text-align:left;font-size:28px;"/>
+ <div class="nutr-macro-grid">
+  <div class="nutr-macro-cell">
+   <div class="nutr-field-label">Protein (g)</div>
+   <input class="nutr-num-input" id="goalPro" type="number" inputmode="decimal" placeholder="150"/>
+  </div>
+  <div class="nutr-macro-cell">
+   <div class="nutr-field-label">Carbs (g)</div>
+   <input class="nutr-num-input" id="goalCarb" type="number" inputmode="decimal" placeholder="200"/>
+  </div>
+  <div class="nutr-macro-cell" style="grid-column:1/-1;">
+   <div class="nutr-field-label">Fat (g)</div>
+   <input class="nutr-num-input" id="goalFat" type="number" inputmode="decimal" placeholder="65" style="text-align:left;font-size:28px;"/>
+  </div>
+ </div>
+ <div class="nutr-sheet-btns">
+  <button class="nutr-cancel-btn" onclick="closeGoalsSheet()">Cancel</button>
+  <button class="nutr-save-btn" onclick="saveGoals()">Save Goals</button>
  </div>
 </div>
 
@@ -2681,6 +2820,7 @@ function navTo(id){
  if(id==='history')renderHistory();
  if(id==='analytics')renderAnalytics();
  if(id==='musclemap'){renderMuscleMap();setMuscleDay(muscleMapMode);}
+ if(id==='nutrition')renderNutrition();
  if(id==='platecalc')renderPlateCalc();
  if(id==='achievements')renderAchievements();
  if(id==='more'){}
@@ -5148,6 +5288,194 @@ function showAchievementToast(id){
   toast.innerHTML=`<div class="pr-toast-inner" style="background:linear-gradient(135deg,#ff9100,#ff5c00);">${def.icon.replace('stroke="#ff6b00"','stroke="#fff"')} ${def.name} Unlocked!</div>`;
   setTimeout(()=>{toast.innerHTML='';},3200);
  }
+}
+
+// ── NUTRITION TRACKER ──
+const NUTR_PRE='si-nutr-log-';
+const NUTR_GOALS_KEY='si-nutr-goals';
+const NUTR_DEFAULT_GOALS={calories:2000,protein:150,carbs:200,fat:65};
+const NUTR_MEALS=['breakfast','lunch','dinner','snack'];
+const NUTR_MEAL_LABELS={breakfast:'Breakfast',lunch:'Lunch',dinner:'Dinner',snack:'Snack'};
+
+let nutrDate=new Date().toISOString().split('T')[0];
+let nutrEditId=null;
+
+function nutrGetLog(d){try{return JSON.parse(localStorage.getItem(NUTR_PRE+d)||'[]');}catch(e){return[];}}
+function nutrSaveLog(d,arr){try{localStorage.setItem(NUTR_PRE+d,JSON.stringify(arr));}catch(e){}}
+function nutrGetGoals(){try{return Object.assign({},NUTR_DEFAULT_GOALS,JSON.parse(localStorage.getItem(NUTR_GOALS_KEY)||'{}'));}catch(e){return Object.assign({},NUTR_DEFAULT_GOALS);}}
+function nutrSaveGoals(g){try{localStorage.setItem(NUTR_GOALS_KEY,JSON.stringify(g));}catch(e){}}
+
+function nutrFmtDate(ds){
+ const d=new Date(ds+'T12:00');
+ const today=new Date().toISOString().split('T')[0];
+ const yd=new Date(Date.now()-86400000).toISOString().split('T')[0];
+ if(ds===today)return'Today';
+ if(ds===yd)return'Yesterday';
+ return d.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
+}
+function nutrPrevDay(){const d=new Date(nutrDate+'T12:00');d.setDate(d.getDate()-1);nutrDate=d.toISOString().split('T')[0];renderNutrition();}
+function nutrNextDay(){const d=new Date(nutrDate+'T12:00');d.setDate(d.getDate()+1);nutrDate=d.toISOString().split('T')[0];renderNutrition();}
+
+function nutrSum(arr){return arr.reduce((a,e)=>({calories:a.calories+(+e.calories||0),protein:a.protein+(+e.protein||0),carbs:a.carbs+(+e.carbs||0),fat:a.fat+(+e.fat||0)}),{calories:0,protein:0,carbs:0,fat:0});}
+
+function nutrBar(label,val,goal,color){
+ const pct=Math.min(100,goal?Math.round(val/goal*100):0);
+ const over=goal&&val>goal;
+ return`<div class="nutr-macro-row">
+  <div class="nutr-macro-lbl-row">
+   <span class="nutr-macro-lbl">${label}</span>
+   <span class="nutr-macro-val">${Math.round(val)}<span style="font-size:9px;"> / ${goal}g${over?' ▲':''}</span></span>
+  </div>
+  <div class="nutr-bar"><div class="nutr-bar-fill" style="width:${pct}%;background:${over?'#ff3b30':color};"></div></div>
+ </div>`;
+}
+
+function renderNutrition(){
+ const el=document.getElementById('nutrDateLabel');
+ if(el)el.textContent=nutrFmtDate(nutrDate);
+ const entries=nutrGetLog(nutrDate);
+ const goals=nutrGetGoals();
+ const tot=nutrSum(entries);
+ const calPct=Math.min(100,goals.calories?Math.round(tot.calories/goals.calories*100):0);
+ const over=tot.calories>goals.calories;
+ const remaining=Math.max(0,goals.calories-tot.calories);
+ const container=document.getElementById('nutrMain');
+ if(!container)return;
+
+ const mealHTML=NUTR_MEALS.map(meal=>{
+  const me=entries.filter(e=>e.meal===meal);
+  const mt=nutrSum(me);
+  return`<div class="nutr-meal-section">
+   <div class="nutr-meal-hdr">
+    <div>
+     <div class="nutr-meal-name">${NUTR_MEAL_LABELS[meal]}</div>
+     <div class="nutr-meal-sub">${me.length?Math.round(mt.calories)+' cal · P:'+Math.round(mt.protein)+'g C:'+Math.round(mt.carbs)+'g F:'+Math.round(mt.fat)+'g':'No entries yet'}</div>
+    </div>
+    <button class="nutr-add-btn" onclick="openAddFood('${meal}')">
+     <svg width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="10" y1="4" x2="10" y2="16"/><line x1="4" y1="10" x2="16" y2="10"/></svg>Add
+    </button>
+   </div>
+   ${me.map(e=>`<div class="nutr-entry">
+    <div class="nutr-entry-info">
+     <div class="nutr-entry-name">${e.name}</div>
+     <div class="nutr-entry-macros">${Math.round(e.calories)} cal&nbsp;·&nbsp;P:${Math.round(e.protein||0)}g&nbsp;C:${Math.round(e.carbs||0)}g&nbsp;F:${Math.round(e.fat||0)}g</div>
+    </div>
+    <div class="nutr-entry-actions">
+     <button class="nutr-icon-btn" onclick="openEditFood('${e.id}')" title="Edit">
+      <svg width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2.5l3 3L6 17H3v-3L14.5 2.5z"/></svg>
+     </button>
+     <button class="nutr-icon-btn nutr-del-btn" onclick="deleteFood('${e.id}')" title="Delete">
+      <svg width="13" height="13" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3,6 17,6"/><path d="M8,6V4h4v2"/><rect x="5" y="6" width="10" height="12" rx="1"/></svg>
+     </button>
+    </div>
+   </div>`).join('')}
+  </div>`;
+ }).join('');
+
+ container.innerHTML=`
+  <div class="nutr-cal-card">
+   <div class="nutr-cal-top">
+    <div>
+     <div style="font-size:10px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;font-weight:700;margin-bottom:6px;">Calories</div>
+     <div class="nutr-cal-num">${Math.round(tot.calories)}</div>
+     <div class="nutr-cal-of">of ${goals.calories} kcal</div>
+     <div class="nutr-cal-remaining" style="color:${over?'#ff3b30':'var(--muted)'}">${over?Math.round(tot.calories-goals.calories)+' over goal':remaining+' remaining'}</div>
+    </div>
+    <button class="nutr-goals-btn" onclick="openGoalsEditor()">
+     <svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="3"/><path d="M10 2v2M10 16v2M2 10h2M16 10h2M4.9 4.9l1.4 1.4M13.7 13.7l1.4 1.4M4.9 15.1l1.4-1.4M13.7 6.3l1.4-1.4"/></svg>
+     Goals
+    </button>
+   </div>
+   <div class="nutr-bar"><div class="nutr-bar-fill" style="width:${calPct}%;background:${over?'#ff3b30':'linear-gradient(90deg,#ff6b00,#ff9100)'};"></div></div>
+  </div>
+  <div class="nutr-macros-card">
+   ${nutrBar('Protein',tot.protein,goals.protein,'#3b82f6')}
+   ${nutrBar('Carbs',tot.carbs,goals.carbs,'#22c55e')}
+   ${nutrBar('Fat',tot.fat,goals.fat,'#a855f7')}
+  </div>
+  ${mealHTML}
+  <div style="height:8px;"></div>`;
+}
+
+function openAddFood(meal){
+ nutrEditId=null;
+ _nutrResetSheet(meal,null);
+}
+function openEditFood(id){
+ const e=nutrGetLog(nutrDate).find(x=>x.id===id);
+ if(!e)return;
+ nutrEditId=id;
+ _nutrResetSheet(e.meal,e);
+}
+function _nutrResetSheet(meal,e){
+ document.getElementById('nutrName').value=e?e.name:'';
+ document.getElementById('nutrCal').value=e?e.calories:'';
+ document.getElementById('nutrPro').value=e?e.protein:'';
+ document.getElementById('nutrCarb').value=e?e.carbs:'';
+ document.getElementById('nutrFat').value=e?e.fat:'';
+ document.getElementById('nutrSheetTitle').textContent=nutrEditId?'Edit Food':'Add Food';
+ document.getElementById('nutrSaveBtn').textContent=nutrEditId?'Save Changes':'Add Food';
+ document.querySelectorAll('#nutrMealPills .nutr-meal-pill').forEach(b=>{
+  b.classList.toggle('sel',b.dataset.meal===(e?e.meal:meal));
+ });
+ document.getElementById('nutrBackdrop').style.display='block';
+ document.getElementById('nutrFoodSheet').style.display='block';
+ setTimeout(()=>{const n=document.getElementById('nutrName');if(n)n.focus();},150);
+}
+function nutrPickMeal(btn){
+ document.querySelectorAll('#nutrMealPills .nutr-meal-pill').forEach(b=>b.classList.remove('sel'));
+ btn.classList.add('sel');
+}
+function closeNutrSheet(){
+ document.getElementById('nutrBackdrop').style.display='none';
+ document.getElementById('nutrFoodSheet').style.display='none';
+ nutrEditId=null;
+}
+function saveFoodEntry(){
+ const name=(document.getElementById('nutrName').value||'').trim();
+ if(!name){document.getElementById('nutrName').focus();return;}
+ const cal=parseFloat(document.getElementById('nutrCal').value)||0;
+ const pro=parseFloat(document.getElementById('nutrPro').value)||0;
+ const carb=parseFloat(document.getElementById('nutrCarb').value)||0;
+ const fat=parseFloat(document.getElementById('nutrFat').value)||0;
+ const selPill=document.querySelector('#nutrMealPills .nutr-meal-pill.sel');
+ const meal=selPill?selPill.dataset.meal:'snack';
+ let entries=nutrGetLog(nutrDate);
+ if(nutrEditId){
+  entries=entries.map(e=>e.id===nutrEditId?{...e,name,calories:cal,protein:pro,carbs:carb,fat,meal}:e);
+ }else{
+  entries.push({id:String(Date.now()),name,calories:cal,protein:pro,carbs:carb,fat,meal,time:new Date().toTimeString().slice(0,5)});
+ }
+ nutrSaveLog(nutrDate,entries);
+ closeNutrSheet();
+ renderNutrition();
+}
+function deleteFood(id){
+ nutrSaveLog(nutrDate,nutrGetLog(nutrDate).filter(e=>e.id!==id));
+ renderNutrition();
+}
+function openGoalsEditor(){
+ const g=nutrGetGoals();
+ document.getElementById('goalCal').value=g.calories;
+ document.getElementById('goalPro').value=g.protein;
+ document.getElementById('goalCarb').value=g.carbs;
+ document.getElementById('goalFat').value=g.fat;
+ document.getElementById('nutrGoalsBackdrop').style.display='block';
+ document.getElementById('nutrGoalsSheet').style.display='block';
+}
+function closeGoalsSheet(){
+ document.getElementById('nutrGoalsBackdrop').style.display='none';
+ document.getElementById('nutrGoalsSheet').style.display='none';
+}
+function saveGoals(){
+ nutrSaveGoals({
+  calories:parseFloat(document.getElementById('goalCal').value)||2000,
+  protein:parseFloat(document.getElementById('goalPro').value)||150,
+  carbs:parseFloat(document.getElementById('goalCarb').value)||200,
+  fat:parseFloat(document.getElementById('goalFat').value)||65,
+ });
+ closeGoalsSheet();
+ renderNutrition();
 }
 
 // ── INIT — boot from IndexedDB then render ──
