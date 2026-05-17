@@ -1120,6 +1120,11 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
 .rec-session-big{font-family:'Bebas Neue',sans-serif;font-size:100px;letter-spacing:4px;color:#fff;line-height:1;}
 .rec-session-desc{font-size:13px;color:rgba(255,255,255,0.5);text-align:center;margin-top:14px;max-width:260px;}
 .rec-session-stop{margin-top:44px;padding:14px 40px;border-radius:100px;border:1px solid rgba(255,255,255,0.2);background:transparent;color:rgba(255,255,255,0.7);font-size:14px;font-weight:700;cursor:pointer;}
+/* ── HAPTICS VISUAL PAIRING ── */
+@keyframes hapGlow{0%,100%{box-shadow:none}50%{box-shadow:0 0 22px rgba(255,107,0,0.5);}}
+@keyframes hapScale{0%{transform:scale(1)}35%{transform:scale(1.07)}65%{transform:scale(0.96)}100%{transform:scale(1)}}
+.hap-pulse{animation:hapGlow 0.45s ease both;}
+.hap-scale{animation:hapScale 0.3s cubic-bezier(0.34,1.56,0.64,1) both;}
 </style>
 </head>
 <body>
@@ -1176,6 +1181,20 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
    <div class="reminder-controls">
     <input type="time" class="time-input" id="reminderTimeInput" onchange="saveReminderTime(this.value)"/>
     <button class="toggle-sw off" id="reminderToggle" onclick="toggleReminder()"></button>
+   </div>
+  </div>
+ </div>
+
+ <!-- Haptics Setting -->
+ <div class="reminder-strip">
+  <div class="reminder-strip-title">App Feel</div>
+  <div class="reminder-row">
+   <div>
+    <div class="reminder-label">Haptic Feedback</div>
+    <div class="reminder-time" id="hapticStatusLabel">On</div>
+   </div>
+   <div class="reminder-controls">
+    <button class="toggle-sw on" id="hapticToggle" onclick="hapToggle()"></button>
    </div>
   </div>
  </div>
@@ -1827,6 +1846,27 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
 <div id="completionOverlay" style="display:none;position:fixed;inset:0;background:#00000095;backdrop-filter:blur(12px);z-index:500;align-items:center;justify-content:center;padding:20px;" onclick="closeCompletion()"></div>
 
 <script>
+// ── HAPTICS UTILITY ──
+const HAP_KEY='si-haptics-enabled';
+const hap={
+ enabled:true,
+ init:function(){try{this.enabled=localStorage.getItem(HAP_KEY)!=='false';}catch(e){}this._syncUI();},
+ _syncUI:function(){
+  var el=document.getElementById('hapticToggle');if(el)el.className='toggle-sw '+(this.enabled?'on':'off');
+  var lbl=document.getElementById('hapticStatusLabel');if(lbl)lbl.textContent=this.enabled?'On':'Off';
+ },
+ _cap:function(){try{return(window.Capacitor&&window.Capacitor.Plugins&&window.Capacitor.Plugins.Haptics)||null;}catch(e){return null;}},
+ _vib:function(pat){try{if(navigator.vibrate)navigator.vibrate(pat);}catch(e){}},
+ lightTap:function(){if(!this.enabled)return;var H=this._cap();if(H){try{H.impact({style:'LIGHT'});}catch(e){}}else this._vib(8);},
+ mediumTap:function(){if(!this.enabled)return;var H=this._cap();if(H){try{H.impact({style:'MEDIUM'});}catch(e){}}else this._vib(18);},
+ heavyTap:function(){if(!this.enabled)return;var H=this._cap();if(H){try{H.impact({style:'HEAVY'});}catch(e){}}else this._vib(30);},
+ selectionFeedback:function(){if(!this.enabled)return;var H=this._cap();if(H){try{H.selectionChanged();}catch(e){}}else this._vib(6);},
+ successFeedback:function(){if(!this.enabled)return;var H=this._cap();if(H){try{H.notification({type:'SUCCESS'});}catch(e){}}else this._vib([10,50,30]);},
+ warningFeedback:function(){if(!this.enabled)return;var H=this._cap();if(H){try{H.notification({type:'WARNING'});}catch(e){}}else this._vib([20,30,20]);},
+ setEnabled:function(v){this.enabled=!!v;try{localStorage.setItem(HAP_KEY,v?'true':'false');}catch(e){}this._syncUI();},
+};
+function hapToggle(){hap.setEnabled(!hap.enabled);}
+
 const ICONS={
   home:`<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5L10 3l7 6.5V17a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M8 18v-5h4v5"/></svg>`,
   workout:`<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="8" width="3" height="5" rx="1"/><rect x="16" y="8" width="3" height="5" rx="1"/><rect x="4" y="9.5" width="2" height="2" rx="0.5"/><rect x="14" y="9.5" width="2" height="2" rx="0.5"/><line x1="6" y1="10.5" x2="14" y2="10.5"/></svg>`,
@@ -2830,7 +2870,7 @@ function showPRToast(name,weight){
   const inner=t.querySelector('.pr-toast-inner');
   if(inner){inner.style.animation='prToastIn 0.25s ease reverse both';setTimeout(()=>{t.innerHTML='';},250);}
  },2200);
- if(navigator.vibrate)navigator.vibrate([10,60,20]);
+ hap.successFeedback();
 }
 
 // ── EXPORT / IMPORT BACKUP ──
@@ -2878,7 +2918,7 @@ function applyTheme(){
  document.getElementById('themeBtn').textContent=darkMode?'🌙':'☀️';
  dbSet('df7-theme',darkMode?'dark':'light');
 }
-function toggleTheme(){darkMode=!darkMode;applyTheme();}
+function toggleTheme(){hap.selectionFeedback();darkMode=!darkMode;applyTheme();}
 
 // ── REMINDERS ──
 let reminderOn=false;
@@ -2937,6 +2977,7 @@ function fireReminder(){
 
 // ── NAV ──
 function navTo(id){
+ hap.selectionFeedback();
  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
  document.getElementById(id).classList.add('active');
  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
@@ -3918,7 +3959,9 @@ function toggleSD(ei,si,btn){
  sSD(aW,aD,ei,si,newVal);
  if(newVal){
    startRestTimer(ei,si);
-   if(navigator.vibrate)navigator.vibrate(40);
+   hap.mediumTap();
+ } else {
+   hap.lightTap();
  }
  renderWorkout();
 }
@@ -3999,7 +4042,7 @@ function finishWorkout(){
     </div>
   </div>`;
   overlay.style.display='flex';
-  if(navigator.vibrate)navigator.vibrate([100,50,200]);
+  hap.successFeedback();
   renderWorkout();
 }
 function closeCompletion(){
@@ -4294,6 +4337,7 @@ function openTimerFrom(exName){
  navTo('timer');
 }
 function startTimer(){
+ hap.lightTap();
  if(timerMode==='rest'){tWorkSec=cfg.restSec;tRestSec=0;tTotalRounds=1;}
  else if(timerMode==='tabata'){tWorkSec=cfg.tabWorkSec;tRestSec=cfg.tabRestSec;tTotalRounds=cfg.tabRounds;}
  else{tWorkSec=cfg.custWorkSec;tRestSec=cfg.custRestSec;tTotalRounds=cfg.custRounds;}
@@ -4334,7 +4378,7 @@ function renderTimerPips(){
  document.getElementById('setsPips').innerHTML=Array.from({length:tTotalRounds},(_,i)=>`
   <div class="set-pip ${i<tRound-1?'done-pip':i===tRound-1?'active-pip':''}"></div>`).join('');
 }
-function togglePause(){timerPaused=!timerPaused;document.getElementById('pauseBtn').textContent=timerPaused?'Resume':'Pause';}
+function togglePause(){hap.lightTap();timerPaused=!timerPaused;document.getElementById('pauseBtn').textContent=timerPaused?'Resume':'Pause';}
 function resetTimer(){
  clearInterval(timerInterval);timerRunning=false;timerPaused=false;
  document.getElementById('startBtn').style.display='block';
@@ -4351,7 +4395,7 @@ function finishTimer(){
  document.getElementById('pauseBtn').textContent='Done';
  document.getElementById('pauseBtn').onclick=resetTimer;
  renderTimerPips();beep(true);
- if(timerPrefs&&timerPrefs.vibrate){try{navigator.vibrate&&navigator.vibrate([300,100,300,100,300]);}catch(e){}}
+ if(timerPrefs&&timerPrefs.vibrate){hap.successFeedback();}
 }
 function beep(finish=false){
  if(timerPrefs&&timerPrefs.sound===false)return;
@@ -4364,7 +4408,7 @@ function beep(finish=false){
   gain.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+0.3);
   osc.start(ctx.currentTime);osc.stop(ctx.currentTime+0.3);
  }catch(e){}
- if(finish&&timerPrefs&&timerPrefs.vibrate){try{navigator.vibrate&&navigator.vibrate([200,100,200]);}catch(e){}}
+ if(finish&&timerPrefs&&timerPrefs.vibrate){hap.successFeedback();}
 }
 
 // ── MUSCLE MAP DATA — which muscles each exercise targets ──
@@ -5180,10 +5224,12 @@ function calcPlates(){
  if(used.length===0){
   resEl.innerHTML='<span style="color:var(--muted)">Bar only</span>';
   totEl.textContent='Total: '+plcBarWeight+' lbs';
+  hap.selectionFeedback();
  } else {
   resEl.innerHTML=used.map(({p,count})=>`<span>${count}×<strong>${p}</strong></span>`).join('<span style="color:var(--muted);margin:0 4px">·</span>');
   const actualTotal=plcBarWeight+used.reduce((s,{p,count})=>s+p*count*2,0);
   totEl.textContent='Total: '+actualTotal.toFixed(actualTotal%1===0?0:1)+' lbs';
+  hap.selectionFeedback();
  }
 
  // Visual bar
@@ -5210,6 +5256,7 @@ function saveCalMarks(){try{localStorage.setItem(CAL_MARKS_KEY,JSON.stringify(ca
 let calMarkingDate=null;
 function openCalMarkSheet(dateStr,isAutoCompleted){
  if(isAutoCompleted)return;
+ hap.lightTap();
  calMarkingDate=dateStr;
  const fmtDate=new Date(dateStr+'T12:00').toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
  let sheet=document.getElementById('calMarkSheet');
@@ -5239,6 +5286,7 @@ function applyCalMark(type){
  if(type===null){delete calMarks[calMarkingDate];}
  else{calMarks[calMarkingDate]=type;}
  saveCalMarks();
+ hap.selectionFeedback();
  closeCalMarkSheet();
  renderCalendar();
 }
@@ -5410,8 +5458,9 @@ function renderAchievements(){
 function showAchievementToast(id){
  const def=ACH_DEFS.find(a=>a.id===id);
  if(!def)return;
+ hap.successFeedback();
  const el=document.getElementById('ach-'+id);
- if(el){el.classList.add('just-unlocked');setTimeout(()=>el.classList.remove('just-unlocked'),1200);}
+ if(el){el.classList.add('just-unlocked','hap-scale');setTimeout(()=>{el.classList.remove('just-unlocked','hap-scale');},1200);}
  // Reuse PR toast element
  const toast=document.getElementById('prToast');
  if(toast){
@@ -5821,7 +5870,7 @@ function nutrAutofill(){
  const srcMark=source==='favorite'?' ★':'';
  preview.innerHTML='<div class="nutr-match-name">Matched: '+item.name+srcMark+'</div>'+'<div style="font-size:11px;color:var(--muted);margin-bottom:4px;">'+servLbl+' \xb7 '+cal+' cal</div>'+'<span class="nutr-match-conf '+confidence+'">'+confLbl+'</span>';
  preview.style.display='block';
- try{navigator.vibrate&&navigator.vibrate(30);}catch(e){}
+ if(confidence==='exact')hap.successFeedback();else hap.selectionFeedback();
 }
 function nutrClearMatch(){
  const p=document.getElementById('nutrMatchPreview');if(p){p.style.display='none';p.innerHTML='';}
@@ -5968,7 +6017,7 @@ function recLaunchQuick(id){
   if(recSessionRemaining>0){recSessionRemaining--;recUpdateSessionTimer();}
   else{stopRecSession(durMins);}
  },1000);
- try{navigator.vibrate&&navigator.vibrate(50);}catch(e){}
+ hap.mediumTap();
 }
 function recUpdateSessionTimer(){
  const m=Math.floor(recSessionRemaining/60);
@@ -5980,7 +6029,11 @@ function stopRecSession(durMins){
  clearInterval(recSessionInterval);
  const overlay=document.getElementById('recSessionOverlay');
  if(overlay)overlay.style.display='none';
- if(durMins){const elapsed=Math.round((recSessionRemaining>=0?(durMins*60-recSessionRemaining):durMins*60)/60);recRecordSession(Math.max(1,elapsed));}
+ if(durMins){
+  const elapsed=Math.round((recSessionRemaining>=0?(durMins*60-recSessionRemaining):durMins*60)/60);
+  recRecordSession(Math.max(1,elapsed));
+  hap.successFeedback();
+ }
 }
 function recHtmlBreath(){
  const saved=localStorage.getItem('si-rec-breath-mode')||'box';
@@ -6038,7 +6091,7 @@ function recBreathStep(){
   else if(phaseLabel==='HOLD'){ring.style.transform='scale(1.2)';ring.style.boxShadow='0 0 60px rgba(255,107,0,0.7)';}
   else{ring.style.transform='scale(1)';ring.style.boxShadow='none';}
  }
- try{navigator.vibrate&&navigator.vibrate(30);}catch(e){}
+ hap.selectionFeedback();
  let count=phaseDur;
  const countEl=document.getElementById('recBreathCountLabel');
  if(countEl)countEl.textContent=count;
@@ -6110,7 +6163,7 @@ function recTimerFinish(){
  recTimerPause();
  recRecordSession(mins);
  if(recTimerSound){try{const ac=new(window.AudioContext||window.webkitAudioContext)();const o=ac.createOscillator();const g=ac.createGain();o.connect(g);g.connect(ac.destination);o.frequency.value=440;g.gain.setValueAtTime(0.4,ac.currentTime);g.gain.exponentialRampToValueAtTime(0.001,ac.currentTime+1.5);o.start();o.stop(ac.currentTime+1.5);}catch(e){}}
- if(recTimerVibrate){try{navigator.vibrate&&navigator.vibrate([300,100,300,100,300]);}catch(e){}}
+ if(recTimerVibrate){hap.successFeedback();}
  recTimerRemaining=recTimerTotal;
  const d=document.getElementById('recTimerDisplay');
  if(d)d.textContent=recFmtTime(recTimerRemaining);
@@ -6210,6 +6263,7 @@ async function boot(){
  initReminders();
  loadTimerPrefs();
  loadCalMarks();
+ hap.init();
  renderHome();
  checkMissedWorkoutNotification();
  requestNotificationPermission().then(()=>scheduleReminderNotification());
