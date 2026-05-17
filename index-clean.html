@@ -1125,6 +1125,70 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
 @keyframes hapScale{0%{transform:scale(1)}35%{transform:scale(1.07)}65%{transform:scale(0.96)}100%{transform:scale(1)}}
 .hap-pulse{animation:hapGlow 0.45s ease both;}
 .hap-scale{animation:hapScale 0.3s cubic-bezier(0.34,1.56,0.64,1) both;}
+/* ── FOCUS WORKOUT MODE ── */
+.fm-overlay{position:fixed;inset:0;background:#0a0a0f;z-index:600;display:flex;flex-direction:column;overflow:hidden;padding-top:env(safe-area-inset-top);}
+.fm-hdr{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;flex-shrink:0;border-bottom:1px solid rgba(255,255,255,0.06);}
+.fm-close-btn{padding:8px 14px;border-radius:100px;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.7);font-size:11px;font-weight:700;letter-spacing:0.5px;cursor:pointer;}
+.fm-wk-label{font-family:'Bebas Neue',sans-serif;font-size:14px;color:var(--yellow);letter-spacing:1px;text-align:center;}
+.fm-mode-badge{font-size:9px;font-weight:800;letter-spacing:2px;color:rgba(255,107,0,0.9);background:rgba(255,107,0,0.12);padding:3px 8px;border-radius:100px;border:1px solid rgba(255,107,0,0.25);}
+.fm-panel{flex:1;display:flex;flex-direction:column;align-items:center;overflow-y:auto;padding:12px 18px 24px;gap:12px;}
+.fm-ring-wrap{position:relative;width:130px;height:130px;flex-shrink:0;}
+.fm-ring{width:130px;height:130px;transform:rotate(-90deg);}
+.fm-ring-bg{fill:none;stroke:rgba(255,255,255,0.07);stroke-width:7;}
+.fm-ring-fill{fill:none;stroke:#ff6b00;stroke-width:7;stroke-linecap:round;stroke-dasharray:263.9;stroke-dashoffset:263.9;transition:stroke-dashoffset 0.5s ease;}
+.fm-ring-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.fm-ring-num{font-family:'Bebas Neue',sans-serif;font-size:28px;color:#fff;letter-spacing:1px;line-height:1;}
+.fm-ring-lbl{font-size:8px;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,0.4);margin-top:2px;}
+.fm-ex-card{width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.09);border-radius:18px;padding:16px;text-align:center;}
+.fm-ex-name{font-family:'Bebas Neue',sans-serif;font-size:26px;color:#fff;letter-spacing:1px;line-height:1.1;}
+.fm-ex-meta{font-size:11px;color:rgba(255,255,255,0.45);margin-top:5px;}
+.fm-set-badge{display:inline-block;margin-top:8px;padding:4px 12px;border-radius:100px;background:rgba(255,107,0,0.15);border:1px solid rgba(255,107,0,0.3);color:#ff6b00;font-size:10px;font-weight:800;letter-spacing:1.5px;}
+.fm-prev-best{font-size:10px;color:rgba(255,255,255,0.32);margin-top:6px;min-height:14px;}
+.fm-inputs{display:flex;gap:10px;width:100%;}
+.fm-input-group{flex:1;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:12px 8px;display:flex;flex-direction:column;align-items:center;gap:8px;}
+.fm-input-label{font-size:9px;font-weight:800;letter-spacing:2px;color:rgba(255,255,255,0.4);}
+.fm-stepper{display:flex;align-items:center;gap:6px;width:100%;}
+.fm-step-btn{flex:1;padding:10px 0;border-radius:12px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.07);color:#fff;font-size:16px;font-weight:700;cursor:pointer;min-height:44px;}
+.fm-step-btn:active{background:rgba(255,107,0,0.2);border-color:rgba(255,107,0,0.4);}
+.fm-step-val{flex:0 0 52px;text-align:center;font-family:'Bebas Neue',sans-serif;font-size:32px;color:#fff;line-height:1;}
+.fm-complete-btn{width:100%;padding:17px;border-radius:16px;border:none;background:linear-gradient(135deg,#ff6b00,#ff4500);color:#fff;font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:1.5px;cursor:pointer;flex-shrink:0;}
+.fm-complete-btn:active{opacity:0.85;}
+.fm-bottom-ctrl{display:flex;gap:8px;width:100%;margin-top:auto;}
+.fm-ctrl-btn{flex:1;padding:12px 0;border-radius:12px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.05);color:rgba(255,255,255,0.65);font-size:11px;font-weight:700;letter-spacing:0.5px;cursor:pointer;}
+.fm-end-btn{background:rgba(255,50,50,0.08)!important;border-color:rgba(255,50,50,0.22)!important;color:rgba(255,90,90,0.85)!important;}
+.fm-rest-title{font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:4px;color:rgba(255,255,255,0.35);margin-top:4px;}
+.fm-rr-wrap{position:relative;width:200px;height:200px;flex-shrink:0;}
+.fm-rr-svg{width:200px;height:200px;transform:rotate(-90deg);}
+.fm-rr-bg{fill:none;stroke:rgba(255,255,255,0.06);stroke-width:8;}
+.fm-rr-fill{fill:none;stroke:#ff6b00;stroke-width:8;stroke-linecap:round;stroke-dasharray:326.7;stroke-dashoffset:0;transition:stroke-dashoffset 1s linear;filter:drop-shadow(0 0 8px rgba(255,107,0,0.55));}
+.fm-rr-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.fm-rr-time{font-family:'Bebas Neue',sans-serif;font-size:64px;color:#fff;line-height:1;}
+.fm-rr-lbl{font-size:9px;font-weight:800;letter-spacing:3px;color:rgba(255,255,255,0.35);}
+.fm-presets{display:flex;gap:8px;}
+.fm-preset-btn{padding:8px 14px;border-radius:100px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.05);color:rgba(255,255,255,0.55);font-size:12px;font-weight:700;cursor:pointer;}
+.fm-preset-btn.active{background:rgba(255,107,0,0.2);border-color:rgba(255,107,0,0.4);color:#ff6b00;}
+.fm-next-card{width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:12px 16px;text-align:center;}
+.fm-next-label{font-size:9px;font-weight:800;letter-spacing:2px;color:rgba(255,255,255,0.32);margin-bottom:5px;}
+.fm-next-name{font-family:'Bebas Neue',sans-serif;font-size:18px;color:rgba(255,255,255,0.85);letter-spacing:0.5px;}
+.fm-next-meta{font-size:10px;color:rgba(255,255,255,0.32);margin-top:3px;}
+.fm-rest-ctrl{display:flex;gap:10px;width:100%;margin-top:auto;}
+.fm-rest-pause-btn{flex:1;padding:13px;border-radius:14px;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.06);color:#fff;font-size:12px;font-weight:800;letter-spacing:0.5px;cursor:pointer;}
+.fm-skip-btn{flex:2;padding:13px;border-radius:14px;border:none;background:linear-gradient(135deg,#ff6b00,#ff4500);color:#fff;font-size:13px;font-weight:800;letter-spacing:0.5px;cursor:pointer;}
+.fm-sum-hero{text-align:center;padding:12px 0 4px;width:100%;}
+.fm-sum-crown{font-size:44px;line-height:1;}
+.fm-sum-title{font-family:'Bebas Neue',sans-serif;font-size:48px;color:#fff;letter-spacing:2px;line-height:1.1;}
+.fm-sum-sub{font-size:12px;color:rgba(255,255,255,0.4);margin-top:4px;}
+.fm-sum-stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%;}
+.fm-sum-stat{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:14px;text-align:center;}
+.fm-sum-stat-num{font-family:'Bebas Neue',sans-serif;font-size:32px;color:#ff6b00;line-height:1;}
+.fm-sum-stat-lbl{font-size:9px;font-weight:700;letter-spacing:1.5px;color:rgba(255,255,255,0.38);margin-top:4px;}
+.fm-sum-prs{width:100%;background:rgba(255,107,0,0.07);border:1px solid rgba(255,107,0,0.2);border-radius:14px;padding:12px 16px;}
+.fm-sum-pr-title{font-size:10px;font-weight:800;letter-spacing:2px;color:#ff6b00;margin-bottom:8px;}
+.fm-sum-pr-item{font-size:13px;color:rgba(255,255,255,0.8);padding:3px 0;}
+.fm-sum-actions{display:flex;gap:10px;width:100%;margin-top:auto;}
+.fm-sum-btn-sec{flex:1;padding:15px;border-radius:16px;border:1px solid rgba(255,255,255,0.15);background:transparent;color:rgba(255,255,255,0.65);font-size:11px;font-weight:800;letter-spacing:0.5px;cursor:pointer;}
+.fm-sum-btn-pri{flex:2;padding:15px;border-radius:16px;border:none;background:linear-gradient(135deg,#ff6b00,#ff4500);color:#fff;font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:1.5px;cursor:pointer;}
+@media(prefers-reduced-motion:reduce){.fm-ring-fill,.fm-rr-fill{transition:none;}}
 </style>
 </head>
 <body>
@@ -2998,7 +3062,7 @@ function navTo(id){
  window.scrollTo(0,0);
 }
 function goHome(){navTo('home');}
-function openDay(w,d){aW=w;aD=d;navTo('workout');}
+function openDay(w,d){aW=w;aD=d;openFocusMode();}
 
 // ── HOME ──
 const PHASES=[
@@ -6250,6 +6314,241 @@ function recStartAmbient(id){
  }catch(e){}
 }
 
+// ── FOCUS WORKOUT MODE ──
+const FM_REST_KEY='si-focus-rest';
+let fmActive=false,fmCurEx=0,fmCurSet=0,fmPanel='ex';
+let fmSessionStart=0,fmRestSec=0,fmRestTotal=90;
+let fmRestInt=null,fmRestPaused=false;
+let fmInputW=0,fmInputR=10,fmPrefRest=90;
+
+function openFocusMode(){
+ fmPrefRest=parseInt(localStorage.getItem(FM_REST_KEY))||90;
+ fmActive=true;
+ fmSessionStart=Date.now();
+ clearInterval(fmRestInt);fmRestInt=null;
+ const next=fmFindNextFrom(0,0);
+ fmCurEx=next?next.ei:0;
+ fmCurSet=next?next.si:0;
+ document.getElementById('focusMode').style.display='flex';
+ fmShowPanel('ex');
+ fmRenderEx();
+}
+function closeFocusMode(){
+ clearInterval(fmRestInt);fmRestInt=null;fmActive=false;
+ document.getElementById('focusMode').style.display='none';
+ renderHome();
+}
+function exitFocusModeToWorkout(){
+ clearInterval(fmRestInt);fmRestInt=null;fmActive=false;
+ document.getElementById('focusMode').style.display='none';
+ navTo('workout');renderWorkout();
+}
+function closeFocusModeViewWorkout(){
+ clearInterval(fmRestInt);fmRestInt=null;fmActive=false;
+ document.getElementById('focusMode').style.display='none';
+ navTo('workout');renderWorkout();
+}
+function fmShowPanel(p){
+ fmPanel=p;
+ document.getElementById('fmPanelEx').style.display=p==='ex'?'flex':'none';
+ document.getElementById('fmPanelRest').style.display=p==='rest'?'flex':'none';
+ document.getElementById('fmPanelSum').style.display=p==='sum'?'flex':'none';
+}
+function fmFindNextFrom(startEi,startSi){
+ const exs=WEEKS[aW].days[aD].exercises;
+ if(exs[startEi]){
+  for(let si=startSi;si<exs[startEi].sets;si++){
+   if(!gSD(aW,aD,startEi,si))return{ei:startEi,si};
+  }
+ }
+ for(let ei=startEi+1;ei<exs.length;ei++){
+  for(let si=0;si<exs[ei].sets;si++){
+   if(!gSD(aW,aD,ei,si))return{ei,si};
+  }
+ }
+ return null;
+}
+function fmFindNextAfter(ei,si){
+ const exs=WEEKS[aW].days[aD].exercises;
+ if(exs[ei]){
+  for(let s=si+1;s<exs[ei].sets;s++){
+   if(!gSD(aW,aD,ei,s))return{ei,si:s};
+  }
+ }
+ for(let e=ei+1;e<exs.length;e++){
+  for(let s=0;s<exs[e].sets;s++){
+   if(!gSD(aW,aD,e,s))return{ei:e,si:s};
+  }
+ }
+ return null;
+}
+function fmRenderEx(){
+ const day=WEEKS[aW].days[aD];
+ const ex=day.exercises[fmCurEx];
+ if(!ex)return;
+ document.getElementById('fmWkLabel').textContent=`WEEK ${aW+1} · ${day.label.toUpperCase()}`;
+ // Progress ring
+ const total=day.exercises.length;
+ const done=day.exercises.filter((_,ei)=>gED(aW,aD,ei)).length;
+ const circ=263.9;
+ const offset=circ*(1-(total>0?done/total:0));
+ const rf=document.getElementById('fmRingFill');
+ if(rf){rf.style.strokeDasharray=circ;rf.style.strokeDashoffset=offset.toFixed(1);}
+ document.getElementById('fmRingNum').textContent=`${done}/${total}`;
+ // Exercise info
+ document.getElementById('fmExName').textContent=ex.name;
+ const muscles=[...new Set((MUSCLE_MAP[ex.name]||[]).map(m=>MUSCLE_NAMES[m]).filter(Boolean))].slice(0,2).join(', ');
+ document.getElementById('fmExMeta').textContent=`${muscles||'Compound'} · ${ex.sets} sets × ${ex.reps} reps`;
+ document.getElementById('fmSetBadge').textContent=`SET ${fmCurSet+1} OF ${ex.sets}`;
+ const pr=getPR(ex.name);
+ const lastW=gW(aW,aD,fmCurEx,fmCurSet);
+ const pb=document.getElementById('fmPrevBest');
+ pb.textContent=pr>0?`PR: ${pr} lbs`:lastW?`Last: ${lastW} lbs`:'';
+ // Weight input
+ if(lastW&&parseFloat(lastW)>0){fmInputW=parseFloat(lastW);}
+ else if(pr>0){fmInputW=pr;}
+ else{
+  let found=0;
+  for(let s=0;s<ex.sets;s++){const w=parseFloat(gW(aW,aD,fmCurEx,s));if(w>0){found=w;break;}}
+  fmInputW=found;
+ }
+ fmInputR=parseInt(ex.reps)||10;
+ document.getElementById('fmWVal').textContent=fmInputW||'BW';
+ document.getElementById('fmRVal').textContent=fmInputR;
+}
+function fmAdjW(d){hap.lightTap();fmInputW=Math.max(0,(fmInputW||0)+d);document.getElementById('fmWVal').textContent=fmInputW||'BW';}
+function fmAdjR(d){hap.lightTap();fmInputR=Math.max(1,(fmInputR||1)+d);document.getElementById('fmRVal').textContent=fmInputR;}
+function fmCompleteSet(){
+ hap.mediumTap();
+ const day=WEEKS[aW].days[aD];
+ const ex=day.exercises[fmCurEx];
+ if(!ex)return;
+ if(fmInputW>0)sW(aW,aD,fmCurEx,fmCurSet,fmInputW);
+ sSD(aW,aD,fmCurEx,fmCurSet,true);
+ const allDone=Array.from({length:ex.sets},(_,si)=>gSD(aW,aD,fmCurEx,si)).every(Boolean);
+ if(allDone)sED(aW,aD,fmCurEx,true);
+ const next=fmFindNextAfter(fmCurEx,fmCurSet);
+ if(next){fmCurEx=next.ei;fmCurSet=next.si;fmStartRest();}
+ else{fmEndWorkout();}
+}
+function fmStartRest(){
+ clearInterval(fmRestInt);
+ fmRestTotal=fmPrefRest;fmRestSec=fmRestTotal;fmRestPaused=false;
+ fmShowPanel('rest');
+ fmUpdateRestRing();fmUpdateRestUI();fmUpdateNextCard();
+ fmRestInt=setInterval(()=>{
+  if(fmRestPaused)return;
+  fmRestSec--;
+  if(fmRestSec<=0){
+   fmRestSec=0;clearInterval(fmRestInt);fmRestInt=null;
+   fmUpdateRestRing();fmUpdateRestUI();
+   beep(true);hap.successFeedback();
+   setTimeout(()=>{fmShowPanel('ex');fmRenderEx();},600);
+  }else{fmUpdateRestRing();fmUpdateRestUI();}
+ },1000);
+}
+function fmUpdateRestRing(){
+ const circ=326.7;
+ const pct=fmRestTotal>0?fmRestSec/fmRestTotal:0;
+ const el=document.getElementById('fmRRFill');
+ if(el){el.style.strokeDasharray=circ;el.style.strokeDashoffset=(circ*(1-pct)).toFixed(1);}
+}
+function fmUpdateRestUI(){
+ const t=document.getElementById('fmRRTime');if(t)t.textContent=fmRestSec;
+ const pb=document.getElementById('fmRestPauseBtn');if(pb)pb.textContent=fmRestPaused?'RESUME':'PAUSE';
+ document.querySelectorAll('.fm-preset-btn').forEach(btn=>{
+  const s=parseInt(btn.textContent);btn.classList.toggle('active',s===fmRestTotal);
+ });
+}
+function fmUpdateNextCard(){
+ const day=WEEKS[aW].days[aD];
+ const ex=day.exercises[fmCurEx];
+ if(ex){
+  document.getElementById('fmNextName').textContent=ex.name;
+  const muscles=[...new Set((MUSCLE_MAP[ex.name]||[]).map(m=>MUSCLE_NAMES[m]).filter(Boolean))].slice(0,2).join(', ');
+  document.getElementById('fmNextMeta').textContent=`Set ${fmCurSet+1} · ${muscles||''}`;
+ }else{
+  document.getElementById('fmNextName').textContent='Workout Complete';
+  document.getElementById('fmNextMeta').textContent='';
+ }
+}
+function fmTogglePauseRest(){hap.lightTap();fmRestPaused=!fmRestPaused;fmUpdateRestUI();}
+function fmSkipRest(){
+ hap.lightTap();clearInterval(fmRestInt);fmRestInt=null;
+ fmShowPanel('ex');fmRenderEx();
+}
+function fmSetRest(s){
+ hap.selectionFeedback();
+ fmPrefRest=s;fmRestTotal=s;fmRestSec=s;
+ localStorage.setItem(FM_REST_KEY,s);
+ fmUpdateRestRing();fmUpdateRestUI();
+ clearInterval(fmRestInt);fmRestPaused=false;
+ fmRestInt=setInterval(()=>{
+  if(fmRestPaused)return;
+  fmRestSec--;
+  if(fmRestSec<=0){
+   fmRestSec=0;clearInterval(fmRestInt);fmRestInt=null;
+   fmUpdateRestRing();fmUpdateRestUI();
+   beep(true);hap.successFeedback();
+   setTimeout(()=>{fmShowPanel('ex');fmRenderEx();},600);
+  }else{fmUpdateRestRing();fmUpdateRestUI();}
+ },1000);
+}
+function fmPrevEx(){
+ hap.lightTap();
+ if(fmCurSet>0){fmCurSet--;}
+ else if(fmCurEx>0){fmCurEx--;fmCurSet=0;}
+ fmRenderEx();
+}
+function fmNextEx(){
+ hap.lightTap();
+ const exs=WEEKS[aW].days[aD].exercises;
+ if(fmCurSet<(exs[fmCurEx]?exs[fmCurEx].sets-1:0)){fmCurSet++;}
+ else if(fmCurEx<exs.length-1){fmCurEx++;fmCurSet=0;}
+ fmRenderEx();
+}
+function fmEndWorkout(){
+ clearInterval(fmRestInt);fmRestInt=null;
+ const day=WEEKS[aW].days[aD];
+ if(dayProg(aW,aD)===0){exitFocusModeToWorkout();return;}
+ setWDone(aW,aD,new Date().toISOString().split('T')[0]);
+ const today=new Date().toISOString().split('T')[0];
+ day.exercises.forEach((ex,ei)=>{
+  let maxW=0;
+  for(let si=0;si<ex.sets;si++){const w=parseFloat(gW(aW,aD,ei,si));if(w>maxW)maxW=w;}
+  if(maxW>0)logProgressionEntry(ex.name,maxW,today);
+ });
+ let totalSets=0,totalLbs=0;const prsHit=[];
+ day.exercises.forEach((ex,ei)=>{
+  for(let si=0;si<ex.sets;si++){
+   if(gSD(aW,aD,ei,si)){totalSets++;totalLbs+=parseFloat(gW(aW,aD,ei,si))||0;}
+  }
+  const pr=getPR(ex.name);
+  for(let si=0;si<ex.sets;si++){
+   const w=parseFloat(gW(aW,aD,ei,si))||0;
+   if(w>0&&w>=pr&&pr>0&&!prsHit.includes(ex.name))prsHit.push(ex.name);
+  }
+ });
+ const duration=Math.max(1,Math.round((Date.now()-fmSessionStart)/60000));
+ const exDone=day.exercises.filter((_,ei)=>gED(aW,aD,ei)).length;
+ hap.successFeedback();
+ document.getElementById('fmSumSub').textContent=`${day.label} · Week ${aW+1}`;
+ document.getElementById('fmSumStats').innerHTML=`
+  <div class="fm-sum-stat"><div class="fm-sum-stat-num">${duration}m</div><div class="fm-sum-stat-lbl">DURATION</div></div>
+  <div class="fm-sum-stat"><div class="fm-sum-stat-num">${exDone}</div><div class="fm-sum-stat-lbl">EXERCISES</div></div>
+  <div class="fm-sum-stat"><div class="fm-sum-stat-num">${totalSets}</div><div class="fm-sum-stat-lbl">SETS</div></div>
+  <div class="fm-sum-stat"><div class="fm-sum-stat-num">${totalLbs>999?Math.round(totalLbs/1000)+'k':totalLbs}</div><div class="fm-sum-stat-lbl">VOLUME</div></div>`;
+ const prsEl=document.getElementById('fmSumPrs');
+ if(prsHit.length){
+  prsEl.style.display='block';
+  prsEl.innerHTML=`<div class="fm-sum-pr-title">🏆 NEW PRs HIT</div>${prsHit.map(n=>`<div class="fm-sum-pr-item">${n}</div>`).join('')}`;
+ }else{prsEl.style.display='none';}
+ fmShowPanel('sum');
+ const newAch=checkAchievements();
+ if(newAch.length)setTimeout(()=>newAch.forEach((id,i)=>setTimeout(()=>showAchievementToast(id),i*1200)),2000);
+ renderHome();
+}
+
 // ── INIT — boot from IndexedDB then render ──
 async function boot(){
  await openDB();
@@ -6308,6 +6607,101 @@ boot();
  <div class="rec-session-big" id="recSessionTimer">--:--</div>
  <div class="rec-session-desc" id="recSessionDesc"></div>
  <button class="rec-session-stop" onclick="stopRecSession()">Stop Session</button>
+</div>
+
+<!-- FOCUS WORKOUT MODE -->
+<div id="focusMode" class="fm-overlay" style="display:none;">
+ <div class="fm-hdr">
+  <button class="fm-close-btn" onclick="exitFocusModeToWorkout()">✕ EXIT</button>
+  <div class="fm-wk-label" id="fmWkLabel">WEEK 1</div>
+  <div class="fm-mode-badge">FOCUS MODE</div>
+ </div>
+ <!-- Exercise Panel -->
+ <div id="fmPanelEx" class="fm-panel">
+  <div class="fm-ring-wrap">
+   <svg class="fm-ring" viewBox="0 0 100 100">
+    <circle class="fm-ring-bg" cx="50" cy="50" r="42"/>
+    <circle class="fm-ring-fill" id="fmRingFill" cx="50" cy="50" r="42"/>
+   </svg>
+   <div class="fm-ring-center">
+    <div class="fm-ring-num" id="fmRingNum">0/8</div>
+    <div class="fm-ring-lbl">DONE</div>
+   </div>
+  </div>
+  <div class="fm-ex-card">
+   <div class="fm-ex-name" id="fmExName">—</div>
+   <div class="fm-ex-meta" id="fmExMeta"></div>
+   <div class="fm-set-badge" id="fmSetBadge">SET 1 OF 4</div>
+   <div class="fm-prev-best" id="fmPrevBest"></div>
+  </div>
+  <div class="fm-inputs">
+   <div class="fm-input-group">
+    <div class="fm-input-label">WEIGHT (lbs)</div>
+    <div class="fm-stepper">
+     <button class="fm-step-btn" onclick="fmAdjW(-5)">−5</button>
+     <div class="fm-step-val" id="fmWVal">0</div>
+     <button class="fm-step-btn" onclick="fmAdjW(5)">+5</button>
+    </div>
+   </div>
+   <div class="fm-input-group">
+    <div class="fm-input-label">REPS</div>
+    <div class="fm-stepper">
+     <button class="fm-step-btn" onclick="fmAdjR(-1)">−1</button>
+     <div class="fm-step-val" id="fmRVal">10</div>
+     <button class="fm-step-btn" onclick="fmAdjR(1)">+1</button>
+    </div>
+   </div>
+  </div>
+  <button class="fm-complete-btn" onclick="fmCompleteSet()">COMPLETE SET &amp; REST</button>
+  <div class="fm-bottom-ctrl">
+   <button class="fm-ctrl-btn" onclick="fmPrevEx()">← PREV</button>
+   <button class="fm-ctrl-btn fm-end-btn" onclick="fmEndWorkout()">END</button>
+   <button class="fm-ctrl-btn" onclick="fmNextEx()">NEXT →</button>
+  </div>
+ </div>
+ <!-- Rest Panel -->
+ <div id="fmPanelRest" class="fm-panel" style="display:none;">
+  <div class="fm-rest-title">REST TIME</div>
+  <div class="fm-rr-wrap">
+   <svg class="fm-rr-svg" viewBox="0 0 120 120">
+    <circle class="fm-rr-bg" cx="60" cy="60" r="52"/>
+    <circle class="fm-rr-fill" id="fmRRFill" cx="60" cy="60" r="52"/>
+   </svg>
+   <div class="fm-rr-center">
+    <div class="fm-rr-time" id="fmRRTime">90</div>
+    <div class="fm-rr-lbl">SECONDS</div>
+   </div>
+  </div>
+  <div class="fm-presets">
+   <button class="fm-preset-btn" onclick="fmSetRest(60)">60s</button>
+   <button class="fm-preset-btn" onclick="fmSetRest(90)">90s</button>
+   <button class="fm-preset-btn" onclick="fmSetRest(120)">120s</button>
+   <button class="fm-preset-btn" onclick="fmSetRest(150)">150s</button>
+  </div>
+  <div class="fm-next-card">
+   <div class="fm-next-label">UP NEXT</div>
+   <div class="fm-next-name" id="fmNextName">—</div>
+   <div class="fm-next-meta" id="fmNextMeta"></div>
+  </div>
+  <div class="fm-rest-ctrl">
+   <button class="fm-rest-pause-btn" id="fmRestPauseBtn" onclick="fmTogglePauseRest()">PAUSE</button>
+   <button class="fm-skip-btn" onclick="fmSkipRest()">SKIP REST →</button>
+  </div>
+ </div>
+ <!-- Summary Panel -->
+ <div id="fmPanelSum" class="fm-panel" style="display:none;">
+  <div class="fm-sum-hero">
+   <div class="fm-sum-crown">👑</div>
+   <div class="fm-sum-title">GREAT WORK</div>
+   <div class="fm-sum-sub" id="fmSumSub">Session complete</div>
+  </div>
+  <div class="fm-sum-stats" id="fmSumStats"></div>
+  <div class="fm-sum-prs" id="fmSumPrs" style="display:none;"></div>
+  <div class="fm-sum-actions">
+   <button class="fm-sum-btn-sec" onclick="closeFocusModeViewWorkout()">VIEW WORKOUT</button>
+   <button class="fm-sum-btn-pri" onclick="closeFocusMode()">DONE</button>
+  </div>
+ </div>
 </div>
 </body>
 </html>
