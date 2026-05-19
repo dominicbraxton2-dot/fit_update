@@ -1284,7 +1284,7 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
 <body>
 
 <!-- HOME -->
-<div id="home" class="screen active">
+<div id="home" class="screen active" style="padding-bottom:120px;">
  <!-- Compact Header -->
  <div class="home-hdr">
   <div>
@@ -1324,35 +1324,6 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
  </div>
  <div class="week-cards" id="weekCards" style="display:none;"></div>
 
- <!-- Workout Reminders -->
- <div class="reminder-strip">
-  <div class="reminder-strip-title">Workout Reminders</div>
-  <div class="reminder-row">
-   <div>
-    <div class="reminder-label">Daily reminder</div>
-    <div class="reminder-time" id="reminderTimeDisplay">Not set</div>
-   </div>
-   <div class="reminder-controls">
-    <input type="time" class="time-input" id="reminderTimeInput" onchange="saveReminderTime(this.value)"/>
-    <button class="toggle-sw off" id="reminderToggle" onclick="toggleReminder()"></button>
-   </div>
-  </div>
- </div>
-
- <!-- Haptics Setting -->
- <div class="reminder-strip">
-  <div class="reminder-strip-title">App Feel</div>
-  <div class="reminder-row">
-   <div>
-    <div class="reminder-label">Haptic Feedback</div>
-    <div class="reminder-time" id="hapticStatusLabel">On</div>
-   </div>
-   <div class="reminder-controls">
-    <button class="toggle-sw on" id="hapticToggle" onclick="hapToggle()"></button>
-   </div>
-  </div>
- </div>
-
  <!-- Program Guidelines (collapsed) -->
  <div class="hm-section-hdr">
   <span class="hm-section-lbl">PROGRAM GUIDELINES</span>
@@ -1364,16 +1335,6 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
   <div class="tip"><span>4L water daily — flushes sodium, kills bloat instantly</span></div>
   <div class="tip"><span>Zero processed food, zero alcohol — they park fat on your organs</span></div>
   <div class="tip"><span>8+ hrs sleep — cortisol from bad sleep stores fat around the gut</span></div>
- </div>
-
- <!-- Data Backup -->
- <div style="margin:0 16px 120px;background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:18px;">
-  <div style="font-size:10px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-bottom:4px;">Data Backup</div>
-  <div style="font-size:12px;color:var(--muted);margin-bottom:14px;font-weight:300;">Your data is saved in IndexedDB. Use backups as an extra safety net.</div>
-  <div style="display:flex;gap:10px;">
-   <button onclick="exportData()" style="flex:1;padding:12px;border-radius:12px;border:1px solid var(--border-bright);background:var(--yellow);color:#000;font-size:13px;font-weight:700;">Export Backup</button>
-   <button onclick="importData()" style="flex:1;padding:12px;border-radius:12px;border:1px solid var(--border-bright);background:var(--surface2);color:var(--text);font-size:13px;font-weight:600;">Restore Backup</button>
-  </div>
  </div>
 
  <!-- Hidden holders for compat -->
@@ -2087,6 +2048,16 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
      <span class="settings-toggle-thumb"></span>
     </label>
    </div>
+   <div class="settings-row">
+    <div class="settings-row-icon" style="background:rgba(255,107,0,0.14);">
+     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ff6b00" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a7 7 0 017 7c0 4-3 6-3 9H8c0-3-3-5-3-9a7 7 0 017-7z"/><line x1="8" y1="22" x2="16" y2="22"/><line x1="12" y1="22" x2="12" y2="18"/></svg>
+    </div>
+    <div class="settings-row-body">
+     <div class="settings-row-label">Haptic Feedback</div>
+     <div class="settings-row-sub" id="hapticStatusLabel">On</div>
+    </div>
+    <button class="toggle-sw on" id="hapticToggle" onclick="hapToggle()"></button>
+   </div>
   </div>
  </div>
  <div class="settings-section">
@@ -2114,9 +2085,27 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
   </div>
  </div>
  <div class="settings-section">
+  <div class="settings-section-title">REMINDERS</div>
+  <div class="settings-card">
+   <div class="settings-row">
+    <div class="settings-row-icon" style="background:rgba(0,200,150,0.12);">
+     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00c896" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+    </div>
+    <div class="settings-row-body">
+     <div class="settings-row-label">Daily Reminder</div>
+     <div class="settings-row-sub" id="reminderTimeDisplay">Not set</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;">
+     <input type="time" class="time-input" id="reminderTimeInput" onchange="saveReminderTime(this.value)" style="width:80px;"/>
+     <button class="toggle-sw off" id="reminderToggle" onclick="toggleReminder()"></button>
+    </div>
+   </div>
+  </div>
+ </div>
+ <div class="settings-section">
   <div class="settings-section-title">DATA</div>
   <div class="settings-card">
-   <div class="settings-row tappable" onclick="meExportData()">
+   <div class="settings-row tappable" onclick="exportData()">
     <div class="settings-row-icon" style="background:rgba(0,200,150,0.12);">
      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00c896" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
     </div>
@@ -2126,7 +2115,7 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
     </div>
     <div style="color:var(--muted);"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="7,5 13,10 7,15"/></svg></div>
    </div>
-   <div class="settings-row tappable" onclick="meImportData()">
+   <div class="settings-row tappable" onclick="importData()">
     <div class="settings-row-icon" style="background:rgba(255,107,0,0.14);">
      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ff6b00" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
     </div>
@@ -7041,6 +7030,15 @@ function renderSettings(){
  if(toggle)toggle.checked=darkMode;
  const nameEl=document.getElementById('settingsName');
  if(nameEl)nameEl.value=localStorage.getItem(ME_NAME_KEY)||'Dominic';
+ // Sync haptic state
+ const hapEl=document.getElementById('hapticToggle');
+ if(hapEl)hapEl.className='toggle-sw '+(hap.enabled?'on':'off');
+ const hapLbl=document.getElementById('hapticStatusLabel');
+ if(hapLbl)hapLbl.textContent=hap.enabled?'On':'Off';
+ // Sync reminder state
+ updateReminderUI();
+ const rtInput=document.getElementById('reminderTimeInput');
+ if(rtInput)rtInput.value=reminderTime;
 }
 
 function settingsToggleTheme(checked){
