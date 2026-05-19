@@ -3576,7 +3576,8 @@ function getTodaysWorkoutSummary(){
  const day=WEEKS[aW]&&WEEKS[aW].days[aD];
  if(!day)return null;
  const stats=calcWorkoutStats(aW,aD);
- return{label:day.label,type:day.type,exercises:stats.exercises,estMin:stats.estMin,done:dayProg(aW,aD)===1,isRest:day.type==='rest'};
+ const _tdStr=new Date().toISOString().split('T')[0];
+ return{label:day.label,type:day.type,exercises:stats.exercises,estMin:stats.estMin,done:getWDone(aW,aD)===_tdStr,isRest:day.type==='rest'};
 }
 
 function getNextPRTarget(){
@@ -3762,7 +3763,8 @@ function renderTodayCard(){
  const stats=calcWorkoutStats(aW,aD);
  const img=WORKOUT_IMGS&&WORKOUT_IMGS[day.type]?`<img class="today-card-img" src="${WORKOUT_IMGS[day.type]}" alt=""/>`:'';
  const dp=dayProg(aW,aD);
- const done=dp===1;
+ const _tcToday=new Date().toISOString().split('T')[0];
+ const done=getWDone(aW,aD)===_tcToday;
  const muscles=[...new Set(WEEKS[aW].days[aD].exercises.flatMap(ex=>MUSCLE_MAP[ex.name]||[]).map(m=>MUSCLE_NAMES[m]).filter(Boolean))].slice(0,4);
  el.innerHTML=`<div class="today-card">
   ${img?`<div style="position:relative">${img}<div class="today-card-overlay"></div><div class="today-card-badge">${done?'COMPLETED':'TODAY'}</div></div>`:''}
@@ -4097,7 +4099,8 @@ function renderHomeCarousel(){
  const c=ts.color;
  const stats=day?calcWorkoutStats(aW,aD):null;
  const dp=dayProg(aW,aD);
- const done=dp===1;
+ const _hcToday=new Date().toISOString().split('T')[0];
+ const done=getWDone(aW,aD)===_hcToday;
  const muscles=day?[...new Set(WEEKS[aW].days[aD].exercises.flatMap(ex=>MUSCLE_MAP[ex.name]||[]).map(m=>MUSCLE_NAMES[m]).filter(Boolean))].slice(0,3):[];
 
  // Card 1: Cinematic hero — Today's Workout
@@ -4230,9 +4233,13 @@ function renderWorkout(){
  const tot=day.exercises.length,done=day.exercises.filter((_,ei)=>gED(aW,aD,ei)).length;
  const pct=tot?Math.round(done/tot*100):0;
 
- // Auto-mark day complete with today's date (or backfill date)
- if(pct>=50 && !getWDone(aW,aD)){
-  setWDone(aW,aD,selectedWorkoutDate||new Date().toISOString().split('T')[0]);
+ // Auto-mark day complete with the target date (backfill date or today)
+ const _autoToday=new Date().toISOString().split('T')[0];
+ const _autoTarget=selectedWorkoutDate||_autoToday;
+ const _autoExisting=getWDone(aW,aD);
+ // Save if: not yet saved, OR backfill date overrides an existing different date
+ if(pct>=50 && (!_autoExisting||(selectedWorkoutDate&&_autoExisting!==selectedWorkoutDate))){
+  setWDone(aW,aD,_autoTarget);
  }
  const _bfBanner=document.getElementById('backfillBanner');
  if(_bfBanner){
