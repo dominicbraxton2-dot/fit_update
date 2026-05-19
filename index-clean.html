@@ -7035,11 +7035,18 @@ function fmCompleteSet(){
  const day=WEEKS[aW].days[aD];
  const ex=day.exercises[fmCurEx];
  if(!ex)return;
+ // Track last set data before advancing (Feature 3 & 4)
+ fmLastW=fmInputW;fmLastR=fmInputR;
  if(fmInputW>0)sW(aW,aD,fmCurEx,fmCurSet,fmInputW);
  sSD(aW,aD,fmCurEx,fmCurSet,true);
  const allDone=Array.from({length:ex.sets},(_,si)=>gSD(aW,aD,fmCurEx,si)).every(Boolean);
  if(allDone)sED(aW,aD,fmCurEx,true);
  const next=fmFindNextAfter(fmCurEx,fmCurSet);
+ // Feature 4: show badge if staying on same exercise
+ if(next&&next.ei===fmCurEx){
+  const badge=document.getElementById('fmLastDoneBadge');
+  if(badge){badge.style.display='block';setTimeout(()=>{badge.style.display='none';},2000);}
+ }
  if(next){fmCurEx=next.ei;fmCurSet=next.si;fmStartRest();}
  else{fmEndWorkout();}
 }
@@ -7191,6 +7198,102 @@ function fmEndWorkout(){
  renderHome();
 }
 
+// Feature 1: Progress panel toggle & render
+function fmToggleProgress(){
+ hap.lightTap();
+ const panel=document.getElementById('fmPanelProgress');
+ const gb=document.getElementById('fmGearBtn');
+ if(!panel)return;
+ const showing=panel.style.display==='flex';
+ if(showing){
+  panel.style.display='none';
+  if(gb)gb.textContent='⚙';
+  fmShowPanel(fmPanel);
+ }else{
+  // Hide all other panels
+  document.getElementById('fmPanelEx').style.display='none';
+  document.getElementById('fmPanelRest').style.display='none';
+  document.getElementById('fmPanelSum').style.display='none';
+  panel.style.display='flex';
+  if(gb)gb.textContent='✕';
+  fmRenderProgress();
+ }
+}
+function fmRenderProgress(){
+ const exs=WEEKS[aW].days[aD].exercises;
+ const list=document.getElementById('fmProgList');
+ if(!list||!exs)return;
+ list.innerHTML=exs.map((ex,ei)=>{
+  const done=gED(aW,aD,ei);
+  const active=ei===fmCurEx&&!done;
+  const numClass=done?'done':active?'active':'';
+  const itemClass=done?'fm-prog-item fm-prog-done':active?'fm-prog-item fm-prog-active':'fm-prog-item';
+  const numContent=done?'✓':(ei+1);
+  const meta=done?`${ex.sets} sets complete`:`${ex.sets} sets · ${ex.reps} reps`;
+  return `<div class="${itemClass}" onclick="fmJumpToEx(${ei})">
+   <div class="fm-prog-num ${numClass}">${numContent}</div>
+   <div class="fm-prog-info">
+    <div class="fm-prog-name">${ex.name}</div>
+    <div class="fm-prog-meta">${meta}</div>
+   </div>
+   <div class="fm-prog-chev">›</div>
+  </div>`;
+ }).join('');
+}
+function fmJumpToEx(ei){
+ hap.lightTap();
+ fmCurEx=ei;
+ // Find first undone set for this exercise
+ const ex=WEEKS[aW].days[aD].exercises[ei];
+ fmCurSet=0;
+ if(ex){
+  for(let si=0;si<ex.sets;si++){
+   if(!gSD(aW,aD,ei,si)){fmCurSet=si;break;}
+  }
+ }
+ // Close progress panel
+ const panel=document.getElementById('fmPanelProgress');
+ if(panel)panel.style.display='none';
+ const gb=document.getElementById('fmGearBtn');
+ if(gb)gb.textContent='⚙';
+ fmShowPanel('ex');
+ fmRenderEx();
+}
+
+// Feature 5: Face ID / Biometric Auth
+const FACE_ID_KEY='df7-faceid';
+function toggleFaceId(on){
+ localStorage.setItem(FACE_ID_KEY,on?'1':'0');
+ if(on)checkBiometricAvailable();
+}
+function checkBiometricAvailable(){
+ if(typeof Capacitor!=='undefined'&&Capacitor.isPluginAvailable&&Capacitor.isPluginAvailable('BiometricAuth')){
+  Capacitor.Plugins.BiometricAuth.checkBiometry().then(r=>{
+   if(!r.isAvailable){
+    localStorage.setItem(FACE_ID_KEY,'0');
+    const el=document.getElementById('settingFaceId');if(el)el.checked=false;
+    alert('Biometric auth not available on this device.');
+   }
+  }).catch(()=>{});
+ }
+}
+function tryBiometricAuth(onSuccess){
+ const enabled=localStorage.getItem(FACE_ID_KEY)==='1';
+ if(!enabled||typeof Capacitor==='undefined'||!Capacitor.isPluginAvailable||!Capacitor.isPluginAvailable('BiometricAuth')){
+  onSuccess();return;
+ }
+ Capacitor.Plugins.BiometricAuth.authenticate({reason:'Unlock Strength Identity',cancelTitle:'Cancel'}).then(onSuccess).catch(()=>{});
+}
+function initFaceIdSetting(){
+ const el=document.getElementById('settingFaceId');
+ if(el)el.checked=localStorage.getItem(FACE_ID_KEY)==='1';
+}
+document.addEventListener('visibilitychange',()=>{
+ if(document.visibilityState==='visible'&&localStorage.getItem(FACE_ID_KEY)==='1'){
+  tryBiometricAuth(()=>{});
+ }
+});
+
 // ── ME / PROFILE HUB ──
 const ME_NAME_KEY='df7-me-name';
 
@@ -7298,6 +7401,8 @@ function renderSettings(){
  updateReminderUI();
  const rtInput=document.getElementById('reminderTimeInput');
  if(rtInput)rtInput.value=reminderTime;
+ // Sync Face ID setting
+ initFaceIdSetting();
 }
 
 function settingsToggleTheme(checked){
