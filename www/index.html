@@ -4467,6 +4467,7 @@ function finishWorkout(){
   setWDone(aW,aD,_saveDate);
   selectedWorkoutDate=null;
   const _bfEl=document.getElementById('backfillBanner');if(_bfEl)_bfEl.style.display='none';
+  renderWeekStrip();
   // Log progression entries for all exercises with weight data
   const today2=_saveDate;
   day.exercises.forEach((ex,ei)=>{
@@ -4536,7 +4537,7 @@ function closeCompletion(){
  const o=document.getElementById('completionOverlay');
  if(!o)return;
  o.style.animation='overlayOut 0.2s ease both';
- setTimeout(()=>{o.style.display='none';o.style.animation='';},200);
+ setTimeout(()=>{o.style.display='none';o.style.animation='';renderWeekStrip();},200);
 }
 
 // ── REST TIMER (inline) ──
