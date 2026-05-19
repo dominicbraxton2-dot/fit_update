@@ -446,6 +446,10 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
 
 /* COMPLETE BANNER */
 .complete-banner{position:fixed;bottom:calc(88px + env(safe-area-inset-bottom));left:16px;right:16px;border-radius:18px;padding:14px 20px;font-size:15px;font-weight:700;letter-spacing:0.5px;box-shadow:0 12px 50px #00000080;display:none;z-index:100;background:linear-gradient(135deg,#ff6b00,#ff5200);color:#000;text-align:center;}
+/* BACKFILL BANNER */
+#backfillBanner{display:none;margin:10px 16px 0;background:#1a3a2a;border:1px solid #00c89666;border-radius:14px;padding:12px 16px;font-size:13px;color:#00c896;}
+#backfillBanner .bf-title{font-weight:700;font-size:14px;margin-bottom:4px;}
+#backfillBanner .bf-cancel{background:none;border:1px solid #00c89666;border-radius:8px;color:#00c896;font-size:12px;font-weight:600;padding:4px 12px;cursor:pointer;float:right;margin-top:-2px;}
 #home{overflow-y:auto;min-height:100vh;padding-bottom:env(safe-area-inset-bottom);}
 @keyframes pop{from{transform:scale(0.85);opacity:0}to{transform:scale(1);opacity:1}}
 
@@ -1362,6 +1366,11 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
    <div class="w-pct-num" id="pctNum">0%</div>
    <div class="w-pct-sub" id="pctFrac">0/0</div>
   </div>
+ </div>
+ <div id="backfillBanner">
+  <button class="bf-cancel" onclick="cancelBackfill()">Cancel</button>
+  <div class="bf-title" id="backfillBannerTitle">Logging for —</div>
+  <div>Workout will be saved to this date</div>
  </div>
  <div class="day-strip" id="dayStrip"></div>
  <div class="w-prog-bar"><div class="w-prog-fill" id="progFill"></div></div>
@@ -3163,6 +3172,7 @@ const TYPE={
 };
 const DAYS=["M","T","W","T","F","S","S"];
 let aW=0,aD=0,muscleMapMode='today';
+let selectedWorkoutDate=null;
 
 // ── INDEXEDDB STORAGE (persistent — Safari won't clear this) ──
 const DB_NAME='domfitplan',DB_VER=1,STORE='kv';
@@ -4191,9 +4201,19 @@ function renderWorkout(){
  const tot=day.exercises.length,done=day.exercises.filter((_,ei)=>gED(aW,aD,ei)).length;
  const pct=tot?Math.round(done/tot*100):0;
 
- // Auto-mark day complete with today's date
+ // Auto-mark day complete with today's date (or backfill date)
  if(pct>=50 && !getWDone(aW,aD)){
-  setWDone(aW,aD,new Date().toISOString().split('T')[0]);
+  setWDone(aW,aD,selectedWorkoutDate||new Date().toISOString().split('T')[0]);
+ }
+ const _bfBanner=document.getElementById('backfillBanner');
+ if(_bfBanner){
+  if(selectedWorkoutDate){
+   const _bfFmt=new Date(selectedWorkoutDate+'T12:00').toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
+   document.getElementById('backfillBannerTitle').textContent='Logging for '+_bfFmt;
+   _bfBanner.style.display='block';
+  } else {
+   _bfBanner.style.display='none';
+  }
  }
 
  const _ld=new Date();_ld.setHours(0,0,0,0);
@@ -4407,9 +4427,12 @@ function finishWorkout(){
   const day=WEEKS[aW].days[aD];
   const pct=dayProg(aW,aD);
   if(pct===0){return;}
-  setWDone(aW,aD,new Date().toISOString().split('T')[0]);
+  const _saveDate=selectedWorkoutDate||new Date().toISOString().split('T')[0];
+  setWDone(aW,aD,_saveDate);
+  selectedWorkoutDate=null;
+  const _bfEl=document.getElementById('backfillBanner');if(_bfEl)_bfEl.style.display='none';
   // Log progression entries for all exercises with weight data
-  const today2=new Date().toISOString().split('T')[0];
+  const today2=_saveDate;
   day.exercises.forEach((ex,ei)=>{
     let maxW=0;
     for(let si=0;si<ex.sets;si++){
@@ -5702,7 +5725,6 @@ function saveCalMarks(){try{localStorage.setItem(CAL_MARKS_KEY,JSON.stringify(ca
 
 let calMarkingDate=null;
 function openCalMarkSheet(dateStr,isAutoCompleted){
- if(isAutoCompleted)return;
  hap.lightTap();
  calMarkingDate=dateStr;
  const fmtDate=new Date(dateStr+'T12:00').toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
@@ -5710,20 +5732,35 @@ function openCalMarkSheet(dateStr,isAutoCompleted){
  if(!sheet){
   const bd=document.createElement('div');bd.className='cal-mark-backdrop';bd.id='calMarkBackdrop';bd.onclick=closeCalMarkSheet;document.body.appendChild(bd);
   sheet=document.createElement('div');sheet.className='cal-mark-sheet';sheet.id='calMarkSheet';
-  sheet.innerHTML=`<div class="cal-mark-title" id="calMarkSheetTitle">Mark Day</div>
-   <div class="cal-mark-date" id="calMarkSheetDate"></div>
-   <div class="cal-mark-opts">
-    <button class="cal-mark-btn" onclick="applyCalMark('completed')"><span class="cal-mark-dot" style="background:#00c896"></span>Completed</button>
-    <button class="cal-mark-btn" onclick="applyCalMark('missed')"><span class="cal-mark-dot" style="background:#ff3b30"></span>Missed</button>
-    <button class="cal-mark-btn" onclick="applyCalMark('planned')"><span class="cal-mark-dot" style="background:#ff6b00"></span>Planned</button>
-    <button class="cal-mark-btn" onclick="applyCalMark('rest')"><span class="cal-mark-dot" style="background:#4a4a52"></span>Rest Day</button>
-   </div>
-   <button class="cal-mark-cancel" onclick="applyCalMark(null)">Clear Mark</button>`;
   document.body.appendChild(sheet);
  }
- document.getElementById('calMarkSheetDate').textContent=fmtDate;
+ const logBtnLabel=isAutoCompleted?'Re-Log Workout For This Day':'Log Workout For This Day';
+ sheet.innerHTML=`<div class="cal-mark-title" id="calMarkSheetTitle">Mark Day</div>
+  <div class="cal-mark-date" id="calMarkSheetDate">${fmtDate}</div>
+  <button class="cal-mark-btn" style="background:#00c89620;border:1px solid #00c89655;color:#00c896;font-weight:700;margin-bottom:6px;" onclick="startBackfillWorkout('${dateStr}')">
+   <span class="cal-mark-dot" style="background:#00c896"></span>${logBtnLabel}
+  </button>
+  ${isAutoCompleted?'':`<div class="cal-mark-opts">
+   <button class="cal-mark-btn" onclick="applyCalMark('completed')"><span class="cal-mark-dot" style="background:#00c896"></span>Mark Completed</button>
+   <button class="cal-mark-btn" onclick="applyCalMark('missed')"><span class="cal-mark-dot" style="background:#ff3b30"></span>Missed</button>
+   <button class="cal-mark-btn" onclick="applyCalMark('planned')"><span class="cal-mark-dot" style="background:#ff6b00"></span>Planned</button>
+   <button class="cal-mark-btn" onclick="applyCalMark('rest')"><span class="cal-mark-dot" style="background:#4a4a52"></span>Rest Day</button>
+  </div>
+  <button class="cal-mark-cancel" onclick="applyCalMark(null)">Clear Mark</button>`}
+  <button class="cal-mark-cancel" onclick="closeCalMarkSheet()" style="margin-top:4px;">Cancel</button>`;
  document.getElementById('calMarkBackdrop').style.display='block';
  sheet.style.display='block';
+}
+function startBackfillWorkout(dateStr){
+ selectedWorkoutDate=dateStr;
+ closeCalMarkSheet();
+ navTo('workout');
+}
+function cancelBackfill(){
+ selectedWorkoutDate=null;
+ const bfEl=document.getElementById('backfillBanner');
+ if(bfEl)bfEl.style.display='none';
+ hap.selectionFeedback();
 }
 function closeCalMarkSheet(){
  const bd=document.getElementById('calMarkBackdrop'),sh=document.getElementById('calMarkSheet');
@@ -6894,8 +6931,11 @@ function fmEndWorkout(){
  clearInterval(fmRestInt);fmRestInt=null;
  const day=WEEKS[aW].days[aD];
  if(dayProg(aW,aD)===0){exitFocusModeToWorkout();return;}
- setWDone(aW,aD,new Date().toISOString().split('T')[0]);
- const today=new Date().toISOString().split('T')[0];
+ const _fmSaveDate=selectedWorkoutDate||new Date().toISOString().split('T')[0];
+ setWDone(aW,aD,_fmSaveDate);
+ selectedWorkoutDate=null;
+ const _fmBfEl=document.getElementById('backfillBanner');if(_fmBfEl)_fmBfEl.style.display='none';
+ const today=_fmSaveDate;
  day.exercises.forEach((ex,ei)=>{
   let maxW=0;
   for(let si=0;si<ex.sets;si++){const w=parseFloat(gW(aW,aD,ei,si));if(w>maxW)maxW=w;}
