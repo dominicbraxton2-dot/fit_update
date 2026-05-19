@@ -1155,6 +1155,63 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
 @keyframes btnPop{0%{transform:scale(1)}28%{transform:scale(0.93)}68%{transform:scale(1.05)}100%{transform:scale(1)}}
 .btn-pop-anim{animation:btnPop 0.25s cubic-bezier(0.34,1.56,0.64,1) both;}
 @media(prefers-reduced-motion:reduce){.set-row-pop,.rw-micro-inner,.pr-shimmer-anim,.streak-pill-pulse svg,.comp-glowing,.btn-pop-anim{animation:none!important;transition:none!important;}}
+/* ── ME SCREEN ── */
+.me-screen{padding-bottom:120px;}
+.me-hdr{display:flex;align-items:center;justify-content:space-between;padding:calc(env(safe-area-inset-top,16px) + 20px) 20px 0;}
+.me-hdr-title{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:2.5px;color:var(--text);}
+.me-hdr-btn{width:36px;height:36px;border-radius:10px;border:1px solid var(--border);background:none;display:flex;align-items:center;justify-content:center;color:var(--muted);cursor:pointer;transition:border-color 0.15s,color 0.15s;}
+.me-hdr-btn:active{background:rgba(255,255,255,0.05);}
+.me-avatar-wrap{display:flex;flex-direction:column;align-items:center;padding:28px 20px 0;}
+.me-avatar{width:84px;height:84px;border-radius:50%;background:linear-gradient(135deg,#ff6b00,#ff4500);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:40px;color:#fff;letter-spacing:1px;box-shadow:0 8px 32px rgba(255,107,0,0.3);}
+.me-greeting{font-size:20px;font-weight:800;color:var(--text);margin-top:12px;letter-spacing:-0.2px;}
+.me-stats-row{display:flex;gap:10px;padding:20px 16px 0;}
+.me-stat-card{flex:1;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:14px 8px;text-align:center;}
+.me-stat-val{font-family:'Bebas Neue',sans-serif;font-size:30px;color:#ff6b00;line-height:1;}
+.me-stat-lbl{font-size:9px;font-weight:700;letter-spacing:0.8px;color:var(--muted);text-transform:uppercase;margin-top:4px;}
+.me-section{padding:22px 16px 0;}
+.me-section-title{font-size:10px;font-weight:800;letter-spacing:1.5px;color:var(--muted);text-transform:uppercase;margin-bottom:10px;}
+.me-menu-card{background:var(--surface);border:1px solid var(--border);border-radius:18px;overflow:hidden;}
+.me-menu-item{display:flex;align-items:center;gap:14px;padding:15px 16px;cursor:pointer;transition:background 0.12s;position:relative;}
+.me-menu-item:not(:last-child)::after{content:'';position:absolute;bottom:0;left:54px;right:0;height:1px;background:var(--border);}
+.me-menu-item:active{background:rgba(255,255,255,0.04);}
+.me-menu-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.me-menu-body{flex:1;min-width:0;}
+.me-menu-name{font-size:15px;font-weight:700;color:var(--text);}
+.me-menu-desc{font-size:12px;color:var(--muted);margin-top:1px;}
+.me-menu-chevron{color:var(--muted);flex-shrink:0;}
+.me-badge-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+.me-badge{display:flex;flex-direction:column;align-items:center;gap:6px;padding:12px 4px;background:var(--surface);border:1px solid var(--border);border-radius:14px;transition:border-color 0.2s;}
+.me-badge.earned{border-color:rgba(255,107,0,0.3);}
+.me-badge-icon{width:32px;height:32px;display:flex;align-items:center;justify-content:center;}
+.me-badge-icon svg{width:26px;height:26px;}
+.me-badge-name{font-size:8px;font-weight:700;color:var(--muted);text-align:center;letter-spacing:0.2px;line-height:1.3;}
+.me-badge.locked .me-badge-icon svg{filter:grayscale(1) opacity(0.2);}
+.me-badge.locked .me-badge-name{opacity:0.35;}
+/* ── SETTINGS SCREEN ── */
+.settings-screen{padding-bottom:120px;}
+.settings-hdr{display:flex;align-items:center;gap:12px;padding:calc(env(safe-area-inset-top,16px) + 20px) 16px 16px;}
+.settings-back{width:36px;height:36px;border-radius:10px;border:1px solid var(--border);background:none;display:flex;align-items:center;justify-content:center;color:var(--text);cursor:pointer;flex-shrink:0;}
+.settings-title{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:2px;color:var(--text);}
+.settings-section{padding:8px 16px 0;}
+.settings-section-title{font-size:10px;font-weight:800;letter-spacing:1.5px;color:var(--muted);text-transform:uppercase;margin-bottom:8px;}
+.settings-card{background:var(--surface);border:1px solid var(--border);border-radius:18px;overflow:hidden;}
+.settings-row{display:flex;align-items:center;gap:14px;padding:15px 16px;position:relative;}
+.settings-row:not(:last-child)::after{content:'';position:absolute;bottom:0;left:54px;right:0;height:1px;background:var(--border);}
+.settings-row-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.settings-row-body{flex:1;min-width:0;}
+.settings-row-label{font-size:15px;font-weight:700;color:var(--text);}
+.settings-row-sub{font-size:12px;color:var(--muted);margin-top:1px;}
+.settings-toggle{position:relative;display:flex;align-items:center;flex-shrink:0;}
+.settings-toggle input{position:absolute;opacity:0;width:0;height:0;}
+.settings-toggle-track{display:block;width:44px;height:26px;border-radius:13px;background:var(--border);transition:background 0.22s;cursor:pointer;}
+.settings-toggle input:checked+.settings-toggle-track{background:#ff6b00;}
+.settings-toggle-thumb{position:absolute;left:3px;top:50%;transform:translateY(-50%);width:20px;height:20px;border-radius:50%;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,0.3);transition:left 0.22s;pointer-events:none;}
+.settings-toggle input:checked~.settings-toggle-thumb{left:21px;}
+.settings-name-input{background:none;border:none;color:#ff6b00;font-size:14px;font-weight:700;width:120px;text-align:right;padding:0;outline:none;font-family:inherit;}
+.settings-name-input::placeholder{color:var(--muted);}
+.settings-row.tappable{cursor:pointer;transition:background 0.12s;}
+.settings-row.tappable:active{background:rgba(255,255,255,0.04);}
+.settings-footer{padding:28px 16px 0;text-align:center;font-size:11px;color:var(--muted);line-height:1.7;}
 @keyframes hapScale{0%{transform:scale(1)}35%{transform:scale(1.07)}65%{transform:scale(0.96)}100%{transform:scale(1)}}
 .hap-pulse{animation:hapGlow 0.45s ease both;}
 .hap-scale{animation:hapScale 0.3s cubic-bezier(0.34,1.56,0.64,1) both;}
@@ -1859,6 +1916,162 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
  </div>
 </div>
 
+<!-- ME (Profile Hub) -->
+<div id="me" class="screen me-screen">
+ <div class="me-hdr">
+  <div class="me-hdr-title">ME</div>
+  <button class="me-hdr-btn" onclick="navTo('settings')" title="Settings">
+   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+  </button>
+ </div>
+ <div class="me-avatar-wrap">
+  <div class="me-avatar" id="meAvatar">D</div>
+  <div class="me-greeting" id="meGreeting">Welcome, Dominic</div>
+ </div>
+ <div class="me-stats-row">
+  <div class="me-stat-card">
+   <div class="me-stat-val" id="mePRCount">0</div>
+   <div class="me-stat-lbl">Records</div>
+  </div>
+  <div class="me-stat-card">
+   <div class="me-stat-val" id="meCalToday">—</div>
+   <div class="me-stat-lbl">Calories</div>
+  </div>
+  <div class="me-stat-card">
+   <div class="me-stat-val" id="meStreakVal">0</div>
+   <div class="me-stat-lbl">Streak</div>
+  </div>
+ </div>
+ <div class="me-section">
+  <div class="me-section-title">PROFILE</div>
+  <div class="me-menu-card">
+   <div class="me-menu-item" onclick="navTo('settings')">
+    <div class="me-menu-icon" style="background:rgba(255,107,0,0.14);">
+     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ff6b00" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+    </div>
+    <div class="me-menu-body">
+     <div class="me-menu-name">Settings</div>
+     <div class="me-menu-desc">Theme, name, and preferences</div>
+    </div>
+    <div class="me-menu-chevron"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="7,5 13,10 7,15"/></svg></div>
+   </div>
+   <div class="me-menu-item" onclick="openGoalsEditor()">
+    <div class="me-menu-icon" style="background:rgba(0,200,150,0.12);">
+     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00c896" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    </div>
+    <div class="me-menu-body">
+     <div class="me-menu-name">My Profile & Goals</div>
+     <div class="me-menu-desc">Daily calorie and macro targets</div>
+    </div>
+    <div class="me-menu-chevron"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="7,5 13,10 7,15"/></svg></div>
+   </div>
+   <div class="me-menu-item" onclick="navTo('history')">
+    <div class="me-menu-icon" style="background:rgba(255,107,0,0.14);">
+     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ff6b00" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+    </div>
+    <div class="me-menu-body">
+     <div class="me-menu-name">My Workouts</div>
+     <div class="me-menu-desc">Session history and completed days</div>
+    </div>
+    <div class="me-menu-chevron"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="7,5 13,10 7,15"/></svg></div>
+   </div>
+   <div class="me-menu-item" onclick="meBackupRestore()">
+    <div class="me-menu-icon" style="background:rgba(0,200,150,0.12);">
+     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00c896" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg>
+    </div>
+    <div class="me-menu-body">
+     <div class="me-menu-name">Backup & Restore</div>
+     <div class="me-menu-desc">Export or import all your data</div>
+    </div>
+    <div class="me-menu-chevron"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="7,5 13,10 7,15"/></svg></div>
+   </div>
+  </div>
+ </div>
+ <div class="me-section">
+  <div class="me-section-title">AWARDS</div>
+  <div class="me-badge-grid" id="meBadgeGrid"></div>
+ </div>
+</div>
+
+<!-- SETTINGS -->
+<div id="settings" class="screen settings-screen">
+ <div class="settings-hdr">
+  <button class="settings-back" onclick="navTo('me')">
+   <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="13,5 7,10 13,15"/></svg>
+  </button>
+  <div class="settings-title">SETTINGS</div>
+ </div>
+ <div class="settings-section">
+  <div class="settings-section-title">APPEARANCE</div>
+  <div class="settings-card">
+   <div class="settings-row">
+    <div class="settings-row-icon" style="background:rgba(255,107,0,0.14);">
+     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ff6b00" stroke-width="1.5" stroke-linecap="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </div>
+    <div class="settings-row-body">
+     <div class="settings-row-label">Dark Mode</div>
+     <div class="settings-row-sub">Cinematic dark premium theme</div>
+    </div>
+    <label class="settings-toggle">
+     <input type="checkbox" id="settingsDarkToggle" onchange="settingsToggleTheme(this.checked)">
+     <span class="settings-toggle-track"></span>
+     <span class="settings-toggle-thumb"></span>
+    </label>
+   </div>
+  </div>
+ </div>
+ <div class="settings-section">
+  <div class="settings-section-title">PROFILE</div>
+  <div class="settings-card">
+   <div class="settings-row">
+    <div class="settings-row-icon" style="background:rgba(0,200,150,0.12);">
+     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00c896" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    </div>
+    <div class="settings-row-body">
+     <div class="settings-row-label">Display Name</div>
+    </div>
+    <input class="settings-name-input" id="settingsName" type="text" placeholder="Your name" maxlength="20" oninput="settingsSaveName(this.value)"/>
+   </div>
+   <div class="settings-row tappable" onclick="openGoalsEditor()">
+    <div class="settings-row-icon" style="background:rgba(0,200,150,0.12);">
+     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00c896" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+    </div>
+    <div class="settings-row-body">
+     <div class="settings-row-label">Nutrition Goals</div>
+     <div class="settings-row-sub">Calories and macro targets</div>
+    </div>
+    <div style="color:var(--muted);"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="7,5 13,10 7,15"/></svg></div>
+   </div>
+  </div>
+ </div>
+ <div class="settings-section">
+  <div class="settings-section-title">DATA</div>
+  <div class="settings-card">
+   <div class="settings-row tappable" onclick="meExportData()">
+    <div class="settings-row-icon" style="background:rgba(0,200,150,0.12);">
+     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00c896" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+    </div>
+    <div class="settings-row-body">
+     <div class="settings-row-label">Export Backup</div>
+     <div class="settings-row-sub">Download all app data as JSON</div>
+    </div>
+    <div style="color:var(--muted);"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="7,5 13,10 7,15"/></svg></div>
+   </div>
+   <div class="settings-row tappable" onclick="meImportData()">
+    <div class="settings-row-icon" style="background:rgba(255,107,0,0.14);">
+     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ff6b00" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+    </div>
+    <div class="settings-row-body">
+     <div class="settings-row-label">Import Backup</div>
+     <div class="settings-row-sub">Restore from a saved JSON file</div>
+    </div>
+    <div style="color:var(--muted);"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="7,5 13,10 7,15"/></svg></div>
+   </div>
+  </div>
+ </div>
+ <div class="settings-footer">Dominic's Fitness App · Offline · No AI · No tracking</div>
+</div>
+
 <!-- NUTRITION SHEETS (shared backdrop + two bottom sheets) -->
 <div class="nutr-backdrop" id="nutrBackdrop" onclick="closeNutrSheet()"></div>
 <div class="nutr-sheet" id="nutrFoodSheet">
@@ -1938,6 +2151,7 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
  <button class="nav-btn" id="nav-prs" onclick="navTo('prs')"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8M5 3c0 5 2.5 7.5 5 7.5S15 8 15 3"/><path d="M4 3H2v2c0 1.5 1 3 3 3.5"/><path d="M16 3h2v2c0 1.5-1 3-3 3.5"/><line x1="10" y1="10.5" x2="10" y2="14"/><path d="M7 14h6"/><rect x="6.5" y="14" width="7" height="2.5" rx="1"/></svg></span>PRs</button>
  <button class="nav-btn" id="nav-timer" onclick="navTo('timer')"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="11" r="7.5"/><polyline points="10,7.5 10,11 12.5,13"/><line x1="8.5" y1="2" x2="11.5" y2="2"/></svg></span>Timer</button>
  <button class="nav-btn" id="nav-more" onclick="navTo('more')"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="4" cy="10" r="1.5" fill="currentColor"/><circle cx="10" cy="10" r="1.5" fill="currentColor"/><circle cx="16" cy="10" r="1.5" fill="currentColor"/></svg></span>More</button>
+ <button class="nav-btn" id="nav-me" onclick="navTo('me')"><span class="nav-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 10a4 4 0 100-8 4 4 0 000 8z"/><path d="M2 18c0-3.5 3.6-6 8-6s8 2.5 8 6"/></svg></span>Me</button>
 </div>
 
 <div id="completionOverlay" style="display:none;position:fixed;inset:0;background:#00000095;backdrop-filter:blur(12px);z-index:500;align-items:center;justify-content:center;padding:20px;" onclick="closeCompletion()"></div>
@@ -3109,6 +3323,8 @@ function navTo(id){
  if(id==='achievements')renderAchievements();
  if(id==='recovery')renderRecovery();
  if(id==='more'){}
+ if(id==='me')renderMe();
+ if(id==='settings')renderSettings();
  window.scrollTo(0,0);
 }
 function goHome(){navTo('home');}
@@ -6656,6 +6872,121 @@ function fmEndWorkout(){
  const newAch=checkAchievements();
  if(newAch.length)setTimeout(()=>newAch.forEach((id,i)=>setTimeout(()=>showAchievementToast(id),i*1200)),2000);
  renderHome();
+}
+
+// ── ME / PROFILE HUB ──
+const ME_NAME_KEY='df7-me-name';
+
+function renderMe(){
+ const name=localStorage.getItem(ME_NAME_KEY)||'Dominic';
+ // Avatar initial
+ const av=document.getElementById('meAvatar');
+ if(av)av.textContent=(name[0]||'D').toUpperCase();
+ // Greeting
+ const gr=document.getElementById('meGreeting');
+ if(gr)gr.textContent='Welcome, '+name;
+ // PR count — from memCache
+ const prCount=Object.keys(memCache).filter(k=>k.startsWith('df7-pr-')&&parseFloat(memCache[k])>0).length;
+ const prEl=document.getElementById('mePRCount');
+ if(prEl)prEl.textContent=prCount;
+ // Calories today from nutrition log
+ const today=new Date();
+ const todayStr=`${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
+ const todayLog=nutrGetLog(todayStr);
+ const calToday=todayLog.reduce((s,e)=>s+(+e.calories||0),0);
+ const calEl=document.getElementById('meCalToday');
+ if(calEl)calEl.textContent=calToday>0?calToday.toLocaleString():'—';
+ // Streak
+ const streakEl=document.getElementById('meStreakVal');
+ if(streakEl)streakEl.textContent=getCurrentStreak()||0;
+ // Badges
+ meBuildBadges();
+}
+
+function meBuildBadges(){
+ const el=document.getElementById('meBadgeGrid');
+ if(!el)return;
+ loadAchievements();
+ checkAchievements();
+ el.innerHTML=ACH_DEFS.map(a=>{
+  const earned=!!achUnlocked[a.id];
+  return `<div class="me-badge${earned?' earned':' locked'}" title="${a.name}">
+   <div class="me-badge-icon">${a.icon}</div>
+   <div class="me-badge-name">${a.name}</div>
+  </div>`;
+ }).join('');
+}
+
+function meBackupRestore(){
+ // Show a small bottom-sheet style choice
+ const choice=confirm('Tap OK to EXPORT your data (download JSON).\nTap Cancel to IMPORT (choose a file).');
+ if(choice){meExportData();}else{meImportData();}
+}
+
+function meExportData(){
+ const data={};
+ // Grab all app keys from memCache (IndexedDB-backed) and localStorage (direct keys)
+ Object.keys(memCache).forEach(k=>{data[k]=memCache[k];});
+ // Also include localStorage-only keys (nutrition, achievements, etc.)
+ for(let i=0;i<localStorage.length;i++){
+  const k=localStorage.key(i);
+  if(k&&!data[k])data[k]=localStorage.getItem(k);
+ }
+ const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+ const url=URL.createObjectURL(blob);
+ const a=document.createElement('a');
+ a.href=url;
+ a.download='fitness-backup-'+new Date().toISOString().split('T')[0]+'.json';
+ document.body.appendChild(a);a.click();document.body.removeChild(a);
+ URL.revokeObjectURL(url);
+ hap.successFeedback();
+}
+
+function meImportData(){
+ const input=document.createElement('input');
+ input.type='file';input.accept='.json';
+ input.onchange=e=>{
+  const file=e.target.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=ev=>{
+   try{
+    const data=JSON.parse(ev.target.result);
+    let count=0;
+    Object.entries(data).forEach(([k,v])=>{
+     localStorage.setItem(k,v);
+     memCache[k]=v;
+     count++;
+    });
+    hap.successFeedback();
+    alert('Restored '+count+' items. Reload the page for full effect.');
+   }catch(err){alert('Invalid backup file — could not restore.');}
+  };
+  reader.readAsText(file);
+ };
+ input.click();
+}
+
+// ── SETTINGS ──
+function renderSettings(){
+ const toggle=document.getElementById('settingsDarkToggle');
+ if(toggle)toggle.checked=darkMode;
+ const nameEl=document.getElementById('settingsName');
+ if(nameEl)nameEl.value=localStorage.getItem(ME_NAME_KEY)||'Dominic';
+}
+
+function settingsToggleTheme(checked){
+ darkMode=checked;
+ applyTheme();
+}
+
+function settingsSaveName(val){
+ const name=val.trim()||'Dominic';
+ localStorage.setItem(ME_NAME_KEY,name);
+ // Live-update Me screen if visible
+ const av=document.getElementById('meAvatar');
+ if(av)av.textContent=(name[0]||'D').toUpperCase();
+ const gr=document.getElementById('meGreeting');
+ if(gr)gr.textContent='Welcome, '+name;
 }
 
 // ── INIT — boot from IndexedDB then render ──
