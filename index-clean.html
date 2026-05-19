@@ -952,6 +952,17 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
 .cal-mark-btn:active{transform:scale(0.95);}
 .cal-mark-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
 .cal-mark-cancel{width:100%;padding:14px;border-radius:14px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:13px;font-weight:600;cursor:pointer;}
+.wp-list{display:flex;flex-direction:column;gap:8px;margin-bottom:4px;max-height:58vh;overflow-y:auto;}
+.wp-item{display:flex;align-items:center;gap:10px;padding:13px 12px;border-radius:14px;border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:13px;font-weight:700;cursor:pointer;text-align:left;width:100%;transition:all 0.15s;}
+.wp-item:active{transform:scale(0.97);}
+.wp-item-logged{border-color:#00c89655;background:#00c89610;}
+.wp-item-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+.wp-item-icon{font-size:18px;flex-shrink:0;line-height:1;}
+.wp-item-info{flex:1;display:flex;flex-direction:column;gap:2px;min-width:0;}
+.wp-item-label{font-size:13px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.wp-item-meta{font-size:11px;font-weight:500;color:var(--muted);}
+.wp-item-arrow{font-size:18px;color:var(--muted);flex-shrink:0;}
+.wp-logged-badge{font-size:10px;font-weight:700;color:#00c896;background:#00c89620;border-radius:6px;padding:1px 6px;margin-left:4px;vertical-align:middle;}
 
 /* ── ACHIEVEMENTS ── */
 .ach-screen{padding-top:env(safe-area-inset-top);padding-bottom:100px;}
@@ -5789,9 +5800,49 @@ function openCalMarkSheet(dateStr,isAutoCompleted){
  sheet.style.display='block';
 }
 function startBackfillWorkout(dateStr){
+ showWorkoutPicker(dateStr);
+}
+function showWorkoutPicker(dateStr){
+ const sheet=document.getElementById('calMarkSheet');
+ if(!sheet)return;
+ hap.selectionFeedback();
+ const fmtDate=new Date(dateStr+'T12:00').toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
+ // find which workout (if any) is already logged for this date
+ let existingWi=-1,existingDi=-1;
+ for(let wi=0;wi<WEEKS.length;wi++){
+  for(let di=0;di<WEEKS[wi].days.length;di++){
+   if(getWDone(wi,di)===dateStr){existingWi=wi;existingDi=di;}
+  }
+ }
+ // build deduplicated list from current week's days
+ const seen=new Set();
+ let listHtml='';
+ WEEKS[aW].days.forEach((day,di)=>{
+  if(seen.has(day.label))return;
+  seen.add(day.label);
+  const ts=TYPE[day.type]||TYPE.rest;
+  const isLogged=(existingWi>=0&&WEEKS[existingWi].days[existingDi].label===day.label);
+  const exCount=day.type==='rest'?'Recovery day':`${day.exercises.length} exercises`;
+  listHtml+=`<button class="wp-item${isLogged?' wp-item-logged':''}" onclick="pickWorkoutForBackfill(${aW},${di},'${dateStr}')">
+   <span class="wp-item-dot" style="background:${ts.color}"></span>
+   <span class="wp-item-icon">${day.icon||''}</span>
+   <span class="wp-item-info">
+    <span class="wp-item-label">${day.label}${isLogged?'<span class="wp-logged-badge">Logged ✓</span>':''}</span>
+    <span class="wp-item-meta">${exCount}${isLogged?' · Tap to re-log':''}</span>
+   </span>
+   <span class="wp-item-arrow">›</span>
+  </button>`;
+ });
+ sheet.innerHTML=`<div class="cal-mark-title">Select Workout</div>
+  <div class="cal-mark-date">${fmtDate}</div>
+  <div class="wp-list">${listHtml}</div>
+  <button class="cal-mark-cancel" onclick="closeCalMarkSheet()" style="margin-top:8px;">Cancel</button>`;
+}
+function pickWorkoutForBackfill(wi,di,dateStr){
+ aW=wi;aD=di;
  selectedWorkoutDate=dateStr;
  closeCalMarkSheet();
- navTo('workout');
+ openFocusMode();
 }
 function cancelBackfill(){
  selectedWorkoutDate=null;
