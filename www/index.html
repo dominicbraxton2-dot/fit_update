@@ -6835,25 +6835,39 @@ function fmRenderEx(){
  const day=WEEKS[aW].days[aD];
  const ex=day.exercises[fmCurEx];
  if(!ex)return;
- document.getElementById('fmWkLabel').textContent=`WEEK ${aW+1} · ${day.label.toUpperCase()}`;
- // Progress ring
+ document.getElementById('fmWkLabel').textContent=`${day.label.toUpperCase()} · WEEK ${aW+1}`;
+ // Progress ring (% complete)
  const total=day.exercises.length;
  const done=day.exercises.filter((_,ei)=>gED(aW,aD,ei)).length;
  const circ=263.9;
- const offset=circ*(1-(total>0?done/total:0));
+ const pct=total>0?Math.round(done/total*100):0;
+ const offset=circ*(1-pct/100);
  const rf=document.getElementById('fmRingFill');
  if(rf){rf.style.strokeDasharray=circ;rf.style.strokeDashoffset=offset.toFixed(1);}
- document.getElementById('fmRingNum').textContent=`${done}/${total}`;
+ document.getElementById('fmRingNum').textContent=pct+'%';
+ // Exercise/set progress in header
+ const exProg=document.getElementById('fmExProgress');
+ if(exProg)exProg.textContent=`${fmCurEx+1}/${total}`;
+ const setProg=document.getElementById('fmSetProgress');
+ if(setProg)setProg.textContent=`${fmCurSet+1}/${ex.sets}`;
  // Exercise info
  document.getElementById('fmExName').textContent=ex.name;
- const muscles=[...new Set((MUSCLE_MAP[ex.name]||[]).map(m=>MUSCLE_NAMES[m]).filter(Boolean))].slice(0,2).join(', ');
- document.getElementById('fmExMeta').textContent=`${muscles||'Compound'} · ${ex.sets} sets × ${ex.reps} reps`;
- document.getElementById('fmSetBadge').textContent=`SET ${fmCurSet+1} OF ${ex.sets}`;
+ const muscles=[...new Set((MUSCLE_MAP[ex.name]||[]).map(m=>MUSCLE_NAMES[m]).filter(Boolean))].slice(0,2).join(' · ');
+ document.getElementById('fmExMeta').textContent=muscles||'Compound Movement';
+ // Specs
+ const setsEl=document.getElementById('fmExSetsNum');
+ if(setsEl)setsEl.textContent=ex.sets;
+ const repsEl=document.getElementById('fmExRepsNum');
+ if(repsEl)repsEl.textContent=ex.reps;
+ // Prev best
  const pr=getPR(ex.name);
+ const pbSpec=document.getElementById('fmPrevBestSpec');
+ const pbNum=document.getElementById('fmPrevBestNum');
+ if(pr>0&&pbSpec&&pbNum){pbNum.textContent=pr+' lbs';pbSpec.style.display='block';}
+ else if(pbSpec){pbSpec.style.display='none';}
+ document.getElementById('fmSetBadge').textContent=`SET ${fmCurSet+1} OF ${ex.sets}`;
+ // Weight input — pre-fill from saved data or PR
  const lastW=gW(aW,aD,fmCurEx,fmCurSet);
- const pb=document.getElementById('fmPrevBest');
- pb.textContent=pr>0?`PR: ${pr} lbs`:lastW?`Last: ${lastW} lbs`:'';
- // Weight input
  if(lastW&&parseFloat(lastW)>0){fmInputW=parseFloat(lastW);}
  else if(pr>0){fmInputW=pr;}
  else{
@@ -6903,22 +6917,33 @@ function fmUpdateRestRing(){
  if(el){el.style.strokeDasharray=circ;el.style.strokeDashoffset=(circ*(1-pct)).toFixed(1);}
 }
 function fmUpdateRestUI(){
- const t=document.getElementById('fmRRTime');if(t)t.textContent=fmRestSec;
- const pb=document.getElementById('fmRestPauseBtn');if(pb)pb.textContent=fmRestPaused?'RESUME':'PAUSE';
+ const m=Math.floor(fmRestSec/60),s=fmRestSec%60;
+ const t=document.getElementById('fmRRTime');
+ if(t)t.textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+ const pb=document.getElementById('fmRestPauseBtn');
+ if(pb)pb.textContent=fmRestPaused?'RESUME':'PAUSE';
  document.querySelectorAll('.fm-preset-btn').forEach(btn=>{
-  const s=parseInt(btn.textContent);btn.classList.toggle('active',s===fmRestTotal);
+  const s2=parseInt(btn.textContent);
+  btn.classList.toggle('active',s2===fmRestTotal);
  });
 }
 function fmUpdateNextCard(){
  const day=WEEKS[aW].days[aD];
  const ex=day.exercises[fmCurEx];
+ const nextSetEl=document.getElementById('fmNextSetNum');
+ const nextWtEl=document.getElementById('fmNextWeightVal');
  if(ex){
   document.getElementById('fmNextName').textContent=ex.name;
-  const muscles=[...new Set((MUSCLE_MAP[ex.name]||[]).map(m=>MUSCLE_NAMES[m]).filter(Boolean))].slice(0,2).join(', ');
-  document.getElementById('fmNextMeta').textContent=`Set ${fmCurSet+1} · ${muscles||''}`;
+  const muscles=[...new Set((MUSCLE_MAP[ex.name]||[]).map(m=>MUSCLE_NAMES[m]).filter(Boolean))].slice(0,2).join(' · ');
+  document.getElementById('fmNextMeta').textContent=`${ex.sets} SETS · ${ex.reps} REPS${muscles?' · '+muscles:''}`;
+  if(nextSetEl)nextSetEl.textContent=`${fmCurSet+1}/${ex.sets}`;
+  const nw=gW(aW,aD,fmCurEx,fmCurSet);
+  if(nextWtEl)nextWtEl.textContent=nw&&parseFloat(nw)>0?parseFloat(nw)+' LBS':'BW';
  }else{
   document.getElementById('fmNextName').textContent='Workout Complete';
-  document.getElementById('fmNextMeta').textContent='';
+  document.getElementById('fmNextMeta').textContent='All sets finished';
+  if(nextSetEl)nextSetEl.textContent='—';
+  if(nextWtEl)nextWtEl.textContent='—';
  }
 }
 function fmTogglePauseRest(){hap.lightTap();fmRestPaused=!fmRestPaused;fmUpdateRestUI();}
@@ -6942,6 +6967,12 @@ function fmSetRest(s){
    setTimeout(()=>{fmShowPanel('ex');fmRenderEx();},600);
   }else{fmUpdateRestRing();fmUpdateRestUI();}
  },1000);
+}
+function fmPauseSession(){
+ hap.lightTap();
+ clearInterval(fmRestInt);fmRestInt=null;fmActive=false;
+ document.getElementById('focusMode').style.display='none';
+ navTo('workout');renderWorkout();
 }
 function fmPrevEx(){
  hap.lightTap();
@@ -6984,17 +7015,26 @@ function fmEndWorkout(){
  const duration=Math.max(1,Math.round((Date.now()-fmSessionStart)/60000));
  const exDone=day.exercises.filter((_,ei)=>gED(aW,aD,ei)).length;
  hap.successFeedback();
+ const streak=getCurrentStreak();
+ const estCal=Math.round(totalSets*2.5*(day.type==='legs'?11:day.type==='cardio'?10:9));
+ const mm=Math.floor(duration/60),ss=duration%60;
+ const durStr=mm>0?`${mm}h ${ss}m`:`${duration}m`;
  document.getElementById('fmSumSub').textContent=`${day.label} · Week ${aW+1}`;
  document.getElementById('fmSumStats').innerHTML=`
-  <div class="fm-sum-stat"><div class="fm-sum-stat-num">${duration}m</div><div class="fm-sum-stat-lbl">DURATION</div></div>
-  <div class="fm-sum-stat"><div class="fm-sum-stat-num">${exDone}</div><div class="fm-sum-stat-lbl">EXERCISES</div></div>
-  <div class="fm-sum-stat"><div class="fm-sum-stat-num">${totalSets}</div><div class="fm-sum-stat-lbl">SETS</div></div>
-  <div class="fm-sum-stat"><div class="fm-sum-stat-num">${totalLbs>999?Math.round(totalLbs/1000)+'k':totalLbs}</div><div class="fm-sum-stat-lbl">VOLUME</div></div>`;
+  <div class="fm-sum-stat"><div class="fm-sum-stat-icon">⏱</div><div class="fm-sum-stat-num">${durStr}</div><div class="fm-sum-stat-lbl">DURATION</div></div>
+  <div class="fm-sum-stat"><div class="fm-sum-stat-icon">⚡</div><div class="fm-sum-stat-num">${exDone}</div><div class="fm-sum-stat-lbl">EXERCISES</div></div>
+  <div class="fm-sum-stat"><div class="fm-sum-stat-icon">🏋</div><div class="fm-sum-stat-num">${totalSets}</div><div class="fm-sum-stat-lbl">TOTAL SETS</div></div>
+  <div class="fm-sum-stat"><div class="fm-sum-stat-icon">🔥</div><div class="fm-sum-stat-num">~${estCal}</div><div class="fm-sum-stat-lbl">EST. CALORIES</div></div>`;
  const prsEl=document.getElementById('fmSumPrs');
- if(prsHit.length){
+ if(prsHit.length>0&&prsEl){
   prsEl.style.display='block';
-  prsEl.innerHTML=`<div class="fm-sum-pr-title">🏆 NEW PRs HIT</div>${prsHit.map(n=>`<div class="fm-sum-pr-item">${n}</div>`).join('')}`;
- }else{prsEl.style.display='none';}
+  prsEl.innerHTML=`<div class="fm-sum-pr-header"><div class="fm-sum-pr-title">&#127942; PRs ACHIEVED</div><div class="fm-sum-pr-count">${prsHit.length}</div></div>${prsHit.map(n=>`<div class="fm-sum-pr-item"><div class="fm-sum-pr-name">${n}</div><div class="fm-sum-pr-badge">NEW PR</div></div>`).join('')}`;
+ }else if(prsEl){prsEl.style.display='none';}
+ const streakEl=document.getElementById('fmSumStreak');
+ if(streakEl){
+  if(streak>1){streakEl.style.display='block';streakEl.textContent=`🔥 ${streak}-SESSION STREAK`;}
+  else{streakEl.style.display='none';}
+ }
  fmShowPanel('sum');
  const newAch=checkAchievements();
  if(newAch.length)setTimeout(()=>newAch.forEach((id,i)=>setTimeout(()=>showAchievementToast(id),i*1200)),2000);
@@ -7190,34 +7230,64 @@ boot();
 
 <!-- FOCUS WORKOUT MODE -->
 <div id="focusMode" class="fm-overlay" style="display:none;">
+ <!-- Header -->
  <div class="fm-hdr">
-  <button class="fm-close-btn" onclick="exitFocusModeToWorkout()">✕ EXIT</button>
-  <div class="fm-wk-label" id="fmWkLabel">WEEK 1</div>
-  <div class="fm-mode-badge">FOCUS MODE</div>
+  <div class="fm-hdr-top">
+   <button class="fm-back-btn" onclick="exitFocusModeToWorkout()" aria-label="Back">&#8592;</button>
+   <div class="fm-hdr-center">
+    <div class="fm-wk-label" id="fmWkLabel">PUSH DAY</div>
+    <div class="fm-mode-badge">FOCUS MODE</div>
+   </div>
+   <button class="fm-settings-btn" onclick="closeFocusModeViewWorkout()" aria-label="Settings">&#9881;</button>
+  </div>
+  <div class="fm-progress-strip">
+   <div class="fm-hdr-stat">
+    <div class="fm-hdr-stat-num" id="fmExProgress">1/1</div>
+    <div class="fm-hdr-stat-lbl">EXERCISE</div>
+   </div>
+   <div class="fm-ring-wrap">
+    <svg class="fm-ring" viewBox="0 0 100 100">
+     <circle class="fm-ring-bg" cx="50" cy="50" r="42"/>
+     <circle class="fm-ring-fill" id="fmRingFill" cx="50" cy="50" r="42"/>
+    </svg>
+    <div class="fm-ring-center">
+     <div class="fm-ring-num" id="fmRingNum">0%</div>
+     <div class="fm-ring-lbl">COMPLETE</div>
+    </div>
+   </div>
+   <div class="fm-hdr-stat">
+    <div class="fm-hdr-stat-num" id="fmSetProgress">1/4</div>
+    <div class="fm-hdr-stat-lbl">SET</div>
+   </div>
+  </div>
  </div>
  <!-- Exercise Panel -->
  <div id="fmPanelEx" class="fm-panel">
-  <div class="fm-ring-wrap">
-   <svg class="fm-ring" viewBox="0 0 100 100">
-    <circle class="fm-ring-bg" cx="50" cy="50" r="42"/>
-    <circle class="fm-ring-fill" id="fmRingFill" cx="50" cy="50" r="42"/>
-   </svg>
-   <div class="fm-ring-center">
-    <div class="fm-ring-num" id="fmRingNum">0/8</div>
-    <div class="fm-ring-lbl">DONE</div>
-   </div>
-  </div>
   <div class="fm-ex-card">
-   <div class="fm-ex-name" id="fmExName">—</div>
-   <div class="fm-ex-meta" id="fmExMeta"></div>
+   <div class="fm-ex-label">CURRENT EXERCISE</div>
+   <div class="fm-ex-name" id="fmExName">&#8212;</div>
+   <div class="fm-ex-muscle" id="fmExMeta"></div>
+   <div class="fm-ex-specs">
+    <div class="fm-ex-spec">
+     <div class="fm-ex-spec-num" id="fmExSetsNum">4</div>
+     <div class="fm-ex-spec-lbl">SETS</div>
+    </div>
+    <div class="fm-ex-spec">
+     <div class="fm-ex-spec-num" id="fmExRepsNum">10</div>
+     <div class="fm-ex-spec-lbl">REPS</div>
+    </div>
+    <div class="fm-ex-spec" id="fmPrevBestSpec">
+     <div class="fm-ex-spec-num" id="fmPrevBestNum" style="color:#ff6b00;">&#8212;</div>
+     <div class="fm-ex-spec-lbl">PREV BEST</div>
+    </div>
+   </div>
    <div class="fm-set-badge" id="fmSetBadge">SET 1 OF 4</div>
-   <div class="fm-prev-best" id="fmPrevBest"></div>
   </div>
   <div class="fm-inputs">
    <div class="fm-input-group">
-    <div class="fm-input-label">WEIGHT (lbs)</div>
+    <div class="fm-input-label">WEIGHT (LBS)</div>
     <div class="fm-stepper">
-     <button class="fm-step-btn" onclick="fmAdjW(-5)">−5</button>
+     <button class="fm-step-btn" onclick="fmAdjW(-5)">&#8722;5</button>
      <div class="fm-step-val" id="fmWVal">0</div>
      <button class="fm-step-btn" onclick="fmAdjW(5)">+5</button>
     </div>
@@ -7225,57 +7295,75 @@ boot();
    <div class="fm-input-group">
     <div class="fm-input-label">REPS</div>
     <div class="fm-stepper">
-     <button class="fm-step-btn" onclick="fmAdjR(-1)">−1</button>
+     <button class="fm-step-btn" onclick="fmAdjR(-1)">&#8722;1</button>
      <div class="fm-step-val" id="fmRVal">10</div>
      <button class="fm-step-btn" onclick="fmAdjR(1)">+1</button>
     </div>
    </div>
   </div>
-  <button class="fm-complete-btn" onclick="fmCompleteSet()">COMPLETE SET &amp; REST</button>
-  <div class="fm-bottom-ctrl">
-   <button class="fm-ctrl-btn" onclick="fmPrevEx()">← PREV</button>
-   <button class="fm-ctrl-btn fm-end-btn" onclick="fmEndWorkout()">END</button>
-   <button class="fm-ctrl-btn" onclick="fmNextEx()">NEXT →</button>
+  <button class="fm-complete-btn" onclick="fmCompleteSet()">
+   COMPLETE SET
+   <span class="fm-complete-sub">&amp; START REST TIMER</span>
+  </button>
+  <div class="fm-bottom-bar">
+   <div class="fm-bottom-ctrl">
+    <button class="fm-ctrl-btn" onclick="fmPrevEx()">&#8592; PREV</button>
+    <button class="fm-ctrl-btn fm-pause-btn" onclick="fmPauseSession()">&#9646;&#9646; PAUSE</button>
+    <button class="fm-ctrl-btn fm-end-btn" onclick="fmEndWorkout()">END</button>
+    <button class="fm-ctrl-btn" onclick="fmNextEx()">NEXT &#8594;</button>
+   </div>
   </div>
  </div>
  <!-- Rest Panel -->
  <div id="fmPanelRest" class="fm-panel" style="display:none;">
-  <div class="fm-rest-title">REST TIME</div>
+  <div class="fm-rest-title">REST TIMER</div>
+  <div class="fm-rest-meta">
+   <div class="fm-rest-meta-card">
+    <div class="fm-rest-meta-lbl">NEXT SET</div>
+    <div class="fm-rest-meta-val" id="fmNextSetNum">&#8212;</div>
+   </div>
+   <div class="fm-rest-meta-card">
+    <div class="fm-rest-meta-lbl">NEXT WEIGHT</div>
+    <div class="fm-rest-meta-val" id="fmNextWeightVal">&#8212;</div>
+   </div>
+  </div>
   <div class="fm-rr-wrap">
    <svg class="fm-rr-svg" viewBox="0 0 120 120">
     <circle class="fm-rr-bg" cx="60" cy="60" r="52"/>
     <circle class="fm-rr-fill" id="fmRRFill" cx="60" cy="60" r="52"/>
    </svg>
    <div class="fm-rr-center">
-    <div class="fm-rr-time" id="fmRRTime">90</div>
-    <div class="fm-rr-lbl">SECONDS</div>
+    <div class="fm-rr-time" id="fmRRTime">01:30</div>
+    <div class="fm-rr-lbl">REST TIME</div>
    </div>
-  </div>
-  <div class="fm-presets">
-   <button class="fm-preset-btn" onclick="fmSetRest(60)">60s</button>
-   <button class="fm-preset-btn" onclick="fmSetRest(90)">90s</button>
-   <button class="fm-preset-btn" onclick="fmSetRest(120)">120s</button>
-   <button class="fm-preset-btn" onclick="fmSetRest(150)">150s</button>
   </div>
   <div class="fm-next-card">
    <div class="fm-next-label">UP NEXT</div>
-   <div class="fm-next-name" id="fmNextName">—</div>
+   <div class="fm-next-name" id="fmNextName">&#8212;</div>
    <div class="fm-next-meta" id="fmNextMeta"></div>
+  </div>
+  <div class="fm-presets">
+   <button class="fm-preset-btn" onclick="fmSetRest(60)">60<br/>SEC</button>
+   <button class="fm-preset-btn" onclick="fmSetRest(90)">90<br/>SEC</button>
+   <button class="fm-preset-btn" onclick="fmSetRest(120)">120<br/>SEC</button>
+   <button class="fm-preset-btn" onclick="fmSetRest(150)">150<br/>SEC</button>
   </div>
   <div class="fm-rest-ctrl">
    <button class="fm-rest-pause-btn" id="fmRestPauseBtn" onclick="fmTogglePauseRest()">PAUSE</button>
-   <button class="fm-skip-btn" onclick="fmSkipRest()">SKIP REST →</button>
+   <button class="fm-skip-btn" onclick="fmSkipRest()">SKIP REST &#8594;</button>
   </div>
  </div>
  <!-- Summary Panel -->
  <div id="fmPanelSum" class="fm-panel" style="display:none;">
   <div class="fm-sum-hero">
-   <div class="fm-sum-crown">👑</div>
+   <div class="fm-sum-badge">WORKOUT COMPLETE</div>
+   <div class="fm-sum-crown">&#128081;</div>
    <div class="fm-sum-title">GREAT WORK</div>
    <div class="fm-sum-sub" id="fmSumSub">Session complete</div>
   </div>
   <div class="fm-sum-stats" id="fmSumStats"></div>
   <div class="fm-sum-prs" id="fmSumPrs" style="display:none;"></div>
+  <div class="fm-sum-streak" id="fmSumStreak" style="display:none;"></div>
   <div class="fm-sum-actions">
    <button class="fm-sum-btn-sec" onclick="closeFocusModeViewWorkout()">VIEW WORKOUT</button>
    <button class="fm-sum-btn-pri" onclick="closeFocusMode()">DONE</button>
