@@ -1246,13 +1246,13 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
 .fm-ring-wrap{position:relative;width:110px;height:110px;flex-shrink:0;}
 .fm-ring{width:110px;height:110px;transform:rotate(-90deg);}
 .fm-ring-bg{fill:none;stroke:rgba(255,255,255,0.06);stroke-width:6;}
-.fm-ring-fill{fill:none;stroke:#ff6b00;stroke-width:6;stroke-linecap:round;stroke-dasharray:263.9;stroke-dashoffset:263.9;transition:stroke-dashoffset 0.5s ease;filter:drop-shadow(0 0 5px rgba(255,107,0,0.5));}
+.fm-ring-fill{fill:none;stroke:#ff6b00;stroke-width:6;stroke-linecap:round;stroke-dasharray:263.9;stroke-dashoffset:263.9;transition:stroke-dashoffset 0.5s ease;filter:drop-shadow(0 0 3px rgba(255,107,0,0.35));}
 .fm-ring-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
 .fm-ring-num{font-family:'Bebas Neue',sans-serif;font-size:24px;color:#fff;letter-spacing:1px;line-height:1;}
 .fm-ring-lbl{font-size:7px;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,0.38);margin-top:2px;}
 .fm-panel{flex:1;display:flex;flex-direction:column;align-items:center;overflow-y:auto;padding:14px 18px 90px;gap:12px;}
 .fm-ex-card{width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:20px 16px;text-align:center;position:relative;overflow:hidden;}
-.fm-ex-card::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(255,107,0,0.07),transparent 65%);pointer-events:none;}
+.fm-ex-card::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(255,107,0,0.05),transparent 65%);pointer-events:none;}
 .fm-ex-label{font-size:8px;font-weight:800;letter-spacing:3px;color:rgba(255,107,0,0.65);margin-bottom:8px;}
 .fm-ex-name{font-family:'Bebas Neue',sans-serif;font-size:36px;color:#fff;letter-spacing:1.5px;line-height:1.05;}
 .fm-ex-muscle{font-size:11px;color:rgba(255,255,255,0.42);margin-top:7px;letter-spacing:0.5px;}
@@ -1268,7 +1268,7 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
 .fm-step-btn{flex:1;padding:12px 0;border-radius:12px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.7);font-size:14px;font-weight:700;cursor:pointer;min-height:48px;}
 .fm-step-btn:active{background:rgba(255,107,0,0.22);border-color:rgba(255,107,0,0.4);}
 .fm-step-val{flex:0 0 56px;text-align:center;font-family:'Bebas Neue',sans-serif;font-size:38px;color:#fff;line-height:1;}
-.fm-complete-btn{width:100%;padding:18px;border-radius:18px;border:none;background:linear-gradient(135deg,#ff6b00,#ff4500);color:#fff;font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:1.5px;cursor:pointer;flex-shrink:0;box-shadow:0 6px 28px rgba(255,107,0,0.32);position:relative;overflow:hidden;}
+.fm-complete-btn{width:100%;padding:18px;border-radius:18px;border:none;background:linear-gradient(135deg,#ff6b00,#ff4500);color:#fff;font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:1.5px;cursor:pointer;flex-shrink:0;box-shadow:0 4px 20px rgba(255,107,0,0.25);position:relative;overflow:hidden;}
 .fm-complete-btn::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,0.1),transparent);pointer-events:none;}
 .fm-complete-btn:active{transform:scale(0.98);box-shadow:0 2px 10px rgba(255,107,0,0.2);}
 .fm-complete-sub{display:block;font-family:system-ui,sans-serif;font-size:10px;font-weight:700;letter-spacing:0.5px;opacity:0.72;margin-top:3px;}
@@ -1286,7 +1286,7 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
 .fm-rr-wrap{position:relative;width:210px;height:210px;flex-shrink:0;}
 .fm-rr-svg{width:210px;height:210px;transform:rotate(-90deg);}
 .fm-rr-bg{fill:none;stroke:rgba(255,255,255,0.05);stroke-width:9;}
-.fm-rr-fill{fill:none;stroke:#ff6b00;stroke-width:9;stroke-linecap:round;stroke-dasharray:326.7;stroke-dashoffset:0;transition:stroke-dashoffset 1s linear;filter:drop-shadow(0 0 12px rgba(255,107,0,0.6));}
+.fm-rr-fill{fill:none;stroke:#ff6b00;stroke-width:9;stroke-linecap:round;stroke-dasharray:326.7;stroke-dashoffset:0;transition:stroke-dashoffset 1s linear;filter:drop-shadow(0 0 8px rgba(255,107,0,0.45));}
 .fm-rr-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
 .fm-rr-time{font-family:'Bebas Neue',sans-serif;font-size:58px;color:#fff;line-height:1;letter-spacing:2px;}
 .fm-rr-lbl{font-size:8px;font-weight:800;letter-spacing:4px;color:rgba(255,255,255,0.32);}
@@ -1323,6 +1323,30 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
 .fm-sum-btn-sec{flex:1;padding:16px;border-radius:16px;border:1px solid rgba(255,255,255,0.14);background:rgba(255,255,255,0.04);color:rgba(255,255,255,0.6);font-size:11px;font-weight:800;letter-spacing:0.5px;cursor:pointer;}
 .fm-sum-btn-pri{flex:2;padding:16px;border-radius:16px;border:none;background:linear-gradient(135deg,#ff6b00,#ff4500);color:#fff;font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:1.5px;cursor:pointer;box-shadow:0 6px 22px rgba(255,107,0,0.28);}
 @media(prefers-reduced-motion:reduce){.fm-ring-fill,.fm-rr-fill{transition:none;}}
+/* Feature 1: Exercise Progress Panel */
+#fmPanelProgress{display:none;flex:1;flex-direction:column;overflow-y:auto;padding:16px 18px 100px;}
+.fm-prog-header{font-size:9px;font-weight:800;letter-spacing:3px;color:rgba(255,107,0,0.7);margin-bottom:12px;}
+.fm-prog-item{display:flex;align-items:center;gap:12px;padding:14px 12px;border-radius:14px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.03);margin-bottom:8px;cursor:pointer;transition:all 0.15s;}
+.fm-prog-item.fm-prog-active{border-color:rgba(255,107,0,0.4);background:rgba(255,107,0,0.06);}
+.fm-prog-item.fm-prog-done{opacity:0.55;}
+.fm-prog-num{width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.5);font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.fm-prog-num.done{background:#00c896;color:#fff;}
+.fm-prog-num.active{background:#ff6b00;color:#fff;}
+.fm-prog-info{flex:1;min-width:0;}
+.fm-prog-name{font-size:13px;font-weight:700;color:rgba(255,255,255,0.88);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.fm-prog-meta{font-size:10px;color:rgba(255,255,255,0.32);margin-top:2px;}
+.fm-prog-chev{font-size:16px;color:rgba(255,255,255,0.2);}
+.fm-prog-end-btn{width:100%;padding:17px;border-radius:17px;border:1px solid rgba(255,60,60,0.25);background:rgba(255,40,40,0.07);color:rgba(255,80,80,0.8);font-size:14px;font-weight:800;letter-spacing:0.5px;cursor:pointer;margin-top:8px;}
+/* Feature 2: Duration display */
+.fm-dur-display{font-size:11px;font-weight:700;color:rgba(255,255,255,0.38);letter-spacing:0.5px;}
+/* Feature 3: Suggestion row + set row */
+.fm-set-row{display:flex;align-items:center;gap:8px;justify-content:center;margin-top:12px;flex-wrap:wrap;}
+.fm-last-set-info{font-size:9px;font-weight:700;color:rgba(255,255,255,0.32);letter-spacing:0.5px;padding:4px 10px;border-radius:100px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);}
+.fm-suggest-row{display:flex;flex-direction:column;align-items:center;gap:2px;width:100%;padding:4px 0;}
+.fm-suggest-main{font-size:10px;font-weight:700;color:rgba(255,255,255,0.36);letter-spacing:0.3px;}
+.fm-suggest-delta{font-size:9px;font-weight:600;color:rgba(0,200,150,0.7);letter-spacing:0.2px;}
+/* Feature 4: Last done badge */
+.fm-last-done-badge{padding:6px 16px;border-radius:100px;background:#00c89620;border:1px solid #00c89655;color:#00c896;font-size:10px;font-weight:800;letter-spacing:1px;transition:opacity 0.3s;}
 </style>
 </head>
 <body>
@@ -2148,6 +2172,25 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
      <input type="time" class="time-input" id="reminderTimeInput" onchange="saveReminderTime(this.value)" style="width:80px;"/>
      <button class="toggle-sw off" id="reminderToggle" onclick="toggleReminder()"></button>
     </div>
+   </div>
+  </div>
+ </div>
+ <div class="settings-section">
+  <div class="settings-section-title">SECURITY</div>
+  <div class="settings-card">
+   <div class="settings-row">
+    <div class="settings-row-icon" style="background:rgba(0,200,150,0.12);">
+     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00c896" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/><circle cx="12" cy="16" r="1"/></svg>
+    </div>
+    <div class="settings-row-body">
+     <div class="settings-row-label">Face ID / Biometric Lock</div>
+     <div class="settings-row-sub">Require biometrics on app resume</div>
+    </div>
+    <label class="settings-toggle">
+     <input type="checkbox" id="settingFaceId" onchange="toggleFaceId(this.checked)">
+     <span class="settings-toggle-track"></span>
+     <span class="settings-toggle-thumb"></span>
+    </label>
    </div>
   </div>
  </div>
@@ -6844,31 +6887,41 @@ let fmActive=false,fmCurEx=0,fmCurSet=0,fmPanel='ex';
 let fmSessionStart=0,fmRestSec=0,fmRestTotal=90;
 let fmRestInt=null,fmRestPaused=false;
 let fmInputW=0,fmInputR=10,fmPrefRest=90;
+let fmDurInt=null,fmLastW=0,fmLastR=0;
 
 function openFocusMode(){
  fmPrefRest=parseInt(localStorage.getItem(FM_REST_KEY))||90;
  fmActive=true;
  fmSessionStart=Date.now();
  clearInterval(fmRestInt);fmRestInt=null;
+ clearInterval(fmDurInt);
+ fmDurInt=setInterval(()=>{
+  const el=document.getElementById('fmDurDisplay');if(!el)return;
+  const sec=Math.floor((Date.now()-fmSessionStart)/1000);
+  const h=Math.floor(sec/3600),m=Math.floor((sec%3600)/60),s=sec%60;
+  el.textContent=h>0?`${h}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`:`${m}:${String(s).padStart(2,'0')}`;
+ },1000);
  const next=fmFindNextFrom(0,0);
  fmCurEx=next?next.ei:0;
  fmCurSet=next?next.si:0;
  document.getElementById('focusMode').style.display='flex';
+ const gb=document.getElementById('fmGearBtn');if(gb)gb.textContent='⚙';
+ document.getElementById('fmPanelProgress').style.display='none';
  fmShowPanel('ex');
  fmRenderEx();
 }
 function closeFocusMode(){
- clearInterval(fmRestInt);fmRestInt=null;fmActive=false;
+ clearInterval(fmRestInt);fmRestInt=null;clearInterval(fmDurInt);fmDurInt=null;fmActive=false;
  document.getElementById('focusMode').style.display='none';
  renderHome();
 }
 function exitFocusModeToWorkout(){
- clearInterval(fmRestInt);fmRestInt=null;fmActive=false;
+ clearInterval(fmRestInt);fmRestInt=null;clearInterval(fmDurInt);fmDurInt=null;fmActive=false;
  document.getElementById('focusMode').style.display='none';
  navTo('workout');renderWorkout();
 }
 function closeFocusModeViewWorkout(){
- clearInterval(fmRestInt);fmRestInt=null;fmActive=false;
+ clearInterval(fmRestInt);fmRestInt=null;clearInterval(fmDurInt);fmDurInt=null;fmActive=false;
  document.getElementById('focusMode').style.display='none';
  navTo('workout');renderWorkout();
 }
@@ -6877,6 +6930,8 @@ function fmShowPanel(p){
  document.getElementById('fmPanelEx').style.display=p==='ex'?'flex':'none';
  document.getElementById('fmPanelRest').style.display=p==='rest'?'flex':'none';
  document.getElementById('fmPanelSum').style.display=p==='sum'?'flex':'none';
+ document.getElementById('fmPanelProgress').style.display='none';
+ const gb=document.getElementById('fmGearBtn');if(gb)gb.textContent='⚙';
 }
 function fmFindNextFrom(startEi,startSi){
  const exs=WEEKS[aW].days[aD].exercises;
@@ -6942,6 +6997,24 @@ function fmRenderEx(){
  if(pr>0&&pbSpec&&pbNum){pbNum.textContent=pr+' lbs';pbSpec.style.display='block';}
  else if(pbSpec){pbSpec.style.display='none';}
  document.getElementById('fmSetBadge').textContent=`SET ${fmCurSet+1} OF ${ex.sets}`;
+ // Last set info (Feature 3)
+ const lsiEl=document.getElementById('fmLastSetInfo');
+ if(lsiEl){
+  if(fmCurSet>0&&fmLastW>0){lsiEl.style.display='';lsiEl.textContent=`LAST SET: ${fmLastW} × ${fmLastR}`;}
+  else{lsiEl.style.display='none';}
+ }
+ // Suggestion row (Feature 3)
+ const sugRow=document.getElementById('fmSuggestRow');
+ const sugMain=document.getElementById('fmSuggestMain');
+ const sugDelta=document.getElementById('fmSuggestDelta');
+ if(sugRow&&sugMain&&sugDelta){
+  const prVal=getPR(ex.name);
+  if(prVal>0){
+   if(fmCurSet===0){sugMain.textContent=`SUGGESTED: ${prVal+5} LBS × ${ex.reps} REPS`;sugDelta.textContent='+5 LBS FROM LAST TIME';}
+   else{sugMain.textContent=`SUGGESTED: ${prVal} LBS × ${ex.reps} REPS`;sugDelta.textContent='';}
+   sugRow.style.display='flex';
+  }else{sugRow.style.display='none';}
+ }
  // Weight input — pre-fill from saved data or PR
  const lastW=gW(aW,aD,fmCurEx,fmCurSet);
  if(lastW&&parseFloat(lastW)>0){fmInputW=parseFloat(lastW);}
@@ -7315,7 +7388,10 @@ boot();
     <div class="fm-wk-label" id="fmWkLabel">PUSH DAY</div>
     <div class="fm-mode-badge">FOCUS MODE</div>
    </div>
-   <button class="fm-settings-btn" onclick="closeFocusModeViewWorkout()" aria-label="Settings">&#9881;</button>
+   <div style="display:flex;align-items:center;gap:8px;">
+    <div class="fm-dur-display" id="fmDurDisplay">0:00</div>
+    <button class="fm-settings-btn" id="fmGearBtn" onclick="fmToggleProgress()" aria-label="Exercise list">&#9881;</button>
+   </div>
   </div>
   <div class="fm-progress-strip">
    <div class="fm-hdr-stat">
@@ -7358,7 +7434,10 @@ boot();
      <div class="fm-ex-spec-lbl">PREV BEST</div>
     </div>
    </div>
-   <div class="fm-set-badge" id="fmSetBadge">SET 1 OF 4</div>
+   <div class="fm-set-row">
+    <div class="fm-set-badge" id="fmSetBadge">SET 1 OF 4</div>
+    <div class="fm-last-set-info" id="fmLastSetInfo" style="display:none;"></div>
+   </div>
   </div>
   <div class="fm-inputs">
    <div class="fm-input-group">
@@ -7378,6 +7457,11 @@ boot();
     </div>
    </div>
   </div>
+  <div class="fm-suggest-row" id="fmSuggestRow" style="display:none;">
+   <span class="fm-suggest-main" id="fmSuggestMain"></span>
+   <span class="fm-suggest-delta" id="fmSuggestDelta"></span>
+  </div>
+  <div id="fmLastDoneBadge" class="fm-last-done-badge" style="display:none;">&#10003; LAST SET COMPLETE</div>
   <button class="fm-complete-btn" onclick="fmCompleteSet()">
    COMPLETE SET
    <span class="fm-complete-sub">&amp; START REST TIMER</span>
@@ -7429,6 +7513,12 @@ boot();
    <button class="fm-rest-pause-btn" id="fmRestPauseBtn" onclick="fmTogglePauseRest()">PAUSE</button>
    <button class="fm-skip-btn" onclick="fmSkipRest()">SKIP REST &#8594;</button>
   </div>
+ </div>
+ <!-- Progress Panel (Feature 1) -->
+ <div id="fmPanelProgress" style="display:none;flex:1;flex-direction:column;overflow-y:auto;padding:16px 18px 100px;">
+  <div class="fm-prog-header">EXERCISE PROGRESS</div>
+  <div id="fmProgList"></div>
+  <button class="fm-prog-end-btn" onclick="fmEndWorkout()">END WORKOUT</button>
  </div>
  <!-- Summary Panel -->
  <div id="fmPanelSum" class="fm-panel" style="display:none;">
