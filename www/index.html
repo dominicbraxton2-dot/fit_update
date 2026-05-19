@@ -3212,7 +3212,8 @@ const TYPE={
 };
 const DAYS=["M","T","W","T","F","S","S"];
 let aW=0,aD=0,muscleMapMode='today';
-let selectedWorkoutDate=null;
+let selectedBackfillDate=null;
+function todayKey(){return new Date().toISOString().split('T')[0];}
 
 // ── INDEXEDDB STORAGE (persistent — Safari won't clear this) ──
 const DB_NAME='domfitplan',DB_VER=1,STORE='kv';
@@ -3268,7 +3269,10 @@ function sSD(w,d,ei,si,v){dbSet(ssdk(w,d,ei,si),v?'1':'0');}
 function getPR(name){return parseFloat(dbGet(prKey(name)))||0;}
 function setPR(name,val){dbSet(prKey(name),String(val));}
 function getWDone(w,d){return dbGet(wdoneKey(w,d));}
-function setWDone(w,d,dateStr){dbSet(wdoneKey(w,d),dateStr);}
+function setWDone(w,d,dateStr){
+ console.log(`[Workout Save] w=${w} d=${d} → ${dateStr} (${WEEKS[w]&&WEEKS[w].days[d]?WEEKS[w].days[d].label:'?'})`);
+ dbSet(wdoneKey(w,d),dateStr);
+}
 
 function checkPR(w,d,ei,val){
  const num=parseFloat(val);
@@ -4245,17 +4249,17 @@ function renderWorkout(){
  const pct=tot?Math.round(done/tot*100):0;
 
  // Auto-mark day complete with the target date (backfill date or today)
- const _autoToday=new Date().toISOString().split('T')[0];
- const _autoTarget=selectedWorkoutDate||_autoToday;
+ const _autoTarget=selectedBackfillDate||todayKey();
  const _autoExisting=getWDone(aW,aD);
  // Save if: not yet saved, OR backfill date overrides an existing different date
- if(pct>=50 && (!_autoExisting||(selectedWorkoutDate&&_autoExisting!==selectedWorkoutDate))){
+ if(pct>=50 && (!_autoExisting||(selectedBackfillDate&&_autoExisting!==selectedBackfillDate))){
+  console.log('Saving workout for date:', _autoTarget, '(backfill:', !!selectedBackfillDate, ')');
   setWDone(aW,aD,_autoTarget);
  }
  const _bfBanner=document.getElementById('backfillBanner');
  if(_bfBanner){
-  if(selectedWorkoutDate){
-   const _bfFmt=new Date(selectedWorkoutDate+'T12:00').toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
+  if(selectedBackfillDate){
+   const _bfFmt=new Date(selectedBackfillDate+'T12:00').toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
    document.getElementById('backfillBannerTitle').textContent='Logging for '+_bfFmt;
    _bfBanner.style.display='block';
   } else {
@@ -4474,9 +4478,10 @@ function finishWorkout(){
   const day=WEEKS[aW].days[aD];
   const pct=dayProg(aW,aD);
   if(pct===0){return;}
-  const _saveDate=selectedWorkoutDate||new Date().toISOString().split('T')[0];
+  const _saveDate=selectedBackfillDate||todayKey();
+  console.log('Saving workout for date:', _saveDate, '(backfill:', !!selectedBackfillDate, ')');
   setWDone(aW,aD,_saveDate);
-  selectedWorkoutDate=null;
+  selectedBackfillDate=null;
   const _bfEl=document.getElementById('backfillBanner');if(_bfEl)_bfEl.style.display='none';
   renderWeekStrip();
   // Log progression entries for all exercises with weight data
@@ -5839,13 +5844,24 @@ function showWorkoutPicker(dateStr){
   <button class="cal-mark-cancel" onclick="closeCalMarkSheet()" style="margin-top:8px;">Cancel</button>`;
 }
 function pickWorkoutForBackfill(wi,di,dateStr){
+ startWorkoutForDate(wi,di,dateStr);
+}
+function startWorkoutForDate(wi,di,dateKey){
  aW=wi;aD=di;
- selectedWorkoutDate=dateStr;
+ selectedBackfillDate=dateKey;
+ console.log('Starting workout for date:', dateKey, '| w='+wi+' d='+di, WEEKS[wi]&&WEEKS[wi].days[di]?'('+WEEKS[wi].days[di].label+')':'');
+ // Reset set and exercise done flags so user logs fresh sets/reps/weight
+ const exs=WEEKS[wi].days[di].exercises;
+ exs.forEach((ex,ei)=>{
+  sED(wi,di,ei,false);
+  for(let si=0;si<ex.sets;si++)sSD(wi,di,ei,si,false);
+ });
  closeCalMarkSheet();
  openFocusMode();
 }
 function cancelBackfill(){
- selectedWorkoutDate=null;
+ console.log('Backfill canceled, clearing selectedBackfillDate');
+ selectedBackfillDate=null;
  const bfEl=document.getElementById('backfillBanner');
  if(bfEl)bfEl.style.display='none';
  hap.selectionFeedback();
@@ -6894,7 +6910,8 @@ function fmRenderEx(){
  const day=WEEKS[aW].days[aD];
  const ex=day.exercises[fmCurEx];
  if(!ex)return;
- document.getElementById('fmWkLabel').textContent=`${day.label.toUpperCase()} · WEEK ${aW+1}`;
+ const _fmBfTag=selectedBackfillDate?` · ${new Date(selectedBackfillDate+'T12:00').toLocaleDateString('en-US',{month:'short',day:'numeric'})}`:'';
+ document.getElementById('fmWkLabel').textContent=`${day.label.toUpperCase()} · WEEK ${aW+1}${_fmBfTag}`;
  // Progress ring (% complete)
  const total=day.exercises.length;
  const done=day.exercises.filter((_,ei)=>gED(aW,aD,ei)).length;
@@ -7050,9 +7067,10 @@ function fmEndWorkout(){
  clearInterval(fmRestInt);fmRestInt=null;
  const day=WEEKS[aW].days[aD];
  if(dayProg(aW,aD)===0){exitFocusModeToWorkout();return;}
- const _fmSaveDate=selectedWorkoutDate||new Date().toISOString().split('T')[0];
+ const _fmSaveDate=selectedBackfillDate||todayKey();
+ console.log('Saving workout for date:', _fmSaveDate, '(backfill:', !!selectedBackfillDate, ')');
  setWDone(aW,aD,_fmSaveDate);
- selectedWorkoutDate=null;
+ selectedBackfillDate=null;
  const _fmBfEl=document.getElementById('backfillBanner');if(_fmBfEl)_fmBfEl.style.display='none';
  const today=_fmSaveDate;
  day.exercises.forEach((ex,ei)=>{
