@@ -242,26 +242,118 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .toggle-sw.off{background:var(--border-bright);}
 .toggle-sw.on::after{transform:translateX(20px);}
 
-.week-cards{padding:0 16px 12px;display:flex;flex-direction:column;gap:10px;}
-.wk-card{border-radius:20px;overflow:hidden;background:var(--glass);backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);border:1px solid var(--border);transition:border-color 0.3s,box-shadow 0.3s;}
-[data-theme="dark"] .wk-card{box-shadow:0 2px 20px rgba(0,0,0,0.6);}
-.wk-card.cur{border-color:rgba(255,107,0,0.25);box-shadow:0 0 0 1px rgba(255,107,0,0.1),0 8px 40px rgba(0,0,0,0.7);}
-.wk-top{padding:18px 20px 14px;cursor:pointer;position:relative;overflow:hidden;}
-[data-theme="dark"] .wk-top::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.1),transparent);}
-.wk-row{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;}
-.wk-num{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:4px;color:var(--muted);text-transform:uppercase;margin-bottom:4px;}
-.wk-card.cur .wk-num{color:var(--yellow);}
-[data-theme="light"] .wk-card.cur .wk-num{color:#b89800;}
-.wk-theme{font-family:'Montserrat','Bebas Neue',sans-serif;font-size:22px;font-weight:800;letter-spacing:0px;line-height:1;text-transform:uppercase;}
-.wk-pct{font-family:'Montserrat','Bebas Neue',sans-serif;font-size:28px;font-weight:900;color:var(--muted);opacity:0.4;}
-.prog-track{height:2px;background:var(--border);border-radius:2px;overflow:hidden;}
-.prog-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,#ff5c35,#ff9f35,var(--yellow));transition:width 0.5s cubic-bezier(0.4,0,0.2,1);}
-.day-dots{display:flex;gap:5px;padding:0 16px 16px;}
-.day-dot{flex:1;border-radius:12px;padding:8px 3px;cursor:pointer;text-align:center;background:rgba(255,255,255,0.03);border:1px solid var(--border);backdrop-filter:blur(10px);transition:border-color 0.2s,background 0.2s;}
-.day-dot:hover{background:rgba(255,255,255,0.06);border-color:var(--border-bright);}
-.day-dot .dl{font-family:'JetBrains Mono',monospace;font-size:7px;color:var(--muted);font-weight:600;letter-spacing:1px;text-transform:uppercase;}
-.day-dot .di{margin-top:3px;display:flex;align-items:center;justify-content:center;line-height:1;width:36px;height:36px;}
-.day-dot .di svg{width:36px;height:36px;}
+.week-cards{
+ padding:0 0 20px 16px;
+ display:flex;flex-direction:row;
+ gap:14px;overflow-x:auto;
+ scroll-snap-type:x mandatory;
+ -webkit-overflow-scrolling:touch;
+ scrollbar-width:none;
+}
+.week-cards::after{content:'';flex-shrink:0;width:4px;}
+.week-cards::-webkit-scrollbar{display:none;}
+.wk-card{
+ flex-shrink:0;
+ width:85vw;max-width:380px;
+ aspect-ratio:16/9;
+ border-radius:28px;
+ overflow:hidden;
+ position:relative;
+ scroll-snap-align:start;
+ cursor:pointer;
+ border:1.5px solid rgba(255,255,255,0.06);
+ transition:transform 0.35s cubic-bezier(0.34,1.2,0.64,1),box-shadow 0.35s,opacity 0.35s;
+ will-change:transform;
+}
+.wk-card.wk-snap-active{
+ transform:scale(1.02);
+ box-shadow:0 20px 60px rgba(0,0,0,0.7);
+}
+.wk-card.cur{
+ border-color:rgba(255,107,0,0.55);
+ box-shadow:0 0 0 1.5px rgba(255,107,0,0.25),0 16px 56px rgba(255,107,0,0.3);
+}
+.wk-thumb-bg{
+ position:absolute;inset:0;
+ width:100%;height:100%;
+ object-fit:cover;
+ transition:transform 0.3s ease;
+ will-change:transform;
+}
+.wk-thumb-overlay{
+ position:absolute;inset:0;
+ background:linear-gradient(
+  160deg,
+  rgba(0,0,0,0.18) 0%,
+  rgba(0,0,0,0.1) 30%,
+  rgba(0,0,0,0.55) 65%,
+  rgba(0,0,0,0.93) 100%
+ );
+ z-index:1;
+}
+.wk-thumb-body{
+ position:absolute;
+ left:0;right:0;bottom:0;
+ z-index:2;
+ padding:14px 16px 16px;
+ display:flex;flex-direction:column;gap:5px;
+ background:linear-gradient(to top,rgba(0,0,0,0.72) 0%,transparent 100%);
+ backdrop-filter:blur(0px);
+}
+.wk-thumb-meta{display:flex;align-items:center;justify-content:space-between;margin-bottom:2px;}
+.wk-thumb-badge{
+ font-family:'JetBrains Mono',monospace;
+ font-size:8px;letter-spacing:3px;text-transform:uppercase;font-weight:700;
+ color:#ff6b00;
+ background:rgba(255,107,0,0.15);
+ border:1px solid rgba(255,107,0,0.38);
+ border-radius:100px;padding:3px 9px;
+}
+.wk-thumb-phase{
+ font-family:'JetBrains Mono',monospace;
+ font-size:8px;letter-spacing:2px;text-transform:uppercase;font-weight:700;
+ padding:3px 9px;border-radius:100px;border:1px solid;
+}
+.wk-thumb-pct{
+ font-family:'Bebas Neue',sans-serif;
+ font-size:22px;color:rgba(255,255,255,0.5);letter-spacing:1px;
+}
+.wk-thumb-num{
+ font-family:'JetBrains Mono',monospace;
+ font-size:8px;letter-spacing:4px;color:rgba(255,255,255,0.45);
+ text-transform:uppercase;
+}
+.wk-thumb-title{
+ font-family:'Bebas Neue',sans-serif;
+ font-size:26px;color:#fff;letter-spacing:1.5px;line-height:0.95;
+}
+.wk-thumb-prog-wrap{display:flex;align-items:center;gap:8px;margin-top:4px;}
+.wk-thumb-prog-track{
+ flex:1;height:3px;
+ background:rgba(255,255,255,0.12);
+ border-radius:3px;overflow:hidden;
+}
+.wk-thumb-prog-fill{
+ height:100%;border-radius:3px;
+ background:linear-gradient(90deg,#ff5c35,#ff9f35,#ffcc00);
+ transition:width 0.6s cubic-bezier(0.4,0,0.2,1);
+ box-shadow:0 0 6px rgba(255,107,0,0.6);
+}
+.wk-thumb-pct-small{
+ font-family:'JetBrains Mono',monospace;
+ font-size:10px;font-weight:700;color:rgba(255,255,255,0.45);
+ flex-shrink:0;
+}
+/* Lock state */
+.wk-card.wk-locked .wk-thumb-body{opacity:0.48;}
+.wk-card.wk-locked .wk-thumb-bg{filter:brightness(0.45) saturate(0.3);}
+/* Done state */
+.wk-card.wk-done .wk-thumb-badge{color:#00c896;background:rgba(0,200,150,0.12);border-color:rgba(0,200,150,0.35);}
+/* Top-right lock icon */
+.wk-thumb-lock{
+ position:absolute;top:14px;right:14px;z-index:3;
+ font-size:16px;opacity:0.5;
+}
 .tips-section{margin:4px 16px 12px;border-radius:20px;background:var(--glass);backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);border:1px solid var(--border);padding:20px;}
 .tips-label{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:4px;color:var(--muted);text-transform:uppercase;margin-bottom:12px;}
 .tip{font-size:12px;color:var(--muted);padding:5px 0;border-bottom:1px solid var(--border);display:flex;gap:8px;align-items:baseline;font-weight:300;}
@@ -745,16 +837,16 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
 /* ── Screen transition ── */
 .screen.active{animation:fadeSlideUp 0.28s cubic-bezier(0.22,1,0.36,1) both;}
 
-/* ── Week cards — staggered reveal ── */
-.wk-card{animation:cardReveal 0.4s cubic-bezier(0.22,1,0.36,1) both;}
-.wk-card:nth-child(1){animation-delay:0.04s}
-.wk-card:nth-child(2){animation-delay:0.09s}
-.wk-card:nth-child(3){animation-delay:0.14s}
-.wk-card:nth-child(4){animation-delay:0.19s}
-.wk-card:nth-child(5){animation-delay:0.24s}
-.wk-card:nth-child(6){animation-delay:0.29s}
-/* Active week card glow pulse */
-.wk-card.cur{animation:cardReveal 0.4s cubic-bezier(0.22,1,0.36,1) both,glowBorder 3s ease-in-out 0.5s infinite;}
+/* ── Week thumbnail carousel — staggered reveal ── */
+.wk-card{animation:wkThumbIn 0.45s cubic-bezier(0.22,1,0.36,1) both;}
+@keyframes wkThumbIn{0%{opacity:0;transform:translateX(24px) scale(0.93)}100%{opacity:1;transform:translateX(0) scale(1)}}
+.wk-card:nth-child(1){animation-delay:0.03s}
+.wk-card:nth-child(2){animation-delay:0.08s}
+.wk-card:nth-child(3){animation-delay:0.13s}
+.wk-card:nth-child(4){animation-delay:0.18s}
+.wk-card:nth-child(5){animation-delay:0.23s}
+.wk-card:nth-child(6){animation-delay:0.28s}
+.wk-card.cur{animation:wkThumbIn 0.45s cubic-bezier(0.22,1,0.36,1) both,glowBorder 3s ease-in-out 0.6s infinite;}
 
 /* ── Day dots — bounceIn stagger ── */
 .day-dot{animation:bounceIn 0.4s cubic-bezier(0.22,1,0.36,1) both;}
@@ -870,9 +962,9 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
 
 
 
-/* Wave shimmer on current week card */
+/* Wave shimmer on current week card — runs above overlay layer */
 .wk-card.cur{position:relative;overflow:hidden;}
-.wk-card.cur::after{content:'';position:absolute;top:0;left:0;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.04),transparent);animation:waveSlide 3s ease-in-out 1s infinite;pointer-events:none;}
+.wk-card.cur::after{content:'';position:absolute;top:0;left:0;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.055),transparent);animation:waveSlide 3.5s ease-in-out 1s infinite;pointer-events:none;z-index:4;}
 
 /* ── PREMIUM VISUAL ── */
 [data-theme="dark"] .home-hero::before{content:'';position:absolute;top:-120px;right:-100px;width:420px;height:420px;background:radial-gradient(circle,#ff5c3522 0%,transparent 65%);border-radius:50%;pointer-events:none;animation:orbMorph 8s ease-in-out infinite;}
@@ -1644,12 +1736,12 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
  <div id="weekStrip"></div>
 
 
- <!-- 12-Week Program (collapsed by default) -->
+ <!-- 12-Week Program carousel -->
  <div class="hm-section-hdr" style="margin-top:4px;">
   <span class="hm-section-lbl">12-WEEK PROGRAM</span>
-  <button class="hm-see-all" id="weekCardsToggle" onclick="toggleWeekCards()">SEE ALL</button>
+  <button class="hm-see-all" onclick="navTo('workout')">VIEW ALL</button>
  </div>
- <div class="week-cards" id="weekCards" style="display:none;"></div>
+ <div class="week-cards" id="weekCards"></div>
 
  <!-- Program Guidelines (collapsed) -->
  <div class="hm-section-hdr">
@@ -4326,45 +4418,63 @@ function renderOutdoorRecent(){
 
 
 
+// ── Week thumbnail images (index matches week number 0–11, cycles if more weeks) ──
+const WEEK_IMAGES=[
+ 'https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/1FDD7207-8089-4601-9C15-39063EC9BDF3.png',
+ 'https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/6783B43D-F666-475B-9D9B-BBB7574AC34A.png',
+ 'https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/8B5EE3A8-622A-4462-984D-16C07F73A1F9.png',
+ 'https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/A4165AD6-46F9-4276-AC27-67954196555C.png',
+ 'https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/C0D786A0-D08F-4D07-B1F1-30090D6A3D41.png',
+ 'https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/FE39A91A-FF61-4D73-9760-A4991A8467CA.png',
+ 'https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/FE3D7C52-E3E6-4669-BCA8-3F8CAF470F92.png'
+];
+
 function renderHome(){
  const c=document.getElementById('weekCards');
  c.innerHTML='';
- let lastPhase=null;
  WEEKS.forEach((wk,wi)=>{
   const phase=getPhase(wi);
-  if(phase && phase!==lastPhase){
-   const div=document.createElement('div');
-   div.className='phase-divider';
-   div.innerHTML=`<div class="phase-divider-line"></div>
-    <div class="phase-divider-label" style="color:${phase.color};border-color:${phase.color}55;">${phase.label}</div>
-    <div class="phase-divider-line"></div>`;
-   c.appendChild(div);
-   lastPhase=phase;
-  }
   const wp=weekProg(wi),isA=wi===aW;
-  const div=document.createElement('div');
-  const phaseColor=phase?phase.color:'var(--border-bright)';
-  div.className='wk-card'+(isA?' cur':'');
-  if(isA) div.style.cssText=`border-color:${phaseColor}66;box-shadow:0 0 0 1px ${phaseColor}22,0 12px 48px ${phaseColor}22,inset 0 1px 0 ${phaseColor}22;`;
-  const dots=wk.days.map((d,di)=>{
-   const ts=TYPE[d.type],dp=dayProg(wi,di),done=dp===1;
-   return `<button class="day-dot" onclick="openDay(${wi},${di})"
-    style="${done?'background:'+ts.color+'18;border-color:'+ts.color+'44;':isA&&di===aD?'border-color:var(--border-bright);background:var(--surface3);':''}">
-    <div class="dl" style="${done?'color:'+ts.color+';':isA&&di===aD?'color:var(--text2);':''}">${DAYS[di]}</div>
-    <div class="di">${done?ICONS.check:DAY_ICONS[di]||TYPE_ICONS[d.type]||d.icon}</div>
-   </button>`;
-  }).join('');
-  div.innerHTML=`
-   <div class="wk-top" onclick="openDay(${wi},0)">
-    <div class="wk-row">
-     <div>${isA?'<div class="cur-week-pill">CURRENT</div>':''}<div class="wk-num" style="${isA?'color:'+phaseColor+';':''}">Week ${wi+1}</div><div class="wk-theme">${wk.theme}</div></div>
-     <div class="wk-pct">${Math.round(wp*100)}%</div>
+  const pct=Math.round(wp*100);
+  const isDone=pct===100;
+  const isLocked=!isA&&pct===0&&wi>aW;
+  const phaseColor=phase?phase.color:'rgba(255,107,0,0.8)';
+  const imgSrc=WEEK_IMAGES[wi%WEEK_IMAGES.length];
+  const card=document.createElement('div');
+  let cardCls='wk-card';
+  if(isA)cardCls+=' cur';
+  if(isDone)cardCls+=' wk-done';
+  if(isLocked)cardCls+=' wk-locked';
+  card.className=cardCls;
+  const badgeHtml=isA
+   ?`<div class="wk-thumb-badge">CURRENT</div>`
+   :isDone
+   ?`<div class="wk-thumb-badge">DONE ✓</div>`
+   :'';
+  const phaseBadge=phase
+   ?`<div class="wk-thumb-phase" style="color:${phaseColor};border-color:${phaseColor}44;">${phase.label.split('—')[0].trim()}</div>`
+   :'';
+  card.innerHTML=`
+   <img class="wk-thumb-bg" src="${imgSrc}" alt="" loading="lazy" draggable="false">
+   <div class="wk-thumb-overlay"></div>
+   ${isLocked?'<div class="wk-thumb-lock">🔒</div>':''}
+   <div class="wk-thumb-body">
+    <div class="wk-thumb-meta">
+     ${badgeHtml}
+     ${phaseBadge}
     </div>
-    <div class="prog-track"><div class="prog-fill" style="width:${wp*100}%"></div></div>
-   </div>
-   <div class="day-dots">${dots}</div>`;
-  c.appendChild(div);
+    <div class="wk-thumb-num">WEEK ${wi+1}</div>
+    <div class="wk-thumb-title">${wk.theme||wk.label||'TRAINING'}</div>
+    <div class="wk-thumb-prog-wrap">
+     <div class="wk-thumb-prog-track"><div class="wk-thumb-prog-fill" style="width:${pct}%"></div></div>
+     <div class="wk-thumb-pct-small">${pct}%</div>
+    </div>
+   </div>`;
+  card.addEventListener('click',()=>openDay(wi,0));
+  c.appendChild(card);
  });
+ // Observe scroll position to apply snap-active scale
+ _initWeekCarouselSnap(c);
  // History nav dot
  const anyHistory=WEEKS.some((wk,wi)=>wk.days.some((_,di)=>getWDone(wi,di)));
  const histBtn=document.getElementById('nav-history');
@@ -4542,13 +4652,44 @@ function renderHomeCarousel(){
  el.innerHTML=workoutCard+consistCard+readyCard+prCard;
 }
 
-function toggleWeekCards(){
- const el=document.getElementById('weekCards');
- const btn=document.getElementById('weekCardsToggle');
- if(!el)return;
- const isHidden=el.style.display==='none';
- el.style.display=isHidden?'':'none';
- if(btn)btn.textContent=isHidden?'COLLAPSE':'SEE ALL';
+// Keep for any legacy calls
+function toggleWeekCards(){}
+
+let _wkSnapObserver=null;
+let _wkScrollListener=null;
+function _initWeekCarouselSnap(container){
+ // Scroll to current week card
+ const cards=[...container.querySelectorAll('.wk-card')];
+ const curIdx=cards.findIndex(c=>c.classList.contains('cur'));
+ if(curIdx>0)setTimeout(()=>{
+  const card=cards[curIdx];
+  container.scrollTo({left:card.offsetLeft-16,behavior:'smooth'});
+ },120);
+ // Scale active card via IntersectionObserver
+ if(_wkSnapObserver)_wkSnapObserver.disconnect();
+ const io=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+   e.target.classList.toggle('wk-snap-active',e.intersectionRatio>0.72);
+  });
+ },{root:container,threshold:[0,0.72,1]});
+ cards.forEach(c=>io.observe(c));
+ _wkSnapObserver=io;
+ // Parallax: shift background image on scroll
+ if(_wkScrollListener)container.removeEventListener('scroll',_wkScrollListener);
+ _wkScrollListener=()=>{
+  const cl=container.scrollLeft;
+  const cw=container.offsetWidth;
+  cards.forEach((card,i)=>{
+   const img=card.querySelector('.wk-thumb-bg');
+   if(!img)return;
+   const cx=card.offsetLeft-cl;
+   const relCenter=(cx+card.offsetWidth/2-cw/2)/cw;
+   const shift=Math.max(-14,Math.min(14,relCenter*22));
+   img.style.transform=`translateX(${shift}px) scale(1.06)`;
+  });
+ };
+ container.addEventListener('scroll',_wkScrollListener,{passive:true});
+ _wkScrollListener();
 }
 
 function toggleTips(){
