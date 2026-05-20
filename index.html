@@ -135,7 +135,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 }
 .home-carousel-card.hc-hero::before{
  content:'';position:absolute;inset:0;border-radius:28px;
- background:#070707;z-index:0;
+ background:transparent;z-index:0;
 }
 .hc-hero-overlay{
  position:absolute;inset:0;z-index:2;border-radius:28px;overflow:hidden;
@@ -441,13 +441,16 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
  width:72vw !important;
  max-width:300px !important;
  height:220px !important;
- border-radius:22px !important;
+ border-radius:28px !important;
  overflow:hidden !important;
  position:relative !important;
  scroll-snap-align:center !important;
  cursor:pointer !important;
  border:1.5px solid rgba(255,255,255,0.07) !important;
- background:#111 !important;
+ background-color:#111 !important;
+ background-size:cover !important;
+ background-position:center !important;
+ background-repeat:no-repeat !important;
  transition:transform 0.3s cubic-bezier(0.34,1.2,0.64,1),box-shadow 0.3s !important;
  display:block !important;
 }
@@ -1864,11 +1867,6 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
 
 <!-- HOME -->
 <div id="home" class="screen active" style="padding-bottom:120px;">
- <!-- BUILD VERIFICATION BANNER — fixed top, pure HTML, no JS needed -->
- <div id="buildVerifyBanner" style="position:fixed;top:0;left:0;right:0;z-index:9999;background:#ff6b00;color:#000;text-align:center;padding:env(safe-area-inset-top,0px) 0 8px;font-family:monospace;font-weight:900;font-size:11px;letter-spacing:2px;pointer-events:auto;cursor:pointer;" onclick="document.getElementById('buildVerifyBanner').style.display='none'">
-  NETFLIX DRILLDOWN v5 — TAP TO DISMISS
- </div>
- <div style="height:calc(env(safe-area-inset-top,0px) + 28px);"></div>
  <!-- Compact Header -->
  <div class="home-hdr">
   <div>
@@ -1906,8 +1904,6 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
   <span class="hm-section-lbl">12-WEEK PROGRAM</span>
   <button class="hm-see-all" onclick="navTo('workout')">VIEW ALL</button>
  </div>
- <!-- ▼ DEBUG: if you see this orange bar, new code is running ▼ -->
- <div id="siNetflixDebug" style="margin:0 16px 10px;background:#ff6b00;color:#000;text-align:center;padding:10px 16px;border-radius:14px;font-family:monospace;font-weight:900;font-size:13px;letter-spacing:1.5px;">NETFLIX DRILLDOWN ACTIVE ✓</div>
  <div id="siWeekCarousel" class="si-week-carousel" style="min-height:200px;outline:2px solid rgba(255,107,0,0.4);outline-offset:2px;border-radius:22px;"></div>
 
  <!-- Day drill-down carousel (hidden until week tapped) -->
@@ -4595,35 +4591,29 @@ function renderOutdoorRecent(){
 
 
 // ── Week thumbnail images (index matches week number 0–11, cycles if more weeks) ──
-const WEEK_IMAGES=[
- 'https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/1FDD7207-8089-4601-9C15-39063EC9BDF3.png',
- 'https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/6783B43D-F666-475B-9D9B-BBB7574AC34A.png',
- 'https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/8B5EE3A8-622A-4462-984D-16C07F73A1F9.png',
- 'https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/A4165AD6-46F9-4276-AC27-67954196555C.png',
- 'https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/C0D786A0-D08F-4D07-B1F1-30090D6A3D41.png',
- 'https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/FE39A91A-FF61-4D73-9760-A4991A8467CA.png',
- 'https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/FE3D7C52-E3E6-4669-BCA8-3F8CAF470F92.png'
-];
+// ── Home hero image — athlete, completely separate from day thumbnails ──
+const HOME_HERO_IMAGE='https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/167A1F8C-7CAB-4E4F-B885-6851E020A18A.png';
 
-// ── Day-image map: day type → full-bleed thumbnail ──
-const SI_DAY_IMAGES={
- push:'https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/1FDD7207-8089-4601-9C15-39063EC9BDF3.png',
- legs:'https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/6783B43D-F666-475B-9D9B-BBB7574AC34A.png',
- cardio:'https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/8B5EE3A8-622A-4462-984D-16C07F73A1F9.png',
- pull:'https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/A4165AD6-46F9-4276-AC27-67954196555C.png',
- abs:'https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/C0D786A0-D08F-4D07-B1F1-30090D6A3D41.png',
- rest:'https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/FE3D7C52-E3E6-4669-BCA8-3F8CAF470F92.png',
- recovery:'https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/FE3D7C52-E3E6-4669-BCA8-3F8CAF470F92.png'
+// ── Daily thumbnail images — day 1-7 mapping, same for ALL 12 weeks ──
+const DAILY_THUMBNAIL_IMAGES={
+ 1:'https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/C0D786A0-D08F-4D07-B1F1-30090D6A3D41.png', // Day 1: Chest & Triceps
+ 2:'https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/1FDD7207-8089-4601-9C15-39063EC9BDF3.png', // Day 2: Legs
+ 3:'https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/FE3D7C52-E3E6-4669-BCA8-3F8CAF470F92.png', // Day 3: Core/Cardio
+ 4:'https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/8B5EE3A8-622A-4462-984D-16C07F73A1F9.png', // Day 4: Back & Biceps
+ 5:'https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/3FE8845B-66B2-4A87-A1BA-72979679A12D.png', // Day 5: Hamstrings & Abs
+ 6:'https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/FE39A91A-FF61-4D73-9760-A4991A8467CA.png', // Day 6: Core/Cardio
+ 7:'https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/A4165AD6-46F9-4276-AC27-67954196555C.png'  // Day 7: Rest & Recovery
 };
-// fallback ordering if type not matched
-const SI_DAY_IMAGES_ORDERED=[
- SI_DAY_IMAGES.push,SI_DAY_IMAGES.legs,SI_DAY_IMAGES.cardio,
- SI_DAY_IMAGES.pull,SI_DAY_IMAGES.abs,SI_DAY_IMAGES.cardio,SI_DAY_IMAGES.rest
+// Week carousel uses the same 7 images cycling
+const WEEK_IMAGES=[
+ DAILY_THUMBNAIL_IMAGES[1],DAILY_THUMBNAIL_IMAGES[2],DAILY_THUMBNAIL_IMAGES[3],
+ DAILY_THUMBNAIL_IMAGES[4],DAILY_THUMBNAIL_IMAGES[5],DAILY_THUMBNAIL_IMAGES[6],
+ DAILY_THUMBNAIL_IMAGES[7]
 ];
 
 let _siDayIO=null,_siDayScrollFn=null;
 
-function siHideDebug(){const d=document.getElementById('siNetflixDebug');if(d)d.style.display='none';}
+function siHideDebug(){}
 
 function siOpenDayCarousel(wi){
  siHideDebug();
@@ -4666,10 +4656,15 @@ function renderSiDayCarousel(wi){
   const isToday=wi===aW&&di===aD;
   const isRest=day.type==='rest'||day.type==='recovery';
   const stats=isRest?null:calcWorkoutStats(wi,di);
-  const img=SI_DAY_IMAGES[day.type]||SI_DAY_IMAGES_ORDERED[di%7];
+  const img=DAILY_THUMBNAIL_IMAGES[(di%7)+1]||DAILY_THUMBNAIL_IMAGES[1];
   const item=document.createElement('div');
   item.className='si-day-item'+(isToday?' si-day-active-wk':'');
   item.style.animation=`siDayIn 0.38s cubic-bezier(0.22,1,0.36,1) ${(di*0.055).toFixed(2)}s both`;
+  item.style.backgroundImage=`linear-gradient(to top,rgba(0,0,0,.88),rgba(0,0,0,.35),rgba(0,0,0,.72)),url('${img}')`;
+  // Fallback to Day 1 image on error
+  const _probe=new Image();
+  _probe.onerror=()=>{item.style.backgroundImage=`linear-gradient(to top,rgba(0,0,0,.88),rgba(0,0,0,.35),rgba(0,0,0,.72)),url('${DAILY_THUMBNAIL_IMAGES[1]}')`;};
+  _probe.src=img;
   // Status pill
   const pillTxt=isDone?'✓ DONE':isToday?'● TODAY':isRest?'REST':'PLANNED';
   const pillCls='si-day-status-pill'+(isDone?' si-day-done-pill':isToday?' si-day-today-pill':isRest?' si-day-rest-pill':'');
@@ -4681,8 +4676,6 @@ function renderSiDayCarousel(wi){
   const btnCls='si-day-start-btn'+(isRest?' si-day-rest-btn':'');
   const btnTxt=isDone?'REVIEW':'START';
   item.innerHTML=`
-<img class="si-day-bg" src="${img}" alt="" loading="lazy" draggable="false">
-<div class="si-day-grad"></div>
 <div class="si-day-top-row">
  <div class="${pillCls}">${pillTxt}</div>
  ${typeTag}
@@ -4873,11 +4866,9 @@ function renderHomeCarousel(){
  // Card 1: Cinematic hero — Today's Workout
  const HC_TYPE_LABELS={push:'PUSH DAY',pull:'PULL DAY',legs:'LEG DAY',cardio:'CARDIO',rest:'REST DAY',abs:'ABS DAY'};
  const hcTypeLabel=day.type?(HC_TYPE_LABELS[day.type]||day.type.toUpperCase()):"TODAY'S PLAN";
- const _hcBgSrc=_sfDayTypeImages[day.type]||null;
  const workoutCard=day?`
   <div class="hc-hero-wrap">
    <div class="home-carousel-card hc-hero">
-    ${_hcBgSrc?`<img class="hc-hero-bg-img" src="${_hcBgSrc}" alt="" aria-hidden="true" loading="lazy" onload="this.classList.add('si-img-loaded')">`:'' }
     <div class="hc-hero-overlay"></div>
     <div class="hc-hero-char-zone">
      <img class="hc-hero-char" src="https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/167A1F8C-7CAB-4E4F-B885-6851E020A18A.png" alt="" draggable="false" onerror="this.style.display='none'"/>
@@ -4978,6 +4969,13 @@ function renderHomeCarousel(){
  }
 
  el.innerHTML=workoutCard+consistCard+readyCard+prCard;
+ const heroCard=el.querySelector('.hc-hero');
+ if(heroCard){
+  heroCard.style.backgroundImage=`linear-gradient(90deg,rgba(0,0,0,.95) 0%,rgba(0,0,0,.65) 42%,rgba(0,0,0,.15) 100%),url('${HOME_HERO_IMAGE}')`;
+  heroCard.style.backgroundSize='cover';
+  heroCard.style.backgroundPosition='center right';
+  heroCard.style.backgroundRepeat='no-repeat';
+ }
 }
 
 // Keep for any legacy calls
