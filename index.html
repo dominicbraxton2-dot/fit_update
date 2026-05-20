@@ -1580,6 +1580,32 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
 }
 .si-focus-edit-done:active{transform:scale(0.97);}
 @media(prefers-reduced-motion:reduce){.si-focus-panel-ex,.si-focus-panel-rest,.si-focus-panel-sum,.si-focus-edit-sheet{animation:none;}.si-focus-complete-btn{animation:none;}.si-focus-ring-arc{transition:none;}.si-focus-dot,.si-focus-big-val{transition:none;}.si-focus-val-pop{animation:none;}}
+
+/* ══════════════════════════════
+   CINEMATIC IMAGE LAYERS
+   ══════════════════════════════ */
+.si-focus-panel-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:0;transition:opacity 0.55s ease;}
+.si-focus-panel-img.si-img-loaded{opacity:1;}
+.si-focus-panel-img.si-img-blurred{filter:blur(20px) brightness(0.45);transform:scale(1.1);opacity:0.6 !important;}
+.si-focus-panel-overlay{position:absolute;inset:0;z-index:1;pointer-events:none;}
+/* Stack all panel content above image layers */
+.si-focus-accent-bar,.si-focus-topbar,.si-focus-hero,.si-focus-controls,.si-focus-suggestion,.si-focus-bottom{position:relative;z-index:2;}
+.si-focus-rest-top,.si-focus-rest-center,.si-focus-rest-upcoming,.si-focus-rest-presets,.si-focus-rest-actions{position:relative;z-index:2;}
+.si-focus-sum-inner{position:relative;z-index:2;}
+/* Exercise intro overlay */
+#siFocusIntro{position:absolute;inset:0;z-index:850;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#000;pointer-events:none;opacity:0;transition:opacity 0.25s ease;}
+#siFocusIntro.si-intro-in{opacity:1;pointer-events:auto;}
+.si-focus-intro-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.38;}
+.si-focus-intro-content{position:relative;z-index:2;text-align:center;padding:24px 32px;}
+.si-focus-intro-label{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:5px;color:rgba(255,107,0,0.75);text-transform:uppercase;margin-bottom:10px;}
+.si-focus-intro-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(54px,13vw,82px);color:#fff;line-height:0.92;letter-spacing:3px;}
+.si-focus-intro-muscle{font-size:11px;font-weight:700;letter-spacing:2.5px;color:rgba(255,255,255,0.35);text-transform:uppercase;margin-top:10px;}
+@keyframes siFocusIntroZoom{0%{opacity:0;transform:scale(1.07) translateY(6px)}25%{opacity:1;transform:scale(1) translateY(0)}80%{opacity:1}100%{opacity:0;transform:scale(0.97)}}
+.si-focus-intro-content.si-intro-anim{animation:siFocusIntroZoom 1.5s cubic-bezier(0.4,0,0.2,1) both;}
+/* Home carousel cinematic BG */
+.hc-hero-bg-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;border-radius:inherit;opacity:0;transition:opacity 0.5s ease;}
+.hc-hero-bg-img.si-img-loaded{opacity:1;}
+.hc-hero-overlay,.hc-hero-char-zone,.hc-hero-body{position:relative;z-index:1;}
 </style>
 </head>
 <body>
@@ -4409,9 +4435,11 @@ function renderHomeCarousel(){
  // Card 1: Cinematic hero — Today's Workout
  const HC_TYPE_LABELS={push:'PUSH DAY',pull:'PULL DAY',legs:'LEG DAY',cardio:'CARDIO',rest:'REST DAY',abs:'ABS DAY'};
  const hcTypeLabel=day.type?(HC_TYPE_LABELS[day.type]||day.type.toUpperCase()):"TODAY'S PLAN";
+ const _hcBgSrc=_sfDayTypeImages[day.type]||null;
  const workoutCard=day?`
   <div class="hc-hero-wrap">
    <div class="home-carousel-card hc-hero">
+    ${_hcBgSrc?`<img class="hc-hero-bg-img" src="${_hcBgSrc}" alt="" aria-hidden="true" loading="lazy" onload="this.classList.add('si-img-loaded')">`:'' }
     <div class="hc-hero-overlay"></div>
     <div class="hc-hero-char-zone">
      <img class="hc-hero-char" src="https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/167A1F8C-7CAB-4E4F-B885-6851E020A18A.png" alt="" draggable="false" onerror="this.style.display='none'"/>
@@ -7725,6 +7753,13 @@ function siFocusOpen(){
  const eng=document.getElementById('siFocusEngine');
  if(eng)eng.style.display='flex';
  _sfShowPanel('ex');_sfRenderEx();
+ // Show intro for first exercise
+ const day=WEEKS[aW].days[aD];
+ const firstEx=day.exercises[_sf.curEx];
+ if(firstEx){
+  const m=[...new Set((MUSCLE_MAP[firstEx.name]||[]).map(id=>MUSCLE_NAMES[id]).filter(Boolean))].slice(0,2).join(' · ');
+  setTimeout(()=>_sfShowIntro(firstEx.name,m,true),200);
+ }
 }
 
 function siFocusClose(){
@@ -7773,6 +7808,73 @@ function _sfAccentColor(){
  return _SF_TYPE_COLORS[day.type]||_SF_TYPE_COLORS.default;
 }
 
+// ── Cinematic workout image map ──
+const workoutImages={
+ chest:'assets/workouts/bench-press.webp',
+ shoulders:'assets/workouts/bench-press.webp',
+ triceps:'assets/workouts/bench-press.webp',
+ legs:'assets/workouts/squat.webp',
+ quads:'assets/workouts/squat.webp',
+ hamstrings:'assets/workouts/squat.webp',
+ glutes:'assets/workouts/squat.webp',
+ back:'assets/workouts/lat-pulldown.webp',
+ lats:'assets/workouts/lat-pulldown.webp',
+ biceps:'assets/workouts/lat-pulldown.webp',
+ abs:'assets/workouts/abs.webp',
+ core:'assets/workouts/abs.webp',
+ cardio:'assets/workouts/treadmill.webp',
+ run:'assets/workouts/treadmill.webp',
+ recovery:'assets/workouts/recovery.webp',
+ rest:'assets/workouts/recovery.webp'
+};
+const _sfDayTypeImages={
+ push:'assets/workouts/bench-press.webp',
+ pull:'assets/workouts/lat-pulldown.webp',
+ legs:'assets/workouts/squat.webp',
+ cardio:'assets/workouts/treadmill.webp',
+ abs:'assets/workouts/abs.webp',
+ rest:'assets/workouts/recovery.webp'
+};
+
+function _sfGetImage(exName){
+ if(!exName)return null;
+ const muscles=(MUSCLE_MAP[exName]||[]).map(id=>MUSCLE_NAMES[id]&&MUSCLE_NAMES[id].toLowerCase());
+ for(const m of muscles){if(m&&workoutImages[m])return workoutImages[m];}
+ return null;
+}
+
+function _sfSetImg(imgId,src){
+ const el=document.getElementById(imgId);
+ if(!el||!src)return;
+ if(el.dataset.src===src)return; // already set
+ el.dataset.src=src;
+ el.classList.remove('si-img-loaded');
+ const tmp=new Image();
+ tmp.onload=()=>{el.src=src;el.classList.add('si-img-loaded');};
+ tmp.onerror=()=>{}; // graceful fallback — panel stays dark
+ tmp.src=src;
+}
+
+function _sfShowIntro(exName,muscleStr,isFirst){
+ const overlay=document.getElementById('siFocusIntro');
+ const content=document.getElementById('siFocusIntroContent');
+ const introImg=document.getElementById('siFocusIntroImg');
+ const nameEl=document.getElementById('siFocusIntroName');
+ const muscleEl=document.getElementById('siFocusIntroMuscle');
+ const labelEl=document.getElementById('siFocusIntroLabel');
+ if(!overlay||!content)return;
+ if(nameEl)nameEl.textContent=exName||'—';
+ if(muscleEl)muscleEl.textContent=muscleStr||'';
+ if(labelEl)labelEl.textContent=isFirst?'STARTING WITH':'UP NEXT';
+ const src=_sfGetImage(exName);
+ if(introImg){introImg.src=src||'';introImg.style.display=src?'':'none';}
+ content.classList.remove('si-intro-anim');
+ void content.offsetWidth;
+ content.classList.add('si-intro-anim');
+ overlay.classList.add('si-intro-in');
+ setTimeout(()=>overlay.classList.remove('si-intro-in'),1550);
+}
+
 // ── Weight value helpers (supports numerics + "BW", "BW +25", "Assisted -40") ──
 function _sfWNum(w){const n=parseFloat(w);return isNaN(n)?0:n;}
 function _sfWIsSpecial(w){if(typeof w!=='string')return false;const u=w.toUpperCase();return u==='BW'||u.startsWith('BW ')||u.startsWith('ASSISTED');}
@@ -7793,6 +7895,8 @@ function _sfRenderEx(){
  document.getElementById('siFocusExName').textContent=ex.name;
  const muscles=[...new Set((MUSCLE_MAP[ex.name]||[]).map(m=>MUSCLE_NAMES[m]).filter(Boolean))].slice(0,2).join(' · ');
  document.getElementById('siFocusExMuscle').textContent=muscles||'COMPOUND MOVEMENT';
+ // Set cinematic background image for exercise panel
+ _sfSetImg('siFocusExImg',_sfGetImage(ex.name));
  // Set dots
  const dotsEl=document.getElementById('siFocusSetDots');
  if(dotsEl){
@@ -7969,8 +8073,19 @@ function _sfValPop(id){
 function _sfStartRest(){
  clearInterval(_sf.restInt);
  _sf.restTotal=_sf.prefRest;_sf.restSec=_sf.restTotal;_sf.restPaused=false;
+ // Mirror exercise image (blurred) into rest panel background
+ const exImg=document.getElementById('siFocusExImg');
+ const restImg=document.getElementById('siFocusRestImg');
+ if(exImg&&restImg&&exImg.src){restImg.src=exImg.src;restImg.classList.add('si-img-loaded');}
  _sfShowPanel('rest');
  _sfUpdateRestRing();_sfUpdateRestUI();_sfUpdateRestNext();
+ // Show next exercise intro mid-rest
+ const day=WEEKS[aW].days[aD];
+ const nextEx=day.exercises[_sf.curEx];
+ if(nextEx){
+  const m=[...new Set((MUSCLE_MAP[nextEx.name]||[]).map(id=>MUSCLE_NAMES[id]).filter(Boolean))].slice(0,2).join(' · ');
+  setTimeout(()=>_sfShowIntro(nextEx.name,m,false),Math.min((_sf.restTotal*1000)/2,3500));
+ }
  _sf.restInt=setInterval(()=>{
   if(_sf.restPaused)return;
   _sf.restSec--;
@@ -8138,6 +8253,8 @@ function _sfEndWorkout(){
   if(streak>1){streakEl.style.display='block';streakEl.textContent=`🔥 ${streak}-SESSION STREAK`;}
   else streakEl.style.display='none';
  }
+ // Set recovery image on summary panel
+ _sfSetImg('siFocusSumImg',workoutImages.recovery);
  _sfShowPanel('sum');
  const newAch=checkAchievements();
  if(newAch.length)setTimeout(()=>newAch.forEach((id,i)=>setTimeout(()=>showAchievementToast(id),i*1200)),2000);
@@ -8359,6 +8476,8 @@ function _sfEndWorkout(){
 
  <!-- ── PANEL: Exercise ── -->
  <div id="siFocusEx" class="si-focus-panel si-focus-panel-ex">
+  <img class="si-focus-panel-img" id="siFocusExImg" alt="" aria-hidden="true" loading="eager">
+  <div class="si-focus-panel-overlay" style="background:linear-gradient(to bottom,rgba(0,0,0,0.5) 0%,rgba(0,0,0,0.2) 35%,rgba(0,0,0,0.7) 70%,rgba(0,0,0,0.96) 100%);"></div>
   <div class="si-focus-accent-bar" id="siFocusAccentBar"></div>
   <div class="si-focus-topbar">
    <button class="si-focus-close" onclick="siFocusClose()" aria-label="Close">✕</button>
@@ -8444,6 +8563,8 @@ function _sfEndWorkout(){
 
  <!-- ── PANEL: Rest Timer ── -->
  <div id="siFocusRest" class="si-focus-panel si-focus-panel-rest" style="display:none;">
+  <img class="si-focus-panel-img si-img-blurred" id="siFocusRestImg" alt="" aria-hidden="true">
+  <div class="si-focus-panel-overlay" style="background:linear-gradient(to bottom,rgba(0,0,0,0.72) 0%,rgba(0,0,0,0.55) 45%,rgba(0,0,0,0.88) 100%);"></div>
   <div class="si-focus-rest-top">
    <div class="si-focus-rest-badge">REST PERIOD</div>
    <div class="si-focus-rest-last" id="siFocusRestLast">—</div>
@@ -8472,6 +8593,16 @@ function _sfEndWorkout(){
   </div>
  </div>
 
+ <!-- ── Cinematic Exercise Intro Overlay ── -->
+ <div id="siFocusIntro" aria-hidden="true">
+  <img class="si-focus-intro-img" id="siFocusIntroImg" alt="">
+  <div class="si-focus-intro-content" id="siFocusIntroContent">
+   <div class="si-focus-intro-label" id="siFocusIntroLabel">UP NEXT</div>
+   <div class="si-focus-intro-name" id="siFocusIntroName">—</div>
+   <div class="si-focus-intro-muscle" id="siFocusIntroMuscle"></div>
+  </div>
+ </div>
+
  <!-- ── PANEL: Exercise List ── -->
  <div id="siFocusList" class="si-focus-panel si-focus-panel-list" style="display:none;">
   <div class="si-focus-list-hdr">
@@ -8484,6 +8615,8 @@ function _sfEndWorkout(){
 
  <!-- ── PANEL: Workout Complete Summary ── -->
  <div id="siFocusSum" class="si-focus-panel si-focus-panel-sum" style="display:none;">
+  <img class="si-focus-panel-img" id="siFocusSumImg" alt="" aria-hidden="true">
+  <div class="si-focus-panel-overlay" style="background:linear-gradient(to bottom,rgba(0,0,0,0.6) 0%,rgba(0,0,0,0.45) 30%,rgba(0,0,0,0.85) 70%,rgba(0,0,0,0.98) 100%);"></div>
   <div class="si-focus-sum-inner">
    <div class="si-focus-sum-crown">🏆</div>
    <div class="si-focus-sum-title">DONE.</div>
