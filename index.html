@@ -1365,6 +1365,139 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
 .fm-prog-chev{font-size:18px;color:rgba(255,255,255,0.18);}
 .fm-prog-end-btn{width:100%;padding:17px;border-radius:17px;border:1px solid rgba(255,60,60,0.22);background:rgba(255,40,40,0.06);color:rgba(255,80,80,0.75);font-size:14px;font-weight:800;letter-spacing:0.5px;cursor:pointer;margin-top:8px;}
 @media(prefers-reduced-motion:reduce){.fm-ring-fill,.fm-rr-fill,.fm-anim-in,.fm-anim-left,.fm-anim-right{transition:none;animation:none;}}
+
+/* ══════════════════════════════════════════════════════════════
+   SI FOCUS ENGINE v2 — Completely separate CSS namespace
+   .si-focus-* — no overlap with legacy .fm-* styles
+   ══════════════════════════════════════════════════════════════ */
+.si-focus-engine{position:fixed;inset:0;z-index:700;background:#000;display:flex;flex-direction:column;overflow:hidden;font-family:'DM Sans',sans-serif;}
+.si-focus-panel{position:absolute;inset:0;display:flex;flex-direction:column;overflow:hidden;}
+
+/* Accent bar — color changes per muscle group */
+.si-focus-accent-bar{position:absolute;top:0;left:0;right:0;height:3px;background:#ff6b00;z-index:10;transition:background 0.5s;}
+
+/* ── TOP BAR ── */
+.si-focus-topbar{display:flex;align-items:center;justify-content:space-between;padding:max(14px,env(safe-area-inset-top)) 16px 8px;flex-shrink:0;position:relative;z-index:5;}
+.si-focus-close,.si-focus-list-btn{width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.04);color:rgba(255,255,255,0.45);font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;transition:background 0.15s;}
+.si-focus-close:active,.si-focus-list-btn:active{background:rgba(255,255,255,0.12);}
+.si-focus-topbar-center{flex:1;text-align:center;padding:0 8px;min-width:0;}
+.si-focus-wk-name{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:3px;color:rgba(255,255,255,0.28);text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.si-focus-topbar-right{display:flex;align-items:center;gap:8px;flex-shrink:0;}
+.si-focus-dur{font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(255,255,255,0.22);letter-spacing:1px;min-width:40px;text-align:right;}
+
+/* ── EXERCISE HERO ── */
+.si-focus-hero{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:4px 20px 0;text-align:center;position:relative;min-height:0;}
+.si-focus-ex-counter{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:3px;color:rgba(255,107,0,0.55);text-transform:uppercase;margin-bottom:8px;}
+.si-focus-ex-name{font-family:'Bebas Neue','Montserrat',sans-serif;font-size:clamp(54px,13vw,86px);line-height:0.9;letter-spacing:1px;color:#fff;text-transform:uppercase;word-break:break-word;hyphens:auto;}
+.si-focus-ex-muscle{font-size:10px;color:rgba(255,255,255,0.22);letter-spacing:2.5px;text-transform:uppercase;margin-top:8px;font-weight:600;}
+/* Set dots row */
+.si-focus-set-dots{display:flex;gap:8px;margin-top:16px;align-items:center;justify-content:center;}
+.si-focus-dot{width:9px;height:9px;border-radius:50%;border:1.5px solid rgba(255,255,255,0.18);background:transparent;transition:all 0.28s cubic-bezier(0.34,1.4,0.64,1);}
+.si-focus-dot.done{background:#00c896;border-color:#00c896;box-shadow:0 0 6px rgba(0,200,150,0.5);}
+.si-focus-dot.current{background:#ff6b00;border-color:#ff6b00;box-shadow:0 0 12px rgba(255,107,0,0.65);transform:scale(1.4);}
+
+/* ── CONTROLS ── */
+.si-focus-controls{display:flex;align-items:stretch;padding:8px 16px 0;gap:10px;flex-shrink:0;}
+.si-focus-input-col{flex:1;display:flex;flex-direction:column;align-items:center;padding:14px 8px 10px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:22px;}
+.si-focus-input-lbl{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:3px;color:rgba(255,255,255,0.22);text-transform:uppercase;margin-bottom:6px;}
+.si-focus-stepper-row{display:flex;align-items:center;gap:4px;width:100%;justify-content:center;}
+.si-focus-step{width:50px;height:50px;border-radius:50%;border:1px solid rgba(255,255,255,0.11);background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.55);font-size:16px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;-webkit-tap-highlight-color:transparent;transition:background 0.12s,transform 0.1s;}
+.si-focus-step:active{background:rgba(255,107,0,0.22);border-color:rgba(255,107,0,0.45);transform:scale(0.9);}
+.si-focus-big-val{font-family:'Bebas Neue',sans-serif;font-size:76px;color:#fff;line-height:1;text-align:center;flex:1;min-width:0;}
+.si-focus-input-unit{font-size:7px;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,0.16);text-transform:uppercase;margin-top:4px;}
+
+/* ── SUGGESTION ── */
+.si-focus-suggestion{text-align:center;padding:6px 20px 0;font-family:'JetBrains Mono',monospace;font-size:9px;color:rgba(0,200,150,0.6);font-weight:600;letter-spacing:0.5px;flex-shrink:0;}
+
+/* ── BOTTOM: Nav + Complete ── */
+.si-focus-bottom{padding:8px 16px max(14px,env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:8px;flex-shrink:0;}
+.si-focus-nav-row{display:flex;gap:8px;}
+.si-focus-nav-btn{flex:1;padding:11px 4px;border-radius:13px;border:1px solid rgba(255,255,255,0.07);background:rgba(255,255,255,0.03);color:rgba(255,255,255,0.32);font-size:9px;font-weight:800;letter-spacing:0.5px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background 0.12s;}
+.si-focus-nav-btn:active{background:rgba(255,255,255,0.08);}
+.si-focus-nav-end{background:rgba(255,40,40,0.04)!important;border-color:rgba(255,60,60,0.13)!important;color:rgba(255,80,80,0.55)!important;}
+@keyframes si-focus-pulse{0%,100%{box-shadow:0 0 0 0 rgba(255,255,255,0.06);}50%{box-shadow:0 0 0 12px rgba(255,255,255,0);}}
+.si-focus-complete-btn{width:100%;padding:22px 16px;border-radius:22px;border:none;background:#fff;color:#000;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;-webkit-tap-highlight-color:transparent;animation:si-focus-pulse 2.8s ease-in-out infinite;transition:transform 0.12s;}
+.si-focus-complete-btn:active{transform:scale(0.97);animation:none;}
+.si-focus-complete-main{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:3px;line-height:1;color:#000;}
+.si-focus-complete-sub{font-size:9px;font-weight:700;letter-spacing:1.5px;color:rgba(0,0,0,0.38);text-transform:uppercase;}
+
+/* ══════════════════════════════
+   REST TIMER PANEL
+   ══════════════════════════════ */
+.si-focus-panel-rest{background:#000;overflow:hidden;}
+.si-focus-rest-top{display:flex;flex-direction:column;align-items:center;padding:max(18px,env(safe-area-inset-top)) 20px 0;flex-shrink:0;}
+.si-focus-rest-badge{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:5px;color:rgba(255,107,0,0.55);text-transform:uppercase;margin-bottom:6px;}
+.si-focus-rest-last{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:1px;color:rgba(255,255,255,0.28);}
+.si-focus-rest-center{flex:1;display:flex;align-items:center;justify-content:center;position:relative;min-height:0;}
+.si-focus-rest-ring{position:absolute;width:min(280px,70vw);height:min(280px,70vw);transform:rotate(-90deg);}
+.si-focus-ring-bg{fill:none;stroke:rgba(255,255,255,0.05);stroke-width:7;}
+.si-focus-ring-arc{fill:none;stroke:#ff6b00;stroke-width:7;stroke-linecap:round;stroke-dasharray:565.5;stroke-dashoffset:0;transition:stroke-dashoffset 1s linear;filter:drop-shadow(0 0 18px rgba(255,107,0,0.55));}
+.si-focus-rest-countdown{font-family:'Bebas Neue',sans-serif;font-size:clamp(88px,20vw,130px);color:#fff;line-height:1;letter-spacing:3px;position:relative;z-index:2;}
+.si-focus-rest-upcoming{flex-shrink:0;margin:0 20px 0;border:1px solid rgba(255,255,255,0.07);border-radius:18px;padding:14px 20px;background:rgba(255,255,255,0.03);text-align:center;}
+.si-focus-rest-up-lbl{font-size:8px;font-weight:800;letter-spacing:3px;color:rgba(255,255,255,0.18);margin-bottom:4px;text-transform:uppercase;}
+.si-focus-rest-up-name{font-family:'Bebas Neue',sans-serif;font-size:24px;color:rgba(255,255,255,0.82);letter-spacing:0.5px;}
+.si-focus-rest-up-meta{font-size:11px;color:rgba(255,255,255,0.25);margin-top:2px;}
+.si-focus-rest-presets{display:flex;gap:8px;padding:10px 20px;flex-shrink:0;}
+.si-focus-rest-presets button{flex:1;padding:10px 4px;border-radius:100px;border:1px solid rgba(255,255,255,0.09);background:rgba(255,255,255,0.04);color:rgba(255,255,255,0.32);font-size:11px;font-weight:700;letter-spacing:0.5px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:all 0.15s;}
+.si-focus-rest-presets button.si-active{background:rgba(255,107,0,0.14);border-color:rgba(255,107,0,0.38);color:#ff6b00;}
+.si-focus-rest-actions{display:flex;gap:10px;padding:0 20px max(14px,env(safe-area-inset-bottom));flex-shrink:0;}
+.si-focus-rest-pause{flex:1;padding:16px;border-radius:16px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.04);color:rgba(255,255,255,0.5);font-size:12px;font-weight:800;letter-spacing:0.5px;cursor:pointer;-webkit-tap-highlight-color:transparent;}
+.si-focus-rest-skip{flex:1.8;padding:16px;border-radius:16px;border:none;background:#fff;color:#000;font-size:13px;font-weight:800;letter-spacing:0.5px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform 0.1s;}
+.si-focus-rest-skip:active{transform:scale(0.97);}
+
+/* ══════════════════════════════
+   EXERCISE LIST PANEL
+   ══════════════════════════════ */
+.si-focus-panel-list{background:#080808;overflow:hidden;}
+.si-focus-list-hdr{display:flex;align-items:center;justify-content:space-between;padding:max(18px,env(safe-area-inset-top)) 20px 12px;border-bottom:1px solid rgba(255,255,255,0.06);flex-shrink:0;}
+.si-focus-list-title{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:2px;color:#fff;}
+.si-focus-list-close{width:34px;height:34px;border-radius:50%;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.04);color:rgba(255,255,255,0.38);font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;}
+.si-focus-list-items{flex:1;overflow-y:auto;padding:12px 16px;display:flex;flex-direction:column;gap:8px;}
+.si-focus-list-item{display:flex;align-items:center;gap:12px;padding:14px;border-radius:16px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.02);cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background 0.15s;}
+.si-focus-list-item.si-active-item{border-color:rgba(255,107,0,0.38);background:rgba(255,107,0,0.05);}
+.si-focus-list-item.si-done-item{opacity:0.38;}
+.si-focus-list-num{width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.38);font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.si-focus-list-num.si-done{background:#00c896;color:#fff;}
+.si-focus-list-num.si-cur{background:#ff6b00;color:#fff;}
+.si-focus-list-info{flex:1;min-width:0;}
+.si-focus-list-name{font-size:13px;font-weight:700;color:rgba(255,255,255,0.82);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.si-focus-list-meta{font-size:10px;color:rgba(255,255,255,0.26);margin-top:2px;}
+.si-focus-list-chev{font-size:16px;color:rgba(255,255,255,0.14);}
+.si-focus-list-end{margin:0 16px max(14px,env(safe-area-inset-bottom));width:calc(100% - 32px);padding:16px;border-radius:16px;border:1px solid rgba(255,60,60,0.18);background:rgba(255,40,40,0.04);color:rgba(255,80,80,0.6);font-size:13px;font-weight:800;letter-spacing:0.5px;cursor:pointer;flex-shrink:0;}
+
+/* ══════════════════════════════
+   SUMMARY PANEL
+   ══════════════════════════════ */
+.si-focus-panel-sum{background:#000;overflow-y:auto;}
+.si-focus-sum-inner{display:flex;flex-direction:column;align-items:center;padding:max(36px,calc(env(safe-area-inset-top)+18px)) 20px max(20px,env(safe-area-inset-bottom));gap:14px;min-height:100%;}
+.si-focus-sum-crown{font-size:60px;line-height:1;filter:drop-shadow(0 0 28px rgba(255,107,0,0.5));}
+.si-focus-sum-title{font-family:'Bebas Neue',sans-serif;font-size:84px;color:#fff;line-height:0.9;letter-spacing:4px;text-align:center;}
+.si-focus-sum-sub{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:3px;color:rgba(255,255,255,0.28);text-transform:uppercase;}
+.si-focus-sum-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%;}
+.si-focus-sum-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:18px;padding:16px 12px;text-align:center;}
+.si-focus-sum-icon{font-size:20px;margin-bottom:6px;line-height:1;}
+.si-focus-sum-num{font-family:'Bebas Neue',sans-serif;font-size:36px;color:#fff;line-height:1;}
+.si-focus-sum-label{font-size:7px;font-weight:800;letter-spacing:1.5px;color:rgba(255,255,255,0.22);margin-top:4px;text-transform:uppercase;}
+.si-focus-sum-prs-box{width:100%;background:rgba(255,107,0,0.04);border:1px solid rgba(255,107,0,0.18);border-radius:16px;padding:14px 16px;}
+.si-focus-sum-prs-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.si-focus-sum-prs-title{font-size:9px;font-weight:800;letter-spacing:2px;color:#ff6b00;text-transform:uppercase;}
+.si-focus-sum-prs-count{background:rgba(255,107,0,0.14);border-radius:100px;padding:3px 10px;font-size:10px;color:#ff6b00;font-weight:800;}
+.si-focus-sum-pr-item{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.05);font-size:13px;color:rgba(255,255,255,0.78);font-weight:600;}
+.si-focus-sum-pr-item:last-child{border-bottom:none;}
+.si-focus-sum-pr-badge{font-size:9px;font-weight:800;letter-spacing:1px;color:#ff6b00;background:rgba(255,107,0,0.1);border:1px solid rgba(255,107,0,0.22);border-radius:6px;padding:2px 8px;}
+.si-focus-sum-streak-row{width:100%;background:rgba(255,107,0,0.04);border:1px solid rgba(255,107,0,0.14);border-radius:14px;padding:12px 16px;text-align:center;font-family:'Bebas Neue',sans-serif;font-size:18px;color:#ff6b00;letter-spacing:1px;}
+.si-focus-sum-btns{display:flex;flex-direction:column;gap:10px;width:100%;margin-top:auto;padding-top:6px;}
+.si-focus-sum-btn-view{width:100%;padding:16px;border-radius:16px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.04);color:rgba(255,255,255,0.48);font-size:12px;font-weight:800;letter-spacing:0.5px;cursor:pointer;}
+.si-focus-sum-btn-done{width:100%;padding:20px;border-radius:20px;border:none;background:#fff;color:#000;font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:3px;cursor:pointer;transition:transform 0.1s;}
+.si-focus-sum-btn-done:active{transform:scale(0.97);}
+
+/* Slide-in animations for each panel */
+@keyframes siFocusSlideUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@keyframes siFocusScaleIn{from{opacity:0;transform:scale(0.96)}to{opacity:1;transform:scale(1)}}
+.si-focus-panel-ex{animation:siFocusSlideUp 0.3s cubic-bezier(0.34,1.2,0.64,1) both;}
+.si-focus-panel-rest{animation:siFocusScaleIn 0.35s cubic-bezier(0.34,1.2,0.64,1) both;}
+.si-focus-panel-sum{animation:siFocusSlideUp 0.4s cubic-bezier(0.34,1.2,0.64,1) both;}
+@media(prefers-reduced-motion:reduce){.si-focus-panel-ex,.si-focus-panel-rest,.si-focus-panel-sum{animation:none;}.si-focus-complete-btn{animation:none;}.si-focus-ring-arc{transition:none;}.si-focus-dot{transition:none;}}
 </style>
 </head>
 <body>
@@ -6919,7 +7052,7 @@ let fmRestInt=null,fmRestPaused=false;
 let fmInputW=0,fmInputR=10,fmPrefRest=90;
 let fmDurInt=null,fmLastW=0,fmLastR=0;
 
-function openFocusMode(){
+function openFocusModeLegacy(){
  fmPrefRest=parseInt(localStorage.getItem(FM_REST_KEY))||90;
  fmActive=true;
  fmSessionStart=Date.now();
@@ -7476,6 +7609,331 @@ async function boot(){
  if(newAch.length)setTimeout(()=>newAch.forEach((id,i)=>setTimeout(()=>showAchievementToast(id),i*1200)),1500);
 }
 boot();
+
+// ═══════════════════════════════════════════════════════════════
+//  SI FOCUS ENGINE v2 — Completely separate rendering namespace
+//  State lives in _sf object; all functions prefixed siFocus* or _sf*
+//  Routes all openFocusMode() calls → new engine
+// ═══════════════════════════════════════════════════════════════
+const _SF_REST_KEY='si-focus-rest-v2';
+const _SF_TYPE_COLORS={push:'#ff5c35',legs:'#00c896',cardio:'#28b8e8',pull:'#9858e8',rest:'#6b7fa3',default:'#ff6b00'};
+
+const _sf={
+ active:false,curEx:0,curSet:0,panel:'ex',
+ sessionStart:0,restSec:0,restTotal:90,restPaused:false,
+ restInt:null,durInt:null,inputW:0,inputR:10,lastW:0,lastR:0,prefRest:90
+};
+
+// ── Entry point — replaces openFocusMode() entirely ──
+function openFocusMode(){siFocusOpen();}
+
+function siFocusOpen(){
+ _sf.prefRest=parseInt(localStorage.getItem(_SF_REST_KEY))||90;
+ _sf.active=true;_sf.sessionStart=Date.now();
+ clearInterval(_sf.restInt);_sf.restInt=null;
+ clearInterval(_sf.durInt);
+ _sf.durInt=setInterval(()=>{
+  const el=document.getElementById('siFocusDur');if(!el)return;
+  const sec=Math.floor((Date.now()-_sf.sessionStart)/1000);
+  const h=Math.floor(sec/3600),m=Math.floor((sec%3600)/60),s=sec%60;
+  el.textContent=h>0?`${h}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`:`${m}:${String(s).padStart(2,'0')}`;
+ },1000);
+ const next=_sfFindNextFrom(0,0);
+ _sf.curEx=next?next.ei:0;_sf.curSet=next?next.si:0;
+ const eng=document.getElementById('siFocusEngine');
+ if(eng)eng.style.display='flex';
+ _sfShowPanel('ex');_sfRenderEx();
+}
+
+function siFocusClose(){
+ clearInterval(_sf.restInt);_sf.restInt=null;
+ clearInterval(_sf.durInt);_sf.durInt=null;_sf.active=false;
+ const eng=document.getElementById('siFocusEngine');if(eng)eng.style.display='none';
+ renderHome();
+}
+
+function siFocusViewWorkout(){
+ clearInterval(_sf.restInt);_sf.restInt=null;
+ clearInterval(_sf.durInt);_sf.durInt=null;_sf.active=false;
+ const eng=document.getElementById('siFocusEngine');if(eng)eng.style.display='none';
+ navTo('workout');renderWorkout();
+}
+
+function siFocusEndWorkout(){_sfEndWorkout();}
+
+function _sfShowPanel(p){
+ _sf.panel=p;
+ const map={ex:'siFocusEx',rest:'siFocusRest',list:'siFocusList',sum:'siFocusSum'};
+ Object.values(map).forEach(id=>{const el=document.getElementById(id);if(el)el.style.display='none';});
+ const target=document.getElementById(map[p]);
+ if(target){
+  target.style.animation='none';void target.offsetWidth;target.style.animation='';
+  target.style.display='flex';
+ }
+}
+
+function _sfFindNextFrom(startEi,startSi){
+ const exs=WEEKS[aW].days[aD].exercises;
+ if(exs[startEi]){for(let si=startSi;si<exs[startEi].sets;si++){if(!gSD(aW,aD,startEi,si))return{ei:startEi,si};}}
+ for(let ei=startEi+1;ei<exs.length;ei++){for(let si=0;si<exs[ei].sets;si++){if(!gSD(aW,aD,ei,si))return{ei,si};}}
+ return null;
+}
+
+function _sfFindNextAfter(ei,si){
+ const exs=WEEKS[aW].days[aD].exercises;
+ if(exs[ei]){for(let s=si+1;s<exs[ei].sets;s++){if(!gSD(aW,aD,ei,s))return{ei,si:s};}}
+ for(let e=ei+1;e<exs.length;e++){for(let s=0;s<exs[e].sets;s++){if(!gSD(aW,aD,e,s))return{ei:e,si:s};}}
+ return null;
+}
+
+function _sfAccentColor(){
+ const day=WEEKS[aW].days[aD];
+ return _SF_TYPE_COLORS[day.type]||_SF_TYPE_COLORS.default;
+}
+
+function _sfRenderEx(){
+ const day=WEEKS[aW].days[aD];
+ const ex=day.exercises[_sf.curEx];if(!ex)return;
+ // Workout label
+ const bfTag=selectedBackfillDate?` · ${new Date(selectedBackfillDate+'T12:00').toLocaleDateString('en-US',{month:'short',day:'numeric'})}`:'';
+ document.getElementById('siFocusWkName').textContent=`${day.label.toUpperCase()} · WK ${aW+1}${bfTag}`;
+ // Accent color bar
+ const bar=document.getElementById('siFocusAccentBar');if(bar)bar.style.background=_sfAccentColor();
+ // Counter
+ document.getElementById('siFocusExCounter').textContent=`EXERCISE ${_sf.curEx+1} OF ${day.exercises.length}`;
+ // Exercise name
+ document.getElementById('siFocusExName').textContent=ex.name;
+ // Muscles
+ const muscles=[...new Set((MUSCLE_MAP[ex.name]||[]).map(m=>MUSCLE_NAMES[m]).filter(Boolean))].slice(0,2).join(' · ');
+ document.getElementById('siFocusExMuscle').textContent=muscles||'COMPOUND MOVEMENT';
+ // Set dots
+ const dotsEl=document.getElementById('siFocusSetDots');
+ if(dotsEl){
+  dotsEl.innerHTML=Array.from({length:ex.sets},(_,si)=>{
+   const done=gSD(aW,aD,_sf.curEx,si);
+   const cur=si===_sf.curSet;
+   return`<div class="si-focus-dot${done?' done':cur?' current':''}"></div>`;
+  }).join('');
+ }
+ // Pre-fill weight
+ const lastW=gW(aW,aD,_sf.curEx,_sf.curSet);
+ const pr=getPR(ex.name);
+ if(lastW&&parseFloat(lastW)>0){_sf.inputW=parseFloat(lastW);}
+ else if(pr>0){_sf.inputW=pr;}
+ else{let found=0;for(let s=0;s<ex.sets;s++){const w=parseFloat(gW(aW,aD,_sf.curEx,s));if(w>0){found=w;break;}}  _sf.inputW=found;}
+ _sf.inputR=parseInt(ex.reps)||10;
+ document.getElementById('siFocusWVal').textContent=_sf.inputW||'BW';
+ document.getElementById('siFocusRVal').textContent=_sf.inputR;
+ // Suggestion
+ const sugEl=document.getElementById('siFocusSuggestion');
+ if(sugEl){
+  if(pr>0&&_sf.curSet===0){sugEl.textContent=`SUGGESTED ${pr+5} LBS × ${ex.reps} REPS · +5 FROM LAST`;sugEl.style.display='';}
+  else{sugEl.style.display='none';}
+ }
+}
+
+function siFocusAdjW(d){
+ if(typeof hap!=='undefined')hap.lightTap();
+ _sf.inputW=Math.max(0,(_sf.inputW||0)+d);
+ document.getElementById('siFocusWVal').textContent=_sf.inputW||'BW';
+}
+
+function siFocusAdjR(d){
+ if(typeof hap!=='undefined')hap.lightTap();
+ _sf.inputR=Math.max(1,(_sf.inputR||1)+d);
+ document.getElementById('siFocusRVal').textContent=_sf.inputR;
+}
+
+function siFocusCompleteSet(){
+ if(typeof hap!=='undefined')hap.mediumTap();
+ const day=WEEKS[aW].days[aD];const ex=day.exercises[_sf.curEx];if(!ex)return;
+ _sf.lastW=_sf.inputW;_sf.lastR=_sf.inputR;
+ if(_sf.inputW>0)sW(aW,aD,_sf.curEx,_sf.curSet,_sf.inputW);
+ sSD(aW,aD,_sf.curEx,_sf.curSet,true);
+ const allDone=Array.from({length:ex.sets},(_,si)=>gSD(aW,aD,_sf.curEx,si)).every(Boolean);
+ if(allDone)sED(aW,aD,_sf.curEx,true);
+ const next=_sfFindNextAfter(_sf.curEx,_sf.curSet);
+ if(next){_sf.curEx=next.ei;_sf.curSet=next.si;_sfStartRest();}
+ else{_sfEndWorkout();}
+}
+
+function _sfStartRest(){
+ clearInterval(_sf.restInt);
+ _sf.restTotal=_sf.prefRest;_sf.restSec=_sf.restTotal;_sf.restPaused=false;
+ _sfShowPanel('rest');
+ _sfUpdateRestRing();_sfUpdateRestUI();_sfUpdateRestNext();
+ _sf.restInt=setInterval(()=>{
+  if(_sf.restPaused)return;
+  _sf.restSec--;
+  if(_sf.restSec<=0){
+   _sf.restSec=0;clearInterval(_sf.restInt);_sf.restInt=null;
+   _sfUpdateRestRing();_sfUpdateRestUI();
+   if(typeof beep==='function')beep(true);
+   if(typeof hap!=='undefined')hap.successFeedback();
+   setTimeout(()=>{_sfShowPanel('ex');_sfRenderEx();},600);
+  }else{_sfUpdateRestRing();_sfUpdateRestUI();}
+ },1000);
+}
+
+function _sfUpdateRestRing(){
+ const circ=565.5;
+ const pct=_sf.restTotal>0?_sf.restSec/_sf.restTotal:0;
+ const el=document.getElementById('siFocusRingArc');
+ if(el){el.style.strokeDasharray=circ;el.style.strokeDashoffset=(circ*(1-pct)).toFixed(1);}
+}
+
+function _sfUpdateRestUI(){
+ const m=Math.floor(_sf.restSec/60),s=_sf.restSec%60;
+ const t=document.getElementById('siFocusRestCountdown');
+ if(t)t.textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+ const pb=document.getElementById('siFocusRestPause');
+ if(pb)pb.textContent=_sf.restPaused?'RESUME':'PAUSE';
+ // Last set logged line
+ const lastEl=document.getElementById('siFocusRestLast');
+ if(lastEl)lastEl.textContent=_sf.lastW>0?`${_sf.lastW} LBS × ${_sf.lastR} REPS LOGGED`:'—';
+ // Preset active state
+ document.querySelectorAll('.si-focus-rest-presets button').forEach(btn=>{
+  btn.classList.toggle('si-active',parseInt(btn.dataset.sec||0)===_sf.restTotal);
+ });
+}
+
+function _sfUpdateRestNext(){
+ const day=WEEKS[aW].days[aD];const ex=day.exercises[_sf.curEx];
+ const nameEl=document.getElementById('siFocusRestUpName');
+ const metaEl=document.getElementById('siFocusRestUpMeta');
+ if(ex){
+  if(nameEl)nameEl.textContent=ex.name;
+  if(metaEl)metaEl.textContent=`SET ${_sf.curSet+1} OF ${ex.sets}`;
+ }else{
+  if(nameEl)nameEl.textContent='WORKOUT COMPLETE';
+  if(metaEl)metaEl.textContent='All sets finished';
+ }
+}
+
+function siFocusTogglePauseRest(){
+ if(typeof hap!=='undefined')hap.lightTap();
+ _sf.restPaused=!_sf.restPaused;_sfUpdateRestUI();
+}
+
+function siFocusSkipRest(){
+ if(typeof hap!=='undefined')hap.lightTap();
+ clearInterval(_sf.restInt);_sf.restInt=null;
+ _sfShowPanel('ex');_sfRenderEx();
+}
+
+function siFocusSetRest(s){
+ if(typeof hap!=='undefined')hap.selectionFeedback();
+ _sf.prefRest=s;_sf.restTotal=s;_sf.restSec=s;
+ localStorage.setItem(_SF_REST_KEY,s);
+ clearInterval(_sf.restInt);_sf.restPaused=false;
+ _sfUpdateRestRing();_sfUpdateRestUI();
+ _sf.restInt=setInterval(()=>{
+  if(_sf.restPaused)return;
+  _sf.restSec--;
+  if(_sf.restSec<=0){
+   _sf.restSec=0;clearInterval(_sf.restInt);_sf.restInt=null;
+   _sfUpdateRestRing();_sfUpdateRestUI();
+   if(typeof beep==='function')beep(true);
+   if(typeof hap!=='undefined')hap.successFeedback();
+   setTimeout(()=>{_sfShowPanel('ex');_sfRenderEx();},600);
+  }else{_sfUpdateRestRing();_sfUpdateRestUI();}
+ },1000);
+}
+
+function siFocusPrevSet(){
+ if(typeof hap!=='undefined')hap.lightTap();
+ if(_sf.curSet>0){_sf.curSet--;}
+ else if(_sf.curEx>0){_sf.curEx--;_sf.curSet=0;}
+ _sfRenderEx();
+}
+
+function siFocusNextSet(){
+ if(typeof hap!=='undefined')hap.lightTap();
+ const exs=WEEKS[aW].days[aD].exercises;
+ if(_sf.curSet<(exs[_sf.curEx]?exs[_sf.curEx].sets-1:0)){_sf.curSet++;}
+ else if(_sf.curEx<exs.length-1){_sf.curEx++;_sf.curSet=0;}
+ _sfRenderEx();
+}
+
+function siFocusToggleList(){
+ if(typeof hap!=='undefined')hap.lightTap();
+ if(_sf.panel==='list'){_sfShowPanel('ex');_sfRenderEx();}
+ else{_sfShowPanel('list');_sfRenderList();}
+}
+
+function _sfRenderList(){
+ const exs=WEEKS[aW].days[aD].exercises;
+ const listEl=document.getElementById('siFocusListItems');if(!listEl||!exs)return;
+ listEl.innerHTML=exs.map((ex,ei)=>{
+  const done=gED(aW,aD,ei);const active=ei===_sf.curEx&&!done;
+  const numCls=`si-focus-list-num${done?' si-done':active?' si-cur':''}`;
+  const itemCls=`si-focus-list-item${done?' si-done-item':active?' si-active-item':''}`;
+  const meta=done?`${ex.sets} sets complete`:`${ex.sets} sets · ${ex.reps} reps`;
+  return`<div class="${itemCls}" onclick="siFocusJumpToEx(${ei})">
+   <div class="${numCls}">${done?'✓':(ei+1)}</div>
+   <div class="si-focus-list-info">
+    <div class="si-focus-list-name">${ex.name}</div>
+    <div class="si-focus-list-meta">${meta}</div>
+   </div>
+   <div class="si-focus-list-chev">›</div>
+  </div>`;
+ }).join('');
+}
+
+function siFocusJumpToEx(ei){
+ if(typeof hap!=='undefined')hap.lightTap();
+ _sf.curEx=ei;_sf.curSet=0;
+ const ex=WEEKS[aW].days[aD].exercises[ei];
+ if(ex){for(let si=0;si<ex.sets;si++){if(!gSD(aW,aD,ei,si)){_sf.curSet=si;break;}}}
+ _sfShowPanel('ex');_sfRenderEx();
+}
+
+function _sfEndWorkout(){
+ clearInterval(_sf.restInt);_sf.restInt=null;
+ const day=WEEKS[aW].days[aD];
+ if(dayProg(aW,aD)===0){siFocusViewWorkout();return;}
+ const saveDate=selectedBackfillDate||todayKey();
+ setWDone(aW,aD,saveDate);
+ selectedBackfillDate=null;
+ const bfEl=document.getElementById('backfillBanner');if(bfEl)bfEl.style.display='none';
+ day.exercises.forEach((ex,ei)=>{
+  let maxW=0;for(let si=0;si<ex.sets;si++){const w=parseFloat(gW(aW,aD,ei,si));if(w>maxW)maxW=w;}
+  if(maxW>0)logProgressionEntry(ex.name,maxW,saveDate);
+ });
+ let totalSets=0,totalLbs=0;const prsHit=[];
+ day.exercises.forEach((ex,ei)=>{
+  for(let si=0;si<ex.sets;si++){if(gSD(aW,aD,ei,si)){totalSets++;totalLbs+=parseFloat(gW(aW,aD,ei,si))||0;}}
+  const pr=getPR(ex.name);
+  for(let si=0;si<ex.sets;si++){const w=parseFloat(gW(aW,aD,ei,si))||0;if(w>0&&w>=pr&&pr>0&&!prsHit.includes(ex.name))prsHit.push(ex.name);}
+ });
+ const duration=Math.max(1,Math.round((Date.now()-_sf.sessionStart)/60000));
+ const exDone=day.exercises.filter((_,ei)=>gED(aW,aD,ei)).length;
+ if(typeof hap!=='undefined')hap.successFeedback();
+ const streak=getCurrentStreak();
+ const estCal=Math.round(totalSets*2.5*(day.type==='legs'?11:day.type==='cardio'?10:9));
+ const mm=Math.floor(duration/60),ss=duration%60;
+ const durStr=mm>0?`${mm}h ${ss}m`:`${duration}m`;
+ document.getElementById('siFocusSumSub').textContent=`${day.label.toUpperCase()} · WEEK ${aW+1}`;
+ document.getElementById('siFocusSumGrid').innerHTML=`
+  <div class="si-focus-sum-card"><div class="si-focus-sum-icon">⏱</div><div class="si-focus-sum-num">${durStr}</div><div class="si-focus-sum-label">DURATION</div></div>
+  <div class="si-focus-sum-card"><div class="si-focus-sum-icon">⚡</div><div class="si-focus-sum-num">${exDone}</div><div class="si-focus-sum-label">EXERCISES</div></div>
+  <div class="si-focus-sum-card"><div class="si-focus-sum-icon">🏋</div><div class="si-focus-sum-num">${totalSets}</div><div class="si-focus-sum-label">TOTAL SETS</div></div>
+  <div class="si-focus-sum-card"><div class="si-focus-sum-icon">🔥</div><div class="si-focus-sum-num">~${estCal}</div><div class="si-focus-sum-label">EST. CALS</div></div>`;
+ const prsEl=document.getElementById('siFocusSumPrs');
+ if(prsHit.length>0&&prsEl){
+  prsEl.style.display='block';
+  prsEl.innerHTML=`<div class="si-focus-sum-prs-hdr"><div class="si-focus-sum-prs-title">🏆 PRs ACHIEVED</div><div class="si-focus-sum-prs-count">${prsHit.length}</div></div>`+prsHit.map(n=>`<div class="si-focus-sum-pr-item"><span>${n}</span><span class="si-focus-sum-pr-badge">NEW PR</span></div>`).join('');
+ }else if(prsEl)prsEl.style.display='none';
+ const streakEl=document.getElementById('siFocusSumStreak');
+ if(streakEl){
+  if(streak>1){streakEl.style.display='block';streakEl.textContent=`🔥 ${streak}-SESSION STREAK`;}
+  else streakEl.style.display='none';
+ }
+ _sfShowPanel('sum');
+ const newAch=checkAchievements();
+ if(newAch.length)setTimeout(()=>newAch.forEach((id,i)=>setTimeout(()=>showAchievementToast(id),i*1200)),2000);
+ renderHome();
+}
 </script>
 
 <div id="prEditModal" class="pr-edit-modal" style="display:none;" onclick="if(event.target===this)closePREdit()">
@@ -7682,6 +8140,123 @@ boot();
    </div>
   </div>
  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SI FOCUS ENGINE v2 — Standalone separate renderer
+     All IDs prefixed siFocus*, all classes .si-focus-*
+     ═══════════════════════════════════════════════════════════ -->
+<div id="siFocusEngine" class="si-focus-engine" style="display:none;">
+
+ <!-- ── PANEL: Exercise ── -->
+ <div id="siFocusEx" class="si-focus-panel si-focus-panel-ex">
+  <div class="si-focus-accent-bar" id="siFocusAccentBar"></div>
+  <div class="si-focus-topbar">
+   <button class="si-focus-close" onclick="siFocusClose()" aria-label="Close">✕</button>
+   <div class="si-focus-topbar-center">
+    <div class="si-focus-wk-name" id="siFocusWkName">PUSH DAY</div>
+   </div>
+   <div class="si-focus-topbar-right">
+    <div class="si-focus-dur" id="siFocusDur">0:00</div>
+    <button class="si-focus-list-btn" onclick="siFocusToggleList()" aria-label="Exercise list">☰</button>
+   </div>
+  </div>
+  <div class="si-focus-hero">
+   <div class="si-focus-ex-counter" id="siFocusExCounter">EXERCISE 1 OF 6</div>
+   <div class="si-focus-ex-name" id="siFocusExName">—</div>
+   <div class="si-focus-ex-muscle" id="siFocusExMuscle"></div>
+   <div class="si-focus-set-dots" id="siFocusSetDots"></div>
+  </div>
+  <div class="si-focus-controls">
+   <div class="si-focus-input-col">
+    <div class="si-focus-input-lbl">WEIGHT</div>
+    <div class="si-focus-stepper-row">
+     <button class="si-focus-step" onclick="siFocusAdjW(-5)">−5</button>
+     <div class="si-focus-big-val" id="siFocusWVal">0</div>
+     <button class="si-focus-step" onclick="siFocusAdjW(5)">+5</button>
+    </div>
+    <div class="si-focus-input-unit">LBS</div>
+   </div>
+   <div class="si-focus-input-col">
+    <div class="si-focus-input-lbl">REPS</div>
+    <div class="si-focus-stepper-row">
+     <button class="si-focus-step" onclick="siFocusAdjR(-1)">−1</button>
+     <div class="si-focus-big-val" id="siFocusRVal">10</div>
+     <button class="si-focus-step" onclick="siFocusAdjR(1)">+1</button>
+    </div>
+    <div class="si-focus-input-unit">REPS</div>
+   </div>
+  </div>
+  <div class="si-focus-suggestion" id="siFocusSuggestion" style="display:none;"></div>
+  <div class="si-focus-bottom">
+   <div class="si-focus-nav-row">
+    <button class="si-focus-nav-btn" onclick="siFocusPrevSet()">← PREV</button>
+    <button class="si-focus-nav-btn si-focus-nav-end" onclick="siFocusEndWorkout()">END</button>
+    <button class="si-focus-nav-btn" onclick="siFocusNextSet()">NEXT →</button>
+   </div>
+   <button class="si-focus-complete-btn" onclick="siFocusCompleteSet()">
+    <span class="si-focus-complete-main">COMPLETE SET</span>
+    <span class="si-focus-complete-sub">TAP TO LOG &amp; START REST</span>
+   </button>
+  </div>
+ </div>
+
+ <!-- ── PANEL: Rest Timer ── -->
+ <div id="siFocusRest" class="si-focus-panel si-focus-panel-rest" style="display:none;">
+  <div class="si-focus-rest-top">
+   <div class="si-focus-rest-badge">REST PERIOD</div>
+   <div class="si-focus-rest-last" id="siFocusRestLast">—</div>
+  </div>
+  <div class="si-focus-rest-center">
+   <svg class="si-focus-rest-ring" viewBox="0 0 200 200">
+    <circle class="si-focus-ring-bg" cx="100" cy="100" r="90"/>
+    <circle class="si-focus-ring-arc" id="siFocusRingArc" cx="100" cy="100" r="90"/>
+   </svg>
+   <div class="si-focus-rest-countdown" id="siFocusRestCountdown">01:30</div>
+  </div>
+  <div class="si-focus-rest-upcoming">
+   <div class="si-focus-rest-up-lbl">UP NEXT</div>
+   <div class="si-focus-rest-up-name" id="siFocusRestUpName">—</div>
+   <div class="si-focus-rest-up-meta" id="siFocusRestUpMeta"></div>
+  </div>
+  <div class="si-focus-rest-presets">
+   <button data-sec="60" onclick="siFocusSetRest(60)">1 MIN</button>
+   <button data-sec="90" onclick="siFocusSetRest(90)">1:30</button>
+   <button data-sec="120" onclick="siFocusSetRest(120)">2 MIN</button>
+   <button data-sec="180" onclick="siFocusSetRest(180)">3 MIN</button>
+  </div>
+  <div class="si-focus-rest-actions">
+   <button class="si-focus-rest-pause" id="siFocusRestPause" onclick="siFocusTogglePauseRest()">PAUSE</button>
+   <button class="si-focus-rest-skip" onclick="siFocusSkipRest()">SKIP REST →</button>
+  </div>
+ </div>
+
+ <!-- ── PANEL: Exercise List ── -->
+ <div id="siFocusList" class="si-focus-panel si-focus-panel-list" style="display:none;">
+  <div class="si-focus-list-hdr">
+   <div class="si-focus-list-title">EXERCISES</div>
+   <button class="si-focus-list-close" onclick="siFocusToggleList()">✕</button>
+  </div>
+  <div class="si-focus-list-items" id="siFocusListItems"></div>
+  <button class="si-focus-list-end" onclick="siFocusEndWorkout()">END WORKOUT</button>
+ </div>
+
+ <!-- ── PANEL: Workout Complete Summary ── -->
+ <div id="siFocusSum" class="si-focus-panel si-focus-panel-sum" style="display:none;">
+  <div class="si-focus-sum-inner">
+   <div class="si-focus-sum-crown">🏆</div>
+   <div class="si-focus-sum-title">DONE.</div>
+   <div class="si-focus-sum-sub" id="siFocusSumSub">SESSION COMPLETE</div>
+   <div class="si-focus-sum-grid" id="siFocusSumGrid"></div>
+   <div class="si-focus-sum-prs-box" id="siFocusSumPrs" style="display:none;"></div>
+   <div class="si-focus-sum-streak-row" id="siFocusSumStreak" style="display:none;"></div>
+   <div class="si-focus-sum-btns">
+    <button class="si-focus-sum-btn-view" onclick="siFocusViewWorkout()">VIEW LOG</button>
+    <button class="si-focus-sum-btn-done" onclick="siFocusClose()">DONE</button>
+   </div>
+  </div>
+ </div>
+
 </div>
 </body>
 </html>
