@@ -1864,6 +1864,11 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
 
 <!-- HOME -->
 <div id="home" class="screen active" style="padding-bottom:120px;">
+ <!-- BUILD VERIFICATION BANNER — fixed top, pure HTML, no JS needed -->
+ <div id="buildVerifyBanner" style="position:fixed;top:0;left:0;right:0;z-index:9999;background:#ff6b00;color:#000;text-align:center;padding:env(safe-area-inset-top,0px) 0 8px;font-family:monospace;font-weight:900;font-size:11px;letter-spacing:2px;pointer-events:auto;cursor:pointer;" onclick="document.getElementById('buildVerifyBanner').style.display='none'">
+  NETFLIX DRILLDOWN v5 — TAP TO DISMISS
+ </div>
+ <div style="height:calc(env(safe-area-inset-top,0px) + 28px);"></div>
  <!-- Compact Header -->
  <div class="home-hdr">
   <div>
