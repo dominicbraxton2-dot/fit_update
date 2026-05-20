@@ -242,118 +242,152 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .toggle-sw.off{background:var(--border-bright);}
 .toggle-sw.on::after{transform:translateX(20px);}
 
-.week-cards{
- padding:0 0 20px 16px;
- display:flex;flex-direction:row;
- gap:14px;overflow-x:auto;
- scroll-snap-type:x mandatory;
- -webkit-overflow-scrolling:touch;
- scrollbar-width:none;
+/* ═══════════════════════════════════════
+   SI WEEK CAROUSEL — complete clean slate
+   ═══════════════════════════════════════ */
+.si-week-carousel{
+ display:flex !important;
+ flex-direction:row !important;
+ overflow-x:auto !important;
+ overflow-y:hidden !important;
+ scroll-snap-type:x mandatory !important;
+ -webkit-overflow-scrolling:touch !important;
+ touch-action:pan-x !important;
+ overscroll-behavior-x:contain !important;
+ scrollbar-width:none !important;
+ gap:14px !important;
+ padding:4px 0 20px 16px !important;
+ box-sizing:border-box !important;
+ min-height:0 !important;
+ align-items:stretch !important;
 }
-.week-cards::after{content:'';flex-shrink:0;width:4px;}
-.week-cards::-webkit-scrollbar{display:none;}
-.wk-card{
+.si-week-carousel::-webkit-scrollbar{display:none !important;}
+.si-week-carousel::after{
+ content:'';
+ display:block;
  flex-shrink:0;
- width:85vw;max-width:380px;
- aspect-ratio:16/9;
- border-radius:28px;
- overflow:hidden;
- position:relative;
- scroll-snap-align:start;
- cursor:pointer;
- border:1.5px solid rgba(255,255,255,0.06);
- transition:transform 0.35s cubic-bezier(0.34,1.2,0.64,1),box-shadow 0.35s,opacity 0.35s;
- will-change:transform;
+ width:8px;
+ min-width:8px;
 }
-.wk-card.wk-snap-active{
- transform:scale(1.02);
- box-shadow:0 20px 60px rgba(0,0,0,0.7);
+.si-wk-item{
+ flex-shrink:0 !important;
+ flex-grow:0 !important;
+ width:85vw !important;
+ max-width:360px !important;
+ height:190px !important;
+ border-radius:28px !important;
+ overflow:hidden !important;
+ position:relative !important;
+ scroll-snap-align:center !important;
+ cursor:pointer !important;
+ border:1.5px solid rgba(255,255,255,0.07) !important;
+ background:#111 !important;
+ transition:transform 0.3s cubic-bezier(0.34,1.2,0.64,1),box-shadow 0.3s !important;
+ display:block !important;
 }
-.wk-card.cur{
- border-color:rgba(255,107,0,0.55);
- box-shadow:0 0 0 1.5px rgba(255,107,0,0.25),0 16px 56px rgba(255,107,0,0.3);
+.si-wk-item.si-wk-cur{
+ border-color:rgba(255,107,0,0.6) !important;
+ box-shadow:0 0 0 1px rgba(255,107,0,0.2),0 16px 48px rgba(255,107,0,0.35) !important;
 }
-.wk-thumb-bg{
- position:absolute;inset:0;
- width:100%;height:100%;
- object-fit:cover;
- transition:transform 0.3s ease;
- will-change:transform;
+.si-wk-item.si-wk-snap{
+ transform:scale(1.025) !important;
+ box-shadow:0 22px 60px rgba(0,0,0,0.75) !important;
 }
-.wk-thumb-overlay{
- position:absolute;inset:0;
- background:linear-gradient(
-  160deg,
-  rgba(0,0,0,0.18) 0%,
-  rgba(0,0,0,0.1) 30%,
-  rgba(0,0,0,0.55) 65%,
-  rgba(0,0,0,0.93) 100%
- );
- z-index:1;
+.si-wk-item.si-wk-cur.si-wk-snap{
+ transform:scale(1.025) !important;
+ box-shadow:0 0 0 1px rgba(255,107,0,0.25),0 22px 60px rgba(255,107,0,0.4) !important;
 }
-.wk-thumb-body{
- position:absolute;
- left:0;right:0;bottom:0;
- z-index:2;
- padding:14px 16px 16px;
- display:flex;flex-direction:column;gap:5px;
- background:linear-gradient(to top,rgba(0,0,0,0.72) 0%,transparent 100%);
- backdrop-filter:blur(0px);
+.si-wk-bg{
+ position:absolute !important;
+ inset:0 !important;
+ width:100% !important;
+ height:100% !important;
+ object-fit:cover !important;
+ display:block !important;
+ transition:transform 0.3s ease !important;
 }
-.wk-thumb-meta{display:flex;align-items:center;justify-content:space-between;margin-bottom:2px;}
-.wk-thumb-badge{
+.si-wk-grad{
+ position:absolute !important;
+ inset:0 !important;
+ background:linear-gradient(170deg,rgba(0,0,0,0.15) 0%,rgba(0,0,0,0.08) 25%,rgba(0,0,0,0.5) 60%,rgba(0,0,0,0.92) 100%) !important;
+ z-index:1 !important;
+}
+.si-wk-body{
+ position:absolute !important;
+ left:0 !important;right:0 !important;bottom:0 !important;
+ z-index:2 !important;
+ padding:12px 16px 15px !important;
+ display:flex !important;
+ flex-direction:column !important;
+ gap:4px !important;
+}
+.si-wk-top-row{
+ position:absolute !important;
+ top:12px !important;left:14px !important;right:14px !important;
+ z-index:2 !important;
+ display:flex !important;
+ align-items:center !important;
+ justify-content:space-between !important;
+}
+.si-wk-pill{
  font-family:'JetBrains Mono',monospace;
- font-size:8px;letter-spacing:3px;text-transform:uppercase;font-weight:700;
+ font-size:8px;letter-spacing:2.5px;text-transform:uppercase;font-weight:700;
  color:#ff6b00;
- background:rgba(255,107,0,0.15);
- border:1px solid rgba(255,107,0,0.38);
- border-radius:100px;padding:3px 9px;
+ background:rgba(0,0,0,0.55);
+ border:1px solid rgba(255,107,0,0.45);
+ border-radius:100px;padding:3px 10px;
+ backdrop-filter:blur(8px);
 }
-.wk-thumb-phase{
+.si-wk-pill.si-wk-done-pill{color:#00c896;border-color:rgba(0,200,150,0.45);}
+.si-wk-phase{
  font-family:'JetBrains Mono',monospace;
- font-size:8px;letter-spacing:2px;text-transform:uppercase;font-weight:700;
- padding:3px 9px;border-radius:100px;border:1px solid;
+ font-size:7px;letter-spacing:2px;text-transform:uppercase;font-weight:700;
+ padding:3px 9px;border-radius:100px;
+ background:rgba(0,0,0,0.5);
+ backdrop-filter:blur(8px);
+ border:1px solid;
 }
-.wk-thumb-pct{
- font-family:'Bebas Neue',sans-serif;
- font-size:22px;color:rgba(255,255,255,0.5);letter-spacing:1px;
-}
-.wk-thumb-num{
+.si-wk-num{
  font-family:'JetBrains Mono',monospace;
- font-size:8px;letter-spacing:4px;color:rgba(255,255,255,0.45);
+ font-size:8px;letter-spacing:4px;color:rgba(255,255,255,0.42);
  text-transform:uppercase;
 }
-.wk-thumb-title{
+.si-wk-title{
  font-family:'Bebas Neue',sans-serif;
- font-size:26px;color:#fff;letter-spacing:1.5px;line-height:0.95;
+ font-size:28px;color:#fff;letter-spacing:1.5px;line-height:0.95;
 }
-.wk-thumb-prog-wrap{display:flex;align-items:center;gap:8px;margin-top:4px;}
-.wk-thumb-prog-track{
+.si-wk-bar-row{display:flex;align-items:center;gap:8px;margin-top:5px;}
+.si-wk-bar-track{
  flex:1;height:3px;
- background:rgba(255,255,255,0.12);
+ background:rgba(255,255,255,0.14);
  border-radius:3px;overflow:hidden;
 }
-.wk-thumb-prog-fill{
+.si-wk-bar-fill{
  height:100%;border-radius:3px;
  background:linear-gradient(90deg,#ff5c35,#ff9f35,#ffcc00);
- transition:width 0.6s cubic-bezier(0.4,0,0.2,1);
- box-shadow:0 0 6px rgba(255,107,0,0.6);
+ box-shadow:0 0 6px rgba(255,107,0,0.55);
 }
-.wk-thumb-pct-small{
+.si-wk-pct{
  font-family:'JetBrains Mono',monospace;
- font-size:10px;font-weight:700;color:rgba(255,255,255,0.45);
- flex-shrink:0;
+ font-size:10px;font-weight:700;color:rgba(255,255,255,0.42);
+ flex-shrink:0;white-space:nowrap;
 }
-/* Lock state */
-.wk-card.wk-locked .wk-thumb-body{opacity:0.48;}
-.wk-card.wk-locked .wk-thumb-bg{filter:brightness(0.45) saturate(0.3);}
-/* Done state */
-.wk-card.wk-done .wk-thumb-badge{color:#00c896;background:rgba(0,200,150,0.12);border-color:rgba(0,200,150,0.35);}
-/* Top-right lock icon */
-.wk-thumb-lock{
- position:absolute;top:14px;right:14px;z-index:3;
- font-size:16px;opacity:0.5;
+.si-wk-lock{
+ position:absolute !important;
+ inset:0 !important;z-index:3 !important;
+ display:flex;align-items:center;justify-content:center;
+ background:rgba(0,0,0,0.35);
+ font-size:26px;
 }
+/* Shimmer on current */
+.si-wk-item.si-wk-cur::after{
+ content:'';position:absolute;top:0;left:0;width:55%;height:100%;
+ background:linear-gradient(90deg,transparent,rgba(255,255,255,0.055),transparent);
+ animation:siWkWave 3.5s ease-in-out 0.8s infinite;
+ pointer-events:none;z-index:5;
+}
+@keyframes siWkWave{0%{transform:translateX(-100%)}100%{transform:translateX(220%)}}
+@keyframes siWkIn{from{opacity:0;transform:translateX(20px) scale(0.94)}to{opacity:1;transform:none}}
 .tips-section{margin:4px 16px 12px;border-radius:20px;background:var(--glass);backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);border:1px solid var(--border);padding:20px;}
 .tips-label{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:4px;color:var(--muted);text-transform:uppercase;margin-bottom:12px;}
 .tip{font-size:12px;color:var(--muted);padding:5px 0;border-bottom:1px solid var(--border);display:flex;gap:8px;align-items:baseline;font-weight:300;}
@@ -781,7 +815,7 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
 .coach-card{animation:slideUp 0.3s ease;}
 .ex-card{transition:transform 0.15s,box-shadow 0.2s;}
 .ex-card:active{transform:scale(0.99);}
-.wk-card{transition:transform 0.2s,box-shadow 0.3s,border-color 0.3s;}
+/* .wk-card removed — see .si-wk-item */
 .qa-btn.qa-primary:active{transform:scale(0.97);filter:brightness(1.05);}
 .ex-card.done{transition:box-shadow 0.4s ease,border-color 0.4s ease;}
 /* CTA button press — deeper sink + faster rise */
@@ -837,16 +871,7 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
 /* ── Screen transition ── */
 .screen.active{animation:fadeSlideUp 0.28s cubic-bezier(0.22,1,0.36,1) both;}
 
-/* ── Week thumbnail carousel — staggered reveal ── */
-.wk-card{animation:wkThumbIn 0.45s cubic-bezier(0.22,1,0.36,1) both;}
-@keyframes wkThumbIn{0%{opacity:0;transform:translateX(24px) scale(0.93)}100%{opacity:1;transform:translateX(0) scale(1)}}
-.wk-card:nth-child(1){animation-delay:0.03s}
-.wk-card:nth-child(2){animation-delay:0.08s}
-.wk-card:nth-child(3){animation-delay:0.13s}
-.wk-card:nth-child(4){animation-delay:0.18s}
-.wk-card:nth-child(5){animation-delay:0.23s}
-.wk-card:nth-child(6){animation-delay:0.28s}
-.wk-card.cur{animation:wkThumbIn 0.45s cubic-bezier(0.22,1,0.36,1) both,glowBorder 3s ease-in-out 0.6s infinite;}
+/* wk-card legacy rules removed — replaced by .si-wk-item */
 
 /* ── Day dots — bounceIn stagger ── */
 .day-dot{animation:bounceIn 0.4s cubic-bezier(0.22,1,0.36,1) both;}
@@ -962,9 +987,7 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
 
 
 
-/* Wave shimmer on current week card — runs above overlay layer */
-.wk-card.cur{position:relative;overflow:hidden;}
-.wk-card.cur::after{content:'';position:absolute;top:0;left:0;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.055),transparent);animation:waveSlide 3.5s ease-in-out 1s infinite;pointer-events:none;z-index:4;}
+/* wk-card wave shimmer removed — shimmer is on .si-wk-item.si-wk-cur::after */
 
 /* ── PREMIUM VISUAL ── */
 [data-theme="dark"] .home-hero::before{content:'';position:absolute;top:-120px;right:-100px;width:420px;height:420px;background:radial-gradient(circle,#ff5c3522 0%,transparent 65%);border-radius:50%;pointer-events:none;animation:orbMorph 8s ease-in-out infinite;}
@@ -1741,7 +1764,7 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
   <span class="hm-section-lbl">12-WEEK PROGRAM</span>
   <button class="hm-see-all" onclick="navTo('workout')">VIEW ALL</button>
  </div>
- <div class="week-cards" id="weekCards"></div>
+ <div id="siWeekCarousel" class="si-week-carousel"></div>
 
  <!-- Program Guidelines (collapsed) -->
  <div class="hm-section-hdr">
@@ -4429,52 +4452,80 @@ const WEEK_IMAGES=[
  'https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/FE3D7C52-E3E6-4669-BCA8-3F8CAF470F92.png'
 ];
 
-function renderHome(){
- const c=document.getElementById('weekCards');
- c.innerHTML='';
+let _siWkIO=null,_siWkScrollFn=null;
+
+function renderSiWeekCarousel(){
+ const rail=document.getElementById('siWeekCarousel');
+ if(!rail)return;
+ rail.innerHTML='';
  WEEKS.forEach((wk,wi)=>{
   const phase=getPhase(wi);
-  const wp=weekProg(wi),isA=wi===aW;
-  const pct=Math.round(wp*100);
+  const pct=Math.round(weekProg(wi)*100);
+  const isA=wi===aW;
   const isDone=pct===100;
   const isLocked=!isA&&pct===0&&wi>aW;
   const phaseColor=phase?phase.color:'rgba(255,107,0,0.8)';
-  const imgSrc=WEEK_IMAGES[wi%WEEK_IMAGES.length];
-  const card=document.createElement('div');
-  let cardCls='wk-card';
-  if(isA)cardCls+=' cur';
-  if(isDone)cardCls+=' wk-done';
-  if(isLocked)cardCls+=' wk-locked';
-  card.className=cardCls;
-  const badgeHtml=isA
-   ?`<div class="wk-thumb-badge">CURRENT</div>`
+  const img=WEEK_IMAGES[wi%WEEK_IMAGES.length];
+  const item=document.createElement('div');
+  item.className='si-wk-item'+(isA?' si-wk-cur':'')+(isDone?' si-wk-done':'')+(isLocked?' si-wk-locked':'');
+  item.style.animation=`siWkIn 0.4s cubic-bezier(0.22,1,0.36,1) ${(wi*0.05).toFixed(2)}s both`;
+  const pillHtml=isA
+   ?`<div class="si-wk-pill">● CURRENT</div>`
    :isDone
-   ?`<div class="wk-thumb-badge">DONE ✓</div>`
+   ?`<div class="si-wk-pill si-wk-done-pill">✓ DONE</div>`
+   :'<div></div>';
+  const phaseHtml=phase
+   ?`<div class="si-wk-phase" style="color:${phaseColor};border-color:${phaseColor}50;">${phase.label.replace(/.*—\s*/,'').trim()}</div>`
    :'';
-  const phaseBadge=phase
-   ?`<div class="wk-thumb-phase" style="color:${phaseColor};border-color:${phaseColor}44;">${phase.label.split('—')[0].trim()}</div>`
-   :'';
-  card.innerHTML=`
-   <img class="wk-thumb-bg" src="${imgSrc}" alt="" loading="lazy" draggable="false">
-   <div class="wk-thumb-overlay"></div>
-   ${isLocked?'<div class="wk-thumb-lock">🔒</div>':''}
-   <div class="wk-thumb-body">
-    <div class="wk-thumb-meta">
-     ${badgeHtml}
-     ${phaseBadge}
-    </div>
-    <div class="wk-thumb-num">WEEK ${wi+1}</div>
-    <div class="wk-thumb-title">${wk.theme||wk.label||'TRAINING'}</div>
-    <div class="wk-thumb-prog-wrap">
-     <div class="wk-thumb-prog-track"><div class="wk-thumb-prog-fill" style="width:${pct}%"></div></div>
-     <div class="wk-thumb-pct-small">${pct}%</div>
-    </div>
-   </div>`;
-  card.addEventListener('click',()=>openDay(wi,0));
-  c.appendChild(card);
+  item.innerHTML=`
+<img class="si-wk-bg" src="${img}" alt="" loading="lazy" draggable="false">
+<div class="si-wk-grad"></div>
+<div class="si-wk-top-row">${pillHtml}${phaseHtml}</div>
+${isLocked?'<div class="si-wk-lock">🔒</div>':''}
+<div class="si-wk-body">
+ <div class="si-wk-num">WEEK ${wi+1}</div>
+ <div class="si-wk-title">${wk.theme||wk.label||'TRAINING'}</div>
+ <div class="si-wk-bar-row">
+  <div class="si-wk-bar-track"><div class="si-wk-bar-fill" style="width:${pct}%"></div></div>
+  <div class="si-wk-pct">${pct}%</div>
+ </div>
+</div>`;
+  item.addEventListener('click',()=>openDay(wi,0));
+  rail.appendChild(item);
  });
- // Observe scroll position to apply snap-active scale
- _initWeekCarouselSnap(c);
+ // Scroll to active week
+ const activeCard=rail.querySelector('.si-wk-cur');
+ if(activeCard){
+  setTimeout(()=>{
+   const idx=[...rail.children].indexOf(activeCard);
+   if(idx>0)rail.scrollTo({left:activeCard.offsetLeft-16,behavior:'smooth'});
+  },100);
+ }
+ // IntersectionObserver: scale card when centered
+ if(_siWkIO)_siWkIO.disconnect();
+ _siWkIO=new IntersectionObserver(entries=>{
+  entries.forEach(e=>e.target.classList.toggle('si-wk-snap',e.intersectionRatio>=0.7));
+ },{root:rail,threshold:[0,0.7,1]});
+ [...rail.querySelectorAll('.si-wk-item')].forEach(c=>_siWkIO.observe(c));
+ // Parallax on scroll
+ if(_siWkScrollFn)rail.removeEventListener('scroll',_siWkScrollFn);
+ _siWkScrollFn=()=>{
+  const cards=[...rail.querySelectorAll('.si-wk-item')];
+  const cw=rail.offsetWidth,cl=rail.scrollLeft;
+  cards.forEach(card=>{
+   const bg=card.querySelector('.si-wk-bg');if(!bg)return;
+   const rel=(card.offsetLeft-cl+card.offsetWidth/2-cw/2)/cw;
+   const shift=Math.max(-12,Math.min(12,rel*18));
+   bg.style.transform=`translateX(${shift}px) scale(1.08)`;
+  });
+ };
+ rail.addEventListener('scroll',_siWkScrollFn,{passive:true});
+ _siWkScrollFn();
+}
+
+function renderHome(){
+ console.log("NEW CAROUSEL ACTIVE");
+ renderSiWeekCarousel();
  // History nav dot
  const anyHistory=WEEKS.some((wk,wi)=>wk.days.some((_,di)=>getWDone(wi,di)));
  const histBtn=document.getElementById('nav-history');
@@ -4654,43 +4705,6 @@ function renderHomeCarousel(){
 
 // Keep for any legacy calls
 function toggleWeekCards(){}
-
-let _wkSnapObserver=null;
-let _wkScrollListener=null;
-function _initWeekCarouselSnap(container){
- // Scroll to current week card
- const cards=[...container.querySelectorAll('.wk-card')];
- const curIdx=cards.findIndex(c=>c.classList.contains('cur'));
- if(curIdx>0)setTimeout(()=>{
-  const card=cards[curIdx];
-  container.scrollTo({left:card.offsetLeft-16,behavior:'smooth'});
- },120);
- // Scale active card via IntersectionObserver
- if(_wkSnapObserver)_wkSnapObserver.disconnect();
- const io=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-   e.target.classList.toggle('wk-snap-active',e.intersectionRatio>0.72);
-  });
- },{root:container,threshold:[0,0.72,1]});
- cards.forEach(c=>io.observe(c));
- _wkSnapObserver=io;
- // Parallax: shift background image on scroll
- if(_wkScrollListener)container.removeEventListener('scroll',_wkScrollListener);
- _wkScrollListener=()=>{
-  const cl=container.scrollLeft;
-  const cw=container.offsetWidth;
-  cards.forEach((card,i)=>{
-   const img=card.querySelector('.wk-thumb-bg');
-   if(!img)return;
-   const cx=card.offsetLeft-cl;
-   const relCenter=(cx+card.offsetWidth/2-cw/2)/cw;
-   const shift=Math.max(-14,Math.min(14,relCenter*22));
-   img.style.transform=`translateX(${shift}px) scale(1.06)`;
-  });
- };
- container.addEventListener('scroll',_wkScrollListener,{passive:true});
- _wkScrollListener();
-}
 
 function toggleTips(){
  const el=document.getElementById('tipsSection');
