@@ -1528,6 +1528,13 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
  <!-- Quick Actions -->
  <div id="quickActions"></div>
 
+ <!-- ▼▼▼ TEMP DEBUG BUTTON — tap this to confirm V2 engine renders ▼▼▼ -->
+ <div id="v2TestBtn" style="margin:0 16px 12px;background:#00ff88;border-radius:16px;padding:16px;cursor:pointer;text-align:center;" onclick="(function(){try{siFocusOpen();}catch(e){document.getElementById('v2TestBtn').textContent='ERROR: '+e.message;}})()">
+  <div style="font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:800;letter-spacing:2px;color:#000;">⚡ TAP TO TEST V2 ENGINE DIRECT</div>
+  <div style="font-size:10px;color:rgba(0,0,0,0.55);margin-top:3px;">Bypasses all routing — confirms engine renders</div>
+ </div>
+ <!-- ▲▲▲ TEMP DEBUG BUTTON ▲▲▲ -->
+
  <!-- This Week -->
  <div class="hm-section-hdr">
   <span class="hm-section-lbl">THIS WEEK</span>
@@ -7628,6 +7635,7 @@ const _sf={
 function openFocusMode(){siFocusOpen();}
 
 function siFocusOpen(){
+ try{
  _sf.prefRest=parseInt(localStorage.getItem(_SF_REST_KEY))||90;
  _sf.active=true;_sf.sessionStart=Date.now();
  clearInterval(_sf.restInt);_sf.restInt=null;
@@ -7643,6 +7651,10 @@ function siFocusOpen(){
  const eng=document.getElementById('siFocusEngine');
  if(eng)eng.style.display='flex';
  _sfShowPanel('ex');_sfRenderEx();
+ }catch(err){
+  alert('SI FOCUS ENGINE ERROR: '+err.message);
+  console.error('siFocusOpen error:',err);
+ }
 }
 
 function siFocusClose(){
