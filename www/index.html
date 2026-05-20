@@ -389,6 +389,143 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 @keyframes siWkWave{0%{transform:translateX(-100%)}100%{transform:translateX(220%)}}
 @keyframes siWkIn{from{opacity:0;transform:translateX(20px) scale(0.94)}to{opacity:1;transform:none}}
 .tips-section{margin:4px 16px 12px;border-radius:20px;background:var(--glass);backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);border:1px solid var(--border);padding:20px;}
+
+/* ═══════════════════════════════════════
+   SI DAY CAROUSEL — Netflix drill-down
+   ═══════════════════════════════════════ */
+.si-day-section{overflow:hidden;}
+@keyframes siDaySectionIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.si-day-section.si-day-visible{animation:siDaySectionIn 0.32s cubic-bezier(0.22,1,0.36,1) both;}
+.si-day-hdr{
+ display:flex;align-items:center;gap:10px;
+ padding:14px 16px 10px;
+}
+.si-day-back{
+ display:flex;align-items:center;gap:5px;
+ background:rgba(255,255,255,0.06);
+ border:1px solid rgba(255,255,255,0.1);
+ border-radius:100px;
+ padding:6px 12px;
+ color:rgba(255,255,255,0.55);
+ font-family:'JetBrains Mono',monospace;
+ font-size:9px;letter-spacing:2px;text-transform:uppercase;font-weight:700;
+ cursor:pointer;-webkit-tap-highlight-color:transparent;
+ flex-shrink:0;
+}
+.si-day-back:active{opacity:0.65;}
+.si-day-wk-lbl{
+ font-family:'Bebas Neue',sans-serif;
+ font-size:20px;color:#fff;letter-spacing:1.5px;
+ white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.si-day-carousel{
+ display:flex !important;
+ flex-direction:row !important;
+ overflow-x:auto !important;
+ overflow-y:hidden !important;
+ scroll-snap-type:x mandatory !important;
+ -webkit-overflow-scrolling:touch !important;
+ touch-action:pan-x !important;
+ overscroll-behavior-x:contain !important;
+ scrollbar-width:none !important;
+ gap:14px !important;
+ padding:4px 0 20px 16px !important;
+ box-sizing:border-box !important;
+ align-items:stretch !important;
+}
+.si-day-carousel::-webkit-scrollbar{display:none !important;}
+.si-day-carousel::after{content:'';display:block;flex-shrink:0;width:8px;min-width:8px;}
+.si-day-item{
+ flex-shrink:0 !important;
+ flex-grow:0 !important;
+ width:72vw !important;
+ max-width:300px !important;
+ height:220px !important;
+ border-radius:22px !important;
+ overflow:hidden !important;
+ position:relative !important;
+ scroll-snap-align:center !important;
+ cursor:pointer !important;
+ border:1.5px solid rgba(255,255,255,0.07) !important;
+ background:#111 !important;
+ transition:transform 0.3s cubic-bezier(0.34,1.2,0.64,1),box-shadow 0.3s !important;
+ display:block !important;
+}
+.si-day-item.si-day-snap{
+ transform:scale(1.03) !important;
+ box-shadow:0 20px 55px rgba(0,0,0,0.75) !important;
+}
+.si-day-item.si-day-active-wk{
+ border-color:rgba(255,107,0,0.55) !important;
+ box-shadow:0 0 0 1px rgba(255,107,0,0.22),0 14px 48px rgba(255,107,0,0.32) !important;
+}
+.si-day-item.si-day-active-wk.si-day-snap{
+ box-shadow:0 0 0 1px rgba(255,107,0,0.28),0 20px 60px rgba(255,107,0,0.45) !important;
+}
+.si-day-bg{
+ position:absolute !important;
+ inset:0 !important;width:100% !important;height:100% !important;
+ object-fit:cover !important;display:block !important;
+ transition:transform 0.3s ease !important;
+}
+.si-day-grad{
+ position:absolute !important;inset:0 !important;
+ background:linear-gradient(175deg,rgba(0,0,0,0.12) 0%,rgba(0,0,0,0.06) 25%,rgba(0,0,0,0.52) 58%,rgba(0,0,0,0.96) 100%) !important;
+ z-index:1 !important;
+}
+.si-day-top-row{
+ position:absolute !important;top:12px !important;left:12px !important;right:12px !important;
+ z-index:2 !important;display:flex !important;align-items:center !important;justify-content:space-between !important;
+}
+.si-day-status-pill{
+ font-family:'JetBrains Mono',monospace;font-size:7.5px;letter-spacing:2.5px;
+ text-transform:uppercase;font-weight:700;
+ padding:3px 9px;border-radius:100px;
+ background:rgba(0,0,0,0.55);backdrop-filter:blur(8px);
+ border:1px solid rgba(255,255,255,0.14);color:rgba(255,255,255,0.55);
+}
+.si-day-status-pill.si-day-done-pill{color:#00c896;border-color:rgba(0,200,150,0.45);}
+.si-day-status-pill.si-day-today-pill{color:#ff6b00;border-color:rgba(255,107,0,0.5);}
+.si-day-status-pill.si-day-rest-pill{color:rgba(255,255,255,0.38);border-color:rgba(255,255,255,0.12);}
+.si-day-type-tag{
+ font-family:'JetBrains Mono',monospace;font-size:7px;letter-spacing:2px;
+ text-transform:uppercase;font-weight:700;
+ padding:3px 8px;border-radius:100px;
+ background:rgba(0,0,0,0.5);backdrop-filter:blur(8px);
+ border:1px solid;
+}
+.si-day-body{
+ position:absolute !important;left:0 !important;right:0 !important;bottom:0 !important;
+ z-index:2 !important;padding:10px 14px 12px !important;
+ display:flex !important;flex-direction:column !important;gap:3px !important;
+}
+.si-day-num{
+ font-family:'JetBrains Mono',monospace;
+ font-size:7.5px;letter-spacing:4px;color:rgba(255,255,255,0.4);text-transform:uppercase;
+}
+.si-day-title{
+ font-family:'Bebas Neue',sans-serif;
+ font-size:24px;color:#fff;letter-spacing:1.5px;line-height:0.95;
+}
+.si-day-meta{
+ font-size:10px;color:rgba(255,255,255,0.38);font-weight:600;
+ margin-top:2px;
+}
+.si-day-start-btn{
+ margin-top:8px;
+ width:100%;padding:9px 0;
+ border-radius:12px;border:none;
+ background:rgba(255,255,255,0.95);color:#000;
+ font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;
+ cursor:pointer;-webkit-tap-highlight-color:transparent;
+ transition:transform 0.12s cubic-bezier(0.34,1.56,0.64,1),opacity 0.12s;
+}
+.si-day-start-btn:active{transform:scale(0.95);opacity:0.85;}
+.si-day-start-btn.si-day-rest-btn{
+ background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.45);
+ border:1px solid rgba(255,255,255,0.1);
+}
+@keyframes siDayIn{from{opacity:0;transform:translateX(18px) scale(0.95)}to{opacity:1;transform:none}}
 .tips-label{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:4px;color:var(--muted);text-transform:uppercase;margin-bottom:12px;}
 .tip{font-size:12px;color:var(--muted);padding:5px 0;border-bottom:1px solid var(--border);display:flex;gap:8px;align-items:baseline;font-weight:300;}
 .tip:last-child{border-bottom:none;}
@@ -1765,6 +1902,15 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
   <button class="hm-see-all" onclick="navTo('workout')">VIEW ALL</button>
  </div>
  <div id="siWeekCarousel" class="si-week-carousel"></div>
+
+ <!-- Day drill-down carousel (hidden until week tapped) -->
+ <div id="siDaySection" class="si-day-section" style="display:none;">
+  <div class="si-day-hdr">
+   <button class="si-day-back" onclick="siCloseDayCarousel()">← WEEKS</button>
+   <div class="si-day-wk-lbl" id="siDayWkLbl">WEEK 1</div>
+  </div>
+  <div id="siDayCarousel" class="si-day-carousel"></div>
+ </div>
 
  <!-- Program Guidelines (collapsed) -->
  <div class="hm-section-hdr">
@@ -4452,6 +4598,124 @@ const WEEK_IMAGES=[
  'https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/FE3D7C52-E3E6-4669-BCA8-3F8CAF470F92.png'
 ];
 
+// ── Day-image map: day type → full-bleed thumbnail ──
+const SI_DAY_IMAGES={
+ push:'https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/1FDD7207-8089-4601-9C15-39063EC9BDF3.png',
+ legs:'https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/6783B43D-F666-475B-9D9B-BBB7574AC34A.png',
+ cardio:'https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/8B5EE3A8-622A-4462-984D-16C07F73A1F9.png',
+ pull:'https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/A4165AD6-46F9-4276-AC27-67954196555C.png',
+ abs:'https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/C0D786A0-D08F-4D07-B1F1-30090D6A3D41.png',
+ rest:'https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/FE3D7C52-E3E6-4669-BCA8-3F8CAF470F92.png',
+ recovery:'https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/FE3D7C52-E3E6-4669-BCA8-3F8CAF470F92.png'
+};
+// fallback ordering if type not matched
+const SI_DAY_IMAGES_ORDERED=[
+ SI_DAY_IMAGES.push,SI_DAY_IMAGES.legs,SI_DAY_IMAGES.cardio,
+ SI_DAY_IMAGES.pull,SI_DAY_IMAGES.abs,SI_DAY_IMAGES.cardio,SI_DAY_IMAGES.rest
+];
+
+let _siDayIO=null,_siDayScrollFn=null;
+
+function siOpenDayCarousel(wi){
+ const section=document.getElementById('siDaySection');
+ const lbl=document.getElementById('siDayWkLbl');
+ if(!section)return;
+ const wk=WEEKS[wi];
+ if(lbl)lbl.textContent=`WEEK ${wi+1} — ${(wk.theme||wk.label||'').toUpperCase()}`;
+ section.style.display='';
+ section.classList.remove('si-day-visible');
+ void section.offsetWidth;
+ section.classList.add('si-day-visible');
+ renderSiDayCarousel(wi);
+ // Scroll the home screen so day section is visible
+ setTimeout(()=>{
+  section.scrollIntoView({behavior:'smooth',block:'nearest'});
+ },80);
+}
+
+function siCloseDayCarousel(){
+ const section=document.getElementById('siDaySection');
+ if(!section)return;
+ section.style.display='none';
+ section.classList.remove('si-day-visible');
+ if(_siDayIO){_siDayIO.disconnect();_siDayIO=null;}
+}
+
+function renderSiDayCarousel(wi){
+ console.log("NETFLIX WEEK DRILLDOWN ACTIVE");
+ const rail=document.getElementById('siDayCarousel');
+ if(!rail)return;
+ rail.innerHTML='';
+ const wk=WEEKS[wi];
+ const today=new Date().toISOString().split('T')[0];
+ wk.days.forEach((day,di)=>{
+  const ts=TYPE[day.type]||TYPE.push;
+  const typeColor=ts.color||'#ff6b00';
+  const done=getWDone(wi,di);
+  const isDone=!!done;
+  const isToday=wi===aW&&di===aD;
+  const isRest=day.type==='rest'||day.type==='recovery';
+  const stats=isRest?null:calcWorkoutStats(wi,di);
+  const img=SI_DAY_IMAGES[day.type]||SI_DAY_IMAGES_ORDERED[di%7];
+  const item=document.createElement('div');
+  item.className='si-day-item'+(isToday?' si-day-active-wk':'');
+  item.style.animation=`siDayIn 0.38s cubic-bezier(0.22,1,0.36,1) ${(di*0.055).toFixed(2)}s both`;
+  // Status pill
+  const pillTxt=isDone?'✓ DONE':isToday?'● TODAY':isRest?'REST':'PLANNED';
+  const pillCls='si-day-status-pill'+(isDone?' si-day-done-pill':isToday?' si-day-today-pill':isRest?' si-day-rest-pill':'');
+  // Type tag
+  const typeTag=`<div class="si-day-type-tag" style="color:${typeColor};border-color:${typeColor}50;">${day.type.toUpperCase()}</div>`;
+  // Meta line
+  const metaHtml=stats?`${stats.exercises} exercises · ~${stats.estMin} min · ~${stats.estCal} cal`:(isRest?'Active recovery':'');
+  // Start button
+  const btnCls='si-day-start-btn'+(isRest?' si-day-rest-btn':'');
+  const btnTxt=isDone?'REVIEW':'START';
+  item.innerHTML=`
+<img class="si-day-bg" src="${img}" alt="" loading="lazy" draggable="false">
+<div class="si-day-grad"></div>
+<div class="si-day-top-row">
+ <div class="${pillCls}">${pillTxt}</div>
+ ${typeTag}
+</div>
+<div class="si-day-body">
+ <div class="si-day-num">DAY ${di+1}</div>
+ <div class="si-day-title">${day.label}</div>
+ <div class="si-day-meta">${metaHtml}</div>
+ <button class="${btnCls}" data-wi="${wi}" data-di="${di}">${btnTxt} →</button>
+</div>`;
+  item.querySelector('button').addEventListener('click',(e)=>{
+   e.stopPropagation();
+   openDay(wi,di);
+  });
+  item.addEventListener('click',()=>openDay(wi,di));
+  rail.appendChild(item);
+ });
+ // IntersectionObserver: scale centered card
+ if(_siDayIO)_siDayIO.disconnect();
+ _siDayIO=new IntersectionObserver(entries=>{
+  entries.forEach(e=>e.target.classList.toggle('si-day-snap',e.intersectionRatio>=0.65));
+ },{root:rail,threshold:[0,0.65,1]});
+ [...rail.querySelectorAll('.si-day-item')].forEach(c=>_siDayIO.observe(c));
+ // Parallax
+ if(_siDayScrollFn)rail.removeEventListener('scroll',_siDayScrollFn);
+ _siDayScrollFn=()=>{
+  const cards=[...rail.querySelectorAll('.si-day-item')];
+  const cw=rail.offsetWidth,cl=rail.scrollLeft;
+  cards.forEach(card=>{
+   const bg=card.querySelector('.si-day-bg');if(!bg)return;
+   const rel=(card.offsetLeft-cl+card.offsetWidth/2-cw/2)/cw;
+   bg.style.transform=`translateX(${Math.max(-10,Math.min(10,rel*16))}px) scale(1.07)`;
+  });
+ };
+ rail.addEventListener('scroll',_siDayScrollFn,{passive:true});
+ _siDayScrollFn();
+ // Snap to today's day if this is the active week
+ if(wi===aW){
+  const todayCard=rail.children[aD];
+  if(todayCard&&aD>0)setTimeout(()=>rail.scrollTo({left:todayCard.offsetLeft-16,behavior:'smooth'}),80);
+ }
+}
+
 let _siWkIO=null,_siWkScrollFn=null;
 
 function renderSiWeekCarousel(){
@@ -4490,7 +4754,7 @@ ${isLocked?'<div class="si-wk-lock">🔒</div>':''}
   <div class="si-wk-pct">${pct}%</div>
  </div>
 </div>`;
-  item.addEventListener('click',()=>openDay(wi,0));
+  item.addEventListener('click',()=>siOpenDayCarousel(wi));
   rail.appendChild(item);
  });
  // Scroll to active week
@@ -4525,6 +4789,7 @@ ${isLocked?'<div class="si-wk-lock">🔒</div>':''}
 
 function renderHome(){
  console.log("NEW CAROUSEL ACTIVE");
+ siCloseDayCarousel();
  renderSiWeekCarousel();
  // History nav dot
  const anyHistory=WEEKS.some((wk,wi)=>wk.days.some((_,di)=>getWDone(wi,di)));
