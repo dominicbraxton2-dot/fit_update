@@ -1497,7 +1497,89 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
 .si-focus-panel-ex{animation:siFocusSlideUp 0.3s cubic-bezier(0.34,1.2,0.64,1) both;}
 .si-focus-panel-rest{animation:siFocusScaleIn 0.35s cubic-bezier(0.34,1.2,0.64,1) both;}
 .si-focus-panel-sum{animation:siFocusSlideUp 0.4s cubic-bezier(0.34,1.2,0.64,1) both;}
-@media(prefers-reduced-motion:reduce){.si-focus-panel-ex,.si-focus-panel-rest,.si-focus-panel-sum{animation:none;}.si-focus-complete-btn{animation:none;}.si-focus-ring-arc{transition:none;}.si-focus-dot{transition:none;}}
+
+/* ── Direct-edit tap target on value displays ── */
+.si-focus-big-val{cursor:pointer;-webkit-tap-highlight-color:transparent;transition:color 0.15s,transform 0.12s;}
+.si-focus-big-val:active{transform:scale(0.93);color:rgba(255,107,0,0.75);}
+.si-focus-input-col.si-focus-col-active{
+ border-color:rgba(255,107,0,0.38);background:rgba(255,107,0,0.04);
+ box-shadow:0 0 22px rgba(255,107,0,0.14);transition:all 0.2s;
+}
+@keyframes siFocusValPop{0%{transform:scale(1)}40%{transform:scale(1.13);color:#ff6b00}100%{transform:scale(1)}}
+.si-focus-val-pop{animation:siFocusValPop 0.28s cubic-bezier(0.34,1.4,0.64,1) both;}
+
+/* ── Direct Edit Modal ── */
+.si-focus-edit-overlay{
+ position:absolute;inset:0;z-index:800;
+ background:rgba(0,0,0,0.78);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+ display:flex;align-items:flex-end;justify-content:center;
+}
+.si-focus-edit-sheet{
+ background:#111;border-radius:24px 24px 0 0;
+ padding:20px 20px max(24px,env(safe-area-inset-bottom));
+ width:100%;max-width:430px;
+ border-top:1px solid rgba(255,255,255,0.08);
+ display:flex;flex-direction:column;gap:12px;
+ animation:siFocusSlideUp 0.28s cubic-bezier(0.34,1.2,0.64,1) both;
+}
+.si-focus-edit-hdr{display:flex;align-items:center;justify-content:space-between;}
+.si-focus-edit-lbl{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:3px;color:rgba(255,107,0,0.65);text-transform:uppercase;}
+.si-focus-edit-x{width:30px;height:30px;border-radius:50%;border:none;background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.38);font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.si-focus-edit-input-row{
+ display:flex;align-items:center;gap:10px;
+ background:rgba(255,255,255,0.05);
+ border:1.5px solid rgba(255,107,0,0.42);border-radius:18px;
+ padding:10px 18px;
+ box-shadow:0 0 24px rgba(255,107,0,0.1);
+}
+.si-focus-edit-input{
+ flex:1;background:none;border:none;outline:none;
+ font-family:'Bebas Neue',sans-serif;font-size:56px;color:#fff;
+ letter-spacing:1px;line-height:1;-webkit-appearance:none;
+ caret-color:#ff6b00;min-width:0;
+}
+.si-focus-edit-unit-lbl{
+ font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;
+ color:rgba(255,255,255,0.18);text-transform:uppercase;align-self:flex-end;padding-bottom:10px;
+}
+.si-focus-edit-adj{display:flex;gap:8px;}
+.si-focus-edit-adj button{
+ flex:1;padding:12px 4px;border-radius:12px;
+ border:1px solid rgba(255,255,255,0.09);background:rgba(255,255,255,0.05);
+ color:rgba(255,255,255,0.5);font-size:13px;font-weight:700;cursor:pointer;
+ -webkit-tap-highlight-color:transparent;
+}
+.si-focus-edit-adj button:active{background:rgba(255,107,0,0.18);border-color:rgba(255,107,0,0.35);}
+.si-focus-edit-presets{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px;}
+.si-focus-edit-presets::-webkit-scrollbar{display:none;}
+.si-focus-edit-presets button{
+ flex-shrink:0;padding:8px 14px;border-radius:100px;
+ border:1px solid rgba(255,255,255,0.09);background:rgba(255,255,255,0.04);
+ color:rgba(255,255,255,0.45);font-size:12px;font-weight:700;cursor:pointer;
+ white-space:nowrap;-webkit-tap-highlight-color:transparent;
+}
+.si-focus-edit-presets button:active{background:rgba(255,107,0,0.2);border-color:rgba(255,107,0,0.38);}
+.si-focus-edit-special{display:flex;gap:6px;flex-wrap:wrap;}
+.si-focus-edit-special button{
+ padding:8px 14px;border-radius:100px;
+ border:1px solid rgba(255,255,255,0.09);background:rgba(255,255,255,0.04);
+ color:rgba(255,255,255,0.4);font-size:11px;font-weight:700;cursor:pointer;
+ -webkit-tap-highlight-color:transparent;
+}
+.si-focus-edit-special button:active{background:rgba(255,107,0,0.18);}
+.si-focus-edit-actions{display:flex;gap:10px;margin-top:2px;}
+.si-focus-edit-cancel{
+ flex:1;padding:15px;border-radius:15px;
+ border:1px solid rgba(255,255,255,0.09);background:rgba(255,255,255,0.04);
+ color:rgba(255,255,255,0.4);font-size:13px;font-weight:800;cursor:pointer;
+}
+.si-focus-edit-done{
+ flex:2;padding:15px;border-radius:15px;border:none;
+ background:#fff;color:#000;font-family:'Bebas Neue',sans-serif;
+ font-size:24px;letter-spacing:2px;cursor:pointer;transition:transform 0.1s;
+}
+.si-focus-edit-done:active{transform:scale(0.97);}
+@media(prefers-reduced-motion:reduce){.si-focus-panel-ex,.si-focus-panel-rest,.si-focus-panel-sum,.si-focus-edit-sheet{animation:none;}.si-focus-complete-btn{animation:none;}.si-focus-ring-arc{transition:none;}.si-focus-dot,.si-focus-big-val{transition:none;}.si-focus-val-pop{animation:none;}}
 </style>
 </head>
 <body>
@@ -7691,70 +7773,197 @@ function _sfAccentColor(){
  return _SF_TYPE_COLORS[day.type]||_SF_TYPE_COLORS.default;
 }
 
+// ── Weight value helpers (supports numerics + "BW", "BW +25", "Assisted -40") ──
+function _sfWNum(w){const n=parseFloat(w);return isNaN(n)?0:n;}
+function _sfWIsSpecial(w){if(typeof w!=='string')return false;const u=w.toUpperCase();return u==='BW'||u.startsWith('BW ')||u.startsWith('ASSISTED');}
+function _sfWDisplay(w){if(w===0||w===''||w===null||w===undefined)return'BW';return String(w);}
+function _sfSmartIncrement(w){
+ const n=_sfWNum(w);if(!n)return 5;
+ if(n%5!==0)return 2.5; // already on a decimal increment
+ return n>=100?5:2.5;
+}
+
 function _sfRenderEx(){
  const day=WEEKS[aW].days[aD];
  const ex=day.exercises[_sf.curEx];if(!ex)return;
- // Workout label
  const bfTag=selectedBackfillDate?` · ${new Date(selectedBackfillDate+'T12:00').toLocaleDateString('en-US',{month:'short',day:'numeric'})}`:'';
  document.getElementById('siFocusWkName').textContent=`${day.label.toUpperCase()} · WK ${aW+1}${bfTag}`;
- // Accent color bar
  const bar=document.getElementById('siFocusAccentBar');if(bar)bar.style.background=_sfAccentColor();
- // Counter
  document.getElementById('siFocusExCounter').textContent=`EXERCISE ${_sf.curEx+1} OF ${day.exercises.length}`;
- // Exercise name
  document.getElementById('siFocusExName').textContent=ex.name;
- // Muscles
  const muscles=[...new Set((MUSCLE_MAP[ex.name]||[]).map(m=>MUSCLE_NAMES[m]).filter(Boolean))].slice(0,2).join(' · ');
  document.getElementById('siFocusExMuscle').textContent=muscles||'COMPOUND MOVEMENT';
  // Set dots
  const dotsEl=document.getElementById('siFocusSetDots');
  if(dotsEl){
   dotsEl.innerHTML=Array.from({length:ex.sets},(_,si)=>{
-   const done=gSD(aW,aD,_sf.curEx,si);
-   const cur=si===_sf.curSet;
+   const done=gSD(aW,aD,_sf.curEx,si);const cur=si===_sf.curSet;
    return`<div class="si-focus-dot${done?' done':cur?' current':''}"></div>`;
   }).join('');
  }
- // Pre-fill weight
- const lastW=gW(aW,aD,_sf.curEx,_sf.curSet);
+ // Pre-fill weight — preserve stored string values ("BW", "47.5", etc.)
+ const storedW=gW(aW,aD,_sf.curEx,_sf.curSet);
  const pr=getPR(ex.name);
- if(lastW&&parseFloat(lastW)>0){_sf.inputW=parseFloat(lastW);}
- else if(pr>0){_sf.inputW=pr;}
- else{let found=0;for(let s=0;s<ex.sets;s++){const w=parseFloat(gW(aW,aD,_sf.curEx,s));if(w>0){found=w;break;}}  _sf.inputW=found;}
+ if(storedW!==''){
+  // Stored value exists — use it as-is (string or number)
+  _sf.inputW=_sfWIsSpecial(storedW)?storedW:(_sfWNum(storedW)||storedW);
+ }else if(pr>0){
+  _sf.inputW=pr;
+ }else{
+  let found=0;
+  for(let s=0;s<ex.sets;s++){const w=gW(aW,aD,_sf.curEx,s);if(w!==''){found=_sfWIsSpecial(w)?w:(_sfWNum(w)||0);break;}}
+  _sf.inputW=found;
+ }
  _sf.inputR=parseInt(ex.reps)||10;
- document.getElementById('siFocusWVal').textContent=_sf.inputW||'BW';
+ document.getElementById('siFocusWVal').textContent=_sfWDisplay(_sf.inputW);
  document.getElementById('siFocusRVal').textContent=_sf.inputR;
- // Suggestion
+ // Smart suggestion: based on stored weight from last time logged
  const sugEl=document.getElementById('siFocusSuggestion');
  if(sugEl){
-  if(pr>0&&_sf.curSet===0){sugEl.textContent=`SUGGESTED ${pr+5} LBS × ${ex.reps} REPS · +5 FROM LAST`;sugEl.style.display='';}
-  else{sugEl.style.display='none';}
+  const base=storedW!==''?storedW:(pr>0?pr:null);
+  if(base!==null&&_sf.curSet===0){
+   if(_sfWIsSpecial(base)){
+    sugEl.textContent=`LAST SESSION: ${base} × ${ex.reps} REPS`;
+   }else{
+    const n=_sfWNum(base);
+    if(n>0){
+     const inc=_sfSmartIncrement(n);
+     const next=n+inc;
+     const nextStr=next%1===0?next:next.toFixed(1);
+     sugEl.textContent=`SUGGESTED: ${nextStr} LBS × ${ex.reps} REPS  (+${inc})`;
+    }else{sugEl.textContent='';}
+   }
+   sugEl.style.display=sugEl.textContent?'':'none';
+  }else{sugEl.style.display='none';}
  }
 }
 
 function siFocusAdjW(d){
  if(typeof hap!=='undefined')hap.lightTap();
- _sf.inputW=Math.max(0,(_sf.inputW||0)+d);
- document.getElementById('siFocusWVal').textContent=_sf.inputW||'BW';
+ // If currently a special string, reset to numeric before adjusting
+ const cur=_sfWIsSpecial(_sf.inputW)?0:(_sfWNum(_sf.inputW));
+ const next=Math.max(0,cur+d);
+ _sf.inputW=next%1===0?next:parseFloat(next.toFixed(1));
+ const el=document.getElementById('siFocusWVal');
+ if(el){el.textContent=_sfWDisplay(_sf.inputW);_sfValPop('siFocusWVal');}
 }
 
 function siFocusAdjR(d){
  if(typeof hap!=='undefined')hap.lightTap();
  _sf.inputR=Math.max(1,(_sf.inputR||1)+d);
- document.getElementById('siFocusRVal').textContent=_sf.inputR;
+ const el=document.getElementById('siFocusRVal');
+ if(el){el.textContent=_sf.inputR;_sfValPop('siFocusRVal');}
 }
 
 function siFocusCompleteSet(){
  if(typeof hap!=='undefined')hap.mediumTap();
  const day=WEEKS[aW].days[aD];const ex=day.exercises[_sf.curEx];if(!ex)return;
  _sf.lastW=_sf.inputW;_sf.lastR=_sf.inputR;
- if(_sf.inputW>0)sW(aW,aD,_sf.curEx,_sf.curSet,_sf.inputW);
+ // Save weight — handles numeric, decimal, and special string values
+ const wVal=_sf.inputW;
+ if(wVal!==0&&wVal!==''&&wVal!==null&&wVal!==undefined)sW(aW,aD,_sf.curEx,_sf.curSet,String(wVal));
  sSD(aW,aD,_sf.curEx,_sf.curSet,true);
  const allDone=Array.from({length:ex.sets},(_,si)=>gSD(aW,aD,_sf.curEx,si)).every(Boolean);
  if(allDone)sED(aW,aD,_sf.curEx,true);
  const next=_sfFindNextAfter(_sf.curEx,_sf.curSet);
  if(next){_sf.curEx=next.ei;_sf.curSet=next.si;_sfStartRest();}
  else{_sfEndWorkout();}
+}
+
+// ── Direct Edit Modal ──
+let _sfEditMode=null;
+
+function siFocusOpenEdit(mode){
+ if(typeof hap!=='undefined')hap.lightTap();
+ _sfEditMode=mode;
+ const lbl=document.getElementById('siFocusEditLbl');
+ const input=document.getElementById('siFocusEditInput');
+ const unitLbl=document.getElementById('siFocusEditUnitLbl');
+ const adjEl=document.getElementById('siFocusEditAdj');
+ const presetsEl=document.getElementById('siFocusEditPresets');
+ const specialEl=document.getElementById('siFocusEditSpecial');
+ const wCol=document.getElementById('siFocusWCol');
+ const rCol=document.getElementById('siFocusRCol');
+ if(mode==='weight'){
+  lbl.textContent='WEIGHT';
+  unitLbl.style.display='';
+  adjEl.innerHTML=`<button onclick="siFocusEditAdj(-5)">−5</button><button onclick="siFocusEditAdj(-2.5)">−2.5</button><button onclick="siFocusEditAdj(2.5)">+2.5</button><button onclick="siFocusEditAdj(5)">+5</button>`;
+  specialEl.style.display='';
+  input.inputMode='decimal';
+  input.value=_sfWIsSpecial(_sf.inputW)?_sf.inputW:(_sfWNum(_sf.inputW)||'');
+  // Generate presets from PR ± increments
+  const pr=getPR(WEEKS[aW].days[aD].exercises[_sf.curEx]?.name||'');
+  const base=pr>0?pr:(_sfWNum(_sf.inputW)||45);
+  const steps=[-10,-5,0,5,10,20].map(d=>base+d).filter(v=>v>0);
+  const unique=[...new Set(steps)];
+  presetsEl.innerHTML=unique.map(v=>{const s=v%1===0?v:v.toFixed(1);return`<button onclick="siFocusEditSetVal(${s})">${s}</button>`;}).join('');
+  if(wCol)wCol.classList.add('si-focus-col-active');
+  if(rCol)rCol.classList.remove('si-focus-col-active');
+ }else{
+  lbl.textContent='REPS';
+  unitLbl.style.display='none';
+  adjEl.innerHTML=`<button onclick="siFocusEditAdj(-2)">−2</button><button onclick="siFocusEditAdj(-1)">−1</button><button onclick="siFocusEditAdj(1)">+1</button><button onclick="siFocusEditAdj(2)">+2</button>`;
+  specialEl.style.display='none';
+  input.inputMode='numeric';
+  input.value=_sf.inputR||'';
+  presetsEl.innerHTML=[1,2,3,4,5,6,8,10,12,15,20,25].map(r=>`<button onclick="siFocusEditSetVal(${r})">${r}</button>`).join('');
+  if(rCol)rCol.classList.add('si-focus-col-active');
+  if(wCol)wCol.classList.remove('si-focus-col-active');
+ }
+ document.getElementById('siFocusEditOverlay').style.display='flex';
+ setTimeout(()=>{input.focus();input.select();},80);
+}
+
+function siFocusEditSetVal(v){
+ const input=document.getElementById('siFocusEditInput');
+ if(input)input.value=String(v);
+}
+
+function siFocusEditAdj(delta){
+ const input=document.getElementById('siFocusEditInput');
+ if(!input)return;
+ const cur=parseFloat(input.value)||0;
+ const next=Math.max(0,cur+delta);
+ input.value=next%1===0?String(next):next.toFixed(1);
+}
+
+function siFocusEditClose(){
+ document.getElementById('siFocusEditOverlay').style.display='none';
+ _sfEditMode=null;
+ // Remove active glow from both cols
+ const wCol=document.getElementById('siFocusWCol');const rCol=document.getElementById('siFocusRCol');
+ if(wCol)wCol.classList.remove('si-focus-col-active');
+ if(rCol)rCol.classList.remove('si-focus-col-active');
+ // Dismiss keyboard
+ const input=document.getElementById('siFocusEditInput');if(input)input.blur();
+}
+
+function siFocusEditSave(){
+ const raw=(document.getElementById('siFocusEditInput').value||'').trim();
+ if(!raw){siFocusEditClose();return;}
+ if(_sfEditMode==='weight'){
+  const upper=raw.toUpperCase();
+  if(upper==='BW'||upper.startsWith('BW ')||upper.startsWith('ASSISTED')){
+   _sf.inputW=raw; // store as string
+  }else{
+   const n=parseFloat(raw);
+   _sf.inputW=isNaN(n)?raw:n;
+  }
+  const el=document.getElementById('siFocusWVal');
+  if(el){el.textContent=_sfWDisplay(_sf.inputW);_sfValPop('siFocusWVal');}
+ }else if(_sfEditMode==='reps'){
+  const n=parseInt(raw);
+  if(!isNaN(n)&&n>0)_sf.inputR=n;
+  const el=document.getElementById('siFocusRVal');
+  if(el){el.textContent=_sf.inputR;_sfValPop('siFocusRVal');}
+ }
+ if(typeof hap!=='undefined')hap.mediumTap();
+ siFocusEditClose();
+}
+
+function _sfValPop(id){
+ const el=document.getElementById(id);if(!el)return;
+ el.classList.remove('si-focus-val-pop');void el.offsetWidth;el.classList.add('si-focus-val-pop');
 }
 
 function _sfStartRest(){
@@ -7790,7 +7999,7 @@ function _sfUpdateRestUI(){
  if(pb)pb.textContent=_sf.restPaused?'RESUME':'PAUSE';
  // Last set logged line
  const lastEl=document.getElementById('siFocusRestLast');
- if(lastEl)lastEl.textContent=_sf.lastW>0?`${_sf.lastW} LBS × ${_sf.lastR} REPS LOGGED`:'—';
+ if(lastEl){const lw=_sf.lastW;lastEl.textContent=(lw&&lw!==0)?`${_sfWDisplay(lw)} × ${_sf.lastR} REPS LOGGED`:'—';}
  // Preset active state
  document.querySelectorAll('.si-focus-rest-presets button').forEach(btn=>{
   btn.classList.toggle('si-active',parseInt(btn.dataset.sec||0)===_sf.restTotal);
@@ -7897,14 +8106,14 @@ function _sfEndWorkout(){
  selectedBackfillDate=null;
  const bfEl=document.getElementById('backfillBanner');if(bfEl)bfEl.style.display='none';
  day.exercises.forEach((ex,ei)=>{
-  let maxW=0;for(let si=0;si<ex.sets;si++){const w=parseFloat(gW(aW,aD,ei,si));if(w>maxW)maxW=w;}
+  let maxW=0;for(let si=0;si<ex.sets;si++){const w=_sfWNum(gW(aW,aD,ei,si));if(w>maxW)maxW=w;}
   if(maxW>0)logProgressionEntry(ex.name,maxW,saveDate);
  });
  let totalSets=0,totalLbs=0;const prsHit=[];
  day.exercises.forEach((ex,ei)=>{
-  for(let si=0;si<ex.sets;si++){if(gSD(aW,aD,ei,si)){totalSets++;totalLbs+=parseFloat(gW(aW,aD,ei,si))||0;}}
+  for(let si=0;si<ex.sets;si++){if(gSD(aW,aD,ei,si)){totalSets++;totalLbs+=_sfWNum(gW(aW,aD,ei,si));}}
   const pr=getPR(ex.name);
-  for(let si=0;si<ex.sets;si++){const w=parseFloat(gW(aW,aD,ei,si))||0;if(w>0&&w>=pr&&pr>0&&!prsHit.includes(ex.name))prsHit.push(ex.name);}
+  for(let si=0;si<ex.sets;si++){const w=_sfWNum(gW(aW,aD,ei,si));if(w>0&&w>=pr&&pr>0&&!prsHit.includes(ex.name))prsHit.push(ex.name);}
  });
  const duration=Math.max(1,Math.round((Date.now()-_sf.sessionStart)/60000));
  const exDone=day.exercises.filter((_,ei)=>gED(aW,aD,ei)).length;
@@ -8168,20 +8377,20 @@ function _sfEndWorkout(){
    <div class="si-focus-set-dots" id="siFocusSetDots"></div>
   </div>
   <div class="si-focus-controls">
-   <div class="si-focus-input-col">
+   <div class="si-focus-input-col" id="siFocusWCol">
     <div class="si-focus-input-lbl">WEIGHT</div>
     <div class="si-focus-stepper-row">
      <button class="si-focus-step" onclick="siFocusAdjW(-5)">−5</button>
-     <div class="si-focus-big-val" id="siFocusWVal">0</div>
+     <div class="si-focus-big-val" id="siFocusWVal" onclick="siFocusOpenEdit('weight')" title="Tap to edit">0</div>
      <button class="si-focus-step" onclick="siFocusAdjW(5)">+5</button>
     </div>
-    <div class="si-focus-input-unit">LBS</div>
+    <div class="si-focus-input-unit" id="siFocusWUnit">LBS</div>
    </div>
-   <div class="si-focus-input-col">
+   <div class="si-focus-input-col" id="siFocusRCol">
     <div class="si-focus-input-lbl">REPS</div>
     <div class="si-focus-stepper-row">
      <button class="si-focus-step" onclick="siFocusAdjR(-1)">−1</button>
-     <div class="si-focus-big-val" id="siFocusRVal">10</div>
+     <div class="si-focus-big-val" id="siFocusRVal" onclick="siFocusOpenEdit('reps')" title="Tap to edit">10</div>
      <button class="si-focus-step" onclick="siFocusAdjR(1)">+1</button>
     </div>
     <div class="si-focus-input-unit">REPS</div>
@@ -8198,6 +8407,38 @@ function _sfEndWorkout(){
     <span class="si-focus-complete-main">COMPLETE SET</span>
     <span class="si-focus-complete-sub">TAP TO LOG &amp; START REST</span>
    </button>
+  </div>
+ </div>
+
+ <!-- ── Direct Edit Modal (weight / reps) ── -->
+ <div id="siFocusEditOverlay" class="si-focus-edit-overlay" style="display:none;" onclick="if(event.target===this)siFocusEditClose()">
+  <div class="si-focus-edit-sheet">
+   <div class="si-focus-edit-hdr">
+    <div class="si-focus-edit-lbl" id="siFocusEditLbl">WEIGHT</div>
+    <button class="si-focus-edit-x" onclick="siFocusEditClose()">✕</button>
+   </div>
+   <div class="si-focus-edit-input-row">
+    <input class="si-focus-edit-input" id="siFocusEditInput" type="text" inputmode="decimal" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="0"/>
+    <div class="si-focus-edit-unit-lbl" id="siFocusEditUnitLbl">LBS</div>
+   </div>
+   <div class="si-focus-edit-adj" id="siFocusEditAdj">
+    <button onclick="siFocusEditAdj(-5)">−5</button>
+    <button onclick="siFocusEditAdj(-2.5)">−2.5</button>
+    <button onclick="siFocusEditAdj(2.5)">+2.5</button>
+    <button onclick="siFocusEditAdj(5)">+5</button>
+   </div>
+   <div class="si-focus-edit-presets" id="siFocusEditPresets"></div>
+   <div class="si-focus-edit-special" id="siFocusEditSpecial">
+    <button onclick="siFocusEditSetVal('BW')">BW</button>
+    <button onclick="siFocusEditSetVal('BW +25')">BW +25</button>
+    <button onclick="siFocusEditSetVal('BW +45')">BW +45</button>
+    <button onclick="siFocusEditSetVal('Assisted -20')">Assisted −20</button>
+    <button onclick="siFocusEditSetVal('Assisted -40')">Assisted −40</button>
+   </div>
+   <div class="si-focus-edit-actions">
+    <button class="si-focus-edit-cancel" onclick="siFocusEditClose()">CANCEL</button>
+    <button class="si-focus-edit-done" onclick="siFocusEditSave()">DONE</button>
+   </div>
   </div>
  </div>
 
