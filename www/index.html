@@ -272,16 +272,17 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .si-wk-item{
  flex-shrink:0 !important;
  flex-grow:0 !important;
- width:85vw !important;
- max-width:360px !important;
- height:190px !important;
+ width:86vw !important;
+ max-width:340px !important;
+ aspect-ratio:4/5 !important;
+ height:auto !important;
  border-radius:28px !important;
  overflow:hidden !important;
  position:relative !important;
  scroll-snap-align:center !important;
  cursor:pointer !important;
  border:1.5px solid rgba(255,255,255,0.07) !important;
- background:#111 !important;
+ background-color:#111 !important;
  transition:transform 0.3s cubic-bezier(0.34,1.2,0.64,1),box-shadow 0.3s !important;
  display:block !important;
 }
@@ -303,6 +304,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
  width:100% !important;
  height:100% !important;
  object-fit:cover !important;
+ object-position:center center !important;
  display:block !important;
  transition:transform 0.3s ease !important;
 }
@@ -438,9 +440,10 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .si-day-item{
  flex-shrink:0 !important;
  flex-grow:0 !important;
- width:72vw !important;
- max-width:300px !important;
- height:220px !important;
+ width:78vw !important;
+ max-width:310px !important;
+ aspect-ratio:4/5 !important;
+ height:auto !important;
  border-radius:28px !important;
  overflow:hidden !important;
  position:relative !important;
@@ -449,7 +452,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
  border:1.5px solid rgba(255,255,255,0.07) !important;
  background-color:#111 !important;
  background-size:cover !important;
- background-position:center !important;
+ background-position:center center !important;
  background-repeat:no-repeat !important;
  transition:transform 0.3s cubic-bezier(0.34,1.2,0.64,1),box-shadow 0.3s !important;
  display:block !important;
@@ -4698,19 +4701,7 @@ function renderSiDayCarousel(wi){
   entries.forEach(e=>e.target.classList.toggle('si-day-snap',e.intersectionRatio>=0.65));
  },{root:rail,threshold:[0,0.65,1]});
  [...rail.querySelectorAll('.si-day-item')].forEach(c=>_siDayIO.observe(c));
- // Parallax
- if(_siDayScrollFn)rail.removeEventListener('scroll',_siDayScrollFn);
- _siDayScrollFn=()=>{
-  const cards=[...rail.querySelectorAll('.si-day-item')];
-  const cw=rail.offsetWidth,cl=rail.scrollLeft;
-  cards.forEach(card=>{
-   const bg=card.querySelector('.si-day-bg');if(!bg)return;
-   const rel=(card.offsetLeft-cl+card.offsetWidth/2-cw/2)/cw;
-   bg.style.transform=`translateX(${Math.max(-10,Math.min(10,rel*16))}px) scale(1.07)`;
-  });
- };
- rail.addEventListener('scroll',_siDayScrollFn,{passive:true});
- _siDayScrollFn();
+ if(_siDayScrollFn){rail.removeEventListener('scroll',_siDayScrollFn);_siDayScrollFn=null;}
  // Snap to today's day if this is the active week
  if(wi===aW){
   const todayCard=rail.children[aD];
@@ -4782,8 +4773,8 @@ ${isLocked?'<div class="si-wk-lock">🔒</div>':''}
   cards.forEach(card=>{
    const bg=card.querySelector('.si-wk-bg');if(!bg)return;
    const rel=(card.offsetLeft-cl+card.offsetWidth/2-cw/2)/cw;
-   const shift=Math.max(-12,Math.min(12,rel*18));
-   bg.style.transform=`translateX(${shift}px) scale(1.08)`;
+   const shift=Math.max(-6,Math.min(6,rel*8));
+   bg.style.transform=`translateX(${shift}px)`;
   });
  };
  rail.addEventListener('scroll',_siWkScrollFn,{passive:true});
