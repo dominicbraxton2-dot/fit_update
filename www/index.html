@@ -1901,7 +1901,9 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
   <span class="hm-section-lbl">12-WEEK PROGRAM</span>
   <button class="hm-see-all" onclick="navTo('workout')">VIEW ALL</button>
  </div>
- <div id="siWeekCarousel" class="si-week-carousel"></div>
+ <!-- ▼ DEBUG: if you see this orange bar, new code is running ▼ -->
+ <div id="siNetflixDebug" style="margin:0 16px 10px;background:#ff6b00;color:#000;text-align:center;padding:10px 16px;border-radius:14px;font-family:monospace;font-weight:900;font-size:13px;letter-spacing:1.5px;">NETFLIX DRILLDOWN ACTIVE ✓</div>
+ <div id="siWeekCarousel" class="si-week-carousel" style="min-height:200px;outline:2px solid rgba(255,107,0,0.4);outline-offset:2px;border-radius:22px;"></div>
 
  <!-- Day drill-down carousel (hidden until week tapped) -->
  <div id="siDaySection" class="si-day-section" style="display:none;">
@@ -4616,7 +4618,10 @@ const SI_DAY_IMAGES_ORDERED=[
 
 let _siDayIO=null,_siDayScrollFn=null;
 
+function siHideDebug(){const d=document.getElementById('siNetflixDebug');if(d)d.style.display='none';}
+
 function siOpenDayCarousel(wi){
+ siHideDebug();
  const section=document.getElementById('siDaySection');
  const lbl=document.getElementById('siDayWkLbl');
  if(!section)return;
@@ -4719,8 +4724,10 @@ function renderSiDayCarousel(wi){
 let _siWkIO=null,_siWkScrollFn=null;
 
 function renderSiWeekCarousel(){
+ console.log("renderSiWeekCarousel called — NEW CODE v4");
  const rail=document.getElementById('siWeekCarousel');
- if(!rail)return;
+ if(!rail){console.error("siWeekCarousel NOT FOUND in DOM");return;}
+ rail.style.outline='none'; // remove debug outline once JS runs
  rail.innerHTML='';
  WEEKS.forEach((wk,wi)=>{
   const phase=getPhase(wi);
