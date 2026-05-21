@@ -1898,6 +1898,15 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
  gap:14px !important;
  padding-inline:24px !important;
 }
+/* ── WORKOUT SESSION BACKGROUND ── */
+.session-bg{
+ position:fixed;inset:0;
+ background-size:cover;background-position:center;background-repeat:no-repeat;
+ opacity:0.22;z-index:0;pointer-events:none;
+ filter:contrast(1.05) brightness(0.55);
+}
+#workout,#focusMode,#siFocusEngine{position:relative;}
+#workout .session-bg{position:absolute;z-index:0;}
 /* ── HERO ATHLETE IMAGE ── */
 .home-carousel-card.hc-hero{
  position:relative !important;
@@ -1998,6 +2007,7 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
 
 <!-- WORKOUT -->
 <div id="workout" class="screen">
+ <div class="session-bg" id="workoutSessionBg"></div>
  <!-- Focus Mode entry point — always the primary CTA on this screen -->
  <div style="padding:12px 16px 0;background:var(--bg);">
   <button onclick="openDay(aW,aD)" style="width:100%;padding:17px;border-radius:17px;border:none;background:linear-gradient(135deg,#ff6b00,#ff4500);color:#fff;font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:1.5px;cursor:pointer;box-shadow:0 4px 20px rgba(255,107,0,0.3);display:flex;align-items:center;justify-content:center;gap:10px;">
@@ -4655,6 +4665,14 @@ function renderOutdoorRecent(){
 // ── Week thumbnail images (index matches week number 0–11, cycles if more weeks) ──
 // ── Home hero image — athlete, completely separate from day thumbnails ──
 const HOME_HERO_IMAGE='https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/774E1439-5AE3-4A00-83B0-EB4B7C8B4980.png';
+const WORKOUT_SESSION_BG='https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/12C76F72-CB84-430F-9EB5-14D24D5594EA.png';
+// Apply session background to all workout screens
+(function(){
+ ['workoutSessionBg','focusModeSessionBg','siFocusSessionBg'].forEach(id=>{
+  const el=document.getElementById(id);
+  if(el)el.style.backgroundImage=`url('${WORKOUT_SESSION_BG}')`;
+ });
+})();
 
 // ── Daily thumbnail images — day 1-7 mapping, same for ALL 12 weeks ──
 const DAILY_THUMBNAIL_IMAGES={
@@ -8765,7 +8783,7 @@ function _sfEndWorkout(){
 
 <!-- FOCUS WORKOUT MODE -->
 <div id="focusMode" class="fm-overlay" style="display:none;">
- <!-- Header -->
+ <div class="session-bg" id="focusModeSessionBg"></div>
  <div class="fm-hdr">
   <div class="fm-hdr-top">
    <button class="fm-back-btn" onclick="closeFocusMode()" aria-label="Back">&#8592;</button>
@@ -8937,6 +8955,7 @@ function _sfEndWorkout(){
      All IDs prefixed siFocus*, all classes .si-focus-*
      ═══════════════════════════════════════════════════════════ -->
 <div id="siFocusEngine" class="si-focus-engine" style="display:none;">
+ <div class="session-bg" id="siFocusSessionBg"></div>
 
  <!-- ── PANEL: Exercise ── -->
  <div id="siFocusEx" class="si-focus-panel si-focus-panel-ex">
