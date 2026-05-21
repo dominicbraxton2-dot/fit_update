@@ -300,15 +300,14 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
  transform:scale(1.025) !important;
  box-shadow:0 0 0 1px rgba(255,107,0,0.25),0 22px 60px rgba(255,107,0,0.4) !important;
 }
-.si-wk-bg{
+.si-wk-bg,.si-day-img{
  position:absolute !important;
  inset:0 !important;
  width:100% !important;
  height:100% !important;
- object-fit:cover !important;
- object-position:center 32% !important;
+ object-fit:contain !important;
+ object-position:center center !important;
  display:block !important;
- transition:transform 0.3s ease !important;
 }
 .si-wk-grad{
  position:absolute !important;
@@ -455,9 +454,6 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
  cursor:pointer !important;
  border:1.5px solid rgba(255,255,255,0.07) !important;
  background-color:#050505 !important;
- background-size:cover !important;
- background-position:center 32% !important;
- background-repeat:no-repeat !important;
  transition:transform 0.3s cubic-bezier(0.34,1.2,0.64,1),box-shadow 0.3s !important;
  display:block !important;
 }
@@ -1882,18 +1878,16 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
  scroll-snap-align:center !important;
  background-color:#050505 !important;
 }
-.si-wk-bg{
+.si-wk-bg,.si-day-img{
  position:absolute !important;
  inset:0 !important;
  width:100% !important;
  height:100% !important;
- object-fit:cover !important;
- object-position:center 32% !important;
+ object-fit:contain !important;
+ object-position:center center !important;
 }
-.si-day-item{
- background-size:cover !important;
- background-position:center 32% !important;
- background-repeat:no-repeat !important;
+.si-wk-item,.si-day-item{
+ background:#050505 !important;
 }
 .si-week-carousel,.si-day-carousel{
  display:flex !important;
@@ -4702,10 +4696,6 @@ function renderSiDayCarousel(wi){
   const item=document.createElement('div');
   item.className='si-day-item'+(isToday?' si-day-active-wk':'');
   item.style.animation=`siDayIn 0.38s cubic-bezier(0.22,1,0.36,1) ${(di*0.055).toFixed(2)}s both`;
-  item.style.backgroundImage=`url('${img}')`;
-  const _probe=new Image();
-  _probe.onerror=()=>{item.style.backgroundImage=`url('${DAILY_THUMBNAIL_IMAGES[1]}')`;};
-  _probe.src=img;
   // Status pill
   const pillTxt=isDone?'✓ DONE':isToday?'● TODAY':isRest?'REST':'PLANNED';
   const pillCls='si-day-status-pill'+(isDone?' si-day-done-pill':isToday?' si-day-today-pill':isRest?' si-day-rest-pill':'');
@@ -4717,6 +4707,7 @@ function renderSiDayCarousel(wi){
   const btnCls='si-day-start-btn'+(isRest?' si-day-rest-btn':'');
   const btnTxt=isDone?'REVIEW':'START';
   item.innerHTML=`
+<img class="si-day-img" src="${img}" alt="" draggable="false" onerror="this.src='${DAILY_THUMBNAIL_IMAGES[1]}'">
 <div class="si-day-top-row">
  <div class="${pillCls}">${pillTxt}</div>
  ${typeTag}
