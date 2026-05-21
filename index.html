@@ -1950,6 +1950,9 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
 .si-focus-panel-rest{background:rgba(0,0,0,0.72) !important;}
 .si-focus-panel-list{background:rgba(8,8,8,0.72) !important;}
 .si-focus-panel-sum{background:rgba(0,0,0,0.80) !important;}
+/* ── HIDE BROKEN/EMPTY IMAGES IN FOCUS SCREENS ── */
+#siFocusIntro img[src=""],#siFocusIntro img:not([src]),
+#siFocusEngine img[src=""],#focusMode img[src=""]{display:none !important;}
 /* ── TAP/CLICK UNBLOCKING ── */
 .session-bg,.hc-athlete-img,.si-wk-bg,.si-day-img,.hc-hero-overlay{
  pointer-events:none !important;
@@ -9115,7 +9118,6 @@ function _sfEndWorkout(){
 
  <!-- ── Cinematic Exercise Intro Overlay ── -->
  <div id="siFocusIntro" aria-hidden="true">
-  <img class="si-focus-intro-img" id="siFocusIntroImg" alt="">
   <div class="si-focus-intro-content" id="siFocusIntroContent">
    <div class="si-focus-intro-label" id="siFocusIntroLabel">UP NEXT</div>
    <div class="si-focus-intro-name" id="siFocusIntroName">—</div>
