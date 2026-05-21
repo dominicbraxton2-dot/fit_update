@@ -274,17 +274,15 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
  flex-grow:0 !important;
  width:94vw !important;
  max-width:440px !important;
- aspect-ratio:16/8.5 !important;
+ aspect-ratio:16/9 !important;
  height:auto !important;
- min-height:220px !important;
- max-height:285px !important;
  border-radius:28px !important;
  overflow:hidden !important;
  position:relative !important;
  scroll-snap-align:center !important;
  cursor:pointer !important;
  border:1.5px solid rgba(255,255,255,0.07) !important;
- background-color:#050505 !important;
+ background:#050505 !important;
  transition:transform 0.3s cubic-bezier(0.34,1.2,0.64,1),box-shadow 0.3s !important;
  display:block !important;
 }
@@ -305,7 +303,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
  inset:0 !important;
  width:100% !important;
  height:100% !important;
- object-fit:contain !important;
+ object-fit:cover !important;
  object-position:center center !important;
  display:block !important;
 }
@@ -443,17 +441,15 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
  flex-grow:0 !important;
  width:94vw !important;
  max-width:440px !important;
- aspect-ratio:16/8.5 !important;
+ aspect-ratio:16/9 !important;
  height:auto !important;
- min-height:220px !important;
- max-height:285px !important;
  border-radius:28px !important;
  overflow:hidden !important;
  position:relative !important;
  scroll-snap-align:center !important;
  cursor:pointer !important;
  border:1.5px solid rgba(255,255,255,0.07) !important;
- background-color:#050505 !important;
+ background:#050505 !important;
  transition:transform 0.3s cubic-bezier(0.34,1.2,0.64,1),box-shadow 0.3s !important;
  display:block !important;
 }
@@ -1869,25 +1865,21 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
  flex:0 0 94vw !important;
  width:94vw !important;
  max-width:440px !important;
- aspect-ratio:16/8.5 !important;
- min-height:220px !important;
- max-height:285px !important;
+ aspect-ratio:16/9 !important;
  height:auto !important;
  border-radius:28px !important;
  overflow:hidden !important;
  scroll-snap-align:center !important;
- background-color:#050505 !important;
+ background:#050505 !important;
 }
 .si-wk-bg,.si-day-img{
  position:absolute !important;
  inset:0 !important;
  width:100% !important;
  height:100% !important;
- object-fit:contain !important;
+ object-fit:cover !important;
  object-position:center center !important;
-}
-.si-wk-item,.si-day-item{
- background:#050505 !important;
+ display:block !important;
 }
 .si-week-carousel,.si-day-carousel{
  display:flex !important;
@@ -4632,13 +4624,13 @@ const HOME_HERO_IMAGE='https://raw.githubusercontent.com/dominicbraxton2-dot/fit
 
 // ── Daily thumbnail images — day 1-7 mapping, same for ALL 12 weeks ──
 const DAILY_THUMBNAIL_IMAGES={
- 1:'https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/C0D786A0-D08F-4D07-B1F1-30090D6A3D41.png', // Day 1: Chest & Triceps
- 2:'https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/1FDD7207-8089-4601-9C15-39063EC9BDF3.png', // Day 2: Legs
- 3:'https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/FE3D7C52-E3E6-4669-BCA8-3F8CAF470F92.png', // Day 3: Core/Cardio
- 4:'https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/8B5EE3A8-622A-4462-984D-16C07F73A1F9.png', // Day 4: Back & Biceps
- 5:'https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/3FE8845B-66B2-4A87-A1BA-72979679A12D.png', // Day 5: Hamstrings & Abs
- 6:'https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/FE39A91A-FF61-4D73-9760-A4991A8467CA.png', // Day 6: Core/Cardio
- 7:'https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/A4165AD6-46F9-4276-AC27-67954196555C.png'  // Day 7: Rest & Recovery
+ 1:'https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/A50B1526-A4C5-4555-98E2-749DAEB355A4.png',
+ 2:'https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/66D3F4C7-449E-4046-BC97-F6FE6D93B207.png',
+ 3:'https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/659A1516-5A83-4167-A8B9-5150AE979935.png',
+ 4:'https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/5BCEC8E2-62D4-441D-B605-9D7ED4E94BAD.png',
+ 5:'https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/F842F20C-6B9B-4E2A-8FD5-CD102089BA14.png',
+ 6:'https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/ACF272AD-C495-4C62-B349-3799C3855E61.png',
+ 7:'https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/190A0860-50C9-4996-931C-B97AB6099461.png'
 };
 // Week carousel uses the same 7 images cycling
 const WEEK_IMAGES=[
