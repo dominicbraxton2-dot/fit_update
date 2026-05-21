@@ -1867,7 +1867,8 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
 /* Home carousel cinematic BG */
 .hc-hero-bg-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;border-radius:inherit;opacity:0;transition:opacity 0.5s ease;}
 .hc-hero-bg-img.si-img-loaded{opacity:1;}
-.hc-hero-overlay,.hc-hero-char-zone,.hc-hero-body{position:relative;z-index:1;}
+.hc-hero-overlay{position:absolute;inset:0;z-index:1;border-radius:28px;pointer-events:none;}
+.hc-hero-body{position:relative;z-index:5;}
 /* ── CARD SIZE + IMAGE FIT FINAL OVERRIDE ── */
 .si-wk-item,.si-day-item{
  flex:0 0 94vw !important;
@@ -1896,6 +1897,31 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
  -webkit-overflow-scrolling:touch !important;
  gap:14px !important;
  padding-inline:24px !important;
+}
+/* ── HERO ATHLETE IMAGE ── */
+.home-carousel-card.hc-hero{
+ position:relative !important;
+ overflow:visible !important;
+}
+.hc-athlete-img{
+ display:block !important;
+ position:absolute !important;
+ right:0 !important;
+ bottom:0 !important;
+ height:105% !important;
+ width:auto !important;
+ object-fit:contain !important;
+ object-position:bottom right !important;
+ opacity:1 !important;
+ visibility:visible !important;
+ z-index:3 !important;
+ pointer-events:none !important;
+ -webkit-mask-image:none !important;
+ mask-image:none !important;
+}
+.hc-hero-badge,.hc-title,.hc-cta,.hc-hero-body *{
+ position:relative !important;
+ z-index:5 !important;
 }
 </style>
 </head>
@@ -4888,9 +4914,7 @@ function renderHomeCarousel(){
   <div class="hc-hero-wrap">
    <div class="home-carousel-card hc-hero">
     <div class="hc-hero-overlay"></div>
-    <div class="hc-hero-char-zone">
-     <img class="hc-hero-char" src="${HOME_HERO_IMAGE}" alt="" draggable="false" onerror="this.style.display='none'"/>
-    </div>
+    <img class="hc-athlete-img" src="${HOME_HERO_IMAGE}" alt="" draggable="false" onerror="this.style.opacity='0'"/>
     <div class="hc-hero-body">
      <div class="hc-hero-badge">${done?'COMPLETED':'TODAY\'S WORKOUT'}</div>
      <div style="margin-top:auto;">
