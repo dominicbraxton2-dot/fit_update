@@ -1996,7 +1996,7 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
  <div id="missedWorkoutBanner" style="display:none;"></div>
 
  <!-- Today's Plan Carousel -->
- <div class="hm-section-hdr"><span class="hm-section-lbl">TODAY'S PLAN</span></div>
+ <div class="hm-section-hdr"><span class="hm-section-lbl">TODAY'S WORKOUT</span></div>
  <div id="homeCarousel" class="home-carousel"></div>
 
  <!-- Quick Actions -->
@@ -4919,7 +4919,6 @@ function renderHome(){
  const qa=document.getElementById('quickActions');
  if(qa){
   qa.innerHTML=`<div class="qa-pills">
-    <button class="qa-pill qa-primary" onclick="openDay(${aW},${aD})">${ICONS.lightning}<span>START</span></button>
     <button class="qa-pill" onclick="navTo('prs')">${ICONS.trophy}<span>LOG PR</span></button>
     <button class="qa-pill" onclick="navTo('timer')">${ICONS.timer}<span>TIMER</span></button>
     <button class="qa-pill" onclick="navTo('analytics')">${ICONS.stats}<span>STATS</span></button>
@@ -4982,6 +4981,9 @@ function renderHomeCarousel(){
        <span>${stats.exercises} exercises &nbsp;·&nbsp; ~${stats.estMin} min</span>
        <span>~${stats.estCal} cal</span>
       </div>
+      <button class="hc-cta" onclick="event.stopPropagation();openDay(${aW},${aD})">
+       ${done?'REVIEW SESSION':'START WORKOUT'}
+      </button>
      </div>
     </div>
    </div>
