@@ -497,28 +497,37 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
  border:1px solid;
 }
 .si-day-body{
- position:absolute !important;left:0 !important;right:0 !important;bottom:0 !important;
- z-index:2 !important;padding:7px 12px 10px !important;
+ position:absolute !important;
+ right:0 !important;
+ left:auto !important;
+ bottom:0 !important;
+ width:42% !important;
+ z-index:5 !important;
+ padding:8px 14px 10px 8px !important;
  display:flex !important;flex-direction:column !important;gap:2px !important;
+ align-items:flex-end !important;
+ text-align:right !important;
 }
 .si-day-num{
  font-family:'JetBrains Mono',monospace;
- font-size:7px;letter-spacing:3px;color:rgba(255,255,255,0.4);text-transform:uppercase;
+ font-size:7px;letter-spacing:3px;color:rgba(255,255,255,0.5);text-transform:uppercase;
+ text-align:right;
 }
 .si-day-title{
  font-family:'Bebas Neue',sans-serif;
  font-size:24px;color:#fff;letter-spacing:1.5px;line-height:0.95;
 }
 .si-day-meta{
- font-size:9px;color:rgba(255,255,255,0.38);font-weight:600;
- margin-top:1px;
+ font-size:8.5px;color:rgba(255,255,255,0.45);font-weight:600;
+ margin-top:1px;text-align:right;
+ line-height:1.45;
 }
 .si-day-start-btn{
  margin-top:6px;
- width:100%;padding:7px 0;
+ width:100%;padding:6px 0;
  border-radius:10px;border:none;
  background:rgba(255,255,255,0.95);color:#000;
- font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:2px;
+ font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:2px;
  cursor:pointer;-webkit-tap-highlight-color:transparent;
  transition:transform 0.12s cubic-bezier(0.34,1.56,0.64,1),opacity 0.12s;
 }
@@ -4694,7 +4703,7 @@ function renderSiDayCarousel(wi){
   // Type tag
   const typeTag=`<div class="si-day-type-tag" style="color:${typeColor};border-color:${typeColor}50;">${day.type.toUpperCase()}</div>`;
   // Meta line
-  const metaHtml=stats?`${stats.exercises} exercises · ~${stats.estMin} min · ~${stats.estCal} cal`:(isRest?'Active recovery':'');
+  const metaHtml=stats?`${stats.exercises} exercises<br>~${stats.estMin} min · ~${stats.estCal} cal`:(isRest?'Active recovery':'');
   // Start button
   const btnCls='si-day-start-btn'+(isRest?' si-day-rest-btn':'');
   const btnTxt=isDone?'REVIEW':'START';
