@@ -119,14 +119,12 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .hc-hero-wrap{
  flex:0 0 92%;scroll-snap-align:start;
  position:relative;
- padding-top:58px;
- margin-top:-58px;
  align-self:flex-start;
- overflow:visible;
+ overflow:hidden;
 }
 .home-carousel-card.hc-hero{
  padding:0;
- overflow:visible;
+ overflow:hidden;
  background:linear-gradient(135deg,#0e0a07 0%,#070707 60%,#0a0604 100%);
  min-height:320px;
  flex:none;width:100%;scroll-snap-align:none;
@@ -1910,20 +1908,35 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
 /* ── HERO ATHLETE IMAGE ── */
 .home-carousel-card.hc-hero{
  position:relative !important;
- overflow:visible !important;
+ overflow:hidden !important;
+ border-radius:28px !important;
+ border:1px solid rgba(255,111,28,0.45) !important;
+}
+/* Media frame clips image layers inside the card */
+.hc-media-frame{
+ position:absolute !important;
+ inset:0 !important;
+ overflow:hidden !important;
+ border-radius:inherit !important;
+ z-index:0 !important;
+}
+.hc-media-frame img,.hc-media-frame .hc-hero-overlay{
+ width:100% !important;
+ height:100% !important;
+ border-radius:inherit !important;
 }
 .hc-athlete-img{
  display:block !important;
  position:absolute !important;
  right:0 !important;
  bottom:0 !important;
- height:105% !important;
- width:auto !important;
- object-fit:contain !important;
- object-position:bottom right !important;
+ height:100% !important;
+ width:55% !important;
+ object-fit:cover !important;
+ object-position:center top !important;
  opacity:1 !important;
  visibility:visible !important;
- z-index:3 !important;
+ z-index:1 !important;
  pointer-events:none !important;
  -webkit-mask-image:none !important;
  mask-image:none !important;
@@ -4971,8 +4984,10 @@ function renderHomeCarousel(){
  const workoutCard=day?`
   <div class="hc-hero-wrap">
    <div class="home-carousel-card hc-hero" onclick="openDay(${aW},${aD})" style="cursor:pointer;">
-    <div class="hc-hero-overlay"></div>
-    <img class="hc-athlete-img" src="${HOME_HERO_IMAGE}" alt="" draggable="false" onerror="this.style.opacity='0'"/>
+    <div class="hc-media-frame">
+     <div class="hc-hero-overlay"></div>
+     <img class="hc-athlete-img" src="${HOME_HERO_IMAGE}" alt="" draggable="false" onerror="this.style.opacity='0'"/>
+    </div>
     <div class="hc-hero-body">
      <div class="hc-hero-badge">${done?'COMPLETED':'TODAY\'S WORKOUT'}</div>
      <div style="margin-top:auto;">
