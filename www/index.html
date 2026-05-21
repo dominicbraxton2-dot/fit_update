@@ -1932,6 +1932,25 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
  position:relative !important;
  z-index:5 !important;
 }
+/* ── TAP/CLICK UNBLOCKING ── */
+.session-bg,.hc-athlete-img,.si-wk-bg,.si-day-img,.hc-hero-overlay{
+ pointer-events:none !important;
+}
+.hc-cta,button,[onclick]{
+ pointer-events:auto !important;
+ position:relative !important;
+ z-index:20 !important;
+}
+.si-wk-item,.si-day-item{
+ pointer-events:auto !important;
+ position:relative !important;
+ z-index:10 !important;
+}
+.hc-hero-body{
+ pointer-events:auto !important;
+ position:relative !important;
+ z-index:12 !important;
+}
 </style>
 </head>
 <body>
