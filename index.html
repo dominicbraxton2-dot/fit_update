@@ -1989,6 +1989,185 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
  position:relative !important;
  z-index:12 !important;
 }
+/* ═══════════════════════════════════════════════════
+   FOCUS MODE — PREMIUM CINEMATIC REDESIGN
+   ═══════════════════════════════════════════════════ */
+
+/* ── Background: stronger gym image + orange vignette ── */
+#siFocusEngine .session-bg{
+ opacity:0.35 !important;
+ filter:brightness(0.48) contrast(1.12) !important;
+}
+.si-focus-panel-ex::after{
+ content:'';position:absolute;inset:0;pointer-events:none;z-index:1;
+ background:radial-gradient(ellipse at 50% 100%,rgba(255,107,0,0.14) 0%,transparent 65%),
+            radial-gradient(ellipse at 50% 0%,rgba(0,0,0,0.55) 0%,transparent 60%);
+}
+
+/* ── Topbar: more visible elements ── */
+.si-focus-close,.si-focus-list-btn{
+ background:rgba(255,255,255,0.08) !important;
+ border-color:rgba(255,255,255,0.18) !important;
+ color:rgba(255,255,255,0.72) !important;
+ width:40px !important;height:40px !important;
+}
+.si-focus-wk-name{
+ font-size:10px !important;letter-spacing:4px !important;
+ color:rgba(255,255,255,0.42) !important;
+}
+.si-focus-dur{
+ font-size:12px !important;color:rgba(255,107,0,0.65) !important;
+ letter-spacing:1.5px !important;
+}
+
+/* ── Exercise hero typography ── */
+.si-focus-ex-counter{
+ font-size:10px !important;letter-spacing:5px !important;
+ color:rgba(255,107,0,0.85) !important;margin-bottom:6px !important;
+}
+.si-focus-ex-muscle{
+ font-size:11px !important;letter-spacing:3px !important;
+ color:rgba(255,255,255,0.36) !important;margin-top:10px !important;
+}
+.si-focus-dot{width:10px !important;height:10px !important;}
+.si-focus-dot.current{
+ box-shadow:0 0 18px rgba(255,107,0,0.9) !important;
+ transform:scale(1.55) !important;
+}
+
+/* ── Controls: glassmorphism cards with orange glow ── */
+.si-focus-controls{padding:6px 16px 0 !important;gap:12px !important;}
+.si-focus-input-col{
+ padding:16px 8px 12px !important;
+ background:rgba(20,10,2,0.55) !important;
+ border:1px solid rgba(255,107,0,0.28) !important;
+ border-radius:22px !important;
+ box-shadow:0 0 28px rgba(255,107,0,0.08),inset 0 1px 0 rgba(255,255,255,0.07) !important;
+ backdrop-filter:blur(8px) !important;-webkit-backdrop-filter:blur(8px) !important;
+}
+.si-focus-input-lbl{
+ font-size:9px !important;letter-spacing:4px !important;
+ color:rgba(255,107,0,0.8) !important;margin-bottom:8px !important;
+}
+.si-focus-step{
+ width:48px !important;height:48px !important;
+ background:rgba(255,107,0,0.12) !important;
+ border:1px solid rgba(255,107,0,0.25) !important;
+ color:rgba(255,107,0,0.95) !important;
+ font-size:18px !important;font-weight:800 !important;
+}
+.si-focus-step:active{
+ background:rgba(255,107,0,0.3) !important;
+ transform:scale(0.9) !important;
+}
+.si-focus-big-val{font-size:74px !important;letter-spacing:-1px !important;}
+.si-focus-input-unit{
+ font-size:8px !important;letter-spacing:3px !important;
+ color:rgba(255,255,255,0.28) !important;
+}
+.si-focus-suggestion{
+ font-size:9.5px !important;padding:8px 20px 0 !important;
+ color:rgba(0,200,150,0.82) !important;letter-spacing:0.5px !important;
+}
+
+/* ── COMPLETE SET: premium orange gradient pill ── */
+@keyframes si-premium-glow{
+ 0%,100%{box-shadow:0 0 24px rgba(255,107,0,0.45),0 8px 32px rgba(255,107,0,0.22);}
+ 50%{box-shadow:0 0 42px rgba(255,107,0,0.75),0 12px 48px rgba(255,107,0,0.35);}
+}
+.si-focus-complete-btn{
+ background:linear-gradient(135deg,#ff7b00 0%,#ff4200 100%) !important;
+ border-radius:100px !important;
+ height:72px !important;padding:0 28px !important;
+ flex-direction:row !important;gap:16px !important;
+ animation:si-premium-glow 2.4s ease-in-out infinite !important;
+}
+.si-focus-complete-btn:active{transform:scale(0.97) !important;animation:none !important;}
+.si-focus-complete-icon{
+ font-size:26px !important;flex-shrink:0;
+ filter:drop-shadow(0 0 8px rgba(0,0,0,0.4));
+}
+.si-focus-complete-main{
+ font-size:26px !important;letter-spacing:2.5px !important;
+ color:#000 !important;
+}
+.si-focus-complete-sub{
+ font-size:8.5px !important;letter-spacing:1.5px !important;
+ color:rgba(0,0,0,0.5) !important;
+}
+
+/* ── Nav buttons: more refined ── */
+.si-focus-nav-row{gap:10px !important;}
+.si-focus-nav-btn{
+ padding:13px 4px !important;border-radius:16px !important;
+ background:rgba(255,255,255,0.05) !important;
+ border-color:rgba(255,255,255,0.1) !important;
+ color:rgba(255,255,255,0.48) !important;
+ font-size:9.5px !important;letter-spacing:0.8px !important;
+}
+.si-focus-nav-end{
+ background:rgba(255,40,40,0.06) !important;
+ border-color:rgba(255,60,60,0.22) !important;
+ color:rgba(255,90,90,0.75) !important;
+}
+
+/* ── REST TIMER: larger ring glow, stronger presence ── */
+.si-focus-ring-bg{stroke:rgba(255,255,255,0.04) !important;stroke-width:9 !important;}
+.si-focus-ring-arc{
+ stroke-width:9 !important;
+ filter:drop-shadow(0 0 28px rgba(255,107,0,0.9)) !important;
+}
+.si-focus-rest-badge{
+ font-size:10px !important;letter-spacing:7px !important;
+ color:rgba(255,107,0,0.75) !important;
+}
+.si-focus-rest-last{
+ font-size:20px !important;letter-spacing:1.5px !important;
+ color:rgba(255,255,255,0.42) !important;
+}
+.si-focus-rest-countdown{
+ font-size:clamp(96px,22vw,138px) !important;
+ letter-spacing:4px !important;
+ text-shadow:0 0 48px rgba(255,107,0,0.35) !important;
+}
+.si-focus-rest-upcoming{
+ border-color:rgba(255,107,0,0.18) !important;
+ background:rgba(255,107,0,0.04) !important;
+ box-shadow:0 0 24px rgba(255,107,0,0.07) !important;
+}
+.si-focus-rest-up-lbl{
+ color:rgba(255,107,0,0.55) !important;
+ letter-spacing:5px !important;font-size:8.5px !important;
+}
+.si-focus-rest-up-name{
+ color:rgba(255,255,255,0.9) !important;font-size:26px !important;
+}
+.si-focus-rest-presets button{
+ border-radius:100px !important;font-size:10px !important;
+ letter-spacing:1px !important;
+ border-color:rgba(255,255,255,0.1) !important;
+ color:rgba(255,255,255,0.4) !important;
+}
+.si-focus-rest-presets button.si-active{
+ background:rgba(255,107,0,0.12) !important;
+ border-color:rgba(255,107,0,0.55) !important;
+ color:#ff6b00 !important;
+ box-shadow:0 0 14px rgba(255,107,0,0.22) !important;
+}
+.si-focus-rest-pause{
+ border-radius:100px !important;
+ background:rgba(255,255,255,0.06) !important;
+ border-color:rgba(255,255,255,0.14) !important;
+ color:rgba(255,255,255,0.65) !important;font-size:11px !important;
+}
+.si-focus-rest-skip{
+ border-radius:100px !important;
+ background:linear-gradient(135deg,#ff7b00,#ff4200) !important;
+ color:#000 !important;font-size:12px !important;font-weight:900 !important;
+ box-shadow:0 4px 24px rgba(255,107,0,0.4) !important;
+}
+.si-focus-rest-skip:active{transform:scale(0.97) !important;}
+/* ══════════════════════════════════════════════════= */
 </style>
 </head>
 <body>
@@ -9018,7 +9197,7 @@ function _sfEndWorkout(){
  <!-- ── PANEL: Exercise ── -->
  <div id="siFocusEx" class="si-focus-panel si-focus-panel-ex">
   <img class="si-focus-panel-img" id="siFocusExImg" alt="" aria-hidden="true" loading="eager">
-  <div class="si-focus-panel-overlay" style="background:linear-gradient(to bottom,rgba(0,0,0,0.5) 0%,rgba(0,0,0,0.2) 35%,rgba(0,0,0,0.7) 70%,rgba(0,0,0,0.96) 100%);"></div>
+  <div class="si-focus-panel-overlay" style="background:linear-gradient(to bottom,rgba(0,0,0,0.62) 0%,rgba(0,0,0,0.18) 30%,rgba(0,0,0,0.72) 68%,rgba(0,0,0,0.97) 100%);"></div>
   <div class="si-focus-accent-bar" id="siFocusAccentBar"></div>
   <div class="si-focus-topbar">
    <button class="si-focus-close" onclick="siFocusClose()" aria-label="Close">✕</button>
@@ -9064,8 +9243,11 @@ function _sfEndWorkout(){
     <button class="si-focus-nav-btn" onclick="siFocusNextSet()">NEXT →</button>
    </div>
    <button class="si-focus-complete-btn" onclick="siFocusCompleteSet()">
-    <span class="si-focus-complete-main">COMPLETE SET</span>
-    <span class="si-focus-complete-sub">TAP TO LOG &amp; START REST</span>
+    <span class="si-focus-complete-icon">⚡</span>
+    <span style="display:flex;flex-direction:column;align-items:flex-start;gap:2px;">
+     <span class="si-focus-complete-main">COMPLETE SET</span>
+     <span class="si-focus-complete-sub">&amp; START REST TIMER</span>
+    </span>
    </button>
   </div>
  </div>
