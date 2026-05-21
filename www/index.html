@@ -1932,6 +1932,24 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
  position:relative !important;
  z-index:5 !important;
 }
+/* ── SI FOCUS ENGINE SESSION BACKGROUND ── */
+#siFocusEngine .session-bg{
+ position:absolute !important;
+ inset:0 !important;
+ z-index:0 !important;
+ background-image:url('https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/12C76F72-CB84-430F-9EB5-14D24D5594EA.png') !important;
+ background-size:cover !important;
+ background-position:center center !important;
+ background-repeat:no-repeat !important;
+ opacity:0.28 !important;
+ filter:brightness(0.55) contrast(1.08) !important;
+ pointer-events:none !important;
+}
+/* Panels sit above the session-bg; rest/list/sum panels go semi-transparent so bg shows */
+.si-focus-panel{z-index:1 !important;}
+.si-focus-panel-rest{background:rgba(0,0,0,0.72) !important;}
+.si-focus-panel-list{background:rgba(8,8,8,0.72) !important;}
+.si-focus-panel-sum{background:rgba(0,0,0,0.80) !important;}
 /* ── TAP/CLICK UNBLOCKING ── */
 .session-bg,.hc-athlete-img,.si-wk-bg,.si-day-img,.hc-hero-overlay{
  pointer-events:none !important;
