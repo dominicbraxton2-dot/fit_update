@@ -4724,12 +4724,13 @@ const DAILY_THUMBNAIL_IMAGES={
  6:'https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/ACF272AD-C495-4C62-B349-3799C3855E61.png',
  7:'https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/190A0860-50C9-4996-931C-B97AB6099461.png'
 };
-// Week carousel uses the same 7 images cycling
-const WEEK_IMAGES=[
- DAILY_THUMBNAIL_IMAGES[1],DAILY_THUMBNAIL_IMAGES[2],DAILY_THUMBNAIL_IMAGES[3],
- DAILY_THUMBNAIL_IMAGES[4],DAILY_THUMBNAIL_IMAGES[5],DAILY_THUMBNAIL_IMAGES[6],
- DAILY_THUMBNAIL_IMAGES[7]
-];
+// Week carousel — per-week thumbnail images (1-indexed, weeks 5-12 fall back to week 1)
+const WEEK_THUMBNAIL_IMAGES={
+ 1:'https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/FA3D8BE4-D79C-4B40-8AC7-ED7AD4352857.png',
+ 2:'https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/BB274D13-A4E0-4292-8F9A-CECA9F7E8008.png',
+ 3:'https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/CD4AE636-BA84-475E-8AEB-840B9E10B332.png',
+ 4:'https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/BB274D13-A4E0-4292-8F9A-CECA9F7E8008.png'
+};
 
 let _siDayIO=null,_siDayScrollFn=null;
 
@@ -4837,7 +4838,7 @@ function renderSiWeekCarousel(){
   const isDone=pct===100;
   const isLocked=!isA&&pct===0&&wi>aW;
   const phaseColor=phase?phase.color:'rgba(255,107,0,0.8)';
-  const img=WEEK_IMAGES[wi%WEEK_IMAGES.length];
+  const img=WEEK_THUMBNAIL_IMAGES[wi+1]||WEEK_THUMBNAIL_IMAGES[1];
   const item=document.createElement('div');
   item.className='si-wk-item'+(isA?' si-wk-cur':'')+(isDone?' si-wk-done':'')+(isLocked?' si-wk-locked':'');
   item.style.animation=`siWkIn 0.4s cubic-bezier(0.22,1,0.36,1) ${(wi*0.05).toFixed(2)}s both`;
