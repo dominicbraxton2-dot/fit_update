@@ -4971,7 +4971,7 @@ function renderHomeCarousel(){
  const hcTypeLabel=day.type?(HC_TYPE_LABELS[day.type]||day.type.toUpperCase()):"TODAY'S PLAN";
  const workoutCard=day?`
   <div class="hc-hero-wrap">
-   <div class="home-carousel-card hc-hero">
+   <div class="home-carousel-card hc-hero" onclick="openDay(${aW},${aD})" style="cursor:pointer;">
     <div class="hc-hero-overlay"></div>
     <img class="hc-athlete-img" src="${HOME_HERO_IMAGE}" alt="" draggable="false" onerror="this.style.opacity='0'"/>
     <div class="hc-hero-body">
@@ -4982,9 +4982,6 @@ function renderHomeCarousel(){
        <span>${stats.exercises} exercises &nbsp;·&nbsp; ~${stats.estMin} min</span>
        <span>~${stats.estCal} cal</span>
       </div>
-      <button class="hc-cta" onclick="openDay(${aW},${aD})">
-       ${done?'REVIEW SESSION':'START WORKOUT'}
-      </button>
      </div>
     </div>
    </div>
