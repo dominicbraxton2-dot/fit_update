@@ -119,8 +119,9 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .hc-hero-wrap{
  flex:0 0 92%;scroll-snap-align:start;
  position:relative;
+ display:flex;flex-direction:column;gap:8px;
  align-self:flex-start;
- overflow:hidden;
+ overflow:visible;
 }
 .home-carousel-card.hc-hero{
  padding:0;
@@ -2009,7 +2010,6 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
  <div id="missedWorkoutBanner" style="display:none;"></div>
 
  <!-- Today's Plan Carousel -->
- <div class="hm-section-hdr"><span class="hm-section-lbl">TODAY'S WORKOUT</span></div>
  <div id="homeCarousel" class="home-carousel"></div>
 
  <!-- Quick Actions -->
@@ -4983,13 +4983,13 @@ function renderHomeCarousel(){
  const hcTypeLabel=day.type?(HC_TYPE_LABELS[day.type]||day.type.toUpperCase()):"TODAY'S PLAN";
  const workoutCard=day?`
   <div class="hc-hero-wrap">
+   <div class="hc-hero-badge">${done?'COMPLETED':'TODAY\'S WORKOUT'}</div>
    <div class="home-carousel-card hc-hero" onclick="openDay(${aW},${aD})" style="cursor:pointer;">
     <div class="hc-media-frame">
      <div class="hc-hero-overlay"></div>
      <img class="hc-athlete-img" src="${HOME_HERO_IMAGE}" alt="" draggable="false" onerror="this.style.opacity='0'"/>
     </div>
     <div class="hc-hero-body">
-     <div class="hc-hero-badge">${done?'COMPLETED':'TODAY\'S WORKOUT'}</div>
      <div style="margin-top:auto;">
       <div style="font-size:9px;letter-spacing:2.5px;color:rgba(255,255,255,0.38);text-transform:uppercase;font-weight:700;margin-bottom:10px;">${hcTypeLabel} · WK ${aW+1}</div>
       <div style="display:flex;flex-direction:column;gap:3px;margin:0 0 16px;font-size:11px;color:rgba(255,255,255,0.45);font-weight:600;">
