@@ -1668,7 +1668,7 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
 .si-focus-input-unit{font-size:7px;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,0.16);text-transform:uppercase;margin-top:4px;}
 
 /* ── SUGGESTION ── */
-.si-focus-suggestion{text-align:center;padding:6px 20px 0;font-family:'JetBrains Mono',monospace;font-size:9px;color:rgba(0,200,150,0.6);font-weight:600;letter-spacing:0.5px;flex-shrink:0;}
+.si-focus-suggestion{text-align:center;padding:0 20px 14px;font-family:'JetBrains Mono',monospace;font-size:9.5px;color:rgba(0,200,150,0.65);font-weight:600;letter-spacing:0.4px;flex-shrink:0;}
 
 /* ── BOTTOM: Nav + Complete ── */
 .si-focus-bottom{padding:8px 16px max(14px,env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:8px;flex-shrink:0;}
@@ -2068,11 +2068,6 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
  font-size:8px !important;letter-spacing:3px !important;
  color:rgba(255,255,255,0.28) !important;
 }
-.si-focus-suggestion{
- font-size:9.5px !important;padding:8px 20px 0 !important;
- color:rgba(0,200,150,0.82) !important;letter-spacing:0.5px !important;
-}
-
 /* ── COMPLETE SET: premium orange gradient pill ── */
 @keyframes si-premium-glow{
  0%,100%{box-shadow:0 0 10px rgba(255,107,0,0.2),0 8px 32px rgba(255,107,0,0.1);}
@@ -9260,6 +9255,7 @@ function _sfEndWorkout(){
    <div class="si-focus-ex-muscle" id="siFocusExMuscle"></div>
    <div class="si-focus-set-dots" id="siFocusSetDots"></div>
   </div>
+  <div class="si-focus-suggestion" id="siFocusSuggestion" style="display:none;"></div>
   <div class="si-focus-controls">
    <div class="si-focus-input-col" id="siFocusWCol">
     <div class="si-focus-input-lbl">WEIGHT</div>
@@ -9280,7 +9276,6 @@ function _sfEndWorkout(){
     <div class="si-focus-input-unit">REPS</div>
    </div>
   </div>
-  <div class="si-focus-suggestion" id="siFocusSuggestion" style="display:none;"></div>
   <div class="si-focus-bottom">
    <div class="si-focus-nav-row">
     <button class="si-focus-nav-btn" onclick="siFocusPrevSet()">← PREV</button>
