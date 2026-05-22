@@ -8832,6 +8832,7 @@ function _sfStartRest(){
  const restImg=document.getElementById('siFocusRestImg');
  if(exImg&&restImg&&exImg.src){restImg.src=exImg.src;restImg.classList.add('si-img-loaded');}
  _sfShowPanel('rest');
+ const _sfRO=document.getElementById('siFocusRestOverlay');if(_sfRO){_sfRO.style.display='flex';}
  _sfUpdateRestRing();_sfUpdateRestUI();_sfUpdateRestNext();
  // Show next exercise intro mid-rest
  const day=WEEKS[aW].days[aD];
@@ -8848,7 +8849,7 @@ function _sfStartRest(){
    _sfUpdateRestRing();_sfUpdateRestUI();
    if(typeof beep==='function')beep(true);
    if(typeof hap!=='undefined')hap.successFeedback();
-   setTimeout(()=>{_sfShowPanel('ex');_sfRenderEx();},600);
+   setTimeout(()=>{const _o=document.getElementById('siFocusRestOverlay');if(_o)_o.style.display='none';_sfShowPanel('ex');_sfRenderEx();},600);
   }else{_sfUpdateRestRing();_sfUpdateRestUI();}
  },1000);
 }
@@ -8896,6 +8897,7 @@ function siFocusTogglePauseRest(){
 function siFocusSkipRest(){
  if(typeof hap!=='undefined')hap.lightTap();
  clearInterval(_sf.restInt);_sf.restInt=null;
+ const _o=document.getElementById('siFocusRestOverlay');if(_o)_o.style.display='none';
  _sfShowPanel('ex');_sfRenderEx();
 }
 
@@ -8913,7 +8915,7 @@ function siFocusSetRest(s){
    _sfUpdateRestRing();_sfUpdateRestUI();
    if(typeof beep==='function')beep(true);
    if(typeof hap!=='undefined')hap.successFeedback();
-   setTimeout(()=>{_sfShowPanel('ex');_sfRenderEx();},600);
+   setTimeout(()=>{const _o=document.getElementById('siFocusRestOverlay');if(_o)_o.style.display='none';_sfShowPanel('ex');_sfRenderEx();},600);
   }else{_sfUpdateRestRing();_sfUpdateRestUI();}
  },1000);
 }
@@ -9322,8 +9324,11 @@ function _sfEndWorkout(){
   </div>
  </div>
 
- <!-- ── PANEL: Rest Timer ── -->
- <div id="siFocusRest" class="si-focus-panel si-focus-panel-rest" style="display:none;">
+ <!-- ── PANEL: Rest Timer (empty shell kept for _sfShowPanel compatibility) ── -->
+ <div id="siFocusRest" class="si-focus-panel si-focus-panel-rest" style="display:none;"></div>
+
+ <!-- ── REST TIMER OVERLAY — position:absolute z-index:200, guaranteed on top ── -->
+ <div id="siFocusRestOverlay" style="display:none;position:absolute;inset:0;z-index:200;flex-direction:column;overflow:hidden;background:#000;">
   <img class="si-focus-panel-img si-img-blurred" id="siFocusRestImg" alt="" aria-hidden="true">
   <div class="si-focus-panel-overlay" style="background:linear-gradient(to bottom,rgba(0,0,0,0.72) 0%,rgba(0,0,0,0.55) 45%,rgba(0,0,0,0.88) 100%);"></div>
   <div class="si-focus-rest-top">
