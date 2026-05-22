@@ -1199,6 +1199,31 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
 .plc-plate-pill{display:inline-block;padding:4px 10px;border-radius:100px;border:1px solid;font-size:13px;font-weight:800;letter-spacing:0.3px;min-width:52px;text-align:center;}
 .plc-plate-count{font-size:16px;font-weight:800;color:var(--text);}
 
+/* ── PLATE CALC DUAL MODE ── */
+.plc-mode-toggle{display:flex;margin:0 16px 14px;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:4px;gap:4px;}
+.plc-mode-btn{flex:1;padding:10px 8px;border-radius:12px;border:none;background:transparent;color:var(--text2);font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:all 0.18s;-webkit-tap-highlight-color:transparent;}
+.plc-mode-btn.sel{background:rgba(255,107,0,0.14);border:1px solid rgba(255,107,0,0.4);color:#ff6b00;}
+.plc-presets{display:flex;gap:8px;flex-wrap:wrap;}
+.plc-preset-btn{flex:1;min-width:52px;padding:11px 4px;border-radius:13px;border:1px solid var(--border-bright);background:var(--surface2);color:var(--text);font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:1px;cursor:pointer;transition:all 0.15s;-webkit-tap-highlight-color:transparent;text-align:center;}
+.plc-preset-btn:active{background:rgba(255,107,0,0.12);border-color:rgba(255,107,0,0.5);color:#ff6b00;transform:scale(0.97);}
+.plc-quick-chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;}
+.plc-chip{padding:8px 14px;border-radius:100px;border:1px solid var(--border-bright);background:var(--surface2);color:var(--text);font-size:13px;font-weight:800;cursor:pointer;transition:all 0.12s;-webkit-tap-highlight-color:transparent;}
+.plc-chip:active{background:rgba(255,107,0,0.12);border-color:rgba(255,107,0,0.5);color:#ff6b00;}
+.plc-entry-row{display:flex;align-items:center;gap:12px;margin-bottom:10px;}
+.plc-entry-row:last-child{margin-bottom:0;}
+.plc-entry-stepper{display:flex;align-items:center;gap:0;border:1px solid var(--border-bright);border-radius:12px;overflow:hidden;}
+.plc-entry-step{width:38px;height:38px;border:none;background:var(--surface2);color:var(--text);font-size:20px;font-weight:300;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background 0.1s;}
+.plc-entry-step:active{background:rgba(255,107,0,0.14);}
+.plc-entry-count{min-width:36px;text-align:center;font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--text);background:var(--surface);padding:0 4px;}
+.plc-entry-side-label{font-size:10px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-left:auto;}
+.plc-entry-empty{font-size:13px;color:var(--muted);text-align:center;padding:12px 0;}
+.plc-clear-btn{width:100%;margin-top:14px;padding:12px;border-radius:13px;border:1px solid rgba(255,60,60,0.2);background:rgba(255,40,40,0.04);color:rgba(255,80,80,0.6);font-size:10px;font-weight:800;letter-spacing:2px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:all 0.15s;}
+.plc-clear-btn:active{background:rgba(255,40,40,0.1);}
+.plc-entry-total-card{margin:0 16px 14px;border-radius:24px;border:1px solid rgba(255,107,0,0.3);background:rgba(255,107,0,0.05);padding:28px 20px;text-align:center;}
+.plc-entry-total-label{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:5px;color:rgba(255,107,0,0.6);text-transform:uppercase;margin-bottom:8px;}
+.plc-entry-total-num{font-family:'Bebas Neue',sans-serif;font-size:72px;line-height:1;color:#fff;letter-spacing:2px;transition:all 0.2s ease;}
+.plc-entry-total-unit{font-size:11px;letter-spacing:4px;color:rgba(255,255,255,0.3);text-transform:uppercase;margin-top:4px;}
+
 /* ── PROGRAM CALENDAR ENHANCED ── */
 .cal-dot-completed{background:#00c896;}
 .cal-dot-planned{background:#ff6b00;}
@@ -2699,13 +2724,12 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
   <h2>PLATE<br/>CALCULATOR</h2>
   <p class="plc-sub">Figure out your bar setup instantly</p>
  </div>
- <div class="plc-card">
-  <div class="plc-label">Target Weight (lbs)</div>
-  <div class="plc-weight-row">
-   <input class="plc-weight-input" type="number" inputmode="decimal" id="plcTarget" placeholder="225" min="0" step="2.5" oninput="calcPlates()"/>
-   <span class="plc-weight-unit">lbs</span>
-  </div>
+ <!-- Mode toggle -->
+ <div class="plc-mode-toggle">
+  <button class="plc-mode-btn sel" id="plcModeTarget" onclick="switchPlcMode('target')">Target Weight</button>
+  <button class="plc-mode-btn" id="plcModeEntry" onclick="switchPlcMode('entry')">Plate Entry</button>
  </div>
+ <!-- Bar weight (shared) -->
  <div class="plc-card">
   <div class="plc-label">Bar Weight</div>
   <div class="plc-bar-opts">
@@ -2714,16 +2738,61 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
    <button class="plc-bar-btn" id="plcBar-15" onclick="selectBar(15)">15 lb</button>
    <button class="plc-bar-btn" id="plcBar-0" onclick="selectBar('custom')">Custom</button>
   </div>
-  <input class="plc-bar-custom-input" type="number" inputmode="decimal" id="plcBarCustom" placeholder="Bar weight (lbs)" min="0" step="1" oninput="calcPlates()"/>
+  <input class="plc-bar-custom-input" type="number" inputmode="decimal" id="plcBarCustom" placeholder="Bar weight (lbs)" min="0" step="1" oninput="plcBarInputChange()"/>
  </div>
- <div class="plc-result" id="plcResult">
-  <div class="plc-result-title">Per Side</div>
-  <div class="plc-result-plates" id="plcResultPlates">Enter a weight above</div>
-  <div class="plc-result-total" id="plcResultTotal"></div>
+ <!-- TARGET WEIGHT section -->
+ <div id="plcTargetSection">
+  <div class="plc-card">
+   <div class="plc-label">Target Weight (lbs)</div>
+   <div class="plc-weight-row">
+    <input class="plc-weight-input" type="number" inputmode="decimal" id="plcTarget" placeholder="225" min="0" step="2.5" oninput="calcPlates()"/>
+    <span class="plc-weight-unit">lbs</span>
+   </div>
+  </div>
+  <div class="plc-result" id="plcResult">
+   <div class="plc-result-title">Per Side</div>
+   <div class="plc-result-plates" id="plcResultPlates">Enter a weight above</div>
+   <div class="plc-result-total" id="plcResultTotal"></div>
+  </div>
+  <div class="plc-visual" id="plcVisual">
+   <div class="plc-visual-title">Bar Layout</div>
+   <div class="plc-bar-vis" id="plcBarVis"></div>
+  </div>
  </div>
- <div class="plc-visual" id="plcVisual">
-  <div class="plc-visual-title">Bar Layout</div>
-  <div class="plc-bar-vis" id="plcBarVis"></div>
+ <!-- PLATE ENTRY section -->
+ <div id="plcEntrySection" style="display:none;">
+  <div class="plc-card">
+   <div class="plc-label">Quick Presets</div>
+   <div class="plc-presets">
+    <button class="plc-preset-btn" onclick="plcPreset(135)">135</button>
+    <button class="plc-preset-btn" onclick="plcPreset(185)">185</button>
+    <button class="plc-preset-btn" onclick="plcPreset(225)">225</button>
+    <button class="plc-preset-btn" onclick="plcPreset(315)">315</button>
+    <button class="plc-preset-btn" onclick="plcPreset(405)">405</button>
+   </div>
+  </div>
+  <div class="plc-card">
+   <div class="plc-label">Plates Per Side</div>
+   <div class="plc-quick-chips">
+    <button class="plc-chip" onclick="plcAdjPlate(45,1)">+45</button>
+    <button class="plc-chip" onclick="plcAdjPlate(35,1)">+35</button>
+    <button class="plc-chip" onclick="plcAdjPlate(25,1)">+25</button>
+    <button class="plc-chip" onclick="plcAdjPlate(10,1)">+10</button>
+    <button class="plc-chip" onclick="plcAdjPlate(5,1)">+5</button>
+    <button class="plc-chip" onclick="plcAdjPlate(2.5,1)">+2.5</button>
+   </div>
+   <div id="plcEntryRows"></div>
+   <button class="plc-clear-btn" onclick="plcClearPlates()">CLEAR ALL</button>
+  </div>
+  <div class="plc-entry-total-card" id="plcEntryTotalCard">
+   <div class="plc-entry-total-label">TOTAL WEIGHT</div>
+   <div class="plc-entry-total-num" id="plcEntryTotal">45</div>
+   <div class="plc-entry-total-unit">LBS</div>
+  </div>
+  <div class="plc-visual" id="plcVisualEntry">
+   <div class="plc-visual-title">Bar Layout</div>
+   <div class="plc-bar-vis" id="plcBarVisEntry"></div>
+  </div>
  </div>
 </div>
 
@@ -6725,6 +6794,8 @@ function syncRestPresetBtns(){
 // ── PLATE CALCULATOR ──
 let plcBarWeight=45;
 let plcCustomBarMode=false;
+let plcMode='target';
+let plcEntryPlates={};
 
 const PLC_PLATES=[45,35,25,10,5,2.5];
 const PLC_PLATE_COLORS={45:'#e86800',35:'#3b82f6',25:'#22c55e',10:'#a855f7',5:'#ec4899',2.5:'#6b7280'};
@@ -6738,7 +6809,10 @@ function renderPlateCalc(){
  const barNum=parseFloat(savedBar);
  if([45,35,15].includes(barNum)){selectBar(barNum,true);}
  else if(barNum>0){selectBar('custom',true);const ci=document.getElementById('plcBarCustom');if(ci)ci.value=savedBar;}
+ plcEntryPlates={};
+ renderPlcEntryRows();
  calcPlates();
+ calcPlateEntry();
 }
 
 function selectBar(w,silent){
@@ -6749,87 +6823,117 @@ function selectBar(w,silent){
  if(btn)btn.classList.add('sel');
  const ci=document.getElementById('plcBarCustom');
  if(ci)ci.style.display=plcCustomBarMode?'block':'none';
- if(!plcCustomBarMode){plcBarWeight=w;if(!silent)calcPlates();}
- else{const v=parseFloat(ci&&ci.value)||0;plcBarWeight=v||0;}
+ if(!plcCustomBarMode){
+  plcBarWeight=w;
+  if(!silent){if(plcMode==='entry')calcPlateEntry();else calcPlates();}
+ } else {
+  const v=parseFloat(ci&&ci.value)||0;plcBarWeight=v||0;
+ }
+}
+
+function plcBarInputChange(){
+ if(plcCustomBarMode){const ci=document.getElementById('plcBarCustom');plcBarWeight=parseFloat(ci&&ci.value)||0;}
+ if(plcMode==='entry')calcPlateEntry();else calcPlates();
+}
+
+function switchPlcMode(mode){
+ plcMode=mode;
+ document.getElementById('plcModeTarget').classList.toggle('sel',mode==='target');
+ document.getElementById('plcModeEntry').classList.toggle('sel',mode==='entry');
+ document.getElementById('plcTargetSection').style.display=mode==='target'?'block':'none';
+ document.getElementById('plcEntrySection').style.display=mode==='entry'?'block':'none';
+ if(mode==='entry')calcPlateEntry();
+}
+
+function plcAdjPlate(p,delta){
+ plcEntryPlates[p]=(plcEntryPlates[p]||0)+delta;
+ if(plcEntryPlates[p]<=0)delete plcEntryPlates[p];
+ if(typeof hap!=='undefined')hap.selectionFeedback();
+ renderPlcEntryRows();
+ calcPlateEntry();
+}
+
+function plcClearPlates(){
+ plcEntryPlates={};
+ if(typeof hap!=='undefined')hap.lightTap();
+ renderPlcEntryRows();
+ calcPlateEntry();
+}
+
+function renderPlcEntryRows(){
+ const el=document.getElementById('plcEntryRows');
+ if(!el)return;
+ const sorted=PLC_PLATES.filter(p=>plcEntryPlates[p]>0);
+ if(sorted.length===0){el.innerHTML='<div class="plc-entry-empty">Tap chips above to add plates</div>';return;}
+ el.innerHTML=sorted.map(p=>{
+  const c=plcEntryPlates[p]||0;
+  const color=PLC_PLATE_COLORS[p]||'#666';
+  return `<div class="plc-entry-row"><span class="plc-plate-pill" style="background:${color}22;border-color:${color}66;color:${color};min-width:60px">${p} lb</span><div class="plc-entry-stepper"><button class="plc-entry-step" onclick="plcAdjPlate(${p},-1)">−</button><span class="plc-entry-count">${c}</span><button class="plc-entry-step" onclick="plcAdjPlate(${p},1)">+</button></div><span class="plc-entry-side-label">per side</span></div>`;
+ }).join('');
+}
+
+function calcPlateEntry(){
+ if(plcCustomBarMode){const ci=document.getElementById('plcBarCustom');plcBarWeight=parseFloat(ci&&ci.value)||0;}
+ const perSideTotal=PLC_PLATES.reduce((s,p)=>s+(plcEntryPlates[p]||0)*p,0);
+ const total=plcBarWeight+perSideTotal*2;
+ const el=document.getElementById('plcEntryTotal');
+ if(el)el.textContent=total%1===0?String(total):total.toFixed(1);
+ const visEl=document.getElementById('plcBarVisEntry');
+ if(!visEl)return;
+ const sorted=PLC_PLATES.filter(p=>plcEntryPlates[p]>0);
+ if(sorted.length===0){visEl.innerHTML='<span style="color:var(--muted);font-size:12px;font-weight:600">Bar only</span>';return;}
+ const plateElements=sorted.map(p=>{
+  const h=PLC_PLATE_H[p]||40;const color=PLC_PLATE_COLORS[p]||'#666';const w=p>=25?18:p>=10?14:10;const c=plcEntryPlates[p]||0;
+  return Array(c).fill(null).map(()=>`<div class="plc-plate" style="height:${h}px;width:${w}px;background:${color}40;border-color:${color}80;">${p}</div>`).join('');
+ }).join('');
+ visEl.innerHTML=`<div class="plc-plates-left">${plateElements}<div class="plc-collar"></div></div><div class="plc-bar-mid" style="width:80px"></div><div class="plc-plates-right"><div class="plc-collar"></div>${plateElements}</div>`;
+}
+
+function plcPreset(totalWeight){
+ switchPlcMode('entry');
+ if(plcCustomBarMode){const ci=document.getElementById('plcBarCustom');plcBarWeight=parseFloat(ci&&ci.value)||0;}
+ const remaining=totalWeight-plcBarWeight;
+ plcEntryPlates={};
+ if(remaining>0){
+  let rem=remaining/2;
+  PLC_PLATES.forEach(p=>{const count=Math.floor((rem+0.001)/p);if(count>0){plcEntryPlates[p]=count;rem=Number((rem-count*p).toFixed(2));}});
+ }
+ if(typeof hap!=='undefined')hap.selectionFeedback();
+ renderPlcEntryRows();
+ calcPlateEntry();
 }
 
 function calcPlates(){
  const target=parseFloat(document.getElementById('plcTarget').value)||0;
- if(plcCustomBarMode){
-  const ci=document.getElementById('plcBarCustom');
-  plcBarWeight=parseFloat(ci&&ci.value)||0;
- }
+ if(plcCustomBarMode){const ci=document.getElementById('plcBarCustom');plcBarWeight=parseFloat(ci&&ci.value)||0;}
  try{localStorage.setItem('si-plc-target',document.getElementById('plcTarget').value||'');}catch(e){}
  try{localStorage.setItem('si-plc-bar',String(plcBarWeight));}catch(e){}
-
  const resEl=document.getElementById('plcResultPlates');
  const totEl=document.getElementById('plcResultTotal');
  const visEl=document.getElementById('plcBarVis');
  const titleEl=document.querySelector('#plcResult .plc-result-title');
  if(!resEl)return;
-
- const clear=(msg)=>{
-  if(titleEl)titleEl.textContent='Per Side';
-  resEl.innerHTML=`<span style="color:var(--muted)">${msg}</span>`;
-  totEl.textContent='';if(visEl)visEl.innerHTML='';
- };
-
+ const clear=(msg)=>{if(titleEl)titleEl.textContent='Per Side';resEl.innerHTML=`<span style="color:var(--muted)">${msg}</span>`;totEl.textContent='';if(visEl)visEl.innerHTML='';};
  if(target<=0){clear('Enter a weight above');return;}
  if(plcBarWeight<=0){clear('Enter a bar weight');return;}
- if(target<plcBarWeight){
-  if(titleEl)titleEl.textContent='Per Side';
-  resEl.innerHTML=`<span style="color:#ff5c35">Target must be ≥ bar (${plcBarWeight} lb)</span>`;
-  totEl.textContent='';if(visEl)visEl.innerHTML='';return;
- }
-
+ if(target<plcBarWeight){if(titleEl)titleEl.textContent='Per Side';resEl.innerHTML=`<span style="color:#ff5c35">Target must be ≥ bar (${plcBarWeight} lb)</span>`;totEl.textContent='';if(visEl)visEl.innerHTML='';return;}
  const remaining=target-plcBarWeight;
- if(remaining===0){
-  if(titleEl)titleEl.textContent='Load per side';
-  resEl.innerHTML='<span style="color:var(--muted)">Bar only — no plates needed</span>';
-  totEl.innerHTML=`<span style="color:#00c896">✓ Total: ${plcBarWeight} lb</span>`;
-  if(visEl)visEl.innerHTML='';
-  hap.selectionFeedback();return;
- }
-
- const perSideTarget=remaining/2;
- let rem=perSideTarget;
- const used=[];
- PLC_PLATES.forEach(p=>{
-  const count=Math.floor((rem+0.001)/p);
-  if(count>0){used.push({p,count});rem=Number((rem-count*p).toFixed(2));}
- });
-
+ if(remaining===0){if(titleEl)titleEl.textContent='Load per side';resEl.innerHTML='<span style="color:var(--muted)">Bar only — no plates needed</span>';totEl.innerHTML=`<span style="color:#00c896">✓ Total: ${plcBarWeight} lb</span>`;if(visEl)visEl.innerHTML='';hap.selectionFeedback();return;}
+ const perSideTarget=remaining/2;let rem=perSideTarget;const used=[];
+ PLC_PLATES.forEach(p=>{const count=Math.floor((rem+0.001)/p);if(count>0){used.push({p,count});rem=Number((rem-count*p).toFixed(2));}});
  const loadedPerSide=used.reduce((s,{p,count})=>s+p*count,0);
  const calcTotal=Number((plcBarWeight+loadedPerSide*2).toFixed(2));
  const leftover=Number((perSideTarget-loadedPerSide).toFixed(2));
  const exact=leftover<0.01;
-
  if(titleEl)titleEl.textContent=exact?'Load per side':'Closest load per side';
-
- if(used.length===0){
-  resEl.innerHTML='<span style="color:var(--muted)">Bar only — no plates needed</span>';
- } else {
-  resEl.innerHTML=used.map(({p,count})=>`<div class="plc-plate-row"><span class="plc-plate-pill" style="background:${PLC_PLATE_COLORS[p]}22;border-color:${PLC_PLATE_COLORS[p]}66;color:${PLC_PLATE_COLORS[p]}">${p} lb</span><span class="plc-plate-count">× ${count}</span></div>`).join('');
- }
-
- if(exact){
-  totEl.innerHTML=`<span style="color:#00c896">✓ Total: ${calcTotal%1===0?calcTotal:calcTotal.toFixed(1)} lb</span>`;
- } else {
-  totEl.innerHTML=`Calculated: ${calcTotal%1===0?calcTotal:calcTotal.toFixed(1)} lb &nbsp;·&nbsp; <span style="color:#ff9500">+${leftover.toFixed(2)} lb/side unmatched</span>`;
- }
+ if(used.length===0){resEl.innerHTML='<span style="color:var(--muted)">Bar only — no plates needed</span>';}
+ else{resEl.innerHTML=used.map(({p,count})=>`<div class="plc-plate-row"><span class="plc-plate-pill" style="background:${PLC_PLATE_COLORS[p]}22;border-color:${PLC_PLATE_COLORS[p]}66;color:${PLC_PLATE_COLORS[p]}">${p} lb</span><span class="plc-plate-count">× ${count}</span></div>`).join('');}
+ if(exact){totEl.innerHTML=`<span style="color:#00c896">✓ Total: ${calcTotal%1===0?calcTotal:calcTotal.toFixed(1)} lb</span>`;}
+ else{totEl.innerHTML=`Calculated: ${calcTotal%1===0?calcTotal:calcTotal.toFixed(1)} lb &nbsp;·&nbsp; <span style="color:#ff9500">+${leftover.toFixed(2)} lb/side unmatched</span>`;}
  hap.selectionFeedback();
-
  if(visEl){
-  const plateElements=used.map(({p,count})=>{
-   const h=PLC_PLATE_H[p]||40;
-   const color=PLC_PLATE_COLORS[p]||'#666';
-   const w=p>=25?18:p>=10?14:10;
-   return Array(count).fill(null).map(()=>`<div class="plc-plate" style="height:${h}px;width:${w}px;background:${color}40;border-color:${color}80;">${p}</div>`).join('');
-  }).join('');
-  visEl.innerHTML=`
-   <div class="plc-plates-left">${plateElements}<div class="plc-collar"></div></div>
-   <div class="plc-bar-mid" style="width:80px"></div>
-   <div class="plc-plates-right"><div class="plc-collar"></div>${plateElements}</div>`;
+  const plateElements=used.map(({p,count})=>{const h=PLC_PLATE_H[p]||40;const color=PLC_PLATE_COLORS[p]||'#666';const w=p>=25?18:p>=10?14:10;return Array(count).fill(null).map(()=>`<div class="plc-plate" style="height:${h}px;width:${w}px;background:${color}40;border-color:${color}80;">${p}</div>`).join('');}).join('');
+  visEl.innerHTML=`<div class="plc-plates-left">${plateElements}<div class="plc-collar"></div></div><div class="plc-bar-mid" style="width:80px"></div><div class="plc-plates-right"><div class="plc-collar"></div>${plateElements}</div>`;
  }
 }
 
