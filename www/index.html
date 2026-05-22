@@ -1868,16 +1868,6 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
 .si-focus-accent-bar,.si-focus-topbar,.si-focus-hero,.si-focus-controls,.si-focus-suggestion,.si-focus-bottom{position:relative;z-index:2;}
 .si-focus-rest-top,.si-focus-rest-center,.si-focus-rest-upcoming,.si-focus-rest-presets,.si-focus-rest-actions{position:relative;z-index:2;}
 .si-focus-sum-inner{position:relative;z-index:2;}
-/* Exercise intro overlay */
-#siFocusIntro{position:absolute;inset:0;z-index:850;display:none;flex-direction:column;align-items:center;justify-content:center;background:rgba(0,0,0,0.60);pointer-events:none;opacity:0;transition:opacity 0.28s ease;}
-#siFocusIntro.si-intro-in{opacity:1;pointer-events:auto;}
-.si-focus-intro-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.38;}
-.si-focus-intro-content{position:relative;z-index:2;text-align:center;padding:24px 32px;}
-.si-focus-intro-label{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:5px;color:rgba(255,107,0,0.75);text-transform:uppercase;margin-bottom:10px;}
-.si-focus-intro-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(54px,13vw,82px);color:#fff;line-height:0.92;letter-spacing:3px;}
-.si-focus-intro-muscle{font-size:11px;font-weight:700;letter-spacing:2.5px;color:rgba(255,255,255,0.35);text-transform:uppercase;margin-top:10px;}
-@keyframes siFocusIntroZoom{0%{opacity:0;transform:scale(1.07) translateY(6px)}25%{opacity:1;transform:scale(1) translateY(0)}80%{opacity:1}100%{opacity:0;transform:scale(0.97)}}
-.si-focus-intro-content.si-intro-anim{animation:siFocusIntroZoom 1.5s cubic-bezier(0.4,0,0.2,1) both;}
 /* Home carousel cinematic BG */
 .hc-hero-bg-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;border-radius:inherit;opacity:0;transition:opacity 0.5s ease;}
 .hc-hero-bg-img.si-img-loaded{opacity:1;}
@@ -1989,7 +1979,6 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
 /* Hide in-panel gradient overlay divs — single rgba(0,0,0,0.35) overlay is enough */
 #siFocusEngine .si-focus-panel-overlay{display:none !important;}
 /* ── HIDE BROKEN/EMPTY IMAGES IN FOCUS SCREENS ── */
-#siFocusIntro img[src=""],#siFocusIntro img:not([src]),
 #siFocusEngine img[src=""],#focusMode img[src=""]{display:none !important;}
 /* ── TAP/CLICK UNBLOCKING ── */
 .session-bg,.hc-athlete-img,.si-wk-bg,.si-day-img,.hc-hero-overlay{
@@ -8511,15 +8500,7 @@ function siFocusOpen(){
  _sf.curEx=next?next.ei:0;_sf.curSet=next?next.si:0;
  const eng=document.getElementById('siFocusEngine');
  if(eng)eng.style.display='flex';
- const day=WEEKS[aW].days[aD];
- const firstEx=day.exercises[_sf.curEx];
- if(firstEx){
-  // Show intro FIRST — exercise panel mounts only after intro fully unmounts
-  const m=[...new Set((MUSCLE_MAP[firstEx.name]||[]).map(id=>MUSCLE_NAMES[id]).filter(Boolean))].slice(0,2).join(' · ');
-  _sfShowIntro(firstEx.name,m,true,()=>{_sfShowPanel('ex');_sfRenderEx();});
- } else {
-  _sfShowPanel('ex');_sfRenderEx();
- }
+ _sfShowPanel('ex');_sfRenderEx();
 }
 
 function siFocusClose(){
@@ -8615,35 +8596,7 @@ function _sfSetImg(imgId,src){
  tmp.src=src;
 }
 
-function _sfShowIntro(exName,muscleStr,isFirst,onDone){
- if(_sf.restSec>0){if(onDone)onDone();return;}
- const overlay=document.getElementById('siFocusIntro');
- const content=document.getElementById('siFocusIntroContent');
- const introImg=document.getElementById('siFocusIntroImg');
- const nameEl=document.getElementById('siFocusIntroName');
- const muscleEl=document.getElementById('siFocusIntroMuscle');
- const labelEl=document.getElementById('siFocusIntroLabel');
- if(!overlay||!content){if(onDone)onDone();return;}
- if(nameEl)nameEl.textContent=exName||'—';
- if(muscleEl)muscleEl.textContent=muscleStr||'';
- if(labelEl)labelEl.textContent=isFirst?'STARTING WITH':'UP NEXT';
- const src=_sfGetImage(exName);
- if(introImg){introImg.src=src||'';introImg.style.display=src?'':'none';}
- // Mount into DOM before animating
- overlay.style.display='flex';
- content.classList.remove('si-intro-anim');
- void content.offsetWidth;
- content.classList.add('si-intro-anim');
- overlay.classList.add('si-intro-in');
- setTimeout(()=>{
-  overlay.classList.remove('si-intro-in');
-  // Wait for opacity transition to finish, then fully unmount
-  setTimeout(()=>{
-   overlay.style.display='none';
-   if(onDone)onDone();
-  },300);
- },1550);
-}
+
 
 // ── Weight value helpers (supports numerics + "BW", "BW +25", "Assisted -40") ──
 function _sfWNum(w){const n=parseFloat(w);return isNaN(n)?0:n;}
@@ -9371,15 +9324,6 @@ function _sfEndWorkout(){
    <button data-sec="90" onclick="siFocusSetRest(90)">90<br><span class="si-preset-unit">SEC</span></button>
    <button data-sec="120" onclick="siFocusSetRest(120)">120<br><span class="si-preset-unit">SEC</span></button>
    <button data-sec="150" onclick="siFocusSetRest(150)">150<br><span class="si-preset-unit">SEC</span></button>
-  </div>
- </div>
-
- <!-- ── Cinematic Exercise Intro Overlay ── -->
- <div id="siFocusIntro" aria-hidden="true">
-  <div class="si-focus-intro-content" id="siFocusIntroContent">
-   <div class="si-focus-intro-label" id="siFocusIntroLabel">UP NEXT</div>
-   <div class="si-focus-intro-name" id="siFocusIntroName">—</div>
-   <div class="si-focus-intro-muscle" id="siFocusIntroMuscle"></div>
   </div>
  </div>
 
