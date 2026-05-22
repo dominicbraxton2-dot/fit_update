@@ -1668,7 +1668,7 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
 .si-focus-input-unit{font-size:7px;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,0.16);text-transform:uppercase;margin-top:4px;}
 
 /* ── SUGGESTION ── */
-.si-focus-suggestion{text-align:center;padding:0 20px 14px;font-family:'JetBrains Mono',monospace;font-size:9.5px;color:rgba(0,200,150,0.65);font-weight:600;letter-spacing:0.4px;flex-shrink:0;}
+.si-focus-suggestion{text-align:center;padding:0;margin-bottom:8px;font-family:'JetBrains Mono',monospace;font-size:9px;color:rgba(0,200,150,0.52);font-weight:600;letter-spacing:2.5px;text-transform:uppercase;flex-shrink:0;}
 
 /* ── BOTTOM: Nav + Complete ── */
 .si-focus-bottom{padding:8px 16px max(14px,env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:8px;flex-shrink:0;}
@@ -1869,7 +1869,7 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
 .si-focus-panel-img.si-img-blurred{filter:blur(20px) brightness(0.45);transform:scale(1.1);opacity:0.6 !important;}
 .si-focus-panel-overlay{position:absolute;inset:0;z-index:1;pointer-events:none;}
 /* Stack all panel content above image layers */
-.si-focus-accent-bar,.si-focus-topbar,.si-focus-hero,.si-focus-controls,.si-focus-suggestion,.si-focus-bottom{position:relative;z-index:2;}
+.si-focus-accent-bar,.si-focus-topbar,.si-focus-hero,.si-focus-controls,.si-focus-bottom{position:relative;z-index:2;}
 .si-focus-rest-top,.si-focus-rest-center,.si-focus-rest-upcoming,.si-focus-rest-presets,.si-focus-rest-actions{position:relative;z-index:2;}
 .si-focus-sum-inner{position:relative;z-index:2;}
 /* Home carousel cinematic BG */
@@ -2024,10 +2024,6 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
 }
 
 /* ── Exercise hero typography ── */
-.si-focus-ex-counter{
- font-size:10px !important;letter-spacing:5px !important;
- color:rgba(255,107,0,0.85) !important;margin-bottom:6px !important;
-}
 .si-focus-ex-muscle{
  font-size:11px !important;letter-spacing:3px !important;
  color:rgba(255,255,255,0.36) !important;margin-top:10px !important;
@@ -8614,7 +8610,6 @@ function _sfRenderEx(){
  const bfTag=selectedBackfillDate?` · ${new Date(selectedBackfillDate+'T12:00').toLocaleDateString('en-US',{month:'short',day:'numeric'})}`:'';
  document.getElementById('siFocusWkName').textContent=`${day.label.toUpperCase()} · WK ${aW+1}${bfTag}`;
  const bar=document.getElementById('siFocusAccentBar');if(bar)bar.style.background=_sfAccentColor();
- document.getElementById('siFocusExCounter').textContent=`EXERCISE ${_sf.curEx+1} OF ${day.exercises.length}`;
  document.getElementById('siFocusExName').textContent=ex.name;
  const muscles=[...new Set((MUSCLE_MAP[ex.name]||[]).map(m=>MUSCLE_NAMES[m]).filter(Boolean))].slice(0,2).join(' · ');
  document.getElementById('siFocusExMuscle').textContent=muscles||'COMPOUND MOVEMENT';
@@ -9250,12 +9245,11 @@ function _sfEndWorkout(){
    </div>
   </div>
   <div class="si-focus-hero" id="siFocusHero">
-   <div class="si-focus-ex-counter" id="siFocusExCounter">EXERCISE 1 OF 6</div>
+   <div class="si-focus-suggestion" id="siFocusSuggestion" style="display:none;"></div>
    <div class="si-focus-ex-name" id="siFocusExName">—</div>
    <div class="si-focus-ex-muscle" id="siFocusExMuscle"></div>
    <div class="si-focus-set-dots" id="siFocusSetDots"></div>
   </div>
-  <div class="si-focus-suggestion" id="siFocusSuggestion" style="display:none;"></div>
   <div class="si-focus-controls">
    <div class="si-focus-input-col" id="siFocusWCol">
     <div class="si-focus-input-lbl">WEIGHT</div>
