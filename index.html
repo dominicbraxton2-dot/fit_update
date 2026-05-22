@@ -2110,62 +2110,118 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
  color:rgba(255,90,90,0.75) !important;
 }
 
-/* ── REST TIMER: larger ring glow, stronger presence ── */
-.si-focus-ring-bg{stroke:rgba(255,255,255,0.04) !important;stroke-width:9 !important;}
+/* ── REST TIMER: ring as visual hero ── */
+@keyframes si-rest-breathe{
+ 0%,100%{filter:drop-shadow(0 0 8px rgba(255,107,0,0.38));}
+ 50%{filter:drop-shadow(0 0 15px rgba(255,107,0,0.58));}
+}
+.si-focus-ring-bg{stroke:rgba(255,255,255,0.05) !important;stroke-width:7 !important;}
 .si-focus-ring-arc{
- stroke-width:9 !important;
- filter:drop-shadow(0 0 12px rgba(255,107,0,0.55)) !important;
+ stroke-width:7 !important;
+ animation:si-rest-breathe 3.2s ease-in-out infinite !important;
 }
 .si-focus-rest-badge{
  font-size:10px !important;letter-spacing:7px !important;
- color:rgba(255,107,0,0.75) !important;
+ color:rgba(255,107,0,0.72) !important;
 }
 .si-focus-rest-last{
- font-size:20px !important;letter-spacing:1.5px !important;
- color:rgba(255,255,255,0.42) !important;
+ font-size:18px !important;letter-spacing:1px !important;
+ color:rgba(255,255,255,0.38) !important;
+}
+.si-focus-rest-center{
+ flex-direction:row !important;
+ align-items:center !important;
+ justify-content:center !important;
+ gap:8px !important;padding:0 10px !important;
+}
+.si-focus-rest-ring-wrap{
+ position:relative !important;
+ width:min(218px,54vw) !important;
+ height:min(218px,54vw) !important;
+ flex-shrink:0 !important;
+}
+.si-focus-rest-ring{
+ position:absolute !important;inset:0 !important;
+ width:100% !important;height:100% !important;
+ transform:rotate(-90deg) !important;
+}
+.si-focus-rest-ring-inner{
+ position:absolute !important;inset:0 !important;
+ display:flex !important;flex-direction:column !important;
+ align-items:center !important;justify-content:center !important;
+ gap:5px !important;
 }
 .si-focus-rest-countdown{
- font-size:clamp(96px,22vw,138px) !important;
- letter-spacing:4px !important;
+ font-size:clamp(50px,13vw,64px) !important;
+ letter-spacing:2px !important;line-height:1 !important;
  text-shadow:0 0 20px rgba(255,107,0,0.15) !important;
 }
+.si-focus-rest-time-lbl{
+ font-size:8px !important;letter-spacing:3.5px !important;
+ color:rgba(255,255,255,0.3) !important;
+ font-weight:700 !important;text-transform:uppercase !important;
+ font-family:'JetBrains Mono',monospace !important;
+}
+.si-focus-rest-pause{
+ width:62px !important;height:62px !important;
+ border-radius:50% !important;padding:0 !important;
+ flex:none !important;flex-shrink:0 !important;
+ background:rgba(255,255,255,0.06) !important;
+ border:1px solid rgba(255,255,255,0.14) !important;
+ color:rgba(255,255,255,0.62) !important;
+ font-size:9px !important;font-weight:800 !important;letter-spacing:1px !important;
+}
+.si-focus-rest-skip{
+ width:62px !important;height:62px !important;
+ border-radius:50% !important;padding:0 !important;
+ flex:none !important;flex-shrink:0 !important;
+ background:rgba(255,107,0,0.1) !important;
+ border:1px solid rgba(255,107,0,0.3) !important;
+ display:flex !important;flex-direction:column !important;
+ align-items:center !important;justify-content:center !important;
+ gap:3px !important;
+ box-shadow:0 2px 10px rgba(255,107,0,0.15) !important;
+}
+.si-focus-rest-skip-icon{font-size:20px !important;line-height:1 !important;color:rgba(255,107,0,0.92) !important;}
+.si-focus-rest-skip-lbl{font-size:7px !important;letter-spacing:1.5px !important;font-weight:800 !important;color:rgba(255,107,0,0.88) !important;}
+.si-focus-rest-skip:active{transform:scale(0.97) !important;}
 .si-focus-rest-upcoming{
- border-color:rgba(255,107,0,0.18) !important;
- background:rgba(255,107,0,0.04) !important;
+ border-color:rgba(255,107,0,0.15) !important;
+ background:rgba(255,107,0,0.03) !important;
  box-shadow:none !important;
 }
 .si-focus-rest-up-lbl{
- color:rgba(255,107,0,0.55) !important;
+ color:rgba(255,107,0,0.52) !important;
  letter-spacing:5px !important;font-size:8.5px !important;
 }
 .si-focus-rest-up-name{
- color:rgba(255,255,255,0.9) !important;font-size:26px !important;
+ color:rgba(255,255,255,0.88) !important;font-size:24px !important;
 }
 .si-focus-rest-presets button{
- border-radius:100px !important;font-size:10px !important;
- letter-spacing:1px !important;
- border-color:rgba(255,255,255,0.1) !important;
+ border-radius:16px !important;
+ font-size:20px !important;font-weight:800 !important;
+ letter-spacing:0 !important;line-height:1.1 !important;
+ border-color:rgba(255,255,255,0.09) !important;
  color:rgba(255,255,255,0.4) !important;
+ padding:10px 4px 8px !important;
+}
+.si-preset-unit{
+ display:block !important;
+ font-size:8px !important;letter-spacing:1.5px !important;
+ font-weight:700 !important;
+ color:rgba(255,255,255,0.26) !important;
+ margin-top:1px !important;
+ font-family:'JetBrains Mono',monospace !important;
 }
 .si-focus-rest-presets button.si-active{
  background:rgba(255,107,0,0.12) !important;
- border-color:rgba(255,107,0,0.55) !important;
+ border-color:rgba(255,107,0,0.52) !important;
  color:#ff6b00 !important;
  box-shadow:none !important;
 }
-.si-focus-rest-pause{
- border-radius:100px !important;
- background:rgba(255,255,255,0.06) !important;
- border-color:rgba(255,255,255,0.14) !important;
- color:rgba(255,255,255,0.65) !important;font-size:11px !important;
+.si-focus-rest-presets button.si-active .si-preset-unit{
+ color:rgba(255,107,0,0.58) !important;
 }
-.si-focus-rest-skip{
- border-radius:100px !important;
- background:linear-gradient(135deg,#ff7b00,#ff4200) !important;
- color:#000 !important;font-size:12px !important;font-weight:900 !important;
- box-shadow:0 2px 12px rgba(255,107,0,0.2) !important;
-}
-.si-focus-rest-skip:active{transform:scale(0.97) !important;}
 /* ══════════════════════════════════════════════════= */
 </style>
 </head>
@@ -9288,15 +9344,25 @@ function _sfEndWorkout(){
   <img class="si-focus-panel-img si-img-blurred" id="siFocusRestImg" alt="" aria-hidden="true">
   <div class="si-focus-panel-overlay" style="background:linear-gradient(to bottom,rgba(0,0,0,0.72) 0%,rgba(0,0,0,0.55) 45%,rgba(0,0,0,0.88) 100%);"></div>
   <div class="si-focus-rest-top">
-   <div class="si-focus-rest-badge">REST PERIOD</div>
+   <div class="si-focus-rest-badge">REST TIMER</div>
    <div class="si-focus-rest-last" id="siFocusRestLast">—</div>
   </div>
   <div class="si-focus-rest-center">
-   <svg class="si-focus-rest-ring" viewBox="0 0 200 200">
-    <circle class="si-focus-ring-bg" cx="100" cy="100" r="90"/>
-    <circle class="si-focus-ring-arc" id="siFocusRingArc" cx="100" cy="100" r="90"/>
-   </svg>
-   <div class="si-focus-rest-countdown" id="siFocusRestCountdown">01:30</div>
+   <button class="si-focus-rest-pause" id="siFocusRestPause" onclick="siFocusTogglePauseRest()">PAUSE</button>
+   <div class="si-focus-rest-ring-wrap">
+    <svg class="si-focus-rest-ring" viewBox="0 0 200 200">
+     <circle class="si-focus-ring-bg" cx="100" cy="100" r="90"/>
+     <circle class="si-focus-ring-arc" id="siFocusRingArc" cx="100" cy="100" r="90"/>
+    </svg>
+    <div class="si-focus-rest-ring-inner">
+     <div class="si-focus-rest-countdown" id="siFocusRestCountdown">01:30</div>
+     <div class="si-focus-rest-time-lbl">REST TIME</div>
+    </div>
+   </div>
+   <button class="si-focus-rest-skip" onclick="siFocusSkipRest()">
+    <span class="si-focus-rest-skip-icon">&#9193;</span>
+    <span class="si-focus-rest-skip-lbl">SKIP</span>
+   </button>
   </div>
   <div class="si-focus-rest-upcoming">
    <div class="si-focus-rest-up-lbl">UP NEXT</div>
@@ -9304,14 +9370,10 @@ function _sfEndWorkout(){
    <div class="si-focus-rest-up-meta" id="siFocusRestUpMeta"></div>
   </div>
   <div class="si-focus-rest-presets">
-   <button data-sec="60" onclick="siFocusSetRest(60)">1 MIN</button>
-   <button data-sec="90" onclick="siFocusSetRest(90)">1:30</button>
-   <button data-sec="120" onclick="siFocusSetRest(120)">2 MIN</button>
-   <button data-sec="180" onclick="siFocusSetRest(180)">3 MIN</button>
-  </div>
-  <div class="si-focus-rest-actions">
-   <button class="si-focus-rest-pause" id="siFocusRestPause" onclick="siFocusTogglePauseRest()">PAUSE</button>
-   <button class="si-focus-rest-skip" onclick="siFocusSkipRest()">SKIP REST →</button>
+   <button data-sec="60" onclick="siFocusSetRest(60)">60<br><span class="si-preset-unit">SEC</span></button>
+   <button data-sec="90" onclick="siFocusSetRest(90)">90<br><span class="si-preset-unit">SEC</span></button>
+   <button data-sec="120" onclick="siFocusSetRest(120)">120<br><span class="si-preset-unit">SEC</span></button>
+   <button data-sec="150" onclick="siFocusSetRest(150)">150<br><span class="si-preset-unit">SEC</span></button>
   </div>
  </div>
 
