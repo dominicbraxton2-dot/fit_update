@@ -1634,8 +1634,8 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
 .si-focus-engine{position:fixed;inset:0;z-index:700;background:#000;display:flex;flex-direction:column;overflow:hidden;font-family:'DM Sans',sans-serif;}
 .si-focus-panel{position:absolute;inset:0;display:flex;flex-direction:column;overflow:hidden;}
 
-/* Accent bar — color changes per muscle group; top offset respects safe-area notch */
-.si-focus-accent-bar{position:absolute;top:env(safe-area-inset-top,0px);left:0;right:0;height:3px;background:#ff6b00;z-index:10;transition:background 0.5s;}
+/* Accent bar — hidden; color-per-muscle-group feature removed to prevent top-bleed */
+.si-focus-accent-bar{display:none !important;}
 
 /* ── TOP BAR ── */
 .si-focus-topbar{display:flex;align-items:center;justify-content:space-between;padding:max(14px,env(safe-area-inset-top)) 16px 8px;flex-shrink:0;position:relative;z-index:5;}
@@ -8620,6 +8620,7 @@ function _sfSetImg(imgId,src){
 }
 
 function _sfShowIntro(exName,muscleStr,isFirst){
+ if(_sf.restSec>0)return;
  const overlay=document.getElementById('siFocusIntro');
  const content=document.getElementById('siFocusIntroContent');
  const introImg=document.getElementById('siFocusIntroImg');
@@ -8844,13 +8845,6 @@ function _sfStartRest(){
  _sfShowPanel('rest');
  const _sfRO=document.getElementById('siFocusRestOverlay');if(_sfRO){_sfRO.style.display='flex';}
  _sfUpdateRestRing();_sfUpdateRestUI();_sfUpdateRestNext();
- // Show next exercise intro mid-rest
- const day=WEEKS[aW].days[aD];
- const nextEx=day.exercises[_sf.curEx];
- if(nextEx){
-  const m=[...new Set((MUSCLE_MAP[nextEx.name]||[]).map(id=>MUSCLE_NAMES[id]).filter(Boolean))].slice(0,2).join(' · ');
-  setTimeout(()=>_sfShowIntro(nextEx.name,m,false),Math.min((_sf.restTotal*1000)/2,3500));
- }
  _sf.restInt=setInterval(()=>{
   if(_sf.restPaused)return;
   _sf.restSec--;
