@@ -1685,7 +1685,7 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
 /* ══════════════════════════════
    REST TIMER PANEL
    ══════════════════════════════ */
-.si-focus-panel-rest{background:#000;overflow:hidden;}
+.si-focus-panel-rest{background:transparent;overflow:hidden;}
 .si-focus-rest-top{display:flex;flex-direction:column;align-items:center;padding:max(18px,env(safe-area-inset-top)) 20px 0;flex-shrink:0;}
 .si-focus-rest-badge{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:6px;color:rgba(255,107,0,0.65);text-transform:uppercase;margin-bottom:6px;}
 .si-focus-rest-last{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:1px;color:rgba(255,255,255,0.35);}
@@ -1869,7 +1869,7 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
 .si-focus-rest-top,.si-focus-rest-center,.si-focus-rest-upcoming,.si-focus-rest-presets,.si-focus-rest-actions{position:relative;z-index:2;}
 .si-focus-sum-inner{position:relative;z-index:2;}
 /* Exercise intro overlay */
-#siFocusIntro{position:absolute;inset:0;z-index:850;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(rgba(0,0,0,0.80),rgba(0,0,0,0.80)),url('https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/12C76F72-CB84-430F-9EB5-14D24D5594EA.png') center/cover no-repeat;pointer-events:none;opacity:0;transition:opacity 0.25s ease;}
+#siFocusIntro{position:absolute;inset:0;z-index:850;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(0,0,0,0.45);pointer-events:none;opacity:0;transition:opacity 0.25s ease;}
 #siFocusIntro.si-intro-in{opacity:1;pointer-events:auto;}
 .si-focus-intro-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.38;}
 .si-focus-intro-content{position:relative;z-index:2;text-align:center;padding:24px 32px;}
@@ -1964,24 +1964,30 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
  position:relative !important;
  z-index:5 !important;
 }
-/* ── SI FOCUS ENGINE SESSION BACKGROUND ── */
+/* ── SI FOCUS ENGINE — SINGLE UNIFIED BACKGROUND ── */
 #siFocusEngine .session-bg{
  position:absolute !important;
  inset:0 !important;
  z-index:0 !important;
- background-image:url('https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/12C76F72-CB84-430F-9EB5-14D24D5594EA.png') !important;
+ background-image:
+  linear-gradient(rgba(0,0,0,0.35),rgba(0,0,0,0.35)),
+  url('https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/155E3595-E0FD-4399-8162-217BB9DA0536.png') !important;
  background-size:cover !important;
  background-position:center center !important;
  background-repeat:no-repeat !important;
- opacity:0.28 !important;
- filter:brightness(0.55) contrast(1.08) !important;
+ opacity:1 !important;
+ filter:none !important;
  pointer-events:none !important;
 }
-/* Panels sit above the session-bg; rest/list/sum panels go semi-transparent so bg shows */
-.si-focus-panel{z-index:1 !important;}
-.si-focus-panel-rest{background:rgba(0,0,0,0.72) !important;}
-.si-focus-panel-list{background:rgba(8,8,8,0.72) !important;}
-.si-focus-panel-sum{background:rgba(0,0,0,0.80) !important;}
+/* All panels transparent — session-bg is the only background layer */
+.si-focus-panel{z-index:1 !important;background:transparent !important;}
+.si-focus-panel-rest{background:transparent !important;}
+.si-focus-panel-list{background:rgba(0,0,0,0.55) !important;}
+.si-focus-panel-sum{background:transparent !important;}
+/* Hide per-exercise blurred img elements — session-bg is the single bg source */
+#siFocusEngine .si-focus-panel-img{display:none !important;}
+/* Hide in-panel gradient overlay divs — single rgba(0,0,0,0.35) overlay is enough */
+#siFocusEngine .si-focus-panel-overlay{display:none !important;}
 /* ── HIDE BROKEN/EMPTY IMAGES IN FOCUS SCREENS ── */
 #siFocusIntro img[src=""],#siFocusIntro img:not([src]),
 #siFocusEngine img[src=""],#focusMode img[src=""]{display:none !important;}
@@ -2007,17 +2013,6 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
 /* ═══════════════════════════════════════════════════
    FOCUS MODE — PREMIUM CINEMATIC REDESIGN
    ═══════════════════════════════════════════════════ */
-
-/* ── Background: stronger gym image + orange vignette ── */
-#siFocusEngine .session-bg{
- opacity:0.35 !important;
- filter:brightness(0.48) contrast(1.12) !important;
-}
-.si-focus-panel-ex::after{
- content:'';position:absolute;inset:0;pointer-events:none;z-index:1;
- background:radial-gradient(ellipse at 50% 100%,rgba(255,107,0,0.06) 0%,transparent 65%),
-            radial-gradient(ellipse at 50% 0%,rgba(0,0,0,0.55) 0%,transparent 60%);
-}
 
 /* ── Topbar: more visible elements ── */
 .si-focus-close,.si-focus-list-btn{
@@ -4945,7 +4940,7 @@ function renderOutdoorRecent(){
 // ── Week thumbnail images (index matches week number 0–11, cycles if more weeks) ──
 // ── Home hero image — athlete, completely separate from day thumbnails ──
 const HOME_HERO_IMAGE='https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/774E1439-5AE3-4A00-83B0-EB4B7C8B4980.png';
-const WORKOUT_SESSION_BG='https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/12C76F72-CB84-430F-9EB5-14D24D5594EA.png';
+const WORKOUT_SESSION_BG='https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/155E3595-E0FD-4399-8162-217BB9DA0536.png';
 // Apply session background to all workout screens
 (function(){
  ['workoutSessionBg','focusModeSessionBg','siFocusSessionBg'].forEach(id=>{
@@ -9332,7 +9327,7 @@ function _sfEndWorkout(){
  <div id="siFocusRest" class="si-focus-panel si-focus-panel-rest" style="display:none;"></div>
 
  <!-- ── REST TIMER OVERLAY — position:absolute z-index:200, guaranteed on top ── -->
- <div id="siFocusRestOverlay" style="display:none;position:absolute;inset:0;z-index:200;flex-direction:column;overflow:hidden;background:#000;">
+ <div id="siFocusRestOverlay" style="display:none;position:absolute;inset:0;z-index:200;flex-direction:column;overflow:hidden;background:transparent;">
   <img class="si-focus-panel-img si-img-blurred" id="siFocusRestImg" alt="" aria-hidden="true">
   <div class="si-focus-panel-overlay" style="background:linear-gradient(to bottom,rgba(0,0,0,0.72) 0%,rgba(0,0,0,0.55) 45%,rgba(0,0,0,0.88) 100%);"></div>
   <div class="si-focus-rest-top">

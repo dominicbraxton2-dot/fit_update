@@ -61,3 +61,16 @@ If any CTA/button glow extends upward through a fixed or absolute overlay, add `
 - **Legacy dead code**: `#focusMode` / `fm-` prefix components — never routed to, ignore.
 - **Rest timer overlay**: `#siFocusRestOverlay` — `position:absolute;inset:0;z-index:200` inside `#siFocusEngine`. Shown/hidden explicitly in `_sfStartRest`, `siFocusSkipRest`, `siFocusSetRest`.
 - **Tiny orange top-right countdown**: `.si-focus-dur` (workout duration, styled orange by premium CSS) — NOT the rest countdown.
+
+## Background system (Focus Mode)
+
+**Single background layer rule**: `#siFocusSessionBg` (`.session-bg` inside `#siFocusEngine`) is the ONLY background source. All panels are transparent above it.
+
+- Active image: `155E3595-E0FD-4399-8162-217BB9DA0536.png` (set in `WORKOUT_SESSION_BG` const ~line 4948)
+- Overlay: `linear-gradient(rgba(0,0,0,0.35),rgba(0,0,0,0.35))` baked into background-image
+- Opacity: 1, filter: none — no additional darkening
+- `.si-focus-panel-img` elements hidden (display:none) — no per-exercise images
+- `.si-focus-panel-overlay` divs hidden (display:none) — no stacking gradients
+- `#siFocusIntro` uses `background:rgba(0,0,0,0.45)` (semi-transparent, session-bg shows through)
+- `#siFocusRestOverlay` background:transparent
+- Do NOT add opacity/filter/brightness overrides to `.session-bg` inside Focus Mode — they will crush the image
