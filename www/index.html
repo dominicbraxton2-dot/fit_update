@@ -1677,6 +1677,10 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
 .si-focus-nav-btn:active{background:rgba(255,255,255,0.08);}
 .si-focus-nav-end{background:rgba(255,40,40,0.04)!important;border-color:rgba(255,60,60,0.13)!important;color:rgba(255,80,80,0.55)!important;}
 @keyframes si-focus-pulse{0%,100%{box-shadow:0 0 0 0 rgba(255,255,255,0.06);}50%{box-shadow:0 0 0 12px rgba(255,255,255,0);}}
+@keyframes si-swipe-in-left{from{opacity:0;transform:translateX(28px)}to{opacity:1;transform:translateX(0)}}
+@keyframes si-swipe-in-right{from{opacity:0;transform:translateX(-28px)}to{opacity:1;transform:translateX(0)}}
+.si-focus-hero.si-swipe-left{animation:si-swipe-in-left 0.22s cubic-bezier(0.25,0.46,0.45,0.94) both;}
+.si-focus-hero.si-swipe-right{animation:si-swipe-in-right 0.22s cubic-bezier(0.25,0.46,0.45,0.94) both;}
 .si-focus-complete-btn{width:100%;padding:22px 16px;border-radius:22px;border:none;background:#fff;color:#000;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;-webkit-tap-highlight-color:transparent;animation:si-focus-pulse 2.8s ease-in-out infinite;transition:transform 0.12s;}
 .si-focus-complete-btn:active{transform:scale(0.97);animation:none;}
 .si-focus-complete-main{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:3px;line-height:1;color:#000;}
@@ -8501,6 +8505,7 @@ function siFocusOpen(){
  const eng=document.getElementById('siFocusEngine');
  if(eng)eng.style.display='flex';
  _sfShowPanel('ex');_sfRenderEx();
+ if(typeof window._sfAttachSwipe==='function')window._sfAttachSwipe();
 }
 
 function siFocusClose(){
@@ -8897,6 +8902,44 @@ function siFocusNextSet(){
  _sfRenderEx();
 }
 
+// ── Swipe gesture for Focus Mode exercise panel ──
+(function(){
+ let _tx=0,_ty=0,_active=false;
+ const SWIPE_MIN=50;
+ const IGNORE_TAGS=new Set(['BUTTON','INPUT','SELECT','TEXTAREA']);
+ function _ignore(el){
+  while(el&&el!==document.body){
+   if(IGNORE_TAGS.has(el.tagName)||el.classList.contains('si-focus-step')||
+      el.classList.contains('si-focus-big-val')||el.classList.contains('si-focus-nav-btn')||
+      el.classList.contains('si-focus-complete-btn'))return true;
+   el=el.parentElement;
+  }
+  return false;
+ }
+ function _attach(){
+  const panel=document.getElementById('siFocusEx');
+  if(!panel||panel._swipeInit)return;
+  panel._swipeInit=true;
+  panel.addEventListener('touchstart',e=>{
+   if(_ignore(e.target)){_active=false;return;}
+   _tx=e.touches[0].clientX;_ty=e.touches[0].clientY;_active=true;
+  },{passive:true});
+  panel.addEventListener('touchend',e=>{
+   if(!_active)return;_active=false;
+   const dx=e.changedTouches[0].clientX-_tx;
+   const dy=e.changedTouches[0].clientY-_ty;
+   if(Math.abs(dx)<SWIPE_MIN||Math.abs(dx)<=Math.abs(dy))return;
+   const hero=document.getElementById('siFocusHero');
+   const dir=dx<0?'si-swipe-left':'si-swipe-right';
+   if(dx<0)siFocusNextSet();else siFocusPrevSet();
+   if(hero){hero.classList.remove('si-swipe-left','si-swipe-right');void hero.offsetWidth;hero.classList.add(dir);}
+  },{passive:true});
+ }
+ // Attach after DOM ready and also expose for re-attach after panel re-show
+ document.addEventListener('DOMContentLoaded',_attach);
+ window._sfAttachSwipe=_attach;
+})();
+
 function siFocusToggleList(){
  if(typeof hap!=='undefined')hap.lightTap();
  if(_sf.panel==='list'){_sfShowPanel('ex');_sfRenderEx();}
@@ -9211,7 +9254,7 @@ function _sfEndWorkout(){
     <button class="si-focus-list-btn" onclick="siFocusToggleList()" aria-label="Exercise list">☰</button>
    </div>
   </div>
-  <div class="si-focus-hero">
+  <div class="si-focus-hero" id="siFocusHero">
    <div class="si-focus-ex-counter" id="siFocusExCounter">EXERCISE 1 OF 6</div>
    <div class="si-focus-ex-name" id="siFocusExName">—</div>
    <div class="si-focus-ex-muscle" id="siFocusExMuscle"></div>
