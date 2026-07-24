@@ -9,6 +9,7 @@ permissions:
   contents: read
   pages: write
   id-token: write
+  administration: write
 
 concurrency:
   group: pages
@@ -31,11 +32,12 @@ jobs:
           cp sw.js _site/
           cp -r icons _site/icons
           cp -r images _site/images
-          # Copy root-level images referenced by the app
           find . -maxdepth 1 -name "*.png" -o -name "*.jpg" -o -name "*.jpeg" | xargs -I{} cp {} _site/ 2>/dev/null || true
           cp landing.html _site/ 2>/dev/null || true
 
       - uses: actions/configure-pages@v5
+        with:
+          enablement: true
 
       - uses: actions/upload-pages-artifact@v3
         with:
