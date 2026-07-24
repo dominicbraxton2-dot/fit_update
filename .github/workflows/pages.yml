@@ -22,9 +22,24 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - name: Build web artifact
+        run: |
+          mkdir -p _site
+          cp index.html _site/
+          cp manifest.json _site/
+          cp sw.js _site/
+          cp -r icons _site/icons
+          cp -r images _site/images
+          # Copy root-level images referenced by the app
+          find . -maxdepth 1 -name "*.png" -o -name "*.jpg" -o -name "*.jpeg" | xargs -I{} cp {} _site/ 2>/dev/null || true
+          cp landing.html _site/ 2>/dev/null || true
+
       - uses: actions/configure-pages@v5
+
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: _site
+
       - uses: actions/deploy-pages@v4
         id: deployment
