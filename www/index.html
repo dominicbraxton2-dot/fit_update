@@ -2051,8 +2051,6 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
 .si-pr-flash-inner{background:#ff6b00;border-radius:24px;padding:22px 36px;text-align:center;box-shadow:0 0 50px rgba(255,107,0,0.7),0 0 100px rgba(255,107,0,0.3);}
 .si-pr-flash-badge{font-size:11px;font-weight:800;letter-spacing:3px;color:rgba(0,0,0,0.55);text-transform:uppercase;margin-bottom:4px;}
 .si-pr-flash-name{font-family:'Bebas Neue',sans-serif;font-size:32px;color:#000;letter-spacing:2px;line-height:1;}
-/* ── Confetti ── */
-.si-confetti-canvas{position:fixed;inset:0;z-index:9999;pointer-events:none;}
 /* ── Set ripple ── */
 @keyframes si-ripple{0%{transform:scale(0);opacity:0.45;}100%{transform:scale(4.5);opacity:0;}}
 .si-focus-complete-btn{overflow:hidden !important;position:relative !important;}
@@ -9166,35 +9164,6 @@ function _sfPRFlash(name){
  eng.appendChild(el);setTimeout(()=>el.remove(),1900);
 }
 
-function _sfBurstConfetti(){
- const canvas=document.createElement('canvas');
- canvas.className='si-confetti-canvas';
- canvas.width=window.innerWidth;canvas.height=window.innerHeight;
- document.body.appendChild(canvas);
- const ctx=canvas.getContext('2d');
- const cols=['#ff6b00','#ffffff','#ffd700','#00c896','#28b8e8','#ff3c3c','#9858e8'];
- const pts=Array.from({length:90},()=>({
-  x:Math.random()*canvas.width,y:canvas.height*0.4+Math.random()*-200,
-  vx:(Math.random()-0.5)*9,vy:Math.random()*-12-4,
-  w:Math.random()*8+3,h:Math.random()*5+3,
-  color:cols[Math.floor(Math.random()*cols.length)],
-  rot:Math.random()*360,rotV:(Math.random()-0.5)*12,alpha:1
- }));
- let fr=0;
- (function draw(){
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-  pts.forEach(p=>{
-   p.x+=p.vx;p.y+=p.vy;p.vy+=0.35;p.rot+=p.rotV;
-   if(fr>50)p.alpha=Math.max(0,p.alpha-0.012);
-   ctx.save();ctx.globalAlpha=p.alpha;ctx.fillStyle=p.color;
-   ctx.translate(p.x,p.y);ctx.rotate(p.rot*Math.PI/180);
-   ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h);
-   ctx.restore();
-  });
-  fr++;if(fr<130)requestAnimationFrame(draw);else canvas.remove();
- })();
-}
-
 function _sfEndWorkout(){
  clearInterval(_sf.restInt);_sf.restInt=null;
  const day=WEEKS[aW].days[aD];
@@ -9216,7 +9185,6 @@ function _sfEndWorkout(){
  const duration=Math.max(1,Math.round((Date.now()-_sf.sessionStart)/60000));
  const exDone=day.exercises.filter((_,ei)=>gED(aW,aD,ei)).length;
  if(typeof hap!=='undefined')hap.successFeedback();
- _sfBurstConfetti();
  const streak=getCurrentStreak();
  const estCal=Math.round(totalSets*2.5*(day.type==='legs'?11:day.type==='cardio'?10:9));
  const mm=Math.floor(duration/60),ss=duration%60;
