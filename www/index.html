@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'unsafe-inline'; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' https://raw.githubusercontent.com blob: data:; frame-ancestors 'none'; base-uri 'self'; form-action 'self';"/>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'unsafe-inline'; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' blob: data:; frame-ancestors 'none'; base-uri 'self'; form-action 'self';"/>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"/>
 <link rel="manifest" href="/manifest.json"/>
@@ -45,13 +45,15 @@ html{background:var(--bg);transition:background 0.3s;}
 body{background:transparent;color:var(--text);font-family:'DM Sans',sans-serif;max-width:430px;margin:0 auto;overflow-x:hidden;min-height:100vh;transition:color 0.3s;}
 button{font-family:'DM Sans',sans-serif;cursor:pointer;transition:transform 0.1s,opacity 0.15s;}
 button:active{transform:scale(0.96);}
+button:focus-visible{outline:2px solid rgba(255,107,0,0.8);outline-offset:2px;border-radius:6px;}
 input{font-family:'DM Sans',sans-serif;}
+input:focus-visible{outline:2px solid rgba(255,107,0,0.6);outline-offset:1px;}
 ::-webkit-scrollbar{display:none;}
 .screen{display:none;}.screen.active{display:block;animation:fadeIn 0.22s ease;}
 @keyframes fadeIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
 body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:999;opacity:var(--noise-opacity);}
 /* ── PREMIUM BACKGROUND ── */
-[data-theme="dark"] body::after{content:'';position:fixed;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0.83) 0%,rgba(0,0,0,0.73) 40%,rgba(0,0,0,0.91) 100%),url("https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/2FACADD6-E349-4901-BA23-22190FE36CEF.png") center/cover fixed;pointer-events:none;z-index:-1;}
+[data-theme="dark"] body::after{content:'';position:fixed;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0.83) 0%,rgba(0,0,0,0.73) 40%,rgba(0,0,0,0.91) 100%),url("/2FACADD6-E349-4901-BA23-22190FE36CEF.png") center/cover fixed;pointer-events:none;z-index:-1;}
 
 /* ── NAV BAR ── */
 .nav-bar{
@@ -136,10 +138,6 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
  border:1px solid rgba(255,107,0,0.28);
  border-radius:28px;
  box-shadow:0 24px 60px rgba(0,0,0,0.7),0 0 40px rgba(255,107,0,0.07);
-}
-.home-carousel-card.hc-hero::before{
- content:'';position:absolute;inset:0;border-radius:28px;
- background:transparent;z-index:0;
 }
 .hc-hero-overlay{
  position:absolute;inset:0;z-index:2;border-radius:28px;overflow:hidden;
@@ -408,7 +406,8 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
  background:rgba(255,255,255,0.06);
  border:1px solid rgba(255,255,255,0.1);
  border-radius:100px;
- padding:6px 12px;
+ padding:11px 16px;
+ min-height:44px;
  color:rgba(255,255,255,0.55);
  font-family:'JetBrains Mono',monospace;
  font-size:9px;letter-spacing:2px;text-transform:uppercase;font-weight:700;
@@ -1994,7 +1993,7 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
  z-index:0 !important;
  background-image:
   linear-gradient(rgba(0,0,0,0.35),rgba(0,0,0,0.35)),
-  url('https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/155E3595-E0FD-4399-8162-217BB9DA0536.png') !important;
+  url('/images/155E3595-E0FD-4399-8162-217BB9DA0536.png') !important;
  background-size:cover !important;
  background-position:center center !important;
  background-repeat:no-repeat !important;
@@ -2019,8 +2018,6 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
 }
 .hc-cta,button,[onclick]{
  pointer-events:auto !important;
- position:relative !important;
- z-index:20 !important;
 }
 .si-wk-item,.si-day-item{
  pointer-events:auto !important;
@@ -2266,6 +2263,13 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
 }
 #fmPanelRest .fm-next-label{color:rgba(255,107,0,0.5) !important;letter-spacing:3px !important;}
 </style>
+<script>
+if('serviceWorker' in navigator){
+ window.addEventListener('load',()=>{
+  navigator.serviceWorker.register('/sw.js').catch(()=>{});
+ });
+}
+</script>
 </head>
 <body>
 
@@ -2275,7 +2279,7 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
  <div class="home-hdr">
   <div>
    <div class="home-brand">
-    <img src="https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/193A0199-5B5F-436A-804A-E17F37436FE1.png" alt="Strength Identity" draggable="false" onerror="this.style.display='none'"/>
+    <img src="/193A0199-5B5F-436A-804A-E17F37436FE1.png" alt="Strength Identity" draggable="false" onerror="this.style.display='none'"/>
    </div>
    <div class="home-hdr-date" id="homeDateStr"></div>
   </div>
@@ -2307,7 +2311,7 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
   <span class="hm-section-lbl">12-WEEK PROGRAM</span>
   <button class="hm-see-all" onclick="navTo('workout')">VIEW ALL</button>
  </div>
- <div id="siWeekCarousel" class="si-week-carousel" style="min-height:200px;outline:2px solid rgba(255,107,0,0.4);outline-offset:2px;border-radius:22px;"></div>
+ <div id="siWeekCarousel" class="si-week-carousel"></div>
 
  <!-- Day drill-down carousel (hidden until week tapped) -->
  <div id="siDaySection" class="si-day-section" style="display:none;">
@@ -2352,12 +2356,12 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
    Home
   </button>
   <div class="w-meta" style="display:flex;align-items:center;gap:6px;flex:1;overflow:hidden;">
-   <button onclick="prevDay()" style="flex-shrink:0;background:none;border:1px solid var(--border-bright);border-radius:8px;color:var(--muted);width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:14px;" aria-label="Previous day">&#8592;</button>
+   <button onclick="prevDay()" style="flex-shrink:0;background:none;border:1px solid var(--border-bright);border-radius:8px;color:var(--muted);min-width:44px;min-height:44px;display:flex;align-items:center;justify-content:center;font-size:14px;" aria-label="Previous day">&#8592;</button>
    <div style="flex:1;overflow:hidden;min-width:0;">
     <div class="w-breadcrumb" id="wdLabel"></div>
     <div class="w-title" id="dayTitle"></div>
    </div>
-   <button onclick="nextDay()" style="flex-shrink:0;background:none;border:1px solid var(--border-bright);border-radius:8px;color:var(--muted);width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:14px;" aria-label="Next day">&#8594;</button>
+   <button onclick="nextDay()" style="flex-shrink:0;background:none;border:1px solid var(--border-bright);border-radius:8px;color:var(--muted);min-width:44px;min-height:44px;display:flex;align-items:center;justify-content:center;font-size:14px;" aria-label="Next day">&#8594;</button>
   </div>
   <div class="w-pct-block">
    <div class="w-pct-num" id="pctNum">0%</div>
@@ -3439,12 +3443,12 @@ const DAY_ICONS=[
 
 // Workout photos keyed by day index (0=Mon…6=Sun)
 const WORKOUT_IMGS={
- push:'https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/DEB4570E-A5F1-45F1-9C23-9D4314ECF7A1.png',
- legs:'https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/8F13E32F-E851-4760-BB0B-D3F7516C1679.png',
- cardio:'https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/DE929183-18EE-4090-BB0D-0F715923F98C.png',
- pull:'https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/6940A5D0-8FD6-4A4C-B81A-3FEF7E475F87.png',
- rest:'https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/BE009D44-278F-457E-BA72-6AFC95405B14.png',
- abs:'https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/65A0C9AB-D266-4131-8FA5-008E50DF0972.png',
+ push:'/DEB4570E-A5F1-45F1-9C23-9D4314ECF7A1.png',
+ legs:'/8F13E32F-E851-4760-BB0B-D3F7516C1679.png',
+ cardio:'/DE929183-18EE-4090-BB0D-0F715923F98C.png',
+ pull:'/6940A5D0-8FD6-4A4C-B81A-3FEF7E475F87.png',
+ rest:'/BE009D44-278F-457E-BA72-6AFC95405B14.png',
+ abs:'/65A0C9AB-D266-4131-8FA5-008E50DF0972.png',
 }
 
 
@@ -4290,7 +4294,6 @@ function getPR(name){return parseFloat(dbGet(prKey(name)))||0;}
 function setPR(name,val){dbSet(prKey(name),String(val));}
 function getWDone(w,d){return dbGet(wdoneKey(w,d));}
 function setWDone(w,d,dateStr){
- console.log(`[Workout Save] w=${w} d=${d} → ${dateStr} (${WEEKS[w]&&WEEKS[w].days[d]?WEEKS[w].days[d].label:'?'})`);
  dbSet(wdoneKey(w,d),dateStr);
 }
 
@@ -4374,6 +4377,8 @@ function applyTheme(){
  document.documentElement.setAttribute('data-theme',darkMode?'dark':'light');
  document.getElementById('themeBtn').textContent=darkMode?'🌙':'☀️';
  dbSet('df7-theme',darkMode?'dark':'light');
+ const tcMeta=document.querySelector('meta[name="theme-color"]');
+ if(tcMeta)tcMeta.content=darkMode?'#000000':'#f0f0f3';
 }
 function toggleTheme(){hap.selectionFeedback();darkMode=!darkMode;applyTheme();}
 
@@ -4397,7 +4402,7 @@ function updateReminderUI(){
 function saveReminderTime(val){
  reminderTime=val;
  dbSet('df7-rem-time',val);
- if(reminderOn){clearInterval(reminderInterval);scheduleReminder();}
+ if(reminderOn){clearTimeout(reminderInterval);scheduleReminder();}
  updateReminderUI();
 }
 function toggleReminder(){
@@ -4407,7 +4412,7 @@ function toggleReminder(){
   requestNotifPermission();
   scheduleReminder();
  } else {
-  clearInterval(reminderInterval);
+  clearTimeout(reminderInterval);
  }
  updateReminderUI();
 }
@@ -4417,18 +4422,17 @@ function requestNotifPermission(){
  }
 }
 function scheduleReminder(){
- clearInterval(reminderInterval);
- reminderInterval=setInterval(()=>{
-  const now=new Date();
-  const [h,m]=reminderTime.split(':');
-  if(now.getHours()===parseInt(h)&&now.getMinutes()===parseInt(m)&&now.getSeconds()<2){
-   fireReminder();
-  }
- },1000);
+ clearTimeout(reminderInterval);
+ const now=new Date();
+ const [h,m]=reminderTime.split(':');
+ const target=new Date(now.getFullYear(),now.getMonth(),now.getDate(),parseInt(h),parseInt(m),0,0);
+ if(target<=now)target.setDate(target.getDate()+1);
+ const delay=target-now;
+ reminderInterval=setTimeout(()=>{fireReminder();scheduleReminder();},delay);
 }
 function fireReminder(){
  if('Notification' in window && Notification.permission==='granted'){
-  new Notification("Strength Identity 💪",{body:"Time to train! Your workout is waiting.",icon:""});
+  new Notification("Strength Identity 💪",{body:"Time to train! Your workout is waiting.",icon:"/icons/icon-192.png"});
  }
 }
 
@@ -5040,8 +5044,8 @@ function renderOutdoorRecent(){
 
 // ── Week thumbnail images (index matches week number 0–11, cycles if more weeks) ──
 // ── Home hero image — athlete, completely separate from day thumbnails ──
-const HOME_HERO_IMAGE='https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/774E1439-5AE3-4A00-83B0-EB4B7C8B4980.png';
-const WORKOUT_SESSION_BG='https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/155E3595-E0FD-4399-8162-217BB9DA0536.png';
+const HOME_HERO_IMAGE='/images/774E1439-5AE3-4A00-83B0-EB4B7C8B4980.png';
+const WORKOUT_SESSION_BG='/images/155E3595-E0FD-4399-8162-217BB9DA0536.png';
 // Apply session background to all workout screens
 (function(){
  ['workoutSessionBg','focusModeSessionBg','siFocusSessionBg'].forEach(id=>{
@@ -5052,20 +5056,20 @@ const WORKOUT_SESSION_BG='https://raw.githubusercontent.com/dominicbraxton2-dot/
 
 // ── Daily thumbnail images — day 1-7 mapping, same for ALL 12 weeks ──
 const DAILY_THUMBNAIL_IMAGES={
- 1:'https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/A50B1526-A4C5-4555-98E2-749DAEB355A4.png',
- 2:'https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/66D3F4C7-449E-4046-BC97-F6FE6D93B207.png',
- 3:'https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/659A1516-5A83-4167-A8B9-5150AE979935.png',
- 4:'https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/5BCEC8E2-62D4-441D-B605-9D7ED4E94BAD.png',
- 5:'https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/F842F20C-6B9B-4E2A-8FD5-CD102089BA14.png',
- 6:'https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/ACF272AD-C495-4C62-B349-3799C3855E61.png',
- 7:'https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/190A0860-50C9-4996-931C-B97AB6099461.png'
+ 1:'/images/A50B1526-A4C5-4555-98E2-749DAEB355A4.png',
+ 2:'/images/66D3F4C7-449E-4046-BC97-F6FE6D93B207.png',
+ 3:'/images/659A1516-5A83-4167-A8B9-5150AE979935.png',
+ 4:'/images/5BCEC8E2-62D4-441D-B605-9D7ED4E94BAD.png',
+ 5:'/images/F842F20C-6B9B-4E2A-8FD5-CD102089BA14.png',
+ 6:'/images/ACF272AD-C495-4C62-B349-3799C3855E61.png',
+ 7:'/images/190A0860-50C9-4996-931C-B97AB6099461.png'
 };
 // Week carousel — per-week thumbnail images (1-indexed, weeks 5-12 fall back to week 1)
 const WEEK_THUMBNAIL_IMAGES={
- 1:'https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/5D64D313-08F2-47AE-85A3-D3592049AFF6.png',
- 2:'https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/FA3D8BE4-D79C-4B40-8AC7-ED7AD4352857.png',
- 3:'https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/CD4AE636-BA84-475E-8AEB-840B9E10B332.png',
- 4:'https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/images/BB274D13-A4E0-4292-8F9A-CECA9F7E8008.png'
+ 1:'/images/5D64D313-08F2-47AE-85A3-D3592049AFF6.png',
+ 2:'/images/FA3D8BE4-D79C-4B40-8AC7-ED7AD4352857.png',
+ 3:'/images/CD4AE636-BA84-475E-8AEB-840B9E10B332.png',
+ 4:'/images/BB274D13-A4E0-4292-8F9A-CECA9F7E8008.png'
 };
 
 let _siDayIO=null,_siDayScrollFn=null;
@@ -5099,7 +5103,6 @@ function siCloseDayCarousel(){
 }
 
 function renderSiDayCarousel(wi){
- console.log("NETFLIX WEEK DRILLDOWN ACTIVE");
  const rail=document.getElementById('siDayCarousel');
  if(!rail)return;
  rail.innerHTML='';
@@ -5162,7 +5165,6 @@ function renderSiDayCarousel(wi){
 let _siWkIO=null,_siWkScrollFn=null;
 
 function renderSiWeekCarousel(){
- console.log("renderSiWeekCarousel called — NEW CODE v4");
  const rail=document.getElementById('siWeekCarousel');
  if(!rail){console.error("siWeekCarousel NOT FOUND in DOM");return;}
  rail.style.outline='none'; // remove debug outline once JS runs
@@ -5232,7 +5234,6 @@ ${isLocked?'<div class="si-wk-lock">🔒</div>':''}
 }
 
 function renderHome(){
- console.log("NEW CAROUSEL ACTIVE");
  siCloseDayCarousel();
  renderSiWeekCarousel();
  // History nav dot
@@ -5416,6 +5417,8 @@ function toggleTips(){
  if(!el)return;
  const isHidden=el.style.display==='none';
  el.style.display=isHidden?'':'none';
+ const btn=document.querySelector('.hm-see-all[onclick="toggleTips()"]');
+ if(btn)btn.textContent=isHidden?'HIDE':'SHOW';
 }
 
 // ── WORKOUT ──
@@ -5424,14 +5427,6 @@ function renderWorkout(){
  const tot=day.exercises.length,done=day.exercises.filter((_,ei)=>gED(aW,aD,ei)).length;
  const pct=tot?Math.round(done/tot*100):0;
 
- // Auto-mark day complete with the target date (backfill date or today)
- const _autoTarget=selectedBackfillDate||todayKey();
- const _autoExisting=getWDone(aW,aD);
- // Save if: not yet saved, OR backfill date overrides an existing different date
- if(pct>=50 && (!_autoExisting||(selectedBackfillDate&&_autoExisting!==selectedBackfillDate))){
-  console.log('Saving workout for date:', _autoTarget, '(backfill:', !!selectedBackfillDate, ')');
-  setWDone(aW,aD,_autoTarget);
- }
  const _bfBanner=document.getElementById('backfillBanner');
  if(_bfBanner){
   if(selectedBackfillDate){
@@ -5547,7 +5542,7 @@ function renderWorkout(){
   }
   const timerBtn=ex.timer?`<button class="timer-shortcut" onclick="openTimerFrom('${ex.name.replace(/'/g,'')}')"
    style="border-color:${c}55;color:${c};"><svg width="12" height="12" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10" cy="11" r="7.5"/><polyline points="10,7.5 10,11 12.5,13"/><line x1="8.5" y1="2" x2="11.5" y2="2"/></svg></button>`:'';
-  const editBtn=`<button onclick="openPREdit('${ex.name.replace(/'/g,"\\'")}');event.stopPropagation();" style="width:28px;height:28px;border-radius:8px;border:1px solid var(--border-bright);background:none;padding:0;overflow:hidden;cursor:pointer;flex-shrink:0;" title="Edit PR"><img src="https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/B7F32667-5BA9-44C7-9A05-0D277957D799.png" style="width:100%;height:100%;object-fit:cover;border-radius:6px;" alt="edit"/></button>`;
+  const editBtn=`<button onclick="openPREdit('${ex.name.replace(/'/g,"\\'")}');event.stopPropagation();" style="min-width:44px;min-height:44px;border-radius:8px;border:1px solid var(--border-bright);background:none;padding:0;overflow:hidden;cursor:pointer;flex-shrink:0;" title="Edit PR"><img src="/B7F32667-5BA9-44C7-9A05-0D277957D799.png" style="width:100%;height:100%;object-fit:cover;border-radius:6px;" alt="edit"/></button>`;
   return `<div class="ex-card${isDone?' done':''}" style="--c:${c};--glow:${ts.glow};${isDone?'border-color:'+c+'35;background:'+ts.dim+';box-shadow:0 6px 40px '+ts.glow+';':''}">
    <div class="ex-card-header">
     <div class="ex-info">
@@ -5655,7 +5650,6 @@ function finishWorkout(){
   const pct=dayProg(aW,aD);
   if(pct===0){return;}
   const _saveDate=selectedBackfillDate||todayKey();
-  console.log('Saving workout for date:', _saveDate, '(backfill:', !!selectedBackfillDate, ')');
   setWDone(aW,aD,_saveDate);
   selectedBackfillDate=null;
   const _bfEl=document.getElementById('backfillBanner');if(_bfEl)_bfEl.style.display='none';
@@ -5962,7 +5956,7 @@ function renderPRs(filter=''){
    <div class="pr-val" style="display:flex;align-items:center;gap:8px;">
     ${pr>0?`<div><div class="pr-lbs" style="color:${ts.color}">${pr}</div><div class="pr-lbs-label">lbs</div></div>`
     :`<div class="pr-empty">No PR yet</div>`}
-    <button onclick="openPREdit('${ex.name.replace(/'/g,"\'")}')" style="flex-shrink:0;background:none;border:1px solid var(--border-bright);border-radius:8px;color:var(--muted);width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:14px;" title="Edit PR"><img src="https://raw.githubusercontent.com/dominicbraxton2-dot/fit_update/main/B7F32667-5BA9-44C7-9A05-0D277957D799.png" style="width:100%;height:100%;object-fit:cover;border-radius:6px;" alt="edit"/></button>
+    <button onclick="openPREdit('${ex.name.replace(/'/g,"\'")}')" style="flex-shrink:0;background:none;border:1px solid var(--border-bright);border-radius:8px;color:var(--muted);min-width:44px;min-height:44px;display:flex;align-items:center;justify-content:center;font-size:14px;" title="Edit PR"><img src="/B7F32667-5BA9-44C7-9A05-0D277957D799.png" style="width:100%;height:100%;object-fit:cover;border-radius:6px;" alt="edit"/></button>
    </div>
   </div>`;
  }).join('')+(anyPR?'':`<div class="empty-state"><div class="es-icon" style="display:flex;align-items:center;justify-content:center;">${ICONS.trophy.replace('width="20" height="20"','width="36" height="36"')}</div><div class="es-title">NO PRs YET</div><div class="es-sub">Log heavy sets and your personal records will save automatically.</div></div>`);
@@ -6363,7 +6357,7 @@ function renderAnalytics(){
  const sorted=Object.entries(muscleVolume).sort((a,b)=>b[1]-a[1]).slice(0,8);
  const max=sorted[0]?sorted[0][1]:1;
  document.getElementById('muscleBarChart').innerHTML=sorted.map(([name,vol])=>{
-  const color=Object.entries(MUSCLE_GROUP_MAP).find(([g])=>g===name)?'var(--yellow)':'var(--yellow)';
+  const color='var(--yellow)';
   const pct=Math.round(vol/max*100);
   return `<div style="display:flex;align-items:center;gap:10px;">
    <div style="font-size:11px;color:var(--muted);min-width:80px;">${name}</div>
@@ -7060,7 +7054,6 @@ function pickWorkoutForBackfill(wi,di,dateStr){
 function startWorkoutForDate(wi,di,dateKey){
  aW=wi;aD=di;
  selectedBackfillDate=dateKey;
- console.log('Starting workout for date:', dateKey, '| w='+wi+' d='+di, WEEKS[wi]&&WEEKS[wi].days[di]?'('+WEEKS[wi].days[di].label+')':'');
  // Reset set and exercise done flags so user logs fresh sets/reps/weight
  const exs=WEEKS[wi].days[di].exercises;
  exs.forEach((ex,ei)=>{
@@ -7071,7 +7064,6 @@ function startWorkoutForDate(wi,di,dateKey){
  openFocusMode();
 }
 function cancelBackfill(){
- console.log('Backfill canceled, clearing selectedBackfillDate');
  selectedBackfillDate=null;
  const bfEl=document.getElementById('backfillBanner');
  if(bfEl)bfEl.style.display='none';
@@ -7090,8 +7082,6 @@ function applyCalMark(type){
  renderCalendar();
 }
 
-// Patch renderCalendar to add enhanced dots + tap handler
-const _origRenderCalendar=renderCalendar;
 function renderCalendar(){
  loadCalMarks();
  const firstDay=new Date(calYear,calMonth,1).getDay();
@@ -8318,7 +8308,6 @@ function fmEndWorkout(){
  const day=WEEKS[aW].days[aD];
  if(dayProg(aW,aD)===0){exitFocusModeToWorkout();return;}
  const _fmSaveDate=selectedBackfillDate||todayKey();
- console.log('Saving workout for date:', _fmSaveDate, '(backfill:', !!selectedBackfillDate, ')');
  setWDone(aW,aD,_fmSaveDate);
  selectedBackfillDate=null;
  const _fmBfEl=document.getElementById('backfillBanner');if(_fmBfEl)_fmBfEl.style.display='none';
@@ -8541,8 +8530,10 @@ function meImportData(){
   reader.onload=ev=>{
    try{
     const data=JSON.parse(ev.target.result);
+    const ALLOWED=/^df7-/;
     let count=0;
     Object.entries(data).forEach(([k,v])=>{
+     if(!ALLOWED.test(k)||typeof v!=='string'||v.length>100000)return;
      localStorage.setItem(k,v);
      memCache[k]=v;
      count++;
