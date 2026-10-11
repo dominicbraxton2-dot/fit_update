@@ -594,6 +594,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 }
 .ex-card.done{box-shadow:0 6px 32px var(--glow);transform:none;}
 .ex-card-header{display:flex;justify-content:space-between;align-items:flex-start;padding:16px 16px 10px;gap:12px;}
+.ex-info{flex:1;min-width:0;}
 .ex-info .ex-name{font-size:16px;font-weight:700;margin-bottom:4px;line-height:1.2;letter-spacing:-0.3px;color:var(--text);}
 .ex-card.done .ex-name{opacity:0.35;}
 .ex-info .ex-rec{font-size:11px;color:var(--muted);font-weight:500;}
@@ -5872,8 +5873,10 @@ function renderWorkout(){
  const wPhoto=document.getElementById('workoutPhoto');
  const wPhotoImg=document.getElementById('workoutPhotoImg');
  if(wPhoto&&wPhotoImg&&WORKOUT_IMGS[day.type]){
+  wPhoto.style.display='none';
+  wPhotoImg.onload=()=>{wPhoto.style.display='block';};
+  wPhotoImg.onerror=()=>{wPhoto.style.display='none';};
   wPhotoImg.src=WORKOUT_IMGS[day.type];
-  wPhoto.style.display='block';
  }
  document.getElementById('dayTitle').textContent=day.label;
  document.getElementById('pctNum').textContent=pct+'%';
@@ -5965,7 +5968,7 @@ function renderWorkout(){
   }
   const timerBtn=ex.timer?`<button class="timer-shortcut" onclick="openTimerFrom('${ex.name.replace(/'/g,'')}')"
    style="border-color:${c}55;color:${c};"><svg width="12" height="12" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10" cy="11" r="7.5"/><polyline points="10,7.5 10,11 12.5,13"/><line x1="8.5" y1="2" x2="11.5" y2="2"/></svg></button>`:'';
-  const editBtn=`<button onclick="openPREdit('${ex.name.replace(/'/g,"\\'")}');event.stopPropagation();" style="min-width:44px;min-height:44px;border-radius:8px;border:1px solid var(--border-bright);background:none;padding:0;overflow:hidden;cursor:pointer;flex-shrink:0;" title="Edit PR"><img src="/B7F32667-5BA9-44C7-9A05-0D277957D799.png" style="width:100%;height:100%;object-fit:cover;border-radius:6px;" alt="edit"/></button>`;
+  const editBtn=`<button onclick="openPREdit('${ex.name.replace(/'/g,"\\'")}');event.stopPropagation();" style="min-width:36px;min-height:36px;border-radius:8px;border:1px solid var(--border-bright);background:rgba(255,255,255,0.04);padding:0;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;" title="Edit PR"><svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 3.5a2.121 2.121 0 013 3L6 18H3v-3L14.5 3.5z"/></svg></button>`;
   return `<div class="ex-card${isDone?' done':''}" style="--c:${c};--glow:${ts.glow};${isDone?'border-color:'+c+'35;background:'+ts.dim+';box-shadow:0 6px 40px '+ts.glow+';':''}">
    <div class="ex-card-header">
     <div class="ex-info">
