@@ -2505,6 +2505,88 @@ input.cfg-val::-webkit-outer-spin-button,input.cfg-val::-webkit-inner-spin-butto
 .an-tab-btn.active{background:rgba(255,107,0,0.12);border-color:rgba(255,107,0,0.4);color:#ff6b00;}
 .an-tab-panel{display:none;}
 .an-tab-panel.active{display:block;}
+
+/* ══ NEW FEATURES v3 ══ */
+/* Feature 1 – Exercise History Drawer */
+#exHistoryDrawer{transition:transform 0.3s cubic-bezier(0.32,0.72,0,1);}
+.exh-title{font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:2px;color:#fff;margin-bottom:4px;}
+.exh-pr-badge{display:inline-block;background:rgba(255,107,0,0.18);border:1px solid rgba(255,107,0,0.4);color:#ff6b00;font-size:10px;font-weight:800;letter-spacing:2px;padding:3px 10px;border-radius:100px;margin-bottom:14px;}
+.exh-entries{margin-top:14px;}
+.exh-entry-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:13px;color:var(--text2);}
+.exh-entry-row:last-child{border-bottom:none;}
+.exh-entry-date{color:var(--muted);font-size:11px;letter-spacing:1px;}
+.exh-entry-wt{font-family:'Bebas Neue',sans-serif;font-size:20px;color:#ff6b00;}
+.exh-empty{text-align:center;padding:24px 0;color:var(--muted);font-size:13px;line-height:1.6;}
+/* Feature 2 – Share Card */
+#siShareCard{position:fixed;inset:0;z-index:9999;background:#000;display:none;flex-direction:column;align-items:center;justify-content:center;padding:env(safe-area-inset-top,20px) 0 env(safe-area-inset-bottom,20px);}
+.sc-inner{width:min(360px,calc(100vw - 32px));background:#0a0a0a;border-radius:24px;overflow:hidden;box-shadow:0 0 60px rgba(255,107,0,0.15);}
+.sc-top-bar{height:4px;background:linear-gradient(90deg,#ff6b00,#ff3d00);}
+.sc-body{padding:24px;}
+.sc-app-name{font-size:9px;font-weight:800;letter-spacing:4px;color:#ff6b00;margin-bottom:4px;}
+.sc-date{font-size:10px;color:var(--muted);letter-spacing:2px;margin-bottom:16px;}
+.sc-wkname{font-family:'Bebas Neue',sans-serif;font-size:42px;letter-spacing:2px;line-height:1;color:#fff;margin-bottom:20px;}
+.sc-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px;}
+.sc-stat{background:rgba(255,255,255,0.05);border-radius:14px;padding:14px 10px;text-align:center;}
+.sc-stat-num{font-family:'Bebas Neue',sans-serif;font-size:32px;color:#ff6b00;line-height:1;}
+.sc-stat-lbl{font-size:9px;letter-spacing:2px;color:var(--muted);margin-top:2px;}
+.sc-pr-row{background:rgba(255,107,0,0.08);border:1px solid rgba(255,107,0,0.2);border-radius:12px;padding:10px 14px;margin-bottom:8px;font-size:12px;color:#ff6b00;font-weight:700;}
+.sc-streak-row{text-align:center;font-size:13px;font-weight:700;color:var(--text2);margin:10px 0;}
+.sc-footer{font-size:9px;letter-spacing:2px;color:rgba(255,255,255,0.2);text-align:center;margin-top:14px;}
+.sc-close-btn{position:absolute;top:max(env(safe-area-inset-top,0px),16px);right:16px;background:rgba(255,255,255,0.1);border:none;color:#fff;font-size:12px;font-weight:700;letter-spacing:1px;padding:7px 14px;border-radius:100px;cursor:pointer;z-index:10000;}
+/* Feature 3 – Muscle Recovery */
+.mu-chips-scroll{overflow-x:auto;display:flex;gap:8px;padding:0 16px 4px;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+.mu-chips-scroll::-webkit-scrollbar{display:none;}
+.mu-chip{display:inline-flex;flex-direction:column;align-items:center;gap:2px;padding:8px 12px;border-radius:14px;border:1px solid var(--border);background:var(--surface);min-width:58px;flex-shrink:0;cursor:default;}
+.mu-chip-name{font-size:8px;font-weight:800;letter-spacing:1.5px;color:var(--muted);}
+.mu-chip-days{font-family:'Bebas Neue',sans-serif;font-size:18px;line-height:1;}
+.mu-chip-status{font-size:7px;font-weight:700;letter-spacing:1px;}
+.mu-chip.ready{border-color:rgba(0,200,150,0.3);}
+.mu-chip.ready .mu-chip-days{color:#00c896;}
+.mu-chip.ready .mu-chip-status{color:#00c896;}
+.mu-chip.resting{border-color:rgba(255,180,0,0.3);}
+.mu-chip.resting .mu-chip-days{color:#ffb400;}
+.mu-chip.resting .mu-chip-status{color:#ffb400;}
+.mu-chip.fresh{border-color:rgba(255,80,80,0.25);}
+.mu-chip.fresh .mu-chip-days{color:#ff5050;}
+.mu-chip.fresh .mu-chip-status{color:#ff5050;}
+.mu-section-hdr{display:flex;align-items:center;justify-content:space-between;padding:0 16px;margin-bottom:10px;}
+.mu-section-lbl{font-size:10px;font-weight:800;letter-spacing:3px;color:var(--muted);}
+/* Feature 4 – 1RM Estimator */
+.onerm-input-row{display:flex;gap:10px;margin-bottom:16px;}
+.onerm-input-group{flex:1;}
+.onerm-label{font-size:9px;font-weight:800;letter-spacing:2px;color:var(--muted);margin-bottom:6px;}
+.onerm-input{width:100%;background:var(--surface);border:1px solid var(--border-bright);border-radius:14px;color:#fff;font-size:18px;font-weight:700;text-align:center;padding:14px 8px;-webkit-appearance:none;}
+.onerm-calc-btn{width:100%;padding:16px;border-radius:16px;border:none;background:#ff6b00;color:#fff;font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:3px;cursor:pointer;margin-bottom:20px;}
+.onerm-results{background:var(--surface);border:1px solid var(--border);border-radius:18px;overflow:hidden;margin-bottom:20px;}
+.onerm-result-row{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;border-bottom:1px solid rgba(255,255,255,0.06);}
+.onerm-result-row:last-child{border-bottom:none;}
+.onerm-result-row.highlight{background:rgba(255,107,0,0.08);}
+.onerm-result-label{font-size:12px;color:var(--text2);}
+.onerm-result-val{font-family:'Bebas Neue',sans-serif;font-size:24px;color:#ff6b00;}
+.onerm-prs-section{margin-top:8px;}
+.onerm-prs-title{font-size:9px;font-weight:800;letter-spacing:3px;color:var(--muted);margin-bottom:10px;}
+.onerm-pr-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:12px;color:var(--text2);}
+.onerm-pr-row:last-child{border-bottom:none;}
+.onerm-pr-name{flex:1;margin-right:8px;}
+.onerm-pr-vals{font-family:'Bebas Neue',sans-serif;font-size:16px;color:var(--muted);}
+.onerm-warn{background:rgba(255,180,0,0.1);border:1px solid rgba(255,180,0,0.3);border-radius:12px;padding:10px 14px;color:#ffb400;font-size:11px;margin-bottom:14px;display:none;}
+/* Feature 5 – Heatmap Calendar */
+.cal-view-toggle{display:flex;gap:8px;padding:0 16px 14px;}
+.cal-vtab{flex:1;padding:9px;border-radius:12px;border:1px solid var(--border);background:var(--surface);color:var(--muted);font-size:11px;font-weight:700;letter-spacing:2px;cursor:pointer;}
+.cal-vtab.active{background:rgba(255,107,0,0.12);border-color:rgba(255,107,0,0.4);color:#ff6b00;}
+#calHeatmapView{display:none;padding:0 16px 20px;}
+.hm-month-labels{display:grid;grid-template-columns:repeat(53,1fr);gap:2px;margin-bottom:4px;}
+.hm-month-lbl{font-size:8px;color:var(--muted);letter-spacing:1px;text-align:center;}
+.hm-grid{display:grid;grid-template-columns:repeat(53,1fr);grid-template-rows:repeat(7,1fr);gap:2px;}
+.hm-cell{width:100%;aspect-ratio:1;border-radius:2px;cursor:pointer;transition:opacity 0.15s;}
+.hm-cell:hover{opacity:0.8;}
+.hm-day-labels{display:flex;flex-direction:column;gap:2px;margin-right:4px;flex-shrink:0;}
+.hm-day-lbl{font-size:7px;color:var(--muted);height:calc((100vw - 32px - 4px) / 53);display:flex;align-items:center;}
+.hm-wrap{display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+.hm-wrap::-webkit-scrollbar{display:none;}
+.hm-tooltip{position:fixed;background:#1a1a1a;border:1px solid rgba(255,107,0,0.3);border-radius:10px;padding:8px 12px;font-size:11px;color:#fff;z-index:999;pointer-events:none;display:none;max-width:180px;}
+/* Share button in Focus/Logger summary */
+.si-focus-sum-btn-share{width:100%;padding:14px;border-radius:16px;border:1px solid rgba(255,107,0,0.4);background:rgba(255,107,0,0.12);color:#ff6b00;font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:3px;cursor:pointer;margin-bottom:8px;}
 </style>
 <script>
 if('serviceWorker' in navigator){
@@ -2555,6 +2637,9 @@ if('serviceWorker' in navigator){
   <button class="hm-see-all" onclick="navTo('workout')">VIEW ALL</button>
  </div>
  <div id="siWeekCarousel" class="si-week-carousel"></div>
+
+ <!-- Muscle Recovery Status -->
+ <div id="muscleRecovery" style="margin:0 0 16px;"></div>
 
  <!-- Day drill-down carousel (hidden until week tapped) -->
  <div id="siDaySection" class="si-day-section" style="display:none;">
@@ -2636,6 +2721,11 @@ if('serviceWorker' in navigator){
   <h2>WORKOUT<br/>CALENDAR</h2>
   <p class="cal-sub">Track your consistency</p>
  </div>
+ <div class="cal-view-toggle">
+  <button class="cal-vtab active" id="calVTabMonth" onclick="calSetView('month')">MONTH</button>
+  <button class="cal-vtab" id="calVTabHeatmap" onclick="calSetView('heatmap')">HEATMAP</button>
+ </div>
+ <div id="calMonthView">
  <div class="cal-nav">
   <button class="cal-nav-btn" onclick="calPrev()">‹</button>
   <div class="cal-month-label" id="calMonthLabel">MAY 2026</div>
@@ -2662,6 +2752,16 @@ if('serviceWorker' in navigator){
  <div style="margin:0 16px;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:16px;">
   <div style="font-size:10px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-bottom:12px;">This Month</div>
   <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;text-align:center;" id="calStats">
+  </div>
+ </div>
+ </div><!-- /calMonthView -->
+ <div id="calHeatmapView">
+  <div id="hmGrid" style="position:relative;"></div>
+  <div class="hm-tooltip" id="hmTooltip"></div>
+  <div style="display:flex;gap:14px;padding:14px 0 4px;flex-wrap:wrap;">
+   <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted);"><div style="width:10px;height:10px;border-radius:2px;background:rgba(255,107,0,0.7)"></div>PR Day</div>
+   <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted);"><div style="width:10px;height:10px;border-radius:2px;background:rgba(255,107,0,0.25)"></div>Workout</div>
+   <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted);"><div style="width:10px;height:10px;border-radius:2px;background:rgba(255,255,255,0.04)"></div>Rest</div>
   </div>
  </div>
 </div>
@@ -3162,6 +3262,16 @@ if('serviceWorker' in navigator){
     <div class="me-menu-body">
      <div class="me-menu-name">Plate Calculator</div>
      <div class="me-menu-desc">Figure out your exact bar setup</div>
+    </div>
+    <div class="me-menu-chevron"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="7,5 13,10 7,15"/></svg></div>
+   </div>
+   <div class="me-menu-item" onclick="navTo('onerm')">
+    <div class="me-menu-icon" style="background:rgba(255,107,0,0.14);">
+     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ff6b00" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M2 12h20"/><circle cx="12" cy="12" r="8" stroke-width="1"/></svg>
+    </div>
+    <div class="me-menu-body">
+     <div class="me-menu-name">1RM Estimator</div>
+     <div class="me-menu-desc">Calculate your max lift potential</div>
     </div>
     <div class="me-menu-chevron"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="7,5 13,10 7,15"/></svg></div>
    </div>
@@ -4738,7 +4848,7 @@ function fireReminder(){
 }
 
 // ── NAV ──
-const MORE_CHILDREN=new Set(['history','musclemap','prs','platecalc','calendar','achievements','nutrition','recovery','outdoor','bodygraph','ranking','progress','routines','leaderboards']);
+const MORE_CHILDREN=new Set(['history','musclemap','prs','platecalc','onerm','calendar','achievements','nutrition','recovery','outdoor','bodygraph','ranking','progress','routines','leaderboards']);
 function navTo(id){
  hap.selectionFeedback();
  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
@@ -4762,6 +4872,7 @@ function navTo(id){
  if(id==='routines')renderRoutines();
  if(id==='leaderboards')renderLeaderboards();
  if(id==='platecalc')renderPlateCalc();
+ if(id==='onerm')renderOnerm();
  if(id==='achievements')renderAchievements();
  if(id==='recovery')renderRecovery();
  if(id==='more'){}
@@ -5576,6 +5687,7 @@ function renderHome(){
  renderHomeCarousel();
  renderWeekStrip();
  renderTodayCard();
+ renderMuscleRecovery();
  renderActivityWidgets();
  renderSmartWidgets();
  // Missed workout in-app alert
@@ -9083,7 +9195,10 @@ function _sfRenderEx(){
  document.getElementById('siFocusWkName').textContent=`${day.label} · Wk ${aW+1}${bfTag}`;
  const bar=document.getElementById('siFocusAccentBar');if(bar)bar.style.background=_sfAccentColor();
  document.getElementById('siFocusExCounter').textContent=`EXERCISE ${_sf.curEx+1} OF ${day.exercises.length}`;
- document.getElementById('siFocusExName').textContent=ex.name;
+ const exNameEl=document.getElementById('siFocusExName');
+ exNameEl.textContent=ex.name;
+ exNameEl.onclick=()=>openExHistory(ex.name);
+ exNameEl.style.cursor='pointer';
  const muscles=[...new Set((MUSCLE_MAP[ex.name]||[]).map(m=>MUSCLE_NAMES[m]).filter(Boolean))].slice(0,2).join(' · ');
  document.getElementById('siFocusExMuscle').textContent=muscles||'COMPOUND MOVEMENT';
  // Set cinematic background image for exercise panel
@@ -9563,7 +9678,7 @@ function siLoggerRenderEx(ex,ei){
   <div class="sl-ex-hdr" onclick="siLoggerToggleEx(${ei})">
    <div class="sl-ex-icon">💪</div>
    <div class="sl-ex-info">
-    <div class="sl-ex-name">${ex.name}</div>
+    <div class="sl-ex-name" onclick="openExHistory('${ex.name.replace(/'/g,"\\'")}');event.stopPropagation();" style="cursor:pointer;">${ex.name}</div>
     <div class="sl-ex-meta">${muscles} · ${doneCount}/${numSets} sets done</div>
    </div>
    <span class="sl-ex-toggle">▾</span>
@@ -10403,6 +10518,8 @@ function _sfEndWorkout(){
   if(streak>1){streakEl.style.display='block';streakEl.textContent=`🔥 ${streak}-SESSION STREAK`;}
   else streakEl.style.display='none';
  }
+ // Store share data for SHARE button
+ _sfShareData={label:day.label,duration:durStr,exDone,totalSets,estCal,prsHit,streak};
  // Set recovery image on summary panel
  _sfSetImg('siFocusSumImg',workoutImages.recovery);
  _sfShowPanel('sum');
@@ -10410,6 +10527,320 @@ function _sfEndWorkout(){
  if(newAch.length)setTimeout(()=>newAch.forEach((id,i)=>setTimeout(()=>showAchievementToast(id),i*1200)),2000);
  renderHome();
 }
+
+/* ══ NEW FEATURES v3 JS ══ */
+
+// ── Feature 1: Per-Exercise Progress Drawer ──
+function openExHistory(exName){
+ const drawer=document.getElementById('exHistoryDrawer');
+ const backdrop=document.getElementById('exHistoryBackdrop');
+ const content=document.getElementById('exHistoryContent');
+ if(!drawer||!backdrop||!content)return;
+ const entries=getProgressionHistory(exName);
+ const pr=getPR(exName);
+ let html=`<div class="exh-title">${exName}</div>`;
+ if(pr>0)html+=`<div class="exh-pr-badge">PR · ${pr} LBS</div>`;
+ const last10=entries.slice(-10);
+ if(last10.length>=2){
+  const weights=last10.map(e=>e.weight);
+  const minW=Math.min(...weights);
+  const maxW=Math.max(...weights);
+  const range=Math.max(maxW-minW,10);
+  const W=300,H=120,pad=12;
+  const drawW=W-pad*2,drawH=H-pad*2;
+  const xs=last10.map((_,i)=>pad+i*(drawW/(last10.length-1)));
+  const ys=last10.map(e=>pad+drawH-(((e.weight-minW)/range)*drawH));
+  // Gridlines
+  let gridLines='';
+  for(let g=0;g<=3;g++){
+   const gy=pad+(drawH*(g/3));
+   const gVal=Math.round(maxW-((maxW-minW)*(g/3)));
+   gridLines+=`<line x1="${pad}" y1="${gy}" x2="${W-pad}" y2="${gy}" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>`;
+   gridLines+=`<text x="${pad}" y="${gy-3}" fill="rgba(255,255,255,0.3)" font-size="8">${gVal}</text>`;
+  }
+  const polyPts=xs.map((x,i)=>`${x},${ys[i]}`).join(' ');
+  let dots='';
+  last10.forEach((e,i)=>{
+   const isPR=(pr>0&&e.weight>=pr);
+   const r=isPR?5:3.5;
+   const glow=isPR?'filter:drop-shadow(0 0 4px #ff6b00);':'' ;
+   dots+=`<circle cx="${xs[i]}" cy="${ys[i]}" r="${r}" fill="#ff6b00" style="${glow}"/>`;
+  });
+  const dateLabels=last10.map((e,i)=>{
+   if(i===0||i===last10.length-1||i===Math.floor(last10.length/2)){
+    const d=new Date(e.date+'T12:00');
+    const lbl=d.toLocaleDateString('en-US',{month:'short',day:'numeric'});
+    return `<text x="${xs[i]}" y="${H-1}" fill="rgba(255,255,255,0.35)" font-size="8" text-anchor="middle">${lbl}</text>`;
+   }
+   return '';
+  }).join('');
+  html+=`<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:120px;display:block;margin-bottom:12px;">${gridLines}<polyline points="${polyPts}" fill="none" stroke="#ff6b00" stroke-width="2" stroke-linejoin="round"/>${dots}${dateLabels}</svg>`;
+ }else if(last10.length===0){
+  html+=`<div class="exh-empty">No history yet — log this exercise to start tracking.</div>`;
+ }
+ const last5=entries.slice(-5).reverse();
+ if(last5.length>0){
+  html+=`<div style="font-size:9px;font-weight:800;letter-spacing:2px;color:var(--muted);margin-bottom:8px;">RECENT SESSIONS</div>`;
+  html+=`<div class="exh-entries">`;
+  last5.forEach(e=>{
+   const d=new Date(e.date+'T12:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+   const isTop=(pr>0&&e.weight>=pr);
+   html+=`<div class="exh-entry-row"><span class="exh-entry-date">${d}</span><span class="exh-entry-wt">${e.weight} LBS${isTop?' 🏆':''}</span></div>`;
+  });
+  html+=`</div>`;
+ }
+ content.innerHTML=html;
+ drawer.style.display='block';
+ backdrop.style.display='block';
+ requestAnimationFrame(()=>{drawer.scrollTop=0;});
+}
+function closeExHistory(){
+ const drawer=document.getElementById('exHistoryDrawer');
+ const backdrop=document.getElementById('exHistoryBackdrop');
+ if(drawer)drawer.style.display='none';
+ if(backdrop)backdrop.style.display='none';
+}
+
+// ── Feature 2: Share Card ──
+let _sfShareData=null;
+function siTriggerShareCard(){
+ if(_sfShareData)siShowShareCard(_sfShareData);
+}
+function siShowShareCard(data){
+ const card=document.getElementById('siShareCard');
+ if(!card)return;
+ const {label='WORKOUT',duration='—',exDone=0,totalSets=0,estCal=0,prsHit=[],streak=0}=data||{};
+ const now=new Date();
+ const dateStr=now.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
+ document.getElementById('scDate').textContent=dateStr.toUpperCase();
+ document.getElementById('scWkname').textContent=label.toUpperCase();
+ document.getElementById('scDur').textContent=duration||'—';
+ document.getElementById('scEx').textContent=exDone;
+ document.getElementById('scSets').textContent=totalSets;
+ document.getElementById('scCal').textContent='~'+estCal;
+ const prsEl=document.getElementById('scPrs');
+ if(prsEl){
+  prsEl.innerHTML=prsHit.length>0?prsHit.map(n=>`<div class="sc-pr-row">🏆 NEW PR — ${n}</div>`).join(''):'';
+ }
+ const streakEl=document.getElementById('scStreak');
+ if(streakEl){
+  streakEl.innerHTML=streak>1?`<div class="sc-streak-row">🔥 ${streak}-SESSION STREAK</div>`:'';
+ }
+ card.style.display='flex';
+}
+function siCloseShareCard(){
+ const card=document.getElementById('siShareCard');
+ if(card)card.style.display='none';
+}
+
+// ── Feature 3: Muscle Recovery Status Widget ──
+function renderMuscleRecovery(){
+ const el=document.getElementById('muscleRecovery');
+ if(!el)return;
+ const today=new Date();
+ today.setHours(0,0,0,0);
+ // For each muscle group, find the most recent workout date involving its exercises
+ const chips=Object.entries(BODYGRAPH_MUSCLES).map(([key,mg])=>{
+  const exSet=new Set(mg.exercises);
+  let latestDate=null;
+  WEEKS.forEach((wk,wi)=>wk.days.forEach((day,di)=>{
+   const dateStr=getWDone(wi,di);
+   if(!dateStr)return;
+   const hasEx=day.exercises.some(ex=>exSet.has(ex.name));
+   if(!hasEx)return;
+   if(!latestDate||dateStr>latestDate)latestDate=dateStr;
+  }));
+  let daysSince=null,statusClass='',statusLabel='';
+  if(latestDate){
+   const d=new Date(latestDate+'T12:00');
+   d.setHours(0,0,0,0);
+   daysSince=Math.round((today-d)/(1000*60*60*24));
+  }
+  if(daysSince===null){statusClass='ready';statusLabel='UNTRAINED';}
+  else if(daysSince>=3){statusClass='ready';statusLabel='READY';}
+  else if(daysSince===2){statusClass='resting';statusLabel='RESTING';}
+  else{statusClass='fresh';statusLabel='SORE';}
+  const abbr=mg.label.toUpperCase().slice(0,5);
+  const daysDisplay=daysSince===null?'—':daysSince+'d';
+  return `<div class="mu-chip ${statusClass}"><span class="mu-chip-name">${abbr}</span><span class="mu-chip-days">${daysDisplay}</span><span class="mu-chip-status">${statusLabel}</span></div>`;
+ });
+ el.innerHTML=`<div class="mu-section-hdr"><span class="mu-section-lbl">MUSCLE RECOVERY</span></div><div class="mu-chips-scroll">${chips.join('')}</div>`;
+}
+
+// ── Feature 4: 1RM Estimator ──
+function renderOnerm(){
+ const w=dbGet('si2-onerm-w')||'';
+ const r=dbGet('si2-onerm-r')||'';
+ const wEl=document.getElementById('onermWeight');
+ const rEl=document.getElementById('onermReps');
+ if(wEl)wEl.value=w;
+ if(rEl)rEl.value=r;
+ calcOnerm();
+}
+function calcOnerm(){
+ const wEl=document.getElementById('onermWeight');
+ const rEl=document.getElementById('onermReps');
+ if(!wEl||!rEl)return;
+ const w=parseFloat(wEl.value);
+ const r=parseFloat(rEl.value);
+ const warnEl=document.getElementById('onermWarn');
+ const resEl=document.getElementById('onermResults');
+ const prCompEl=document.getElementById('onermPrComp');
+ if(!w||!r||w<=0||r<1){
+  if(resEl)resEl.style.display='none';
+  if(prCompEl)prCompEl.style.display='none';
+  if(warnEl)warnEl.style.display='none';
+  return;
+ }
+ dbSet('si2-onerm-w',String(w));
+ dbSet('si2-onerm-r',String(r));
+ if(warnEl)warnEl.style.display=r>12?'block':'none';
+ const orm=Math.round(w*(1+r/30));
+ const pct=(p)=>Math.round(orm*(p/100));
+ document.getElementById('orm1rm').textContent=orm+' LBS';
+ document.getElementById('orm90').textContent=pct(90)+' LBS';
+ document.getElementById('orm80').textContent=pct(80)+' LBS';
+ document.getElementById('orm70').textContent=pct(70)+' LBS';
+ document.getElementById('orm60').textContent=pct(60)+' LBS';
+ if(resEl)resEl.style.display='block';
+ // Compare to PRs
+ const prListEl=document.getElementById('onermPrList');
+ if(prListEl&&prCompEl){
+  const allNames=Object.keys(MUSCLE_MAP);
+  const prRows=allNames.map(n=>{const v=getPR(n);return{n,v};}).filter(({v})=>v>0).sort((a,b)=>b.v-a.v).slice(0,5);
+  if(prRows.length>0){
+   prListEl.innerHTML=prRows.map(({n,v})=>{
+    const implied=Math.round(v*(1+(5/30)));// assume 5 reps as typical PR
+    return `<div class="onerm-pr-row"><span class="onerm-pr-name">${n}</span><span class="onerm-pr-vals">PR: ${v} LBS · ~1RM: ${implied}</span></div>`;
+   }).join('');
+   prCompEl.style.display='block';
+  }else{
+   prCompEl.style.display='none';
+  }
+ }
+}
+
+// ── Feature 5: Calendar Heatmap ──
+let _calView='month';
+function calSetView(v){
+ _calView=v;
+ const monthView=document.getElementById('calMonthView');
+ const hmView=document.getElementById('calHeatmapView');
+ const tabMonth=document.getElementById('calVTabMonth');
+ const tabHm=document.getElementById('calVTabHeatmap');
+ if(v==='month'){
+  if(monthView)monthView.style.display='';
+  if(hmView)hmView.style.display='none';
+  if(tabMonth){tabMonth.classList.add('active');}
+  if(tabHm){tabHm.classList.remove('active');}
+  renderCalendar();
+ }else{
+  if(monthView)monthView.style.display='none';
+  if(hmView)hmView.style.display='block';
+  if(tabMonth){tabMonth.classList.remove('active');}
+  if(tabHm){tabHm.classList.add('active');}
+  renderCalendarHeatmap();
+ }
+}
+function renderCalendarHeatmap(){
+ const container=document.getElementById('hmGrid');
+ if(!container)return;
+ // Build completed dates map (date string -> {label, hasPR})
+ const completedDates={};
+ WEEKS.forEach((wk,wi)=>{
+  wk.days.forEach((day,di)=>{
+   const dateStr=getWDone(wi,di);
+   if(!dateStr)return;
+   let hasPR=false;
+   day.exercises.forEach((ex)=>{
+    const pr=getPR(ex.name);
+    if(pr>0){// check any stored weight >= pr for this day (simplified: assume PR happened if PR exists and day done)
+     hasPR=true;
+    }
+   });
+   completedDates[dateStr]={label:day.label,hasPR};
+  });
+ });
+ // Build 52-week grid (364 days ending today)
+ const today=new Date();
+ today.setHours(0,0,0,0);
+ const MONTH_ABB=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+ // Start on Sunday 52 weeks ago
+ const endDate=new Date(today);
+ const startDate=new Date(today);
+ startDate.setDate(startDate.getDate()-364);
+ // Adjust to previous Sunday
+ const dayOfWeek=startDate.getDay();
+ startDate.setDate(startDate.getDate()-dayOfWeek);
+ const days=[];
+ const d=new Date(startDate);
+ while(d<=today){
+  days.push(new Date(d));
+  d.setDate(d.getDate()+1);
+ }
+ // Group into columns (weeks)
+ const cols=[];
+ for(let i=0;i<days.length;i+=7){
+  cols.push(days.slice(i,i+7));
+ }
+ const CELL=12,GAP=2;
+ const totalW=cols.length*(CELL+GAP);
+ // Month labels
+ let lastMonth=-1;
+ const monthLabels=cols.map((col,ci)=>{
+  const firstDay=col[0];
+  const m=firstDay.getMonth();
+  if(m!==lastMonth){lastMonth=m;return {ci,label:MONTH_ABB[m]};}
+  return null;
+ }).filter(Boolean);
+ let labelsHtml='<div style="position:relative;height:14px;margin-bottom:2px;margin-left:22px;">';
+ monthLabels.forEach(({ci,label})=>{
+  labelsHtml+=`<span style="position:absolute;left:${ci*(CELL+GAP)}px;font-size:9px;color:rgba(255,255,255,0.4);letter-spacing:1px;">${label}</span>`;
+ });
+ labelsHtml+='</div>';
+ // Day labels
+ const dayLabels=['S','M','T','W','T','F','S'];
+ let dayLabelsHtml='<div style="display:flex;flex-direction:column;gap:'+GAP+'px;margin-right:4px;flex-shrink:0;">';
+ dayLabels.forEach(dl=>{
+  dayLabelsHtml+=`<div style="height:${CELL}px;font-size:7px;color:rgba(255,255,255,0.25);display:flex;align-items:center;">${dl}</div>`;
+ });
+ dayLabelsHtml+='</div>';
+ // Grid cells
+ let gridHtml='<div style="display:flex;gap:'+GAP+'px;">';
+ cols.forEach((col)=>{
+  let colHtml='<div style="display:flex;flex-direction:column;gap:'+GAP+'px;">';
+  col.forEach(day=>{
+   const ds=day.toISOString().split('T')[0];
+   const info=completedDates[ds];
+   let bg='rgba(255,255,255,0.04)';
+   if(info){bg=info.hasPR?'rgba(255,107,0,0.75)':'rgba(255,107,0,0.28)';}
+   const title=info?info.label+' — '+ds:ds;
+   colHtml+=`<div class="hm-cell" style="width:${CELL}px;height:${CELL}px;background:${bg};border-radius:2px;" title="${title}" onclick="hmCellTap('${ds}','${info?info.label:''}')"></div>`;
+  });
+  // Pad if col < 7
+  for(let i=col.length;i<7;i++){
+   colHtml+=`<div style="width:${CELL}px;height:${CELL}px;"></div>`;
+  }
+  colHtml+='</div>';
+  gridHtml+=colHtml;
+ });
+ gridHtml+='</div>';
+ container.innerHTML=labelsHtml+`<div style="display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;">${dayLabelsHtml}${gridHtml}</div>`;
+ // Scroll to end (most recent)
+ setTimeout(()=>{
+  const scrollEl=container.querySelector('div[style*="overflow-x"]');
+  if(scrollEl)scrollEl.scrollLeft=99999;
+ },50);
+}
+function hmCellTap(dateStr,label){
+ const tip=document.getElementById('hmTooltip');
+ if(!tip)return;
+ const info=label?`${label.toUpperCase()} — ${dateStr}`:`No workout — ${dateStr}`;
+ tip.textContent=info;
+ tip.style.display='block';
+ setTimeout(()=>{if(tip)tip.style.display='none';},2500);
+}
+
 </script>
 
 <div id="prEditModal" class="pr-edit-modal" style="display:none;" onclick="if(event.target===this)closePREdit()">
@@ -10783,6 +11214,7 @@ function _sfEndWorkout(){
    <div class="si-focus-sum-prs-box" id="siFocusSumPrs" style="display:none;"></div>
    <div class="si-focus-sum-streak-row" id="siFocusSumStreak" style="display:none;"></div>
    <div class="si-focus-sum-btns">
+    <button class="si-focus-sum-btn-share" onclick="siTriggerShareCard()">SHARE WORKOUT</button>
     <button class="si-focus-sum-btn-view" onclick="siFocusViewWorkout()">VIEW LOG</button>
     <button class="si-focus-sum-btn-done" onclick="siFocusClose()">DONE</button>
    </div>
@@ -10969,6 +11401,34 @@ function _sfEndWorkout(){
  <div class="rt-list" id="rtList"><div class="rt-empty"><div style="font-size:36px;margin-bottom:12px;">📋</div><div style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--text2);">NO ROUTINES YET</div></div></div>
 </div>
 
+<!-- 1RM ESTIMATOR SCREEN -->
+<div id="onerm" class="screen" style="display:none;padding:max(48px,calc(env(safe-area-inset-top)+16px)) 16px 100px;">
+ <h2 style="font-family:'Bebas Neue',sans-serif;font-size:48px;letter-spacing:2px;line-height:1;margin-bottom:4px;">1RM<br/>ESTIMATOR</h2>
+ <p style="font-size:12px;color:var(--muted);margin-bottom:20px;">Epley formula · weight × (1 + reps/30)</p>
+ <div class="onerm-input-row">
+  <div class="onerm-input-group">
+   <div class="onerm-label">WEIGHT (LBS)</div>
+   <input class="onerm-input" type="number" id="onermWeight" placeholder="135" min="0" step="2.5" oninput="calcOnerm()"/>
+  </div>
+  <div class="onerm-input-group">
+   <div class="onerm-label">REPS</div>
+   <input class="onerm-input" type="number" id="onermReps" placeholder="5" min="1" max="30" step="1" oninput="calcOnerm()"/>
+  </div>
+ </div>
+ <div class="onerm-warn" id="onermWarn">⚠ Best accuracy for 1–12 reps. Higher rep results are estimates.</div>
+ <div class="onerm-results" id="onermResults" style="display:none;">
+  <div class="onerm-result-row highlight"><span class="onerm-result-label">Estimated 1RM</span><span class="onerm-result-val" id="orm1rm">—</span></div>
+  <div class="onerm-result-row"><span class="onerm-result-label">90% · 3–5 rep range</span><span class="onerm-result-val" id="orm90">—</span></div>
+  <div class="onerm-result-row"><span class="onerm-result-label">80% · 8–10 rep range</span><span class="onerm-result-val" id="orm80">—</span></div>
+  <div class="onerm-result-row"><span class="onerm-result-label">70% · 12–15 rep range</span><span class="onerm-result-val" id="orm70">—</span></div>
+  <div class="onerm-result-row"><span class="onerm-result-label">60% · Endurance range</span><span class="onerm-result-val" id="orm60">—</span></div>
+ </div>
+ <div class="onerm-prs-section" id="onermPrComp" style="display:none;">
+  <div class="onerm-prs-title">COMPARE TO YOUR PRs</div>
+  <div id="onermPrList"></div>
+ </div>
+</div>
+
 <!-- LEADERBOARDS SCREEN -->
 <div id="leaderboards" class="screen" style="padding-bottom:100px;">
  <div style="padding:max(48px,calc(env(safe-area-inset-top)+16px)) 24px 16px;">
@@ -10978,5 +11438,34 @@ function _sfEndWorkout(){
  <div id="lbContent"></div>
 </div>
 
+<!-- ══ NEW FEATURES v3 HTML ══ -->
+<!-- Feature 1: Exercise History Drawer -->
+<div id="exHistoryDrawer" style="display:none; position:fixed; bottom:0; left:0; right:0; max-width:430px; margin:0 auto; z-index:900; background:#0a0a0a; border-radius:24px 24px 0 0; border-top:1px solid rgba(255,107,0,0.18); padding:20px 20px max(20px,env(safe-area-inset-bottom)); max-height:75vh; overflow-y:auto;">
+ <div style="width:40px;height:4px;background:rgba(255,255,255,0.12);border-radius:2px;margin:0 auto 16px;"></div>
+ <div id="exHistoryContent"></div>
+</div>
+<div id="exHistoryBackdrop" style="display:none; position:fixed; inset:0; z-index:899; background:rgba(0,0,0,0.6);" onclick="closeExHistory()"></div>
+
+<!-- Feature 2: Share Card Overlay -->
+<div id="siShareCard" style="display:none; position:fixed; inset:0; z-index:9999; background:#000; align-items:center; justify-content:center; padding:max(env(safe-area-inset-top,20px),20px) 16px max(env(safe-area-inset-bottom,20px),20px);">
+ <button class="sc-close-btn" onclick="siCloseShareCard()">✕ CLOSE</button>
+ <div class="sc-inner">
+  <div class="sc-top-bar"></div>
+  <div class="sc-body">
+   <div class="sc-app-name">STRENGTH IDENTITY</div>
+   <div class="sc-date" id="scDate"></div>
+   <div class="sc-wkname" id="scWkname">WORKOUT</div>
+   <div class="sc-grid">
+    <div class="sc-stat"><div class="sc-stat-num" id="scDur">—</div><div class="sc-stat-lbl">DURATION</div></div>
+    <div class="sc-stat"><div class="sc-stat-num" id="scEx">—</div><div class="sc-stat-lbl">EXERCISES</div></div>
+    <div class="sc-stat"><div class="sc-stat-num" id="scSets">—</div><div class="sc-stat-lbl">TOTAL SETS</div></div>
+    <div class="sc-stat"><div class="sc-stat-num" id="scCal">—</div><div class="sc-stat-lbl">EST. CALS</div></div>
+   </div>
+   <div id="scPrs"></div>
+   <div id="scStreak"></div>
+   <div class="sc-footer">Tracked with Strength Identity</div>
+  </div>
+ </div>
+</div>
 </body>
 </html>
